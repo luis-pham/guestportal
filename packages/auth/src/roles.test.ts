@@ -24,6 +24,7 @@ describe('permission matrix', () => {
       organizationId: 'org1',
       assignedPropertyIds: ['prop-a'],
     };
+    expect(can(ctx, 'property.read')).toBe(true);
     expect(can(ctx, 'property.read', 'prop-a')).toBe(true);
     expect(can(ctx, 'property.read', 'prop-b')).toBe(false);
     expect(can(ctx, 'organization.update')).toBe(false);

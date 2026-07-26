@@ -40,8 +40,8 @@ async function upsertUser(
 }
 
 async function main() {
-  const databaseUrl = process.env.DATABASE_URL;
-  if (!databaseUrl) throw new Error('DATABASE_URL is required');
+  const databaseUrl = process.env.DATABASE_OWNER_URL ?? process.env.DATABASE_URL;
+  if (!databaseUrl) throw new Error('DATABASE_OWNER_URL or DATABASE_URL is required');
 
   const { db, sql } = createDb(databaseUrl);
   await sql`select set_config('app.organization_id', '', true)`;

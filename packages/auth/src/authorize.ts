@@ -39,8 +39,9 @@ export function can(ctx: AuthzContext, permission: Permission, propertyId?: stri
   }
 
   if (scope === 'assigned' || scope === 'self/assigned' || scope === 'assigned subset') {
+    // List endpoints omit propertyId; repositories must filter assigned properties.
     if (!propertyId) {
-      return isOrgWideRole(ctx.role);
+      return true;
     }
     return ctx.assignedPropertyIds.includes(propertyId);
   }

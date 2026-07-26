@@ -6,9 +6,9 @@ import postgres from 'postgres';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 async function main() {
-  const databaseUrl = process.env.DATABASE_URL;
+  const databaseUrl = process.env.DATABASE_OWNER_URL ?? process.env.DATABASE_URL;
   if (!databaseUrl) {
-    throw new Error('DATABASE_URL is required');
+    throw new Error('DATABASE_OWNER_URL or DATABASE_URL is required');
   }
 
   const sql = postgres(databaseUrl, { max: 1 });
