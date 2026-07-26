@@ -12,10 +12,24 @@ function start(command, env = {}) {
     cwd: root,
     env: { ...process.env, ...env },
     stdio: ['ignore', 'pipe', 'pipe'],
+    detached: true,
   });
   child.stdout?.on('data', (chunk) => process.stdout.write(chunk));
   child.stderr?.on('data', (chunk) => process.stderr.write(chunk));
   return child;
+}
+
+function stop(child) {
+  if (!child.pid) return;
+  try {
+    process.kill(-child.pid, 'SIGTERM');
+  } catch {
+    try {
+      child.kill('SIGTERM');
+    } catch {
+      // already gone
+    }
+  }
 }
 
 async function waitFor(url, attempts = 90) {
@@ -32,6 +46,7 @@ async function waitFor(url, attempts = 90) {
 }
 
 const children = [];
+let exitCode = 0;
 
 try {
   const api = start('pnpm --filter @guestportal/api start', {
@@ -72,11 +87,27 @@ try {
   });
   process.stdout.write(e2e.stdout ?? '');
   process.stderr.write(e2e.stderr ?? '');
-  if ((e2e.status ?? 1) !== 0) {
-    process.exit(e2e.status ?? 1);
-  }
+  exitCode = e2e.status ?? 1;
+} catch (error) {
+  console.error(error);
+  exitCode = 1;
 } finally {
   for (const child of children) {
-    child.kill('SIGTERM');
+    stop(child);
+  }
+  await sleep(500);
+  for (const child of children) {
+    if (!child.pid) continue;
+    try {
+      process.kill(-child.pid, 'SIGKILL');
+    } catch {
+      try {
+        child.kill('SIGKILL');
+      } catch {
+        // already gone
+      }
+    }
   }
 }
+
+process.exit(exitCode);
