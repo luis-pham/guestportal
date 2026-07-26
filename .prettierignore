@@ -7,4 +7,5 @@ pnpm-lock.yaml
 evidence
 guest-portal-production-docs
 docs/*.docx
+brandkit
 *.md

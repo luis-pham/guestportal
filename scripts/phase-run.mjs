@@ -41,6 +41,7 @@ const suites =
       ];
 
 const commandResults = [];
+let hardFailure = false;
 
 for (const suite of suites) {
   const start = new Date().toISOString();
@@ -73,6 +74,7 @@ for (const suite of suites) {
 
   if (exitCode !== 0 && !blocked) {
     console.error(`✖ ${suite.name} failed with exit code ${exitCode}`);
+    hardFailure = true;
     break;
   }
   if (blocked) {
@@ -99,3 +101,6 @@ writeFileSync(
 );
 
 console.log(`\nEvidence written to evidence/phase-${phaseId}`);
+if (hardFailure) {
+  process.exit(1);
+}
