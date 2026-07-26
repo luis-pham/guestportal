@@ -17,6 +17,10 @@
     "docker:up": "docker compose -f docker/docker-compose.yml up -d",
     "docker:down": "docker compose -f docker/docker-compose.yml down",
     "docker:health": "node scripts/docker-health.mjs",
+    "db:migrate": "pnpm --filter @guestportal/db db:migrate",
+    "db:seed": "pnpm --filter @guestportal/db db:seed",
+    "test:integration": "pnpm --filter @guestportal/api test:integration",
+    "test:e2e": "node scripts/run-phase01-e2e.mjs",
     "phase:run": "node scripts/phase-run.mjs",
     "phase:verify": "node scripts/phase-verify.mjs",
     "prepare": "husky"

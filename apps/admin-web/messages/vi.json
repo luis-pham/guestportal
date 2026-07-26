@@ -1,0 +1,19 @@
+{
+  "login": {
+    "title": "Đăng nhập Admin",
+    "subtitle": "Quản trị tổ chức và cơ sở lưu trú",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "submit": "Đăng nhập",
+    "error": "Email hoặc mật khẩu không đúng"
+  },
+  "dashboard": {
+    "title": "Tổng quan",
+    "welcome": "Xin chào, {name}",
+    "organization": "Tổ chức",
+    "properties": "Cơ sở",
+    "logout": "Đăng xuất",
+    "locale": "Ngôn ngữ",
+    "accessDenied": "Bạn không có quyền truy cập tài nguyên này"
+  }
+}

@@ -16,29 +16,50 @@ const commandsDir = join(evidenceDir, 'commands');
 const logsDir = join(evidenceDir, 'logs');
 const buildDir = join(evidenceDir, 'build');
 
-for (const dir of [evidenceDir, commandsDir, logsDir, buildDir, join(evidenceDir, 'junit')]) {
+for (const dir of [
+  evidenceDir,
+  commandsDir,
+  logsDir,
+  buildDir,
+  join(evidenceDir, 'junit'),
+  join(evidenceDir, 'screenshots'),
+]) {
   mkdirSync(dir, { recursive: true });
 }
 
 const commitSha = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
 const startedAt = new Date().toISOString();
 
-const suites =
-  phaseId === '00'
-    ? [
-        { name: 'lint', command: 'pnpm lint' },
-        { name: 'typecheck', command: 'pnpm typecheck' },
-        { name: 'unit', command: 'pnpm test' },
-        { name: 'build', command: 'pnpm build' },
-        { name: 'format', command: 'pnpm format:check' },
-        { name: 'docker-health', command: 'pnpm docker:health', optionalBlocked: true },
-      ]
-    : [
-        { name: 'lint', command: 'pnpm lint' },
-        { name: 'typecheck', command: 'pnpm typecheck' },
-        { name: 'unit', command: 'pnpm test' },
-        { name: 'build', command: 'pnpm build' },
-      ];
+/** @type {Array<{name: string, command: string, optionalBlocked?: boolean}>} */
+const suitesByPhase = {
+  '00': [
+    { name: 'lint', command: 'pnpm lint' },
+    { name: 'typecheck', command: 'pnpm typecheck' },
+    { name: 'unit', command: 'pnpm test' },
+    { name: 'build', command: 'pnpm build' },
+    { name: 'format', command: 'pnpm format:check' },
+    { name: 'docker-health', command: 'pnpm docker:health', optionalBlocked: true },
+  ],
+  '01': [
+    { name: 'lint', command: 'pnpm lint' },
+    { name: 'typecheck', command: 'pnpm typecheck' },
+    { name: 'unit', command: 'pnpm test' },
+    { name: 'migrate', command: 'pnpm db:migrate' },
+    { name: 'seed', command: 'pnpm db:seed' },
+    { name: 'integration', command: 'pnpm test:integration' },
+    { name: 'build', command: 'pnpm build' },
+    { name: 'format', command: 'pnpm format:check' },
+    { name: 'docker-health', command: 'pnpm docker:health', optionalBlocked: true },
+    { name: 'e2e', command: 'node scripts/run-phase01-e2e.mjs' },
+  ],
+};
+
+const suites = suitesByPhase[phaseId] ?? [
+  { name: 'lint', command: 'pnpm lint' },
+  { name: 'typecheck', command: 'pnpm typecheck' },
+  { name: 'unit', command: 'pnpm test' },
+  { name: 'build', command: 'pnpm build' },
+];
 
 const commandResults = [];
 let hardFailure = false;

@@ -1,18 +1,18 @@
-import { afterAll, describe, expect, it } from 'vitest';
-import { buildApp } from './app.js';
+import { describe, expect, it } from 'vitest';
+import { ApiError, toErrorBody } from './errors.js';
 
-describe('api foundation', () => {
-  const appPromise = buildApp();
-
-  afterAll(async () => {
-    const app = await appPromise;
-    await app.close();
-  });
-
-  it('exposes health endpoint', async () => {
-    const app = await appPromise;
-    const response = await app.inject({ method: 'GET', url: '/health' });
-    expect(response.statusCode).toBe(200);
-    expect(response.json()).toMatchObject({ status: 'ok', service: 'api' });
+describe('api error envelope', () => {
+  it('serializes a standard error body', () => {
+    const body = toErrorBody(
+      new ApiError(404, 'REQUEST_NOT_FOUND', 'Request not found.'),
+      'req_trace_id',
+    );
+    expect(body).toEqual({
+      error: {
+        code: 'REQUEST_NOT_FOUND',
+        message: 'Request not found.',
+        requestId: 'req_trace_id',
+      },
+    });
   });
 });

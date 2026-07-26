@@ -66,14 +66,25 @@ if (dockerFailed) {
   failures.push('docker-health failed (containers unhealthy)');
 }
 
+if (phaseId === '01') {
+  const requiredScreens = [
+    'login-vi.png',
+    'login-en.png',
+    'org-switcher.png',
+    'access-denied-ready.png',
+  ];
+  for (const file of requiredScreens) {
+    const screenshotPath = join(evidenceDir, 'screenshots', file);
+    if (!existsSync(screenshotPath)) {
+      failures.push(`missing screenshot: ${file}`);
+    }
+  }
+}
+
 let status = 'PASS';
 if (failures.length > 0) {
   status = 'FAIL';
 } else if (blocked || dockerBlocked) {
-  // For phase 00, core pipeline can PASS while docker is BLOCKED if Docker is unavailable.
-  // Spec: missing external prerequisite => BLOCKED for that integration; phase can complete
-  // internal parts but not claim full PASS if docker is an acceptance criterion.
-  // Phase 00 acceptance requires docker local — so overall status is BLOCKED when docker missing.
   status = dockerBlocked ? 'BLOCKED' : 'PASS';
 }
 

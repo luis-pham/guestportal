@@ -1,0 +1,19 @@
+{
+  "login": {
+    "title": "Admin sign in",
+    "subtitle": "Manage organizations and properties",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "error": "Invalid email or password"
+  },
+  "dashboard": {
+    "title": "Overview",
+    "welcome": "Welcome, {name}",
+    "organization": "Organization",
+    "properties": "Properties",
+    "logout": "Sign out",
+    "locale": "Language",
+    "accessDenied": "You do not have permission to access this resource"
+  }
+}
