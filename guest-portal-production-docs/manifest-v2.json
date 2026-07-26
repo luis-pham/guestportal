@@ -1,0 +1,207 @@
+{
+  "name": "QR Guest Portal Production Documentation Pack",
+  "version": "2.0.0",
+  "generated_files": 40,
+  "files": [
+    {
+      "path": "01_PRODUCT_REQUIREMENTS.md",
+      "sha256": "229f0d21743a77f9268da3a2393eeb2f2004821b2c1fa9a90b6d3051949559d5",
+      "size": 4370
+    },
+    {
+      "path": "02_SYSTEM_ARCHITECTURE.md",
+      "sha256": "a977b28d8ce05236200e22971698499de2484bddd1618074201fad499a6772bf",
+      "size": 3163
+    },
+    {
+      "path": "03_DOMAIN_AND_DATA_MODEL.md",
+      "sha256": "d7891f9257b043ddadd0d8af4665105f65f664e6440667d7b18cd8be00cbe5cb",
+      "size": 3522
+    },
+    {
+      "path": "04_UI_UX_ARCHITECTURE.md",
+      "sha256": "07087d8e7c096b29fbcc9c3122744701228a75003ba42ba82f2c5b99e9616745",
+      "size": 5487
+    },
+    {
+      "path": "05_DESIGN_SYSTEM.md",
+      "sha256": "e82e35fee3f381fdc26b484babbedeff5c98eb9a8ad20d679a1c126038149d44",
+      "size": 2538
+    },
+    {
+      "path": "06_I18N_AND_CONTENT.md",
+      "sha256": "e2d88446b4c5f137127b8e01e20d19971eaec41ac2abe63fabf142d66cf530a1",
+      "size": 1849
+    },
+    {
+      "path": "07_SECURITY_PRIVACY.md",
+      "sha256": "abe86f64f11cd66ca2223a911b56aeba4d71e6494c271cf7c71df6c6b33a3e84",
+      "size": 2198
+    },
+    {
+      "path": "08_TESTING_AND_EVIDENCE.md",
+      "sha256": "3f5da1d120123e4d2a67ed651b46a4a7dc7a019786b5dc2e31984df270d7e348",
+      "size": 2318
+    },
+    {
+      "path": "09_AGENT_EXECUTION_PROTOCOL.md",
+      "sha256": "c468e2a3ca5da38d0cb0b05f156fcb53201d5726e389233c7c8d3bc0d8638459",
+      "size": 2228
+    },
+    {
+      "path": "10_DEPLOYMENT_AND_OPERATIONS.md",
+      "sha256": "84b4896e4903c284aa1f42453d42cb80c1214877920a4f77424344bbf1dcaaaf",
+      "size": 1460
+    },
+    {
+      "path": "11_UI_UX_REVIEW_CHECKLIST.md",
+      "sha256": "95b62e68a5b556008526dc6df23c9b2ae0a7cc7630e631c80dfc89b2f9046342",
+      "size": 1128
+    },
+    {
+      "path": "12_DEFINITION_OF_DONE.md",
+      "sha256": "aafb66bc80813b3466499c43dc31327a3e364d8f8f39601441ca956f99666cf4",
+      "size": 563
+    },
+    {
+      "path": "13_ROUTE_AND_NAVIGATION_MAP.md",
+      "sha256": "9b9846abf0573467fe41eefcce5d82af3ad362baf02a8fee12586da3a50e91f5",
+      "size": 5755
+    },
+    {
+      "path": "14_SCREEN_SPECIFICATIONS.md",
+      "sha256": "ec24aa1b62d256f1518f49a409b93e5ccbfe745b34aaf0b2ddefbcf06dc6c9cb",
+      "size": 4737
+    },
+    {
+      "path": "15_API_CONTRACTS.md",
+      "sha256": "e99df35c1d3d54247ed6934651e10e633b67fafaff92711b9ce3b1ea85d8832f",
+      "size": 4359
+    },
+    {
+      "path": "16_DATABASE_SCHEMA_SPECIFICATION.md",
+      "sha256": "a87998bd1d63855988668602cb60965db8b0bad7b4f9eca3c6a0cee53aa6754f",
+      "size": 3628
+    },
+    {
+      "path": "17_PERMISSION_MATRIX.md",
+      "sha256": "5efe3502d69d60f0ab3bba6521c6e067df7ce6c5c6ca9358485698f6a0c0734f",
+      "size": 2207
+    },
+    {
+      "path": "18_EVENT_AND_JOB_CATALOG.md",
+      "sha256": "4bd13fffe3ce189f5ada8518a1fa4cfc273d20b555be8136b78d69947b1a77d5",
+      "size": 2267
+    },
+    {
+      "path": "19_TEST_CASE_CATALOG.md",
+      "sha256": "b1ede5cc019963fc8c67b55ebdf9baecd7e857bdc1c613d02911769eeb1ae744",
+      "size": 2582
+    },
+    {
+      "path": "20_FIXTURE_AND_DEMO_DATA.md",
+      "sha256": "737b2868f032ca283507db4bf61c3ab1ba3a1682db0ed2bc421bf18e0cc4a4e1",
+      "size": 1815
+    },
+    {
+      "path": "21_UI_VISUAL_ACCEPTANCE_STANDARD.md",
+      "sha256": "d02069a09875cdfc30f085a5c62a70eb360bb0e03b508a91b62fea57320be103",
+      "size": 2448
+    },
+    {
+      "path": "22_AUTOMATED_PHASE_GATE.md",
+      "sha256": "b19dd8e12718fabcea53626150ac1c6c786b106275498f7e1f3fd569e630f1f0",
+      "size": 2076
+    },
+    {
+      "path": "23_COMPONENT_AND_FORM_CATALOG.md",
+      "sha256": "ed41739d51adcb43616c07a28fa5b5c0f319a085586b0cc714f568527bf66e16",
+      "size": 1468
+    },
+    {
+      "path": "24_EXTERNAL_INTEGRATION_TEST_STANDARD.md",
+      "sha256": "83871bdb1c3fb256469d0eef78d3ecadea129d5e408107b2de617cbe5b6f9742",
+      "size": 1184
+    },
+    {
+      "path": "25_DECISION_LOG_AND_CHANGE_CONTROL.md",
+      "sha256": "05218f7067ed69ab96860671479fc49945e0f52751814616d7c7b70dc94125eb",
+      "size": 861
+    },
+    {
+      "path": "26_PHASE_PROMPT_TEMPLATE.md",
+      "sha256": "9952f280649fe7f9bccba0badd3c8d5eb132303d5c11d8fc8e071ba7699bd59c",
+      "size": 1148
+    },
+    {
+      "path": "27_RESEARCH_NOTES.md",
+      "sha256": "6fdc35475645096d118fde5ac5a0a6310046032028d951bdf32c5747b8f8191c",
+      "size": 963
+    },
+    {
+      "path": "README.md",
+      "sha256": "f268b64a441f5d90f85b8435baf4a0cd58904613b3fa5b30e788b131e1130813",
+      "size": 4107
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "64824ceee88d4c2274759ec5bff7f0b022f6bdb1eb3c8a54829e6253e84b2e73",
+      "size": 1086
+    },
+    {
+      "path": "phases/PHASE_00_FOUNDATION.md",
+      "sha256": "2af58d62f7e6559748a478c4a077a261515b81dfb7dda765f1c82259b5ad0c07",
+      "size": 1037
+    },
+    {
+      "path": "phases/PHASE_01_AUTH_TENANCY.md",
+      "sha256": "5b960d1776d2fef8f38f32471b99b7c39a2a18f5c054ff182047ec8c7f90c2ff",
+      "size": 800
+    },
+    {
+      "path": "phases/PHASE_02_DESIGN_SYSTEM_APP_SHELL.md",
+      "sha256": "f349e3169b0899be57924d08a4c60b08c742d5747547ebdc90c0daea36815b0e",
+      "size": 1018
+    },
+    {
+      "path": "phases/PHASE_03_PROPERTY_PORTAL_BUILDER.md",
+      "sha256": "d72a0370804faacf1c5fbea2c9898da1963ca8334fa1109d1b55dd9165a752fd",
+      "size": 870
+    },
+    {
+      "path": "phases/PHASE_04_QR_GUEST_PORTAL.md",
+      "sha256": "53d779fab4e7a4a312994d658166a09f03c77b58c67cb74e2f9eb87d298e1099",
+      "size": 859
+    },
+    {
+      "path": "phases/PHASE_05_KNOWLEDGE_RAG.md",
+      "sha256": "1a0a40d411b7689fadd3a3793431e36483901049957507e986c34053cadb9f14",
+      "size": 904
+    },
+    {
+      "path": "phases/PHASE_06_TEXT_CHAT_AI_TOOLS.md",
+      "sha256": "d07b904c65580e4fa9e4ca0506aa2858c05c6dc42be15b914dc7a77af6a8b862",
+      "size": 810
+    },
+    {
+      "path": "phases/PHASE_07_VOICE_GEMINI_LIVE.md",
+      "sha256": "4871d75446af49fe4856c22ec78264372b62d30447e4bb456e1ca890e3c2e13e",
+      "size": 1035
+    },
+    {
+      "path": "phases/PHASE_08_REQUEST_ORDER_STAFF.md",
+      "sha256": "23edb75b29b3a82ac6e17dd4f8c763c5eba0d6364beb2a1c078949d5039a3bb3",
+      "size": 875
+    },
+    {
+      "path": "phases/PHASE_09_ADMIN_OPERATIONS_ANALYTICS.md",
+      "sha256": "f9d031c4c0a179b753e43ea1fc573055149bcb830c8d9355cd2bd2c170b5c003",
+      "size": 620
+    },
+    {
+      "path": "phases/PHASE_10_HARDENING_RELEASE.md",
+      "sha256": "6c6f049cf7cd5d2d866f2639692f40db8c51e8a6d50d321fe75eb171225351b8",
+      "size": 909
+    }
+  ]
+}

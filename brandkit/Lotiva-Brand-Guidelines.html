@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lotiva — Brand Guidelines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0D7377;        /* Primary — Deep Teal */
+    --teal-deep:#095457;
+    --ink:#0A2540;         /* Midnight Navy */
+    --coral:#FF6F61;       /* Lotus Coral accent */
+    --gold:#F2B84B;        /* Horizon Gold */
+    --cloud:#F7F9FA;       /* Background */
+    --mist:#E3E8EC;        /* Surface / border */
+    --slate:#5C6B7A;       /* Muted text */
+    --white:#FFFFFF;
+    --shadow:0 10px 40px rgba(10,37,64,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--cloud);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4,.display{font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;line-height:1.15}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 32px}
+  section{padding:80px 0;border-bottom:1px solid var(--mist)}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+  .lead{font-size:20px;color:var(--slate);max-width:640px}
+  p{margin-bottom:16px}
+
+  /* Cover */
+  .cover{background:linear-gradient(150deg,var(--ink) 0%,var(--teal-deep) 60%,var(--teal) 100%);color:#fff;padding:120px 0 110px;border:none;position:relative;overflow:hidden}
+  .cover::after{content:"";position:absolute;right:-120px;bottom:-120px;width:460px;height:460px;background:radial-gradient(circle,rgba(255,111,97,.35),transparent 70%);border-radius:50%}
+  .cover .wrap{position:relative;z-index:2}
+  .logo-lockup{display:flex;align-items:center;gap:16px;margin-bottom:48px}
+  .logo-lockup svg{width:56px;height:56px}
+  .logo-word{font-family:'Plus Jakarta Sans';font-weight:800;font-size:34px;letter-spacing:-.03em}
+  .cover h1{font-size:64px;font-weight:800;margin-bottom:20px}
+  .cover .lead{color:rgba(255,255,255,.82);font-size:22px;max-width:600px}
+  .cover .meta{margin-top:56px;font-size:14px;color:rgba(255,255,255,.6);letter-spacing:.04em}
+  .tag-pill{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:8px 18px;border-radius:100px;font-size:14px;font-weight:600;margin-bottom:32px;backdrop-filter:blur(4px)}
+
+  h2.section-title{font-size:40px;font-weight:800;margin-bottom:8px}
+  .section-sub{font-size:17px;color:var(--slate);margin-bottom:44px;max-width:620px}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:#fff;border:1px solid var(--mist);border-radius:16px;padding:28px;box-shadow:var(--shadow)}
+  .card h3{font-size:20px;font-weight:700;margin-bottom:10px}
+  .card p{font-size:15px;color:var(--slate);margin-bottom:0}
+  .card .num{font-family:'Plus Jakarta Sans';font-weight:800;font-size:15px;color:var(--coral);margin-bottom:14px;display:block}
+
+  .pos-statement{background:#fff;border-left:5px solid var(--coral);border-radius:0 16px 16px 0;padding:36px 40px;font-size:22px;font-family:'Plus Jakarta Sans';font-weight:600;color:var(--ink);line-height:1.45;box-shadow:var(--shadow)}
+  .pos-statement b{color:var(--teal)}
+
+  .tagline{font-family:'Plus Jakarta Sans';font-weight:800;font-size:30px;color:var(--ink);padding:22px 0;border-bottom:1px dashed var(--mist)}
+  .tagline:last-child{border-bottom:none}
+  .tagline span{color:var(--slate);font-size:15px;font-weight:500;display:block;margin-top:6px;font-family:'Inter'}
+
+  /* voice */
+  .voice-row{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--mist);border-radius:16px;overflow:hidden;background:#fff}
+  .voice-col{padding:26px 28px}
+  .voice-col.do{background:rgba(13,115,119,.04)}
+  .voice-col.dont{background:rgba(255,111,97,.05);border-left:1px solid var(--mist)}
+  .voice-col h4{font-size:14px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+  .voice-col.do h4{color:var(--teal)}
+  .voice-col.dont h4{color:var(--coral)}
+  .voice-col ul{list-style:none}
+  .voice-col li{font-size:15px;padding:8px 0 8px 26px;position:relative;color:var(--ink)}
+  .voice-col.do li::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:700}
+  .voice-col.dont li::before{content:"✕";position:absolute;left:0;color:var(--coral);font-weight:700}
+
+  /* colors */
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .swatch{border-radius:14px;overflow:hidden;border:1px solid var(--mist);background:#fff}
+  .swatch .chip{height:110px}
+  .swatch .info{padding:14px 16px}
+  .swatch .name{font-weight:700;font-size:15px}
+  .swatch .hex{font-size:13px;color:var(--slate);font-family:'Inter';letter-spacing:.02em}
+  .swatch .use{font-size:12px;color:var(--slate);margin-top:6px}
+  .neutrals{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+
+  /* type */
+  .type-card{background:#fff;border:1px solid var(--mist);border-radius:16px;padding:32px;margin-bottom:20px}
+  .type-name{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:8px}
+  .type-sample-jakarta{font-family:'Plus Jakarta Sans';font-weight:800;font-size:46px;color:var(--ink);line-height:1.1}
+  .type-sample-inter{font-family:'Inter';font-weight:400;font-size:20px;color:var(--ink)}
+  .type-scale span{font-family:'Inter';color:var(--slate);font-size:13px;margin-right:18px}
+
+  /* assistant naming */
+  .example-chat{background:#fff;border:1px solid var(--mist);border-radius:18px;padding:24px;box-shadow:var(--shadow);max-width:420px}
+  .chat-head{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--mist);margin-bottom:16px}
+  .chat-avatar{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--teal),var(--teal-deep));display:flex;align-items:center;justify-content:center}
+  .chat-avatar svg{width:24px;height:24px}
+  .chat-name{font-weight:700;font-size:15px}
+  .chat-name small{display:block;color:var(--slate);font-weight:500;font-size:12px}
+  .bubble{background:var(--cloud);border-radius:14px;padding:12px 16px;font-size:14px;margin-bottom:10px;max-width:85%}
+  .bubble.guest{background:var(--teal);color:#fff;margin-left:auto}
+  .powered{text-align:center;font-size:12px;color:var(--slate);margin-top:14px}
+  .powered b{color:var(--ink)}
+
+  .footer{background:var(--ink);color:rgba(255,255,255,.7);padding:50px 0;border:none;text-align:center;font-size:14px}
+  .footer .logo-word{font-size:22px;color:#fff;margin-bottom:10px;display:inline-block}
+
+  ul.clean{list-style:none;margin-top:8px}
+  ul.clean li{padding:7px 0 7px 26px;position:relative;font-size:15px;color:var(--ink)}
+  ul.clean li::before{content:"";position:absolute;left:0;top:15px;width:8px;height:8px;border-radius:50%;background:var(--coral)}
+
+  @media(max-width:760px){
+    .grid-2,.grid-3,.voice-row,.swatches,.neutrals{grid-template-columns:1fr}
+    .cover h1{font-size:42px}.wrap{padding:0 22px}h2.section-title{font-size:30px}
+    .swatches{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="wrap">
+    <div class="logo-lockup">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 54c-10-6-18-14-18-24 0 0 8 2 12 9 0-9 6-16 6-16s6 7 6 16c4-7 12-9 12-9 0 10-8 18-18 24z" fill="#FF6F61"/>
+        <path d="M20 40c4 3 8 5 12 5s8-2 12-5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>
+      </svg>
+      <span class="logo-word">lotiva</span>
+    </div>
+    <div class="tag-pill">Brand Guidelines · v1.0 · 2026</div>
+    <h1>Mỗi vị khách,<br>một ngôn ngữ riêng.</h1>
+    <p class="lead">Trợ lý AI cho khách sạn và du thuyền — quét QR, nói chuyện, được phục vụ. Không tải app, không rào cản, mọi ngôn ngữ.</p>
+    <div class="meta">LOTIVA.VN · GUEST EXPERIENCE PLATFORM · HOSPITALITY × AI</div>
+  </div>
+</header>
+
+<!-- BRAND STORY -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">01 · Câu chuyện thương hiệu</div>
+    <h2 class="section-title">Tên gọi Lotiva</h2>
+    <p class="section-sub">Một cái tên gói trọn hai điều: sự hiếu khách của người Việt và sức sống của công nghệ.</p>
+    <div class="grid-2">
+      <div class="card">
+        <span class="num">LOTUS · SEN</span>
+        <h3>Hồn hiếu khách Việt</h3>
+        <p>Hoa sen vươn lên thanh khiết từ mặt nước — biểu tượng của lòng hiếu khách, sự tinh tế và tấm lòng chào đón. Cũng là hình ảnh gợi cả du thuyền trên vịnh lẫn resort bên nước.</p>
+      </div>
+      <div class="card">
+        <span class="num">-IVA · VIVA</span>
+        <h3>Sức sống công nghệ</h3>
+        <p>“-iva” gợi <em>viva</em>, sự sống động và chủ động. Lotiva là dịch vụ luôn thức, luôn phản hồi tức thì, luôn hiểu đúng ngôn ngữ của mỗi vị khách.</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:32px">Lotiva là bông sen nở trên mặt nước: <b style="color:var(--teal)">hiếu khách Việt Nam vươn ra thế giới bằng công nghệ</b> — ấm áp như con người, nhanh nhạy như AI.</p>
+  </div>
+</section>
+
+<!-- POSITIONING -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">02 · Định vị</div>
+    <h2 class="section-title">Chúng ta đứng ở đâu</h2>
+    <p class="section-sub">Trong khi các nền tảng concierge quốc tế cần tablet, app tải về hay hệ thống enterprise nặng nề, Lotiva chọn con đường ngược lại: nhẹ, tức thì, đa ngôn ngữ.</p>
+    <div class="pos-statement">
+      Với <b>khách sạn và du thuyền tại Việt Nam</b> phục vụ khách đa quốc tịch, <b>Lotiva</b> là trợ lý khách lưu trú <b>chạy bằng QR và giọng nói</b> — giúp mỗi vị khách tự tìm thông tin và gửi yêu cầu dịch vụ bằng chính ngôn ngữ của họ, <b>không cần tải app, không cần tài khoản</b>. Khác với concierge truyền thống, Lotiva bắt đầu chỉ bằng một lần quét.
+    </div>
+    <div class="grid-3" style="margin-top:36px">
+      <div class="card"><span class="num">KHÁC BIỆT 01</span><h3>Không tải, không rào cản</h3><p>Quét QR là dùng ngay. Không app store, không đăng ký, không mật khẩu.</p></div>
+      <div class="card"><span class="num">KHÁC BIỆT 02</span><h3>Voice-first, đa ngôn ngữ</h3><p>Nói chuyện tự nhiên realtime, trả lời đúng ngôn ngữ khách đang dùng.</p></div>
+      <div class="card"><span class="num">KHÁC BIỆT 03</span><h3>Hợp quy mô Việt Nam</h3><p>Thiết kế cho khách sạn và du thuyền vừa và nhỏ, không cần ngân sách enterprise.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">03 · Giá trị cốt lõi</div>
+    <h2 class="section-title">Điều chúng ta tin</h2>
+    <p class="section-sub">Bốn giá trị định hình mọi quyết định sản phẩm, thiết kế và cách chúng ta nói chuyện.</p>
+    <div class="grid-2">
+      <div class="card"><span class="num">01</span><h3>Effortless — Nhẹ tênh</h3><p>Công nghệ tốt là công nghệ khách không phải học. Mọi thứ bắt đầu bằng một lần quét và một câu nói.</p></div>
+      <div class="card"><span class="num">02</span><h3>Every language — Mọi ngôn ngữ</h3><p>Không vị khách nào bị bỏ lại vì rào cản ngôn ngữ. Sự thấu hiểu là quyền của mọi người.</p></div>
+      <div class="card"><span class="num">03</span><h3>Trustworthy — Đáng tin</h3><p>Chỉ trả lời từ thông tin đã được duyệt. Không bịa, không đoán. Khi không chắc, nói thật và chuyển nhân viên.</p></div>
+      <div class="card"><span class="num">04</span><h3>Warm — Ấm áp</h3><p>Sau mỗi câu trả lời là tinh thần hiếu khách. Lotiva là công nghệ, nhưng cảm giác để lại là con người.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">04 · Đối tượng</div>
+    <h2 class="section-title">Chúng ta phục vụ ai</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="color:var(--teal)">Khách hàng B2B — Người mua</h3>
+        <ul class="clean">
+          <li>Du thuyền Hạ Long, Lan Hạ, Nha Trang phục vụ khách quốc tế</li>
+          <li>Khách sạn, resort boutique và vừa tại Việt Nam</li>
+          <li>Cruise manager, quản lý F&B, lễ tân, guest relations</li>
+          <li>Chủ cơ sở muốn giảm câu hỏi lặp và nâng trải nghiệm mà không tăng nhân sự</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--coral)">Người dùng cuối — Khách lưu trú</h3>
+        <ul class="clean">
+          <li>Khách quốc tế: Hàn, Trung, Nhật, Âu, Mỹ, Nga…</li>
+          <li>Khách Việt Nam đi nghỉ dưỡng, gia đình, đoàn</li>
+          <li>Khách lớn tuổi, ít quen công nghệ — cần thật đơn giản</li>
+          <li>Ai cũng có điện thoại và camera. Chỉ cần vậy.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGING / TAGLINES -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">05 · Thông điệp & Tagline</div>
+    <h2 class="section-title">Cách chúng ta nói về mình</h2>
+    <p class="section-sub">Một dòng tagline chính, cùng các biến thể theo ngữ cảnh và ngôn ngữ.</p>
+    <div class="card" style="padding:0 32px">
+      <div class="tagline">Every guest, their language.<span>Tagline chính (EN) — dùng cho quốc tế, website, pitch</span></div>
+      <div class="tagline">Mỗi vị khách, một ngôn ngữ riêng.<span>Tagline chính (VN)</span></div>
+      <div class="tagline">Scan. Speak. Served.<span>Biến thể ngắn — sản phẩm, bao bì QR, quảng cáo</span></div>
+      <div class="tagline">Quét. Nói. Được phục vụ.<span>Biến thể ngắn (VN)</span></div>
+      <div class="tagline">Hospitality, now in every language.<span>Biến thể nhấn mạnh giá trị hiếu khách</span></div>
+    </div>
+    <div class="grid-2" style="margin-top:28px">
+      <div class="card"><h3>Elevator pitch (1 câu)</h3><p>Lotiva là trợ lý AI quét-QR cho khách sạn và du thuyền, giúp khách đa quốc tịch tự tìm thông tin và gọi dịch vụ bằng giọng nói, bằng chính ngôn ngữ của họ — không cần tải app.</p></div>
+      <div class="card"><h3>Value one-liner (nội bộ)</h3><p>Chúng ta biến mỗi phòng và cabin thành một quầy lễ tân đa ngôn ngữ 24/7, chỉ với một mã QR.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE & TONE -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">06 · Brand Voice & Tone</div>
+    <h2 class="section-title">Cách Lotiva nói chuyện</h2>
+    <p class="section-sub">Giọng của Lotiva — cả trong marketing lẫn trong lời trợ lý AI — luôn: rõ ràng, ấm áp, tự tin, và nhẹ nhàng. Bốn tính từ, một tinh thần.</p>
+
+    <div class="grid-2" style="margin-bottom:28px">
+      <div class="card"><span class="num">RÕ RÀNG</span><h3>Clear</h3><p>Câu ngắn, thông tin đúng trọng tâm. Khách đang cần câu trả lời, không cần một bài văn.</p></div>
+      <div class="card"><span class="num">ẤM ÁP</span><h3>Warm</h3><p>Lịch sự, hiếu khách, có cảm giác con người. Chào hỏi tự nhiên, không máy móc.</p></div>
+      <div class="card"><span class="num">TỰ TIN</span><h3>Confident</h3><p>Chắc chắn khi biết, thành thật khi chưa biết. Không vòng vo, không hứa điều không chắc.</p></div>
+      <div class="card"><span class="num">NHẸ NHÀNG</span><h3>Effortless</h3><p>Không thuật ngữ kỹ thuật, không bắt khách suy nghĩ. Dẫn dắt bằng bước tiếp theo rõ ràng.</p></div>
+    </div>
+
+    <div class="voice-row">
+      <div class="voice-col do">
+        <h4>Nên</h4>
+        <ul>
+          <li>“Kayaking bắt đầu lúc 15:30. Mời anh/chị có mặt ở Deck 1 lúc 15:15.”</li>
+          <li>Trả lời đúng ngôn ngữ khách đang dùng</li>
+          <li>“Tôi chưa có đủ thông tin chính xác. Tôi chuyển yêu cầu này tới nhân viên nhé?”</li>
+          <li>Xưng hô lịch sự: anh/chị, quý khách</li>
+          <li>Gợi ý bước tiếp theo rõ ràng</li>
+        </ul>
+      </div>
+      <div class="voice-col dont">
+        <h4>Không nên</h4>
+        <ul>
+          <li>Bịa giờ, đoán giá, tự tạo chính sách</li>
+          <li>Dùng biệt ngữ kỹ thuật (“embedding”, “API”, “ticket #”)</li>
+          <li>Trả lời dài dòng, lan man nhiều đoạn</li>
+          <li>Tự đổi ngôn ngữ khi khách chỉ chèn vài từ ngoại ngữ</li>
+          <li>Hứa “nhân viên đang đến” khi chưa có trạng thái</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">07 · Nhận diện — Màu sắc</div>
+    <h2 class="section-title">Bảng màu</h2>
+    <p class="section-sub">Deep Teal dẫn dắt sự tin cậy và cảm giác mặt nước; Lotus Coral mang hơi ấm hiếu khách và dùng cho điểm nhấn, nút hành động.</p>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#0D7377"></div><div class="info"><div class="name">Deep Teal</div><div class="hex">#0D7377</div><div class="use">Primary · thương hiệu, nền chính</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#0A2540"></div><div class="info"><div class="name">Midnight Navy</div><div class="hex">#0A2540</div><div class="use">Chữ, chiều sâu, cao cấp</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#FF6F61"></div><div class="info"><div class="name">Lotus Coral</div><div class="hex">#FF6F61</div><div class="use">Accent · CTA, điểm nhấn</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#F2B84B"></div><div class="info"><div class="name">Horizon Gold</div><div class="hex">#F2B84B</div><div class="use">Phụ · premium, dùng ít</div></div></div>
+    </div>
+    <div class="neutrals">
+      <div class="swatch"><div class="chip" style="background:#F7F9FA;height:70px"></div><div class="info"><div class="name">Cloud</div><div class="hex">#F7F9FA</div><div class="use">Nền / background</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#E3E8EC;height:70px"></div><div class="info"><div class="name">Mist</div><div class="hex">#E3E8EC</div><div class="use">Đường viền / surface</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#5C6B7A;height:70px"></div><div class="info"><div class="name">Slate</div><div class="hex">#5C6B7A</div><div class="use">Chữ phụ / muted</div></div></div>
+    </div>
+    <p style="margin-top:24px;font-size:14px;color:var(--slate)">Tỷ lệ gợi ý: ~60% neutral (Cloud/trắng) · 25% Deep Teal · 10% Midnight Navy · 5% Lotus Coral. Gold chỉ dùng nhấn nhỏ. Luôn kiểm tra tương phản đạt WCAG AA cho chữ.</p>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">08 · Nhận diện — Typography</div>
+    <h2 class="section-title">Kiểu chữ</h2>
+    <p class="section-sub">Bộ đôi hiện đại, dễ đọc, hỗ trợ tốt dấu tiếng Việt. Cả hai đều miễn phí trên Google Fonts.</p>
+    <div class="type-card">
+      <div class="type-name">Tiêu đề · Display — Plus Jakarta Sans</div>
+      <div class="type-sample-jakarta">Mỗi vị khách, một ngôn ngữ riêng</div>
+      <div class="type-scale" style="margin-top:16px"><span>Weight 800 · Headlines</span><span>700 · Sub-heads</span><span>600 · UI đậm</span></div>
+    </div>
+    <div class="type-card">
+      <div class="type-name">Nội dung · Body — Inter</div>
+      <div class="type-sample-inter">Quét QR, nói chuyện với trợ lý bằng ngôn ngữ của bạn, và được phục vụ ngay. Inter đọc rõ trên mọi màn hình điện thoại và hỗ trợ đầy đủ dấu tiếng Việt.</div>
+      <div class="type-scale" style="margin-top:16px"><span>Regular 400 · Body</span><span>500 · Nhấn</span><span>600–700 · Label</span></div>
+    </div>
+    <div class="card"><h3>Đa ngôn ngữ trong sản phẩm</h3><p>Với giao diện dành cho khách (Hàn, Trung, Nhật, Ả Rập…), dùng <b>Noto Sans</b> theo hệ chữ tương ứng (Noto Sans KR/SC/JP) để đảm bảo hiển thị đúng mọi ký tự, giữ nhất quán hình thái với Inter.</p></div>
+  </div>
+</section>
+
+<!-- LOGO -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">09 · Nhận diện — Logo</div>
+    <h2 class="section-title">Logo & biểu tượng</h2>
+    <p class="section-sub">Biểu tượng là bông sen cách điệu mà các cánh dưới cùng uốn thành sóng âm — hợp nhất “hiếu khách” (sen) và “giọng nói” (sóng). Wordmark viết thường, thân thiện và hiện đại.</p>
+    <div class="grid-2">
+      <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:#fff">
+        <svg viewBox="0 0 64 64" width="72" height="72" fill="none"><path d="M32 54c-10-6-18-14-18-24 0 0 8 2 12 9 0-9 6-16 6-16s6 7 6 16c4-7 12-9 12-9 0 10-8 18-18 24z" fill="#0D7377"/><path d="M20 40c4 3 8 5 12 5s8-2 12-5" stroke="#FF6F61" stroke-width="2.6" stroke-linecap="round"/></svg>
+        <div style="font-family:'Plus Jakarta Sans';font-weight:800;font-size:32px;color:var(--ink)">lotiva</div>
+        <p style="text-align:center">Logo chính · trên nền sáng</p>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:var(--ink)">
+        <svg viewBox="0 0 64 64" width="72" height="72" fill="none"><path d="M32 54c-10-6-18-14-18-24 0 0 8 2 12 9 0-9 6-16 6-16s6 7 6 16c4-7 12-9 12-9 0 10-8 18-18 24z" fill="#FF6F61"/><path d="M20 40c4 3 8 5 12 5s8-2 12-5" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>
+        <div style="font-family:'Plus Jakarta Sans';font-weight:800;font-size:32px;color:#fff">lotiva</div>
+        <p style="text-align:center;color:rgba(255,255,255,.7)">Logo đảo màu · trên nền tối</p>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top:20px">
+      <div class="card"><h3 style="color:var(--teal)">Nên</h3><ul class="clean"><li>Giữ khoảng trống tối thiểu quanh logo bằng chiều cao chữ “o”</li><li>Dùng đúng bộ màu thương hiệu</li><li>Dùng bản đảo màu trên nền tối/ảnh đậm</li></ul></div>
+      <div class="card"><h3 style="color:var(--coral)">Tránh</h3><ul class="clean"><li>Bóp méo, xoay, đổ bóng biểu tượng</li><li>Đổi màu tùy tiện hoặc dùng gradient lạ</li><li>Đặt logo lên nền rối làm mất độ đọc</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSISTANT NAMING -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">10 · Ứng dụng — Trợ lý theo thương hiệu</div>
+    <h2 class="section-title">Cách đặt tên trợ lý</h2>
+    <p class="section-sub">Trên mỗi cơ sở, trợ lý mang tên thương hiệu của khách sạn/du thuyền, còn Lotiva là nền tảng đứng sau. Công thức: <b>[Tên cơ sở] + Assistant</b>.</p>
+    <div class="grid-2">
+      <div>
+        <ul class="clean" style="font-size:16px">
+          <li><b>Green Ruby Assistant</b> — trợ lý của du thuyền Green Ruby</li>
+          <li><b>Hotel ABC Assistant</b> — trợ lý của khách sạn ABC</li>
+          <li>Dòng nhỏ dưới cùng: <em>Powered by Lotiva</em></li>
+          <li>Lotiva giữ vai trò “ingredient brand” — hiện diện tin cậy nhưng không lấn thương hiệu khách sạn</li>
+        </ul>
+        <div class="card" style="margin-top:20px"><h3>Nguyên tắc</h3><p>Khách cảm nhận họ đang nói chuyện với chính khách sạn/du thuyền của mình. Lotiva đứng sau bảo chứng chất lượng, giống “Intel Inside” của trải nghiệm khách lưu trú.</p></div>
+      </div>
+      <div class="example-chat">
+        <div class="chat-head">
+          <div class="chat-avatar"><svg viewBox="0 0 64 64" fill="none"><path d="M32 54c-10-6-18-14-18-24 0 0 8 2 12 9 0-9 6-16 6-16s6 7 6 16c4-7 12-9 12-9 0 10-8 18-18 24z" fill="#fff"/></svg></div>
+          <div class="chat-name">Green Ruby Assistant<small>Đang nghe · Tiếng Việt</small></div>
+        </div>
+        <div class="bubble guest">Kayaking mấy giờ bắt đầu vậy?</div>
+        <div class="bubble">Dạ, kayaking bắt đầu lúc 15:30. Mời anh/chị có mặt tại Deck 1 lúc 15:15 để chuẩn bị ạ. 🛶</div>
+        <div class="bubble guest">Cần mang khăn không?</div>
+        <div class="bubble">Dạ có ạ — anh/chị nên mang một chiếc khăn. Thuyền cũng có sẵn áo phao cho mọi người.</div>
+        <div class="powered">Powered by <b>lotiva</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <span class="logo-word">lotiva</span>
+    <p>Every guest, their language.</p>
+    <p style="margin-top:14px;font-size:12px;opacity:.6">Brand Guidelines v1.0 · 2026 · lotiva.vn · Tài liệu nội bộ</p>
+  </div>
+</footer>
+
+</body>
+</html>

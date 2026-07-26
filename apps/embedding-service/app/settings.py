@@ -1,0 +1,2 @@
+EMBEDDING_DIMENSIONS = 768
+MODEL_NAME = "embeddinggemma-300m"

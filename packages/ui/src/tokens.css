@@ -1,0 +1,48 @@
+:root {
+  /* Color semantic tokens — Admin/Staff foundation */
+  --gp-color-background: #f6f7f9;
+  --gp-color-surface: #ffffff;
+  --gp-color-surface-muted: #eef1f5;
+  --gp-color-border: #d7dde7;
+  --gp-color-text-primary: #121826;
+  --gp-color-text-secondary: #3d4659;
+  --gp-color-text-muted: #6b7285;
+  --gp-color-brand: #0f5c4c;
+  --gp-color-brand-hover: #0c4a3d;
+  --gp-color-success: #147a45;
+  --gp-color-warning: #9a6700;
+  --gp-color-danger: #b42318;
+  --gp-color-info: #175cd3;
+  --gp-color-focus-ring: #2e90fa;
+
+  /* Spacing scale */
+  --gp-space-2: 2px;
+  --gp-space-4: 4px;
+  --gp-space-6: 6px;
+  --gp-space-8: 8px;
+  --gp-space-12: 12px;
+  --gp-space-16: 16px;
+  --gp-space-20: 20px;
+  --gp-space-24: 24px;
+  --gp-space-32: 32px;
+  --gp-space-40: 40px;
+  --gp-space-48: 48px;
+  --gp-space-64: 64px;
+
+  /* Radius */
+  --gp-radius-sm: 6px;
+  --gp-radius-md: 10px;
+  --gp-radius-lg: 14px;
+  --gp-radius-xl: 20px;
+  --gp-radius-full: 9999px;
+
+  /* Typography */
+  --gp-font-sans: 'Source Sans 3', 'Be Vietnam Pro', 'Noto Sans', sans-serif;
+  --gp-font-display: 'Source Serif 4', 'Noto Serif', serif;
+  --gp-font-mono: 'IBM Plex Mono', 'SFMono-Regular', ui-monospace, monospace;
+
+  /* Shell layout */
+  --gp-sidebar-expanded: 240px;
+  --gp-sidebar-collapsed: 68px;
+  --gp-secondary-sidebar: 260px;
+}

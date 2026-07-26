@@ -1,0 +1,14 @@
+{
+  "name": "@guestportal/embedding-service",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "python3 -m compileall app",
+    "dev": ".venv/bin/uvicorn app.main:app --reload --host 0.0.0.0 --port 4100",
+    "start": ".venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 4100",
+    "lint": "python3 -m compileall app",
+    "typecheck": "python3 -m compileall app",
+    "test": "PYTHONPATH=. .venv/bin/python -m unittest discover -s tests -v",
+    "venv": "python3 -m venv .venv && .venv/bin/pip install -r requirements.txt"
+  }
+}

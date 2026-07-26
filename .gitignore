@@ -1,0 +1,61 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Builds
+dist
+.next
+out
+build
+coverage
+*.tsbuildinfo
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# IDE / OS
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Logs / temp
+*.log
+npm-debug.log*
+pnpm-debug.log*
+tmp
+.turbo
+.cache
+
+# Test / evidence runtime
+playwright-report
+test-results
+evidence/**/commands
+evidence/**/logs
+evidence/**/junit
+evidence/**/playwright-report
+evidence/**/traces
+evidence/**/screenshots
+evidence/**/accessibility
+evidence/**/visual
+evidence/**/security
+evidence/**/build
+!evidence/**/.gitkeep
+
+# Python
+__pycache__
+.venv
+*.pyc
+.pytest_cache
+.mypy_cache
+
+# Docker volumes
+docker/data
+
+# Misc
+*.pem
+.secrets

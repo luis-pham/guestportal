@@ -1,0 +1,35 @@
+{
+  "name": "QR Guest Portal Production Documentation Pack",
+  "version": "1.0.0",
+  "files": [
+    "01_PRODUCT_REQUIREMENTS.md",
+    "02_SYSTEM_ARCHITECTURE.md",
+    "03_DOMAIN_AND_DATA_MODEL.md",
+    "04_UI_UX_ARCHITECTURE.md",
+    "05_DESIGN_SYSTEM.md",
+    "06_I18N_AND_CONTENT.md",
+    "07_SECURITY_PRIVACY.md",
+    "08_TESTING_AND_EVIDENCE.md",
+    "09_AGENT_EXECUTION_PROTOCOL.md",
+    "10_DEPLOYMENT_AND_OPERATIONS.md",
+    "11_UI_UX_REVIEW_CHECKLIST.md",
+    "12_DEFINITION_OF_DONE.md",
+    "README.md",
+    "phases/PHASE_00_FOUNDATION.md",
+    "phases/PHASE_01_AUTH_TENANCY.md",
+    "phases/PHASE_02_DESIGN_SYSTEM_APP_SHELL.md",
+    "phases/PHASE_03_PROPERTY_PORTAL_BUILDER.md",
+    "phases/PHASE_04_QR_GUEST_PORTAL.md",
+    "phases/PHASE_05_KNOWLEDGE_RAG.md",
+    "phases/PHASE_06_TEXT_CHAT_AI_TOOLS.md",
+    "phases/PHASE_07_VOICE_GEMINI_LIVE.md",
+    "phases/PHASE_08_REQUEST_ORDER_STAFF.md",
+    "phases/PHASE_09_ADMIN_OPERATIONS_ANALYTICS.md",
+    "phases/PHASE_10_HARDENING_RELEASE.md"
+  ],
+  "language": "Vietnamese",
+  "admin_staff_locales": [
+    "vi",
+    "en"
+  ]
+}
