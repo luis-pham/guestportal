@@ -1,3 +1,4 @@
+import fp from 'fastify-plugin';
 import type { FastifyPluginAsync } from 'fastify';
 import { createDb, type Database, type DbHandles } from '@guestportal/db';
 
@@ -18,4 +19,4 @@ const dbPlugin: FastifyPluginAsync<{ databaseUrl: string }> = async (app, opts) 
   });
 };
 
-export default dbPlugin;
+export default fp(dbPlugin, { name: 'db-plugin' });

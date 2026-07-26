@@ -1,3 +1,4 @@
+import fp from 'fastify-plugin';
 import type { FastifyPluginAsync } from 'fastify';
 import { SESSION_COOKIE, resolveSession } from '@guestportal/auth';
 import { loadMemberships } from '../services/memberships.js';
@@ -37,4 +38,4 @@ const authPlugin: FastifyPluginAsync = async (app) => {
   });
 };
 
-export default authPlugin;
+export default fp(authPlugin, { name: 'auth-plugin' });
