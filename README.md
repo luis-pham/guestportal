@@ -7,7 +7,7 @@ Production-ready QR Guest Portal platform for hotels, resorts, cruises, Airbnb, 
 | App | Port | Purpose |
 |---|---|---|
 | `apps/guest-web` | 3000 | Guest portal |
-| `apps/admin-web` | 3001 | Admin portal |
+| `apps/admin-web` | 3101 | Admin portal |
 | `apps/staff-web` | 3002 | Staff workspace |
 | `apps/api` | 4000 | Platform API |
 | `apps/worker` | — | Background jobs |

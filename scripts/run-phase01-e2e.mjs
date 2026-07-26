@@ -4,22 +4,25 @@ import { setTimeout as sleep } from 'node:timers/promises';
 
 const root = process.cwd();
 const apiUrl = process.env.API_URL ?? 'http://127.0.0.1:4000';
-const adminUrl = process.env.ADMIN_WEB_URL ?? 'http://127.0.0.1:3001';
+const adminUrl = process.env.ADMIN_WEB_URL ?? 'http://127.0.0.1:3101';
 
 function start(command, env = {}) {
-  return spawn(command, {
+  const child = spawn(command, {
     shell: true,
     cwd: root,
     env: { ...process.env, ...env },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
+  child.stdout?.on('data', (chunk) => process.stdout.write(chunk));
+  child.stderr?.on('data', (chunk) => process.stderr.write(chunk));
+  return child;
 }
 
-async function waitFor(url, attempts = 60) {
+async function waitFor(url, attempts = 90) {
   for (let i = 0; i < attempts; i += 1) {
     try {
-      const response = await fetch(url);
-      if (response.ok) return;
+      const response = await fetch(url, { redirect: 'follow' });
+      if (response.ok || response.status < 500) return;
     } catch {
       // retry
     }
@@ -40,13 +43,13 @@ try {
   children.push(api);
 
   const admin = start('pnpm --filter @guestportal/admin-web start', {
-    PORT: '3001',
+    PORT: '3101',
     NEXT_PUBLIC_API_URL: apiUrl,
   });
   children.push(admin);
 
   await waitFor(`${apiUrl}/health`);
-  await waitFor(adminUrl);
+  await waitFor(`${adminUrl}/en/login`);
 
   const install = spawnSync('pnpm --filter @guestportal/admin-web test:e2e:install', {
     shell: true,

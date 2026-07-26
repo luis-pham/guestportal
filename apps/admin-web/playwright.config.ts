@@ -6,7 +6,7 @@ export default defineConfig({
   fullyParallel: false,
   retries: 0,
   use: {
-    baseURL: process.env.ADMIN_WEB_URL ?? 'http://127.0.0.1:3001',
+    baseURL: process.env.ADMIN_WEB_URL ?? 'http://127.0.0.1:3101',
     trace: 'retain-on-failure',
   },
   projects: [

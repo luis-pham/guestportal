@@ -8,7 +8,7 @@ export const envSchema = z.object({
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']).default('info'),
 
   GUEST_WEB_URL: z.string().url().default('http://localhost:3000'),
-  ADMIN_WEB_URL: z.string().url().default('http://localhost:3001'),
+  ADMIN_WEB_URL: z.string().url().default('http://localhost:3101'),
   STAFF_WEB_URL: z.string().url().default('http://localhost:3002'),
   API_URL: z.string().url().default('http://localhost:4000'),
   EMBEDDING_SERVICE_URL: z.string().url().default('http://localhost:4100'),
