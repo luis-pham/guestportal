@@ -51,7 +51,14 @@ Task 06.2 `PASS`
 
 ## VPS validation
 
-- Pending push/pull validation.
+- Pulled commit `e6bce2a` into `/opt/apps/guestportal`.
+- Applied migration `0013_request_order_confirmation.sql`.
+- VPS validation passed:
+  - `@guestportal/contracts`: lint, typecheck, build, tests (`25 passed`)
+  - `@guestportal/db`: lint, typecheck, build, live schema tests (`10 passed`)
+  - `@guestportal/ai-tools`: lint, typecheck, build, tests (`5 passed`)
+  - `@guestportal/api`: lint, typecheck, build, full API integration (`11 passed`, `34 passed`)
+- Restored test-generated `evidence/phase-05/05.5/retrieval-benchmark.json` side effect; VPS worktree returned clean.
 
 ## Acceptance
 
