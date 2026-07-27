@@ -31,14 +31,19 @@ async function signIn(page: Page) {
   await expect(page.getByTestId('module-workspace')).toBeVisible({ timeout: 30_000 });
 }
 
-async function signInApi(page: Page) {
-  const response = await page.context().request.post(`${API_URL}/v1/auth/login`, {
-    data: {
+async function signInApi() {
+  const response = await fetch(`${API_URL}/v1/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       email: 'owner@aurora.test',
       password: 'Password123!',
-    },
+    }),
   });
-  expect(response.ok()).toBe(true);
+  expect(response.ok).toBe(true);
+  const cookie = response.headers.get('set-cookie')?.match(/gp_session=[^;]+/)?.[0];
+  expect(cookie).toBeTruthy();
+  return cookie!;
 }
 
 async function currentPropertyId(page: Page) {
@@ -48,11 +53,12 @@ async function currentPropertyId(page: Page) {
   return propertyId!;
 }
 
-async function createEmptyProperty(page: Page) {
-  await signInApi(page);
-  const api = page.context().request;
-  const organizations = await api.get(`${API_URL}/v1/organizations`);
-  expect(organizations.ok()).toBe(true);
+async function createEmptyProperty() {
+  const apiCookie = await signInApi();
+  const organizations = await fetch(`${API_URL}/v1/organizations`, {
+    headers: { Cookie: apiCookie },
+  });
+  expect(organizations.ok).toBe(true);
   const orgBody = (await organizations.json()) as {
     organizations: Array<{ id: string }>;
   };
@@ -60,8 +66,10 @@ async function createEmptyProperty(page: Page) {
   expect(organizationId).toBeTruthy();
 
   const suffix = Date.now().toString(36);
-  const created = await api.post(`${API_URL}/v1/properties`, {
-    data: {
+  const created = await fetch(`${API_URL}/v1/properties`, {
+    method: 'POST',
+    headers: { Cookie: apiCookie, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       organizationId,
       name: `Empty Search ${suffix}`,
       slug: `empty-search-${suffix}`,
@@ -70,30 +78,31 @@ async function createEmptyProperty(page: Page) {
       currency: 'USD',
       defaultLocale: 'en',
       supportedLocales: ['en', 'vi'],
-    },
+    }),
   });
-  expect(created.ok()).toBe(true);
+  expect(created.ok).toBe(true);
   const body = (await created.json()) as { property: { id: string } };
   return body.property.id;
 }
 
 test('admin can upload, process and search knowledge with citations', async ({ page }) => {
   await signIn(page);
-  await signInApi(page);
+  const apiCookie = await signInApi();
   const propertyId = await currentPropertyId(page);
-  const api = page.context().request;
 
   const file = Buffer.from(sourceBody);
-  const presign = await api.post(`${API_URL}/v1/uploads/presign`, {
-    data: {
+  const presign = await fetch(`${API_URL}/v1/uploads/presign`, {
+    method: 'POST',
+    headers: { Cookie: apiCookie, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       purpose: 'knowledge_source',
       filename: 'retrieval-smoke.txt',
       mimeType: 'text/plain',
       sizeBytes: file.byteLength,
       propertyId,
-    },
+    }),
   });
-  expect(presign.ok()).toBe(true);
+  expect(presign.ok).toBe(true);
   const presigned = (await presign.json()) as {
     assetId: string;
     uploadUrl: string;
@@ -110,26 +119,34 @@ test('admin can upload, process and search knowledge with citations', async ({ p
   });
   expect(put.ok).toBe(true);
 
-  const complete = await api.post(`${API_URL}/v1/uploads/complete`, {
-    data: { assetId: presigned.assetId },
+  const complete = await fetch(`${API_URL}/v1/uploads/complete`, {
+    method: 'POST',
+    headers: { Cookie: apiCookie, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ assetId: presigned.assetId }),
   });
-  expect(complete.ok()).toBe(true);
+  expect(complete.ok).toBe(true);
 
-  const created = await api.post(`${API_URL}/v1/properties/${propertyId}/knowledge-sources`, {
-    data: {
+  const created = await fetch(`${API_URL}/v1/properties/${propertyId}/knowledge-sources`, {
+    method: 'POST',
+    headers: { Cookie: apiCookie, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       title: sourceTitle,
       type: 'file',
       sourceLanguage: 'en',
       assetId: presigned.assetId,
-    },
+    }),
   });
-  expect(created.ok()).toBe(true);
+  expect(created.ok).toBe(true);
   const createdBody = (await created.json()) as { source: { id: string } };
 
-  const processed = await api.post(
+  const processed = await fetch(
     `${API_URL}/v1/properties/${propertyId}/knowledge-sources/${createdBody.source.id}/process`,
+    {
+      method: 'POST',
+      headers: { Cookie: apiCookie },
+    },
   );
-  expect(processed.ok()).toBe(true);
+  expect(processed.ok).toBe(true);
 
   await page.goto(`/en/properties/${propertyId}/knowledge`);
   const readySource = page
@@ -189,7 +206,7 @@ test('knowledge search has Vietnamese copy and no serious axe violations', async
 
 test('knowledge search renders no-result and blocked-query states', async ({ page }) => {
   await signIn(page);
-  const propertyId = await createEmptyProperty(page);
+  const propertyId = await createEmptyProperty();
 
   await page.goto(`/en/properties/${propertyId}/knowledge/search`);
   await page.getByTestId('knowledge-search-query').fill('pool hours');

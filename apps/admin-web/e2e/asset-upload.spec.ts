@@ -13,19 +13,24 @@ async function signIn(page: Page) {
   await expect(page.getByTestId('module-workspace')).toBeVisible();
 }
 
-async function signInApi(page: Page) {
-  const response = await page.request.post(`${apiBase}/v1/auth/login`, {
-    data: {
+async function signInApi() {
+  const response = await fetch(`${apiBase}/v1/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       email: 'owner@aurora.test',
       password: 'Password123!',
-    },
+    }),
   });
-  expect(response.ok()).toBe(true);
+  expect(response.ok).toBe(true);
+  const cookie = response.headers.get('set-cookie')?.match(/gp_session=[^;]+/)?.[0];
+  expect(cookie).toBeTruthy();
+  return cookie!;
 }
 
 test('branding upload UI shows controls and rejects invalid files', async ({ page }) => {
   await signIn(page);
-  await signInApi(page);
+  const apiCookie = await signInApi();
   await page.getByRole('link', { name: 'Property settings' }).click();
   await expect(page.getByTestId('property-settings-form')).toBeVisible();
   const propertyId = page.url().match(/\/properties\/([^/]+)\//)?.[1];
@@ -49,34 +54,41 @@ test('branding upload UI shows controls and rejects invalid files', async ({ pag
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
     'base64',
   );
-  const presign = await page.request.post(`${apiBase}/v1/uploads/presign`, {
-    data: {
+  const presign = await fetch(`${apiBase}/v1/uploads/presign`, {
+    method: 'POST',
+    headers: { Cookie: apiCookie, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       purpose: 'branding_logo',
       filename: 'logo-e2e.png',
       mimeType: 'image/png',
       sizeBytes: png.length,
       propertyId,
-    },
+    }),
   });
-  expect(presign.status()).toBe(200);
+  expect(presign.status).toBe(200);
   const body = (await presign.json()) as {
     assetId: string;
     uploadUrl: string;
     requiredHeaders: Record<string, string>;
   };
 
-  const put = await page.request.fetch(body.uploadUrl, {
+  const put = await fetch(body.uploadUrl, {
     method: 'PUT',
     headers: body.requiredHeaders,
-    data: png,
+    body: png,
   });
-  expect(put.ok()).toBeTruthy();
+  expect(put.ok).toBeTruthy();
 
-  const complete = await page.request.post(`${apiBase}/v1/uploads/complete`, {
-    data: { assetId: body.assetId },
+  const complete = await fetch(`${apiBase}/v1/uploads/complete`, {
+    method: 'POST',
+    headers: { Cookie: apiCookie, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ assetId: body.assetId }),
   });
-  expect(complete.status()).toBe(200);
+  expect(complete.status).toBe(200);
 
-  const del = await page.request.delete(`${apiBase}/v1/assets/${body.assetId}`);
-  expect(del.status()).toBe(200);
+  const del = await fetch(`${apiBase}/v1/assets/${body.assetId}`, {
+    method: 'DELETE',
+    headers: { Cookie: apiCookie },
+  });
+  expect(del.status).toBe(200);
 });

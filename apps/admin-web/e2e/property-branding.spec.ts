@@ -10,19 +10,24 @@ async function signIn(page: Page) {
   await expect(page.getByTestId('module-workspace')).toBeVisible();
 }
 
-async function signInApi(page: Page) {
-  const response = await page.request.post(`${apiBase()}/v1/auth/login`, {
-    data: {
+async function signInApi() {
+  const response = await fetch(`${apiBase()}/v1/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       email: 'owner@aurora.test',
       password: 'Password123!',
-    },
+    }),
   });
-  expect(response.ok()).toBe(true);
+  expect(response.ok).toBe(true);
+  const cookie = response.headers.get('set-cookie')?.match(/gp_session=[^;]+/)?.[0];
+  expect(cookie).toBeTruthy();
+  return cookie!;
 }
 
 test('property settings and branding forms validate and persist', async ({ page }) => {
   await signIn(page);
-  await signInApi(page);
+  const apiCookie = await signInApi();
   await page.getByRole('link', { name: 'Property settings' }).click();
   await expect(page.getByTestId('property-settings-form')).toBeVisible();
 
@@ -34,13 +39,15 @@ test('property settings and branding forms validate and persist', async ({ page 
   expect(propertyId).toBeTruthy();
 
   // API mutations use an authenticated request context to avoid browser cookie policy drift.
-  const patch = await page.request.patch(`${apiBase()}/v1/properties/${propertyId}`, {
-    data: {
+  const patch = await fetch(`${apiBase()}/v1/properties/${propertyId}`, {
+    method: 'PATCH',
+    headers: { Cookie: apiCookie, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       timezone: 'Asia/Ho_Chi_Minh',
       supportedLocales: ['vi', 'en'],
-    },
+    }),
   });
-  expect(patch.status()).toBe(200);
+  expect(patch.status).toBe(200);
 
   await page.goto(`/en/properties/${propertyId}/portal/branding`);
   await expect(page.getByTestId('branding-form')).toBeVisible();
@@ -50,8 +57,10 @@ test('property settings and branding forms validate and persist', async ({ page 
   await page.getByRole('button', { name: 'Save branding' }).click();
   await expect(page.getByTestId('branding-error')).toBeVisible();
 
-  const put = await page.request.put(`${apiBase()}/v1/properties/${propertyId}/branding`, {
-    data: {
+  const put = await fetch(`${apiBase()}/v1/properties/${propertyId}/branding`, {
+    method: 'PUT',
+    headers: { Cookie: apiCookie, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       displayName: 'Validated Brand',
       primaryColor: '#123456',
       primaryHoverColor: '#234567',
@@ -61,9 +70,9 @@ test('property settings and branding forms validate and persist', async ({ page 
       logoAssetId: null,
       coverAssetId: null,
       fontFamily: 'sans',
-    },
+    }),
   });
-  expect(put.status()).toBe(200);
+  expect(put.status).toBe(200);
 
   await page.reload();
   await expect(page.getByTestId('branding-form')).toBeVisible();
