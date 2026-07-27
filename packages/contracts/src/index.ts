@@ -120,3 +120,28 @@ export {
   guestPortalResponseSchema,
   type GuestPortalResponse,
 } from './guest-portal.js';
+
+export {
+  conversationCreateRequestSchema,
+  conversationCreateResponseSchema,
+  conversationDetailResponseSchema,
+  conversationMessageSchema,
+  conversationMessageSourceSchema,
+  conversationRoleSchema,
+  conversationSummarySchema,
+  conversationStatusSchema,
+  guestMessageCreateRequestSchema,
+  guestMessageCreateResponseSchema,
+  transcriptRetentionPolicySchema,
+  type ConversationCreateRequest,
+  type ConversationCreateResponse,
+  type ConversationDetailResponse,
+  type ConversationMessage,
+  type ConversationMessageSource,
+  type ConversationRole,
+  type ConversationSummary,
+  type ConversationStatus,
+  type GuestMessageCreateRequest,
+  type GuestMessageCreateResponse,
+  type TranscriptRetentionPolicy,
+} from './conversation.js';

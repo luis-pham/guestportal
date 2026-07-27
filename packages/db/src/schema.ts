@@ -402,6 +402,93 @@ export const guestSessions = pgTable(
 
 export type GuestSession = typeof guestSessions.$inferSelect;
 
+export const conversations = pgTable(
+  'conversations',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    organizationId: uuid('organization_id')
+      .notNull()
+      .references(() => organizations.id),
+    propertyId: uuid('property_id')
+      .notNull()
+      .references(() => properties.id),
+    guestSessionId: uuid('guest_session_id')
+      .notNull()
+      .references(() => guestSessions.id, { onDelete: 'cascade' }),
+    status: text('status').notNull().default('active'),
+    locale: text('locale').notNull(),
+    retentionPolicy: text('retention_policy').notNull(),
+    retentionExpiresAt: timestamp('retention_expires_at', { withTimezone: true }).notNull(),
+    lastMessageSequence: integer('last_message_sequence').notNull().default(0),
+    lastMessageAt: timestamp('last_message_at', { withTimezone: true }),
+    handedOffAt: timestamp('handed_off_at', { withTimezone: true }),
+    closedAt: timestamp('closed_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    index('conversations_guest_session_idx').on(table.guestSessionId, table.createdAt),
+    index('conversations_property_status_idx').on(
+      table.organizationId,
+      table.propertyId,
+      table.status,
+      table.createdAt,
+    ),
+    index('conversations_retention_expires_idx').on(table.retentionExpiresAt),
+  ],
+);
+
+export const messages = pgTable(
+  'messages',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    organizationId: uuid('organization_id')
+      .notNull()
+      .references(() => organizations.id),
+    propertyId: uuid('property_id')
+      .notNull()
+      .references(() => properties.id),
+    guestSessionId: uuid('guest_session_id')
+      .notNull()
+      .references(() => guestSessions.id, { onDelete: 'cascade' }),
+    conversationId: uuid('conversation_id')
+      .notNull()
+      .references(() => conversations.id, { onDelete: 'cascade' }),
+    sequence: integer('sequence').notNull(),
+    role: text('role').notNull(),
+    source: text('source').notNull(),
+    originalLanguage: text('original_language'),
+    originalText: text('original_text').notNull(),
+    translatedText: text('translated_text'),
+    toolName: text('tool_name'),
+    toolPayload: jsonb('tool_payload').$type<Record<string, unknown>>(),
+    requestId: uuid('request_id'),
+    orderId: uuid('order_id'),
+    clientMessageId: text('client_message_id'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex('messages_conversation_sequence_uidx').on(table.conversationId, table.sequence),
+    uniqueIndex('messages_conversation_client_message_uidx').on(
+      table.conversationId,
+      table.clientMessageId,
+    ),
+    index('messages_conversation_order_idx').on(
+      table.conversationId,
+      table.sequence,
+      table.createdAt,
+    ),
+    index('messages_property_created_idx').on(
+      table.organizationId,
+      table.propertyId,
+      table.createdAt,
+    ),
+  ],
+);
+
+export type Conversation = typeof conversations.$inferSelect;
+export type Message = typeof messages.$inferSelect;
+
 export const knowledgeSources = pgTable(
   'knowledge_sources',
   {
