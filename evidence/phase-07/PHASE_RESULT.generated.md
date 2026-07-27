@@ -39,6 +39,7 @@ b1be86e71d8cb9267d6ec657fa73d6ed8a4b1b35
 - Transcript, interruption and reconnect: guest-web unit/E2E and Phase 07.4 evidence.
 - Real Gemini Live KB answer and tool draft: Phase 07.5 REAL_STAGING evidence.
 - Mobile screenshots: copied from 07.2, 07.3, 07.4 and 07.5 task evidence.
+- VPS regression validation: `logs/vps-gate-validation.log`.
 
 ## Known Issues
 

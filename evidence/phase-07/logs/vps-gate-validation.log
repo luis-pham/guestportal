@@ -1,0 +1,1252 @@
+## pnpm --filter @guestportal/contracts lint
+$ eslint .
+## pnpm --filter @guestportal/contracts typecheck
+$ tsc -p tsconfig.json --noEmit
+## pnpm --filter @guestportal/contracts test
+$ vitest run
+
+ RUN  v3.2.7 /opt/apps/guestportal/packages/contracts
+
+ ✓ src/conversation.test.ts (3 tests) 11ms
+ ✓ src/request-order.test.ts (3 tests) 15ms
+ ✓ src/portal.test.ts (4 tests) 9ms
+ ✓ src/voice-live.test.ts (2 tests) 6ms
+ ✓ src/branding.test.ts (3 tests) 7ms
+ ✓ src/uploads.test.ts (2 tests) 4ms
+ ✓ src/guest-session.test.ts (2 tests) 7ms
+ ✓ src/qr.test.ts (4 tests) 7ms
+ ✓ src/ai-tools.test.ts (4 tests) 6ms
+
+ Test Files  9 passed (9)
+      Tests  27 passed (27)
+   Start at  15:58:09
+   Duration  1.01s (transform 308ms, setup 0ms, collect 599ms, tests 72ms, environment 1ms, prepare 735ms)
+
+## pnpm --filter @guestportal/contracts build
+$ tsc -p tsconfig.json
+## pnpm --filter @guestportal/ai-tools lint
+$ eslint .
+## pnpm --filter @guestportal/ai-tools typecheck
+$ tsc -p tsconfig.json --noEmit
+## pnpm --filter @guestportal/ai-tools test
+$ vitest run
+
+ RUN  v3.2.7 /opt/apps/guestportal/packages/ai-tools
+
+ ✓ src/index.test.ts (5 tests) 11ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  15:58:17
+   Duration  422ms (transform 119ms, setup 0ms, collect 191ms, tests 11ms, environment 0ms, prepare 62ms)
+
+## pnpm --filter @guestportal/ai-tools build
+$ tsc -p tsconfig.json
+## pnpm --filter @guestportal/api lint
+$ eslint .
+## pnpm --filter @guestportal/api typecheck
+$ tsc -p tsconfig.json --noEmit
+## pnpm --filter @guestportal/api test
+$ vitest run --exclude src/**/*.integration.test.ts
+
+ RUN  v3.2.7 /opt/apps/guestportal/apps/api
+
+ ✓ src/services/qr-tokens.test.ts (1 test) 8ms
+ ✓ src/app.test.ts (1 test) 2ms
+ ✓ src/services/gemini-live.test.ts (2 tests) 8ms
+ ✓ src/services/rate-limit.test.ts (1 test) 3ms
+
+ Test Files  4 passed (4)
+      Tests  5 passed (5)
+   Start at  15:58:25
+   Duration  509ms (transform 92ms, setup 0ms, collect 140ms, tests 21ms, environment 1ms, prepare 289ms)
+
+$ vitest run --config vitest.integration.config.ts
+
+ RUN  v3.2.7 /opt/apps/guestportal/apps/api
+
+stdout | src/conversations.integration.test.ts > guest conversations > persists guest messages in stable conversation order and deduplicates retry ids
+{"level":"info","time":"2026-07-27T15:58:28.524Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"75815257-babe-424e-92d2-a3a10027eb35"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > persists guest messages in stable conversation order and deduplicates retry ids
+{"level":"info","time":"2026-07-27T15:58:28.534Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"c98701c1-21bf-4113-a258-5be48c80cc89"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > persists guest messages in stable conversation order and deduplicates retry ids
+{"level":"info","time":"2026-07-27T15:58:28.541Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"8bfc728a-8e36-4b9b-b375-e9c95cf78663"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > persists guest messages in stable conversation order and deduplicates retry ids
+{"level":"info","time":"2026-07-27T15:58:28.553Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"89654854-f895-4cfa-ad77-eff9cda9962f"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > persists guest messages in stable conversation order and deduplicates retry ids
+{"level":"info","time":"2026-07-27T15:58:28.559Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"17376102-5317-4e30-8e09-79852d5bdecc"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > persists guest messages in stable conversation order and deduplicates retry ids
+{"level":"info","time":"2026-07-27T15:58:28.565Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"c035f6c9-bb11-4b22-9606-ec297a7398cd"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > persists guest messages in stable conversation order and deduplicates retry ids
+{"level":"info","time":"2026-07-27T15:58:28.575Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/c5ce2668-f8da-4f9e-8e8f-44f57fa1695a/messages","statusCode":200,"requestId":"baccbaf1-12ed-4451-9ec0-ff622a4e3772"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > persists guest messages in stable conversation order and deduplicates retry ids
+{"level":"info","time":"2026-07-27T15:58:28.582Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/c5ce2668-f8da-4f9e-8e8f-44f57fa1695a/messages","statusCode":200,"requestId":"4fdabd9f-c25d-4407-b31a-f0b5f4c67175"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > persists guest messages in stable conversation order and deduplicates retry ids
+{"level":"info","time":"2026-07-27T15:58:28.591Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/c5ce2668-f8da-4f9e-8e8f-44f57fa1695a/messages","statusCode":200,"requestId":"01a9da0e-103f-49a3-acc9-f7a58a1ea59d"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > persists guest messages in stable conversation order and deduplicates retry ids
+{"level":"info","time":"2026-07-27T15:58:28.596Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/conversations/c5ce2668-f8da-4f9e-8e8f-44f57fa1695a","statusCode":200,"requestId":"fe8797bf-e0f8-4271-b854-2310db86a33a"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:28.892Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"21144bdb-94e4-49b3-9cda-6b69cd870be3"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:28.899Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"51d22b82-205b-45ba-83c8-8b7d033bc745"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:28.905Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"b1e5180c-4cb2-44de-a5cb-f14f7afe8488"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:28.918Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"ceb97921-8aeb-4844-b47d-edf5ed23233f"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:28.923Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"662a3624-3c1b-4472-8f05-68a7b364c20f"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.223Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"74433f41-2f67-48a2-a1aa-ef9336aa9cd7"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.230Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"aebce2f5-f6d2-48ae-a0ff-b6b3cfe95965"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.236Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"c12246a7-46e1-4029-94d4-93e366b8977e"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.245Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"aa045406-eb3b-4b47-9c9f-44cbbe91088e"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.250Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"f90bfc52-c6df-412e-86f7-65894119ad19"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.542Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"23547afb-5237-43b9-b188-46ba1068bb26"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.548Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=36e75439-8616-419a-ae18-06d706c1dff3","statusCode":200,"requestId":"f8a6bb22-a306-41b6-80ba-8973525b5a41"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.553Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/e6ba1697-a48c-4e07-a99f-5486f05726b5/locations","statusCode":200,"requestId":"c2594260-1104-40f2-8926-51aea13e21af"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.562Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/e6ba1697-a48c-4e07-a99f-5486f05726b5/qr-codes","statusCode":200,"requestId":"e3fd0548-5ca9-44c3-bbaa-2a55ba804bba"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.568Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"448a16ed-128b-48c4-8b3f-826a914fcec2"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.574Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"9f27859f-bfb1-485f-a6a3-f9d81081ca47"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.580Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/conversations/35f4438f-50d8-4780-87a0-74ffbc6ee574","statusCode":404,"requestId":"96a9a212-b90f-40fc-b875-b1bbfd096f70"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > isolates conversations by guest session and tenant scope
+{"level":"info","time":"2026-07-27T15:58:29.586Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/35f4438f-50d8-4780-87a0-74ffbc6ee574/messages","statusCode":404,"requestId":"7a9c6b7c-f636-4c89-b28c-d0df4b2cc50a"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > enforces explicit transcript retention expiry
+{"level":"info","time":"2026-07-27T15:58:29.889Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"5198d36b-1ec8-4125-b8df-ca8168a2baed"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > enforces explicit transcript retention expiry
+{"level":"info","time":"2026-07-27T15:58:29.895Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"c507708c-7a51-47ef-b4ef-b1df6a6013c2"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > enforces explicit transcript retention expiry
+{"level":"info","time":"2026-07-27T15:58:29.902Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"21581227-05d3-4690-a0da-e703030519fc"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > enforces explicit transcript retention expiry
+{"level":"info","time":"2026-07-27T15:58:29.912Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"04f5140e-ae40-4e3f-b49a-71d33286e18d"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > enforces explicit transcript retention expiry
+{"level":"info","time":"2026-07-27T15:58:29.916Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"cc9d25df-5292-4485-9039-e16050a03d6a"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > enforces explicit transcript retention expiry
+{"level":"info","time":"2026-07-27T15:58:29.921Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"0ed3f346-e912-4e9b-830c-ee4f39f12fba"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > enforces explicit transcript retention expiry
+{"level":"info","time":"2026-07-27T15:58:29.927Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/conversations/faa6465d-787c-49e4-8196-24d186af0992","statusCode":410,"requestId":"bb41fe35-8f93-4e4a-8ca3-5778f02077bb"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.222Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"59407c5a-1248-4a87-8b09-7130e500b41d"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.227Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"f7b6bf89-8e0b-4259-88b5-ec1d751635a1"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.233Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"2e742a44-37c8-4469-8863-5a31edb07ff6"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.242Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"f797ee81-9c22-4998-91e6-0161295630e2"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.247Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"3e508c39-0b24-4b55-b035-861453841cb7"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.253Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"1aa51c5b-b66e-4763-9283-ae0ba25ba0be"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.259Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts","statusCode":200,"requestId":"469ad558-a3b0-4077-8e16-661b398351a1"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.266Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/ca8c654a-de87-4e2a-be40-74c8a4dee88e/handoff","statusCode":200,"requestId":"cefa7332-9cd0-4b38-ba10-3e084f02173f"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.271Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/ca8c654a-de87-4e2a-be40-74c8a4dee88e/handoff","statusCode":200,"requestId":"0067c6e1-7cc2-4ec7-90fc-fe113926cfec"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.275Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/ca8c654a-de87-4e2a-be40-74c8a4dee88e/messages","statusCode":409,"requestId":"c61816f8-5f42-4e88-9e9d-9a670f7b9dca"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.279Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/ca8c654a-de87-4e2a-be40-74c8a4dee88e/tool-results","statusCode":409,"requestId":"eb1f959c-0fd8-41ba-82fd-ac4f777c76fa"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.286Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts/c39460f3-c019-4365-9ae2-39aece97550c/confirm","statusCode":409,"requestId":"b6ad5d3c-d35a-4dae-ac4b-b72b54396af5"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requests human handoff honestly, idempotently, and blocks further automation
+{"level":"info","time":"2026-07-27T15:58:30.291Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/conversations/ca8c654a-de87-4e2a-be40-74c8a4dee88e","statusCode":200,"requestId":"231a8aca-d4a5-43f2-8908-389c9332806f"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > executes scoped read-only AI tools and persists validated tool output
+{"level":"info","time":"2026-07-27T15:58:30.593Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"c2b839f7-6faf-4e9d-9e2b-73b7d667cbdc"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > executes scoped read-only AI tools and persists validated tool output
+{"level":"info","time":"2026-07-27T15:58:30.598Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"b3c5ae86-5b96-4c5d-a4f7-593d5420812d"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > executes scoped read-only AI tools and persists validated tool output
+{"level":"info","time":"2026-07-27T15:58:30.605Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"5d0823f7-2c6d-431a-8c0f-00fb5830f7f7"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > executes scoped read-only AI tools and persists validated tool output
+{"level":"info","time":"2026-07-27T15:58:30.616Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"2431d502-1b33-47c1-83cf-9e10402e805a"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > executes scoped read-only AI tools and persists validated tool output
+{"level":"info","time":"2026-07-27T15:58:30.622Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"0f130bc3-bbcd-43da-9bd6-635e3216388c"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > executes scoped read-only AI tools and persists validated tool output
+{"level":"info","time":"2026-07-27T15:58:30.626Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"d21140ed-44ee-41f7-ab37-b0c8798cb52f"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > executes scoped read-only AI tools and persists validated tool output
+{"level":"info","time":"2026-07-27T15:58:30.646Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/415900fb-0bad-4889-af52-bf12401c9c2f/tool-results","statusCode":200,"requestId":"13fe3b1c-7c1b-4a8e-899a-77eceddf1a84"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > executes scoped read-only AI tools and persists validated tool output
+{"level":"info","time":"2026-07-27T15:58:30.651Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/conversations/415900fb-0bad-4889-af52-bf12401c9c2f","statusCode":200,"requestId":"e722aaec-a3e6-400f-8360-96712772a2c5"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:30.946Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"0656fe61-842a-4bd6-9d15-dfc4f43762d2"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:30.951Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"338b4f19-d30c-4f63-aeaa-acc44bc69d03"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:30.959Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"fef33f28-c215-4c5f-bf48-22c0d0a91c82"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:30.968Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"78aee994-0257-4406-9109-63bef33083e9"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:30.972Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"dfdf1c7a-fc74-4476-89de-9dbf5d2dec05"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:31.266Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"b9ca6cf5-9781-4edb-adef-171e87b60720"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:31.271Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"66b12165-289d-4b3a-bb28-693cda7ecb08"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:31.276Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"4a8bd31e-60ee-4ec2-81c0-4bada2ea4105"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:31.285Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"6c5ceb52-148c-4cc4-a87c-704edb3f9a30"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:31.290Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"e56b85b0-c8db-437a-abed-c825046c3307"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:31.295Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"fe9c5dae-c7e8-4422-b2a6-e879c8534c4d"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:31.296Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/717744ce-28f2-4a63-af47-3bdb947bc995/tool-results","statusCode":401,"requestId":"057b166f-6f7f-4e94-85f5-95c82e40cd97"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:31.302Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/717744ce-28f2-4a63-af47-3bdb947bc995/tool-results","statusCode":404,"requestId":"e23b0452-0486-4b41-a700-f6ccdf298f19"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > validates AI tool input and denies unscoped tool calls
+{"level":"info","time":"2026-07-27T15:58:31.306Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/717744ce-28f2-4a63-af47-3bdb947bc995/tool-results","statusCode":400,"requestId":"2133be85-d755-4de1-bf7a-6a9a2f7b7472"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > fails closed when prompt injection asks a read-only tool to bypass confirmation
+{"level":"info","time":"2026-07-27T15:58:31.608Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"f7d37075-df17-4190-b343-af1ab88315f7"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > fails closed when prompt injection asks a read-only tool to bypass confirmation
+{"level":"info","time":"2026-07-27T15:58:31.614Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"da290f48-1258-4d98-a046-9c2b5c3f2b1a"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > fails closed when prompt injection asks a read-only tool to bypass confirmation
+{"level":"info","time":"2026-07-27T15:58:31.621Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"6586b8fb-3429-4c38-a490-3165ddceab78"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > fails closed when prompt injection asks a read-only tool to bypass confirmation
+{"level":"info","time":"2026-07-27T15:58:31.632Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"a9bd3a02-8785-4a99-af4d-cc5c994d2843"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > fails closed when prompt injection asks a read-only tool to bypass confirmation
+{"level":"info","time":"2026-07-27T15:58:31.638Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"01c92658-0540-4928-ba6b-b30ca1a46621"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > fails closed when prompt injection asks a read-only tool to bypass confirmation
+{"level":"info","time":"2026-07-27T15:58:31.643Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"d0276d31-5eb5-4ebb-8737-f0d90cbaf9eb"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > fails closed when prompt injection asks a read-only tool to bypass confirmation
+{"level":"info","time":"2026-07-27T15:58:31.655Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/d933aab4-72bd-4c2b-8445-d78733908317/tool-results","statusCode":200,"requestId":"a2494734-7523-4b8d-a4cc-38895ff6da1d"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > reads catalog tool output only from the scoped published portal
+{"level":"info","time":"2026-07-27T15:58:31.961Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"5e5a235c-1f58-4fd2-b120-c776f09e82a3"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > reads catalog tool output only from the scoped published portal
+{"level":"info","time":"2026-07-27T15:58:31.966Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"a5abefe5-abc3-4f7c-a2c8-faf95cadc1ae"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > reads catalog tool output only from the scoped published portal
+{"level":"info","time":"2026-07-27T15:58:31.973Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"beae053c-24ff-49fa-b120-c101136dd658"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > reads catalog tool output only from the scoped published portal
+{"level":"info","time":"2026-07-27T15:58:31.983Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"e7fa639b-2736-40f7-8237-29a7d7584d37"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > reads catalog tool output only from the scoped published portal
+{"level":"info","time":"2026-07-27T15:58:31.988Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"d55e91a9-fadf-414a-bc7d-990fa486e9c0"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > reads catalog tool output only from the scoped published portal
+{"level":"info","time":"2026-07-27T15:58:31.998Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/draft","statusCode":200,"requestId":"689e8c58-7f57-4472-9652-c9bf759987f4"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > reads catalog tool output only from the scoped published portal
+{"level":"info","time":"2026-07-27T15:58:32.014Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/publish","statusCode":200,"requestId":"f68228f8-697f-4144-b8f1-d242c75d768d"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > reads catalog tool output only from the scoped published portal
+{"level":"info","time":"2026-07-27T15:58:32.019Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"d54a5701-d97a-4c05-8318-64779c8e0a82"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > reads catalog tool output only from the scoped published portal
+{"level":"info","time":"2026-07-27T15:58:32.028Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/8d63f034-a8da-4913-896b-c58d3a3fdcc9/tool-results","statusCode":200,"requestId":"473bda5a-3cfd-437d-b04a-9605ae8bfff4"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > keeps voice request draft tools behind idempotent guest confirmation
+{"level":"info","time":"2026-07-27T15:58:32.326Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"02a68984-6f81-4cd1-ab63-867d803cd56f"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > keeps voice request draft tools behind idempotent guest confirmation
+{"level":"info","time":"2026-07-27T15:58:32.331Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"1d55f2ce-b928-431b-8457-943621e5c245"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > keeps voice request draft tools behind idempotent guest confirmation
+{"level":"info","time":"2026-07-27T15:58:32.336Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"a71554d1-cd9b-4172-9630-f4b247823c2c"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > keeps voice request draft tools behind idempotent guest confirmation
+{"level":"info","time":"2026-07-27T15:58:32.344Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"21fc33ce-09e5-40ab-8b41-f52cc9d0b964"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > keeps voice request draft tools behind idempotent guest confirmation
+{"level":"info","time":"2026-07-27T15:58:32.348Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"d42ac62f-e8bc-4017-b5fe-730ac8f40cb5"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > keeps voice request draft tools behind idempotent guest confirmation
+{"level":"info","time":"2026-07-27T15:58:32.353Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"bf2ca971-8a4a-40ae-9fd1-74b4f05d6ca5"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > keeps voice request draft tools behind idempotent guest confirmation
+{"level":"info","time":"2026-07-27T15:58:32.362Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/9ea962cb-1de4-4478-b0af-feebcf762087/tool-results","statusCode":200,"requestId":"6950562f-6690-4eb9-9b9a-07ec57e8d5ec"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > keeps voice request draft tools behind idempotent guest confirmation
+{"level":"info","time":"2026-07-27T15:58:32.373Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts/96818660-2509-41a4-8676-e37a1585540c/confirm","statusCode":200,"requestId":"73615217-0489-446c-85da-9c5b791888d0"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > keeps voice request draft tools behind idempotent guest confirmation
+{"level":"info","time":"2026-07-27T15:58:32.378Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts/96818660-2509-41a4-8676-e37a1585540c/confirm","statusCode":200,"requestId":"5d4e18ad-1002-42fd-8776-b603ce7238d8"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > keeps voice request draft tools behind idempotent guest confirmation
+{"level":"info","time":"2026-07-27T15:58:32.384Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/conversations/9ea962cb-1de4-4478-b0af-feebcf762087","statusCode":200,"requestId":"f3ce409a-f7df-48d0-b354-3e35a09ea766"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:32.679Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"be21c1f0-fdbe-4099-b435-a6ee85d4b0f3"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:32.683Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"68a37a5d-bfc4-44e3-9387-bf785cb791a3"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:32.688Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"35b9ba43-3d61-497d-8015-2c9cc4385db5"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:32.697Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"76e0dd11-c3b8-46c6-ae5f-9cb2ec31ab95"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:32.701Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"458fd5b6-3b3e-443a-a15f-5ba519be0ee2"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:33.000Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"51ee29b1-de6e-47c7-bca9-d42c5b8f5dbc"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:33.005Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"da5ebb1f-a557-4b64-abc0-905bfdd0d5a2"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:33.010Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"2509770e-af85-4c8b-bcc2-e6550124546a"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:33.023Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"48ec90ad-fb08-4393-b18c-0f856dd53b01"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:33.028Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"e4d2716c-857b-4846-b9a9-53f4569bc3d0"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:33.033Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"ae82f1d8-b829-4abc-8528-ed9d22a0e94e"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:33.038Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/bc1b1e3b-eece-4f95-9ed6-515ab430e7ad/voice-metrics","statusCode":200,"requestId":"ccc11654-bdd4-46b2-b202-b2fa5bff2d77"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:33.044Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/bc1b1e3b-eece-4f95-9ed6-515ab430e7ad/voice-metrics","statusCode":404,"requestId":"0c0a863d-9d50-4168-8d13-6321264b7efb"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:33.052Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/bc1b1e3b-eece-4f95-9ed6-515ab430e7ad/handoff","statusCode":200,"requestId":"cc828d09-c10d-4661-982b-23fda2f8a66c"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics
+{"level":"info","time":"2026-07-27T15:58:33.057Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/bc1b1e3b-eece-4f95-9ed6-515ab430e7ad/voice-metrics","statusCode":409,"requestId":"6a81e2de-ccea-4681-aac3-41a332b2c436"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requires explicit idempotent guest confirmation for request drafts
+{"level":"info","time":"2026-07-27T15:58:33.358Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"72517026-9271-4617-a326-0098c24b2f7d"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requires explicit idempotent guest confirmation for request drafts
+{"level":"info","time":"2026-07-27T15:58:33.363Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"50d0dd06-9a6f-4ad7-be0b-db80f42f6d43"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requires explicit idempotent guest confirmation for request drafts
+{"level":"info","time":"2026-07-27T15:58:33.369Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"b775b7c4-8dbf-408b-a48d-0e8fcc102532"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requires explicit idempotent guest confirmation for request drafts
+{"level":"info","time":"2026-07-27T15:58:33.380Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"ab56b365-6987-40c8-98b0-f4f08cb9679b"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requires explicit idempotent guest confirmation for request drafts
+{"level":"info","time":"2026-07-27T15:58:33.386Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"bf0f7697-ca4f-4445-9e8d-4fd9e590349b"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requires explicit idempotent guest confirmation for request drafts
+{"level":"info","time":"2026-07-27T15:58:33.391Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"d976575a-795d-4791-97ad-f28b8654b9b3"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requires explicit idempotent guest confirmation for request drafts
+{"level":"info","time":"2026-07-27T15:58:33.397Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts","statusCode":200,"requestId":"7c3b59cc-5236-422e-9c62-756c2b21da3b"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requires explicit idempotent guest confirmation for request drafts
+{"level":"info","time":"2026-07-27T15:58:33.407Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts/c564e9a0-6ded-422a-a5d5-ce441123ca2b/confirm","statusCode":200,"requestId":"efffc635-3b30-4fe6-9ec6-14ff9d9e15e2"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requires explicit idempotent guest confirmation for request drafts
+{"level":"info","time":"2026-07-27T15:58:33.414Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts/c564e9a0-6ded-422a-a5d5-ce441123ca2b/confirm","statusCode":200,"requestId":"20c08e83-eda4-4b63-90b4-45264a2bea10"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > requires explicit idempotent guest confirmation for request drafts
+{"level":"info","time":"2026-07-27T15:58:33.422Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/conversations/3be828bd-ba25-495a-8822-a564a9e34041","statusCode":200,"requestId":"ee8852b0-74c3-4f0b-9cf1-331cd6b34150"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > rejects expired drafts without committing a request
+{"level":"info","time":"2026-07-27T15:58:33.728Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"060af7b8-af03-460b-b478-60076ffe2749"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > rejects expired drafts without committing a request
+{"level":"info","time":"2026-07-27T15:58:33.733Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"aa2f22fc-9a7f-4ad0-a35e-d91e2c515992"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > rejects expired drafts without committing a request
+{"level":"info","time":"2026-07-27T15:58:33.741Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"dcfc39fb-bae3-4f42-83ae-e1b29379b8e0"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > rejects expired drafts without committing a request
+{"level":"info","time":"2026-07-27T15:58:33.751Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"e10dc9c7-7067-4bc9-930e-fdcd7f8587c5"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > rejects expired drafts without committing a request
+{"level":"info","time":"2026-07-27T15:58:33.759Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"d2ef8a8b-d4fb-4b5b-b888-a0ddd9674f34"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > rejects expired drafts without committing a request
+{"level":"info","time":"2026-07-27T15:58:33.766Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"e4df9a6c-831e-4bcb-99b9-e76b85ca5a76"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > rejects expired drafts without committing a request
+{"level":"info","time":"2026-07-27T15:58:33.774Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts","statusCode":200,"requestId":"16b1bf02-0f98-46b4-8b4f-e520e85bd366"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > rejects expired drafts without committing a request
+{"level":"info","time":"2026-07-27T15:58:33.784Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts/be26dfa5-3ee2-4223-875a-51b99b70b56d/confirm","statusCode":410,"requestId":"2db4821a-23ab-4fec-b7f2-0777d704451c"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.086Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"a2d3f5ba-9ffc-4741-bc20-91d33ac7bf1d"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.091Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"6bafd389-17c2-4735-8051-028d3b6426b0"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.100Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"9d8afcd5-74c5-422d-8d83-04a648319288"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.111Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"23f24b44-ef39-4203-85b1-3584b908f94f"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.116Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"abccd520-dcc8-40d3-be53-4753404fd8e5"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.411Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"30f8c67e-2a0e-4029-92c3-94c92df3cfbc"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.416Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"2eb81933-e0ad-4649-8d62-a08da1b2b00f"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.421Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"c23ad47e-040a-449e-88f9-8802c6b2cbab"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.431Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"e0431cba-1b2b-43ba-8ddd-69552da306dc"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.437Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"c5c6d5c9-8ee9-47a0-bbfc-a4c9251294b9"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.443Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"1ee7a5af-239e-4f31-b79e-57ba6ba4ae7a"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.449Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts","statusCode":200,"requestId":"ab7b1305-302f-40ba-9ecb-e47c0effab01"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > denies unauthorized draft commits across guest sessions
+{"level":"info","time":"2026-07-27T15:58:34.454Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts/72103caa-d4e2-4fd4-884e-70c3477fcec0/confirm","statusCode":404,"requestId":"7fe48e6e-33ca-4759-b19b-6fca72f5d0fb"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > creates order drafts through AI tools and commits only after guest confirmation
+{"level":"info","time":"2026-07-27T15:58:34.754Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"60f3ece8-f61f-4cdb-b96f-c9107181cbd1"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > creates order drafts through AI tools and commits only after guest confirmation
+{"level":"info","time":"2026-07-27T15:58:34.759Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"460b0d96-74e5-4277-81c8-3d3aa9cfd5cb"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > creates order drafts through AI tools and commits only after guest confirmation
+{"level":"info","time":"2026-07-27T15:58:34.765Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"3182879c-8706-4d8d-a95e-e00bcb2b7f7f"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > creates order drafts through AI tools and commits only after guest confirmation
+{"level":"info","time":"2026-07-27T15:58:34.774Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"954260a5-0406-42a2-89a7-1aa4fa609157"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > creates order drafts through AI tools and commits only after guest confirmation
+{"level":"info","time":"2026-07-27T15:58:34.778Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"01ba3a84-84cf-4491-8633-05f3563e540e"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > creates order drafts through AI tools and commits only after guest confirmation
+{"level":"info","time":"2026-07-27T15:58:34.783Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"72d2a3a5-8736-490e-97c3-ebc9b70396d0"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > creates order drafts through AI tools and commits only after guest confirmation
+{"level":"info","time":"2026-07-27T15:58:34.792Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/3ca046b7-2d08-40fc-8215-e57dc42ec7c5/tool-results","statusCode":200,"requestId":"16c3fb5d-2a3f-4725-b25a-66f411c9b29a"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > creates order drafts through AI tools and commits only after guest confirmation
+{"level":"info","time":"2026-07-27T15:58:34.796Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations/3ca046b7-2d08-40fc-8215-e57dc42ec7c5/tool-results","statusCode":400,"requestId":"3b252aa7-e7c8-4d7c-bc4b-137135626b25"}
+
+stdout | src/conversations.integration.test.ts > guest conversations > creates order drafts through AI tools and commits only after guest confirmation
+{"level":"info","time":"2026-07-27T15:58:34.806Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/order-drafts/22508e88-f07b-4930-a06a-f9e6cf7a98ef/confirm","statusCode":200,"requestId":"85cc4724-b831-4461-acac-c39ee438f17e"}
+
+ ✓ src/conversations.integration.test.ts (14 tests) 6702ms
+   ✓ guest conversations > persists guest messages in stable conversation order and deduplicates retry ids  419ms
+   ✓ guest conversations > isolates conversations by guest session and tenant scope  988ms
+   ✓ guest conversations > enforces explicit transcript retention expiry  341ms
+   ✓ guest conversations > requests human handoff honestly, idempotently, and blocks further automation  364ms
+   ✓ guest conversations > executes scoped read-only AI tools and persists validated tool output  359ms
+   ✓ guest conversations > validates AI tool input and denies unscoped tool calls  655ms
+   ✓ guest conversations > fails closed when prompt injection asks a read-only tool to bypass confirmation  350ms
+   ✓ guest conversations > reads catalog tool output only from the scoped published portal  372ms
+   ✓ guest conversations > keeps voice request draft tools behind idempotent guest confirmation  355ms
+   ✓ guest conversations > accepts tenant-scoped voice metrics and denies cross-session metrics  673ms
+   ✓ guest conversations > requires explicit idempotent guest confirmation for request drafts  365ms
+   ✓ guest conversations > rejects expired drafts without committing a request  364ms
+   ✓ guest conversations > denies unauthorized draft commits across guest sessions  668ms
+   ✓ guest conversations > creates order drafts through AI tools and commits only after guest confirmation  353ms
+stdout | src/tenant.integration.test.ts > tenant isolation integration > prevents aurora owner from listing nomad properties
+{"level":"info","time":"2026-07-27T15:58:36.322Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"d88d24f1-c087-4235-856f-d76b2a72d91c"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > prevents aurora owner from listing nomad properties
+{"level":"info","time":"2026-07-27T15:58:36.629Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"ad211d68-466a-4135-b129-51592cc66751"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > prevents aurora owner from listing nomad properties
+{"level":"info","time":"2026-07-27T15:58:36.637Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=36e75439-8616-419a-ae18-06d706c1dff3","statusCode":403,"requestId":"e7ba4b6d-4795-4058-92af-1f53235210d2"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > scopes property manager to assigned properties only
+{"level":"info","time":"2026-07-27T15:58:36.938Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"3416403c-6d99-411e-b41d-d3bac58fc649"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > scopes property manager to assigned properties only
+{"level":"info","time":"2026-07-27T15:58:36.947Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"3c2418c1-f27a-4b71-9aea-37039137bca1"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > supports logout and session revocation
+{"level":"info","time":"2026-07-27T15:58:37.249Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"d6e6d406-966b-4c14-8d5b-ec5942713af3"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > supports logout and session revocation
+{"level":"info","time":"2026-07-27T15:58:37.253Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/me","statusCode":200,"requestId":"116c09cb-40dd-4b32-b7b3-c2bd373139cb"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > supports logout and session revocation
+{"level":"info","time":"2026-07-27T15:58:37.262Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/logout","statusCode":200,"requestId":"593d3814-a30c-4b8c-8436-a877d83ef3d1"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > supports logout and session revocation
+{"level":"info","time":"2026-07-27T15:58:37.264Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/me","statusCode":401,"requestId":"df447b69-44e7-4de6-ad13-d97e3a93674f"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > blocks IDOR property fetch across tenants
+{"level":"info","time":"2026-07-27T15:58:37.563Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"dcf44540-3b9b-4482-87f0-69652387c1b8"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > blocks IDOR property fetch across tenants
+{"level":"info","time":"2026-07-27T15:58:37.857Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"2215f454-26f5-499e-9787-f86364c388c8"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > blocks IDOR property fetch across tenants
+{"level":"info","time":"2026-07-27T15:58:37.862Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=36e75439-8616-419a-ae18-06d706c1dff3","statusCode":200,"requestId":"ae21ba3c-fed4-4914-aba3-c5c73ae571d9"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > blocks IDOR property fetch across tenants
+{"level":"info","time":"2026-07-27T15:58:37.868Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/e6ba1697-a48c-4e07-a99f-5486f05726b5","statusCode":403,"requestId":"b7117749-1b37-4698-830b-f235a5002db4"}
+
+ ✓ src/tenant.integration.test.ts (5 tests) 1963ms
+   ✓ tenant isolation integration > prevents aurora owner from listing nomad properties  667ms
+   ✓ tenant isolation integration > scopes property manager to assigned properties only  311ms
+   ✓ tenant isolation integration > supports logout and session revocation  316ms
+   ✓ tenant isolation integration > blocks IDOR property fetch across tenants  599ms
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > rejects unauthorized and invalid content-type/size
+{"level":"info","time":"2026-07-27T15:58:38.937Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/uploads/presign","statusCode":401,"requestId":"e0ce41fa-9fa6-4eba-8b1a-54ca4905dbce"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > rejects unauthorized and invalid content-type/size
+{"level":"info","time":"2026-07-27T15:58:39.267Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"9ffa8c35-ec5e-4da6-92ac-3d99917f392f"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > rejects unauthorized and invalid content-type/size
+{"level":"info","time":"2026-07-27T15:58:39.276Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"2931fee2-7e8b-444a-a2aa-11d524818a2f"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > rejects unauthorized and invalid content-type/size
+{"level":"info","time":"2026-07-27T15:58:39.281Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/uploads/presign","statusCode":400,"requestId":"e638b38b-ba4e-498a-9a70-a1396565625e"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > rejects unauthorized and invalid content-type/size
+{"level":"info","time":"2026-07-27T15:58:39.286Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/uploads/presign","statusCode":400,"requestId":"b3abaffa-3904-4bc8-851d-db66fe5b01d3"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > rejects unauthorized and invalid content-type/size
+{"level":"info","time":"2026-07-27T15:58:39.583Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"d100208c-8aaf-4fc8-a86a-e871f5952b70"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > rejects unauthorized and invalid content-type/size
+{"level":"info","time":"2026-07-27T15:58:39.589Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/uploads/presign","statusCode":403,"requestId":"827ebe5e-9cde-409a-9919-dec93b9aed69"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes
+{"level":"info","time":"2026-07-27T15:58:39.903Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"aac7ef08-cb78-40e0-8a29-b058c2701c38"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes
+{"level":"info","time":"2026-07-27T15:58:39.909Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"53e0069e-e605-4c2c-b673-7440510f8391"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes
+{"level":"info","time":"2026-07-27T15:58:39.956Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/uploads/presign","statusCode":200,"requestId":"4ffef108-23f5-45b6-b57c-ca38c0a5ece5"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes
+{"level":"info","time":"2026-07-27T15:58:39.987Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/uploads/complete","statusCode":200,"requestId":"65c144c0-0bca-4a55-bdf9-a9a106d48e7b"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes
+{"level":"info","time":"2026-07-27T15:58:39.992Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/assets/ac03f77f-4ba6-489c-ba62-f9e7deb59ba8","statusCode":200,"requestId":"200b4b36-0fba-4afb-a3d3-36dd105e330f"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes
+{"level":"info","time":"2026-07-27T15:58:40.297Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"56836313-54d1-4db7-a2ad-a4d8710ae264"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes
+{"level":"info","time":"2026-07-27T15:58:40.612Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"5f019cba-7bd9-44e8-9142-801e5f991cc5"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes
+{"level":"info","time":"2026-07-27T15:58:40.618Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/assets/ac03f77f-4ba6-489c-ba62-f9e7deb59ba8","statusCode":403,"requestId":"ebc59b89-ec2c-431d-9b8e-9fd12e42ab29"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes
+{"level":"info","time":"2026-07-27T15:58:40.631Z","service":"api","msg":"request.completed","method":"DELETE","url":"/v1/assets/ac03f77f-4ba6-489c-ba62-f9e7deb59ba8","statusCode":200,"requestId":"db98a66e-a361-430f-b266-e96a5728f32c"}
+
+stdout | src/uploads.integration.test.ts > uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes
+{"level":"info","time":"2026-07-27T15:58:40.638Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/assets/ac03f77f-4ba6-489c-ba62-f9e7deb59ba8","statusCode":404,"requestId":"094317e8-3938-4ddf-a6cb-25a2c9d732e5"}
+
+ ✓ src/uploads.integration.test.ts (2 tests) 1787ms
+   ✓ uploads and assets (R2 REAL_STAGING) > rejects unauthorized and invalid content-type/size  665ms
+   ✓ uploads and assets (R2 REAL_STAGING) > presigns, uploads to R2, completes, reads, and deletes  1048ms
+stdout | src/portal.integration.test.ts > portal draft and templates > creates draft from template and autosaves with optimistic versioning
+{"level":"info","time":"2026-07-27T15:58:42.239Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"d99ecef8-7aee-42bc-93b3-c690e238e9c0"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > creates draft from template and autosaves with optimistic versioning
+{"level":"info","time":"2026-07-27T15:58:42.250Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"f693b253-800a-4867-ab6e-c541be126e57"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > creates draft from template and autosaves with optimistic versioning
+{"level":"info","time":"2026-07-27T15:58:42.264Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/draft","statusCode":200,"requestId":"74e2a75f-d0b4-4f44-9ef0-7926dc7340de"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > creates draft from template and autosaves with optimistic versioning
+{"level":"info","time":"2026-07-27T15:58:42.277Z","service":"api","msg":"request.completed","method":"PUT","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/draft","statusCode":200,"requestId":"a5009438-5839-45d7-96f2-5ef94711348e"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > creates draft from template and autosaves with optimistic versioning
+{"level":"info","time":"2026-07-27T15:58:42.287Z","service":"api","msg":"request.completed","method":"PUT","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/draft","statusCode":409,"requestId":"8c7f4ba0-852d-4ef8-a1d4-eb267e50884e"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > creates draft from template and autosaves with optimistic versioning
+{"level":"info","time":"2026-07-27T15:58:42.293Z","service":"api","msg":"request.completed","method":"PUT","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/draft","statusCode":400,"requestId":"f0a6a664-1680-4b8e-bee8-e431f404e88a"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > creates draft from template and autosaves with optimistic versioning
+{"level":"info","time":"2026-07-27T15:58:42.299Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/validate","statusCode":200,"requestId":"bf69b27a-ae5a-4832-8740-c6d49c3ad65d"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > enforces tenant isolation and portal.update permission
+{"level":"info","time":"2026-07-27T15:58:42.614Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"c1c36587-57fe-4aab-99fc-449a6af12a78"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > enforces tenant isolation and portal.update permission
+{"level":"info","time":"2026-07-27T15:58:42.623Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"6d6a2933-013d-4867-9f62-48b10125524f"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > enforces tenant isolation and portal.update permission
+{"level":"info","time":"2026-07-27T15:58:42.931Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"f0d2c6ca-e17b-4df8-a2c9-47b23bf46c1c"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > enforces tenant isolation and portal.update permission
+{"level":"info","time":"2026-07-27T15:58:42.941Z","service":"api","msg":"request.completed","method":"PUT","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/draft","statusCode":403,"requestId":"3ffb304a-1bc0-4dd1-bfe8-6dbea9403bbc"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > enforces tenant isolation and portal.update permission
+{"level":"info","time":"2026-07-27T15:58:43.259Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"f342272b-2c84-4780-ab2a-76104aaa1445"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > enforces tenant isolation and portal.update permission
+{"level":"info","time":"2026-07-27T15:58:43.266Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/draft","statusCode":403,"requestId":"565ac21b-9a70-4917-9dd7-0d3dba11a394"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > enforces tenant isolation and portal.update permission
+{"level":"info","time":"2026-07-27T15:58:43.275Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/portal/templates","statusCode":200,"requestId":"b2453198-677b-4c2b-99db-a2db2eee8c72"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > previews draft by locale/device and blocks cross-property locations
+{"level":"info","time":"2026-07-27T15:58:43.578Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"62fc79cb-9d27-4ce3-93c1-190a24723b34"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > previews draft by locale/device and blocks cross-property locations
+{"level":"info","time":"2026-07-27T15:58:43.584Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"c55d37b6-c684-4b7b-af88-b0f68a26ae24"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > previews draft by locale/device and blocks cross-property locations
+{"level":"info","time":"2026-07-27T15:58:43.590Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"6615930e-6e48-4827-831f-a4e1f2826929"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > previews draft by locale/device and blocks cross-property locations
+{"level":"info","time":"2026-07-27T15:58:43.598Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/preview?locale=vi&device=phone&locationId=5ac466f3-dcd2-48e4-89a4-0db87ae41c92","statusCode":200,"requestId":"dbeb4de9-1018-44c5-9b89-f4c843652850"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > previews draft by locale/device and blocks cross-property locations
+{"level":"info","time":"2026-07-27T15:58:43.603Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/preview?locationId=93e43f8e-06fa-4745-88dd-367a6af8fc96","statusCode":403,"requestId":"9275bb83-29c5-4e97-97cf-8a2925f951f0"}
+
+stdout | src/portal.integration.test.ts > portal draft and templates > previews draft by locale/device and blocks cross-property locations
+{"level":"info","time":"2026-07-27T15:58:43.612Z","service":"api","msg":"request.completed","method":"PUT","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/navigation","statusCode":200,"requestId":"48f23ea2-97a3-48c2-a6c4-0210e36fac11"}
+
+ ✓ src/portal.integration.test.ts (3 tests) 1805ms
+   ✓ portal draft and templates > creates draft from template and autosaves with optimistic versioning  420ms
+   ✓ portal draft and templates > enforces tenant isolation and portal.update permission  976ms
+   ✓ portal draft and templates > previews draft by locale/device and blocks cross-property locations  337ms
+stdout | src/branding.integration.test.ts > property settings and branding > allows owner to update property settings and branding
+{"level":"info","time":"2026-07-27T15:58:45.065Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"7f99af96-d18b-4285-8dd5-4ff243a17341"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > allows owner to update property settings and branding
+{"level":"info","time":"2026-07-27T15:58:45.075Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"4778824c-38d9-47ca-95bd-ab15a2ac1327"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > allows owner to update property settings and branding
+{"level":"info","time":"2026-07-27T15:58:45.085Z","service":"api","msg":"request.completed","method":"PATCH","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93","statusCode":200,"requestId":"c4d1d02b-e1a4-465a-8c95-5a05d62e005d"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > allows owner to update property settings and branding
+{"level":"info","time":"2026-07-27T15:58:45.097Z","service":"api","msg":"request.completed","method":"PUT","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/branding","statusCode":200,"requestId":"d8f4c686-e6ec-44da-908f-880c78d29892"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > allows owner to update property settings and branding
+{"level":"info","time":"2026-07-27T15:58:45.105Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/branding","statusCode":200,"requestId":"06c5fd64-8a3c-447c-8b88-eba4c9b3a9a3"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > rejects invalid branding and unauthorized content manager mutation
+{"level":"info","time":"2026-07-27T15:58:45.435Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"f2f0333a-bc37-42fb-80ed-e552aa6ebc8b"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > rejects invalid branding and unauthorized content manager mutation
+{"level":"info","time":"2026-07-27T15:58:45.442Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"3b71549e-bc71-46a5-92be-6e2d51b128ad"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > rejects invalid branding and unauthorized content manager mutation
+{"level":"info","time":"2026-07-27T15:58:45.447Z","service":"api","msg":"request.completed","method":"PUT","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/branding","statusCode":400,"requestId":"016b2faf-9b43-4ccf-a727-55434537a4a5"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > rejects invalid branding and unauthorized content manager mutation
+{"level":"info","time":"2026-07-27T15:58:45.746Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"87297e39-e3e3-46a9-87f1-4aab828b85c7"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > rejects invalid branding and unauthorized content manager mutation
+{"level":"info","time":"2026-07-27T15:58:45.754Z","service":"api","msg":"request.completed","method":"PATCH","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93","statusCode":403,"requestId":"63fce53f-d04a-4832-916f-92fe6e209833"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > isolates branding reads across organizations
+{"level":"info","time":"2026-07-27T15:58:46.069Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"af7701fc-03d4-4485-831e-1e6ee5d87508"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > isolates branding reads across organizations
+{"level":"info","time":"2026-07-27T15:58:46.365Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"ebe7119a-53db-45e5-97ba-e1c81148fef4"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > isolates branding reads across organizations
+{"level":"info","time":"2026-07-27T15:58:46.372Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"2a152df3-9268-464d-9056-758762ae5d9e"}
+
+stdout | src/branding.integration.test.ts > property settings and branding > isolates branding reads across organizations
+{"level":"info","time":"2026-07-27T15:58:46.378Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/branding","statusCode":403,"requestId":"89c0da63-4859-4453-8497-21233f240c00"}
+
+ ✓ src/branding.integration.test.ts (3 tests) 1754ms
+   ✓ property settings and branding > allows owner to update property settings and branding  415ms
+   ✓ property settings and branding > rejects invalid branding and unauthorized content manager mutation  648ms
+   ✓ property settings and branding > isolates branding reads across organizations  624ms
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T15:58:47.487Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":401,"requestId":"3d728fd3-b600-47fd-8c50-51f90802b853"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T15:58:47.820Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"bff7d685-a8d2-4196-bd50-d85f77f608aa"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T15:58:47.833Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"dc44b645-f51c-4f4d-ba0d-1092ceffa71f"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T15:58:47.842Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"2c3d0bcc-372b-4439-bd6c-1119c7b60ff5"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T15:58:47.856Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"da61784d-a871-4136-9734-6c00930d6bdd"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T15:58:47.862Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"56c512fc-d282-4e15-9081-a88e4774ad3f"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T15:58:47.869Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"470af423-7b76-4e57-b7d1-038ecb97fe8c"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T15:58:47.874Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":503,"requestId":"85984ac8-f4a2-4c3d-adb8-1cbd5f1995a6"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T15:58:48.175Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"11936157-cb16-4765-a936-de4cb6c12fd7"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T15:58:48.181Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"23385854-68bc-4aaf-b45b-b4ad4ce0e3a2"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T15:58:48.188Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"5951b1bf-36c4-4a3d-a1e9-15f79881edcc"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T15:58:48.199Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"ff367b57-56fd-45c7-9323-048d9776a4ee"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T15:58:48.204Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"e28c6317-82a8-4266-99a9-95dc53bbc603"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T15:58:48.209Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"e0553a18-e537-4305-9ba4-4a1c942bff40"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T15:58:48.216Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"46c1f7c6-1347-4523-8043-39ef274b8d27"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.518Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"18690a56-39ff-4539-ad0b-d298b15e1484"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.523Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"b0d10e67-9788-4fe5-bc7d-3997005fc4be"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.529Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"26834d0a-4098-4448-9543-12bb9e4fe410"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.540Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"35ae00d0-af39-4af5-8428-6a30a1c16791"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.546Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"292b1541-09b1-4fe0-9eda-aa368dccd0f3"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.839Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"70ca2495-3759-40d4-b040-42b820a3fc49"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.847Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"702abab6-732f-452d-8a9e-fe789bd8a957"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.853Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"868983c3-9c04-4f6e-9612-4d5f16fd027a"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.862Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"1afdd532-7ea9-48ce-8bf9-7c3311e3069f"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.867Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"ebe5c39b-57ae-4416-97c5-d94420e19fc9"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.872Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"ec88db15-2cc5-418c-ac43-c57435937f85"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.877Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":404,"requestId":"498643b0-3755-4a31-aafe-f54592d7791e"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.881Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"761c2cd7-0424-4b11-8ef7-5831eb61f80e"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.886Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"ac778895-7b70-4b65-940b-4938d6f1b82d"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.891Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"055b0d3b-0ebe-4374-9dbb-d339454b9183"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.896Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"f041ad94-0f57-4e4d-bbed-68aca5c4b9d2"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.900Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"b6f0afbf-928a-421e-9834-c9c700bf5a65"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.905Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"490cdfe9-84cf-425d-bc43-15d28d6e62f6"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T15:58:48.907Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":429,"requestId":"df7d55c8-0b5d-494f-87fd-7069cdd6b0f0"}
+
+ ✓ src/voice-live.integration.test.ts (3 tests) 1498ms
+   ✓ Gemini Live token endpoint > requires guest authorization and a configured provider credential  400ms
+   ✓ Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key  343ms
+   ✓ Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation  690ms
+stdout | src/guest-sessions.integration.test.ts > guest sessions > creates scoped guest sessions with minimal public context
+{"level":"info","time":"2026-07-27T15:58:50.311Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"6ddf2ab3-0f33-44af-b7a2-04360fd4e847"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > creates scoped guest sessions with minimal public context
+{"level":"info","time":"2026-07-27T15:58:50.321Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"5b4c03ec-cfdf-4f5e-a61a-dae177ffbedd"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > creates scoped guest sessions with minimal public context
+{"level":"info","time":"2026-07-27T15:58:50.329Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"0c71ef4e-612f-49d0-9846-436bb95250d2"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > creates scoped guest sessions with minimal public context
+{"level":"info","time":"2026-07-27T15:58:50.342Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"d61564d5-735c-4d8e-aa3d-1b52d14bd85c"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > creates scoped guest sessions with minimal public context
+{"level":"info","time":"2026-07-27T15:58:50.344Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":400,"requestId":"200a51de-2e28-459a-a065-fc8708228a04"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > creates scoped guest sessions with minimal public context
+{"level":"info","time":"2026-07-27T15:58:50.348Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":404,"requestId":"34dbdae5-7a68-474e-af55-4fe0e5bfc69e"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > creates scoped guest sessions with minimal public context
+{"level":"info","time":"2026-07-27T15:58:50.355Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"e5f0697c-870a-4f27-a3d3-5b1087af5be7"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > creates scoped guest sessions with minimal public context
+{"level":"info","time":"2026-07-27T15:58:50.364Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/session","statusCode":200,"requestId":"967cc5c6-1e57-4f60-885c-6d3a9d62cb0c"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > creates scoped guest sessions with minimal public context
+{"level":"info","time":"2026-07-27T15:58:50.366Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/session","statusCode":401,"requestId":"1d16e238-5f8f-4bd3-b12e-3cbc042f899e"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > creates scoped guest sessions with minimal public context
+{"level":"info","time":"2026-07-27T15:58:50.369Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/session","statusCode":401,"requestId":"25913a66-e6ba-4a17-b2b5-2ac1764a53fa"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:50.666Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"99a3de7a-03ab-4c24-ad48-c88bdc8eb97d"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:50.960Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"7bfe9d9f-24c1-497e-ae4c-764564acafef"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:50.966Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"9a11b0cc-57e6-4693-b79d-ce036dd847a0"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:50.973Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"7933bc63-b859-4283-85ab-455423530976"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:50.984Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"47ff5edd-00e8-4283-87dd-894161b2dbda"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:50.989Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=36e75439-8616-419a-ae18-06d706c1dff3","statusCode":200,"requestId":"e0cd8190-0da6-4b12-82cf-8f46c7440458"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:50.994Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/e6ba1697-a48c-4e07-a99f-5486f05726b5/locations","statusCode":200,"requestId":"0c2223ec-ea8a-43db-8ea0-fb84b00b41c0"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:51.004Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/e6ba1697-a48c-4e07-a99f-5486f05726b5/qr-codes","statusCode":200,"requestId":"fc9912b4-c30e-449a-a25a-e9fcc85d3a0c"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:51.009Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"e52618dd-8ee5-4740-bd53-2248252f82fa"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:51.014Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"d43b394b-37c0-41fb-bf05-31b68436da50"}
+
+stdout | src/guest-sessions.integration.test.ts > guest sessions > isolates guest sessions across properties/orgs
+{"level":"info","time":"2026-07-27T15:58:51.020Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/session","statusCode":200,"requestId":"22582c1a-0708-49a4-95d6-b45596b9046c"}
+
+ ✓ src/guest-sessions.integration.test.ts (2 tests) 1118ms
+   ✓ guest sessions > creates scoped guest sessions with minimal public context  402ms
+   ✓ guest sessions > isolates guest sessions across properties/orgs  650ms
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.396Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"2cd8e3d8-cdf8-46e4-a3df-3e20a8f92d2d"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.406Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"5dbea8a2-4ecf-49dd-96df-a4bcbaa8dd9b"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.414Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"46eae2a7-d981-4c5b-af9b-8990892ac406"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.428Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"876b4abe-9429-4bc9-b47e-6dc861c3042f"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.433Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":200,"requestId":"70a0ba93-87f7-4aeb-a505-f6998429ed65"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.442Z","service":"api","msg":"request.completed","method":"PATCH","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes/b396366a-9e55-423c-b690-a4450e4da677","statusCode":200,"requestId":"f3a1910b-e5e5-42a0-9bca-1b44eadffa50"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.446Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":200,"requestId":"328a9a67-cf2c-4e14-8e28-371b7356c586"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.461Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes/b396366a-9e55-423c-b690-a4450e4da677/download?format=svg","statusCode":200,"requestId":"e67c187e-53ee-4b12-bbd2-1bcbbb170537"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.471Z","service":"api","msg":"request.completed","method":"PATCH","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes/b396366a-9e55-423c-b690-a4450e4da677","statusCode":200,"requestId":"01d84d68-3f5f-4ae0-888b-7ce9a1236539"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.474Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"9a67851d-7051-43a0-a7e1-f8345992b9fd"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.477Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"f805d34a-37a1-4f96-84f5-539ed5942b1f"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.768Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"62c8a3a1-fcaf-4284-ab4c-a0f0d3212c3a"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:52.773Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":403,"requestId":"02f7a94e-5cff-4098-a6e3-7fa2a05505bf"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:53.066Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"3c54fcb2-474e-4789-beb9-6e535b33b8b0"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions
+{"level":"info","time":"2026-07-27T15:58:53.071Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":403,"requestId":"f00deaaa-ee8a-450b-b1e5-06ccc8e40e69"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.074Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"3a4ce285-445c-49d7-bd5b-89762d7b67fa"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.076Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"f443b4dd-6921-4c7f-a022-ac3fda99372e"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.078Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"49e630a7-b205-4161-86aa-264ca56106e6"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.079Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"88db07a9-3555-4ba4-a231-8568f4f663ea"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.082Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"a347c7ea-3935-4e6d-9675-36b9dce8d420"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.084Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"9c8a749c-2a6a-4339-9cac-de0807f76838"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.085Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"685f586d-66bc-4424-a909-c4b6c134dde2"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.087Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"b08ec067-4d02-4e06-aab8-bac13fee8ff9"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.089Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"0158abe3-f4db-4fc8-98bf-38a9a4803733"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.091Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"8c2cefd8-a3f5-40b5-9d99-7c77e1ac7462"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.093Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"55b9271e-c38f-4e7e-b2c8-bc60c986c997"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.096Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"146a8389-1421-4339-8fda-9cda05b11ec2"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.097Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"a694667f-c7e9-4c41-b0f8-75a9a2cfa61a"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.102Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"62e7d5ca-bf97-4ecc-8ff2-683439491a92"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.104Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"d49c8bc2-dbc1-4a6e-be2b-e82e04d4ba2f"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.105Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"e0f04ce8-e267-4e33-a2f3-340fbb535d4e"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.107Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"47964eb9-623e-4219-8dab-6d2c7727af48"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.109Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"baafc706-30e5-4a4d-a1e9-4bc7ee78d78b"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.111Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"1f5d3b7e-233e-4586-b9c9-f96630c0945c"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.113Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"7ad59d11-64b5-48af-9366-999d1693cb94"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.114Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"94c2a23c-0e42-4018-b24d-d57c34b70d58"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.116Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"da411675-bbf2-4d2e-b9c1-7ccc71436d13"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.118Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"252296a4-ea1f-43e3-8e3c-fc927748f2c3"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.120Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"4318e179-4b51-40dc-82dd-86f31496789d"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.122Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"2f9203ad-944a-4925-b0d4-2c4e928c0801"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.123Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"4fdf401e-5cd3-46df-812a-7230ac04d707"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.125Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"383ff61c-f29f-42bb-b189-5d4e9e89a159"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.126Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"613f538b-eccc-4818-8f99-d2d5dfb36ec1"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.128Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"f94e833a-6df7-492a-ac93-02c771b50e8d"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.129Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":404,"requestId":"762d5abe-aa51-45ee-bd76-a6149b282538"}
+
+stdout | src/qr.integration.test.ts > qr token lifecycle > rate limits QR resolution
+{"level":"info","time":"2026-07-27T15:58:53.130Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/resolve-qr","statusCode":429,"requestId":"7d0a9a0b-d529-487c-ba19-a8b026c66f20"}
+
+ ✓ src/qr.integration.test.ts (2 tests) 1140ms
+   ✓ qr token lifecycle > creates opaque tokens, resolves, disables, downloads, and enforces permissions  1017ms
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:54.544Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"e2cdbd65-7351-4669-a914-d5d912ec76ff"}
+
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:54.556Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"ac1886d9-864a-4e67-b6d6-1b5072996d8c"}
+
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:54.598Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/uploads/presign","statusCode":200,"requestId":"258c59f8-6a10-43a6-9337-148cd5921f09"}
+
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:54.627Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/uploads/complete","statusCode":200,"requestId":"8181791a-cc3a-4d9c-aa37-d67dd7b7ce67"}
+
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:54.638Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/knowledge-sources","statusCode":200,"requestId":"c44cb782-f45a-426e-8c9b-94c6f0bf725e"}
+
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:54.645Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/knowledge-sources/16b1c980-ff6c-4813-8faf-ef8906d5b3bd","statusCode":200,"requestId":"bca79900-115f-42c6-a2a5-c30420ad13ba"}
+
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:54.649Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/uploads/presign","statusCode":400,"requestId":"0b31bcb1-065c-4ff1-a46d-8940c4e925f7"}
+
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:54.978Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"8375cc2f-3c77-47a1-8674-359d736cfa19"}
+
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:54.985Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/knowledge-sources","statusCode":403,"requestId":"a815d2c3-9392-4129-9a4c-4388dae34797"}
+
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:55.288Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"45deba37-a9c9-40c7-9c5b-deb2172f480a"}
+
+stdout | src/knowledge.integration.test.ts > knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access
+{"level":"info","time":"2026-07-27T15:58:55.294Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/knowledge-sources","statusCode":403,"requestId":"72db7f3f-4b99-447e-929a-e6e7dbb4d4ac"}
+
+ ✓ src/knowledge.integration.test.ts (1 test) 1160ms
+   ✓ knowledge source upload lifecycle > uploads a real text file, tracks status, and denies cross-tenant access  1091ms
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T15:58:56.666Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"61ba9c7f-89b8-4f4e-a962-33e021ec234c"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T15:58:56.676Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"0e487a98-5880-4d7e-88d2-623b2f06ffd0"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T15:58:56.685Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/draft","statusCode":200,"requestId":"ba11e394-01c7-4a1b-8162-5db992f73043"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T15:58:56.700Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/publish","statusCode":200,"requestId":"3350d6b3-058e-43a1-a7c9-ab149eceaaf3"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T15:58:56.708Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/publish","statusCode":200,"requestId":"0e8e3163-fd55-45a5-a9e6-98f565188015"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T15:58:56.717Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/publish","statusCode":409,"requestId":"5c7bb58f-5a76-4f50-a485-37bdf42ed346"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T15:58:56.733Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/versions/8047fac0-25e9-4b60-a661-21040a38722c/restore","statusCode":200,"requestId":"f7df1e4d-3a20-453d-a8c0-a191ef2575e1"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T15:58:56.742Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/versions","statusCode":200,"requestId":"ec2ad360-9113-4d59-bc44-db5c9770b07a"}
+
+ ✓ src/portal-publish.integration.test.ts (1 test) 480ms
+   ✓ portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version  418ms
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval
+{"level":"info","time":"2026-07-27T15:58:58.143Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"6fb30f94-c176-4e30-8e82-1f01f9e4798b"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval
+{"level":"info","time":"2026-07-27T15:58:58.154Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"c913bbcc-b66c-44db-bd00-b4705f5675b0"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval > returns citations mapped to source and stores benchmark recall
+{"level":"info","time":"2026-07-27T15:58:58.178Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/knowledge/search","statusCode":200,"requestId":"8ac3a953-54b9-4b41-9be8-33f0dd7d40fb"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval > supports cross-language query against Vietnamese source text
+{"level":"info","time":"2026-07-27T15:58:58.190Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/knowledge/search","statusCode":200,"requestId":"936fc076-23cf-4c12-9feb-42f446fc4b5f"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval > returns noResult for unknown queries and blocks injection-only payloads
+{"level":"info","time":"2026-07-27T15:58:58.206Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/445f1ef1-d7b1-4d28-8cbc-ee3714f3f3d0/knowledge/search","statusCode":200,"requestId":"ca2b3dc7-e3d8-4060-9c73-9156fa2314a3"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval > returns noResult for unknown queries and blocks injection-only payloads
+{"level":"info","time":"2026-07-27T15:58:58.215Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/knowledge/search","statusCode":200,"requestId":"24955fd1-b957-4390-9153-feaba3a28495"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval > denies cross-tenant leakage via property scope
+{"level":"info","time":"2026-07-27T15:58:58.226Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/c2fe5517-f891-4fcc-a8a8-162016a6f041/knowledge/search","statusCode":403,"requestId":"cb630a47-40ff-4c83-91e3-70cc61e79b37"}
+
+ ✓ src/knowledge-search.integration.test.ts (4 tests) 495ms
+stdout | src/guest-portal.integration.test.ts > guest portal homepage API > returns published branding with asset fallbacks
+{"level":"info","time":"2026-07-27T15:58:59.620Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"7f8d55cc-002a-4e03-b6c5-810578fcf756"}
+
+stdout | src/guest-portal.integration.test.ts > guest portal homepage API > returns published branding with asset fallbacks
+{"level":"info","time":"2026-07-27T15:58:59.633Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"8f4d758a-d2f7-43d9-8dad-7521a84072d1"}
+
+stdout | src/guest-portal.integration.test.ts > guest portal homepage API > returns published branding with asset fallbacks
+{"level":"info","time":"2026-07-27T15:58:59.644Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/draft","statusCode":200,"requestId":"b74959f3-452e-4a13-ac22-ef3ca92c5492"}
+
+stdout | src/guest-portal.integration.test.ts > guest portal homepage API > returns published branding with asset fallbacks
+{"level":"info","time":"2026-07-27T15:58:59.658Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/publish","statusCode":200,"requestId":"b8cda14a-ec9a-400b-bc2d-39ce61c13a31"}
+
+stdout | src/guest-portal.integration.test.ts > guest portal homepage API > returns published branding with asset fallbacks
+{"level":"info","time":"2026-07-27T15:58:59.667Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/locations","statusCode":200,"requestId":"5b677eb3-a098-4aed-8fdb-8753f63274f2"}
+
+stdout | src/guest-portal.integration.test.ts > guest portal homepage API > returns published branding with asset fallbacks
+{"level":"info","time":"2026-07-27T15:58:59.679Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/qr-codes","statusCode":200,"requestId":"1913da2e-103f-45e0-977d-15486bb1944d"}
+
+stdout | src/guest-portal.integration.test.ts > guest portal homepage API > returns published branding with asset fallbacks
+{"level":"info","time":"2026-07-27T15:58:59.685Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"6d64a77a-c61a-49e4-8eb0-4734c1b5e16a"}
+
+stdout | src/guest-portal.integration.test.ts > guest portal homepage API > returns published branding with asset fallbacks
+{"level":"info","time":"2026-07-27T15:58:59.695Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/portal","statusCode":200,"requestId":"c6127729-dd14-46a8-8951-eb109e93401d"}
+
+ ✓ src/guest-portal.integration.test.ts (1 test) 486ms
+   ✓ guest portal homepage API > returns published branding with asset fallbacks  421ms
+
+ Test Files  12 passed (12)
+      Tests  41 passed (41)
+   Start at  15:58:26
+   Duration  33.09s (transform 459ms, setup 0ms, collect 10.39s, tests 20.39s, environment 2ms, prepare 684ms)
+
+## pnpm --filter @guestportal/api build
+$ tsc -p tsconfig.json
+## pnpm --filter @guestportal/guest-web lint
+$ eslint .
+## pnpm --filter @guestportal/guest-web typecheck
+$ tsc -p tsconfig.json --noEmit
+## pnpm --filter @guestportal/guest-web test
+$ vitest run
+
+ RUN  v3.2.7 /opt/apps/guestportal/apps/guest-web
+
+ ✓ src/lib/guest-portal.test.ts (2 tests) 3ms
+ ✓ src/foundation.test.ts (1 test) 2ms
+ ✓ src/lib/voice-transport.test.ts (5 tests) 272ms
+
+ Test Files  3 passed (3)
+      Tests  8 passed (8)
+   Start at  15:59:08
+   Duration  606ms (transform 329ms, setup 0ms, collect 482ms, tests 277ms, environment 0ms, prepare 249ms)
+
+## pnpm --filter @guestportal/guest-web build
+$ next build
+   ▲ Next.js 15.5.21
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 1531ms
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      123 B         102 kB
+├ ○ /_not-found                            987 B         103 kB
+├ ƒ /g/[qrToken]                           125 B         118 kB
+├ ƒ /g/[qrToken]/chat                      125 B         118 kB
+├ ƒ /g/[qrToken]/explore                   125 B         118 kB
+├ ƒ /g/[qrToken]/guide                     125 B         118 kB
+└ ƒ /g/[qrToken]/status                    124 B         118 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+  ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+  └ other shared chunks (total)          1.88 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+bash: line 31: rg: command not found
+Client secret scan: PASS
+   ▲ Next.js 15.5.21
+   - Local:        http://localhost:3128
+   - Network:      http://187.127.210.176:3128
+
+ ✓ Starting...
+ ✓ Ready in 1532ms
+ ○ Compiling /g/[qrToken]/chat ...
+ ✓ Compiled /g/[qrToken]/chat in 1094ms (659 modules)
+ GET /g/voice-token/chat 200 in 1966ms
+
+Running 3 tests using 1 worker
+
+ GET /g/voice-token/chat 200 in 74ms
+ ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+  ✓  1 [chromium] › e2e/guest-voice-reconnect.spec.ts:41:1 › voice transcript interruption and reconnect remain visible on mobile (2.5s)
+ GET /g/voice-token/chat 200 in 69ms
+  ✓  2 [chromium] › e2e/guest-voice-tool.spec.ts:49:1 › voice tool call creates a draft and requires guest confirmation (1.6s)
+ GET /g/voice-token/chat 200 in 69ms
+  ✓  3 [chromium] › e2e/guest-voice.spec.ts:49:1 › guest voice transport starts on mobile without relaying audio through backend (1.4s)
+
+  3 passed (6.3s)
+VPS Phase 07 gate validation: PASS
+ M evidence/phase-05/05.5/retrieval-benchmark.json
+[?25h
