@@ -1,10 +1,18 @@
 import { z } from 'zod';
 import { knowledgeSearchResponseSchema } from './knowledge-search.js';
+import {
+  guestOrderDraftCreateResponseSchema,
+  guestRequestDraftCreateResponseSchema,
+  orderDraftPayloadSchema,
+  requestDraftPayloadSchema,
+} from './request-order.js';
 
 export const aiToolNameSchema = z.enum([
   'knowledge.search',
   'catalog.read',
   'service.read',
+  'request.draft',
+  'order.draft',
 ]);
 
 export const aiToolScopeSchema = z.object({
@@ -59,16 +67,25 @@ export const serviceReadToolOutputSchema = z.object({
   noResult: z.boolean(),
 });
 
+export const requestDraftToolInputSchema = requestDraftPayloadSchema;
+export const requestDraftToolOutputSchema = guestRequestDraftCreateResponseSchema;
+export const orderDraftToolInputSchema = orderDraftPayloadSchema;
+export const orderDraftToolOutputSchema = guestOrderDraftCreateResponseSchema;
+
 export const aiToolInputSchemas = {
   'knowledge.search': knowledgeSearchToolInputSchema,
   'catalog.read': catalogReadToolInputSchema,
   'service.read': serviceReadToolInputSchema,
+  'request.draft': requestDraftToolInputSchema,
+  'order.draft': orderDraftToolInputSchema,
 } as const;
 
 export const aiToolOutputSchemas = {
   'knowledge.search': knowledgeSearchResponseSchema,
   'catalog.read': catalogReadToolOutputSchema,
   'service.read': serviceReadToolOutputSchema,
+  'request.draft': requestDraftToolOutputSchema,
+  'order.draft': orderDraftToolOutputSchema,
 } as const;
 
 export const guestAiToolExecuteRequestSchema = z.object({
@@ -89,5 +106,9 @@ export type CatalogToolItem = z.infer<typeof catalogToolItemSchema>;
 export type CatalogReadToolOutput = z.infer<typeof catalogReadToolOutputSchema>;
 export type ServiceReadToolInput = z.infer<typeof serviceReadToolInputSchema>;
 export type ServiceReadToolOutput = z.infer<typeof serviceReadToolOutputSchema>;
+export type RequestDraftToolInput = z.infer<typeof requestDraftToolInputSchema>;
+export type RequestDraftToolOutput = z.infer<typeof requestDraftToolOutputSchema>;
+export type OrderDraftToolInput = z.infer<typeof orderDraftToolInputSchema>;
+export type OrderDraftToolOutput = z.infer<typeof orderDraftToolOutputSchema>;
 export type GuestAiToolExecuteRequest = z.infer<typeof guestAiToolExecuteRequestSchema>;
 export type GuestAiToolExecuteResponse = z.infer<typeof guestAiToolExecuteResponseSchema>;

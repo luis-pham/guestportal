@@ -17,6 +17,7 @@ import { registerQrRoutes } from './routes/qr.js';
 import { registerGuestSessionRoutes } from './routes/guest-sessions.js';
 import { registerGuestPortalRoutes } from './routes/guest-portal.js';
 import { registerKnowledgeRoutes } from './routes/knowledge.js';
+import { registerRequestOrderRoutes } from './routes/request-orders.js';
 import { registerConversationRoutes } from './routes/conversations.js';
 
 export type BuildAppOptions = {
@@ -65,6 +66,7 @@ export async function buildApp(options: BuildAppOptions) {
   await registerGuestSessionRoutes(app);
   await registerGuestPortalRoutes(app);
   await registerKnowledgeRoutes(app);
+  await registerRequestOrderRoutes(app);
   await registerConversationRoutes(app);
 
   app.setErrorHandler((error, request, reply) => {

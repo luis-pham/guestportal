@@ -40,7 +40,7 @@ export type AiToolHandler<Name extends AiToolName> = (
 
 export type AiToolDefinition<Name extends AiToolName = AiToolName> = {
   name: Name;
-  readOnly: true;
+  mode: 'read_only' | 'draft_mutation';
   inputSchema: ZodTypeAny;
   outputSchema: ZodTypeAny;
   execute: AiToolHandler<Name>;
@@ -126,30 +126,46 @@ export function createGuestAiToolDefinitions(handlers: {
   searchKnowledge: AiToolHandler<'knowledge.search'>;
   readCatalog: AiToolHandler<'catalog.read'>;
   readServices: AiToolHandler<'service.read'>;
+  draftRequest: AiToolHandler<'request.draft'>;
+  draftOrder: AiToolHandler<'order.draft'>;
 }): {
   [Name in AiToolName]: AiToolDefinition<Name>;
 } {
   return {
     'knowledge.search': {
       name: 'knowledge.search',
-      readOnly: true,
+      mode: 'read_only',
       inputSchema: aiToolInputSchemas['knowledge.search'],
       outputSchema: aiToolOutputSchemas['knowledge.search'],
       execute: handlers.searchKnowledge,
     },
     'catalog.read': {
       name: 'catalog.read',
-      readOnly: true,
+      mode: 'read_only',
       inputSchema: aiToolInputSchemas['catalog.read'],
       outputSchema: aiToolOutputSchemas['catalog.read'],
       execute: handlers.readCatalog,
     },
     'service.read': {
       name: 'service.read',
-      readOnly: true,
+      mode: 'read_only',
       inputSchema: aiToolInputSchemas['service.read'],
       outputSchema: aiToolOutputSchemas['service.read'],
       execute: handlers.readServices,
+    },
+    'request.draft': {
+      name: 'request.draft',
+      mode: 'draft_mutation',
+      inputSchema: aiToolInputSchemas['request.draft'],
+      outputSchema: aiToolOutputSchemas['request.draft'],
+      execute: handlers.draftRequest,
+    },
+    'order.draft': {
+      name: 'order.draft',
+      mode: 'draft_mutation',
+      inputSchema: aiToolInputSchemas['order.draft'],
+      outputSchema: aiToolOutputSchemas['order.draft'],
+      execute: handlers.draftOrder,
     },
   };
 }

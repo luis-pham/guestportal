@@ -314,4 +314,193 @@ describeIntegration('guest conversations', () => {
     expect(body.result).not.toHaveProperty('organizationId');
     expect(body.result.items.length).toBeGreaterThan(0);
   });
+
+  it('requires explicit idempotent guest confirmation for request drafts', async () => {
+    const context = await createGuestContext();
+    const { conversation } = await createConversation(context.guestCookie);
+    const draftResponse = await app.inject({
+      method: 'POST',
+      url: '/v1/guest/request-drafts',
+      headers: { cookie: context.guestCookie },
+      payload: {
+        conversationId: conversation.id,
+        requestType: 'housekeeping',
+        title: 'Extra towels',
+        details: 'Please bring two towels.',
+        locale: 'vi',
+      },
+    });
+    expect(draftResponse.statusCode).toBe(200);
+    const draftId = draftResponse.json().draft.id as string;
+
+    const confirmPayload = { idempotencyKey: `request-confirm-${draftId}` };
+    const firstConfirm = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/request-drafts/${draftId}/confirm`,
+      headers: { cookie: context.guestCookie },
+      payload: confirmPayload,
+    });
+    expect(firstConfirm.statusCode).toBe(200);
+    expect(firstConfirm.json().idempotentReplay).toBe(false);
+    const requestId = firstConfirm.json().request.id as string;
+
+    const duplicateConfirm = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/request-drafts/${draftId}/confirm`,
+      headers: { cookie: context.guestCookie },
+      payload: confirmPayload,
+    });
+    expect(duplicateConfirm.statusCode).toBe(200);
+    expect(duplicateConfirm.json().idempotentReplay).toBe(true);
+    expect(duplicateConfirm.json().request.id).toBe(requestId);
+
+    const requestRows = await app.sql<{ count: string }[]>`
+      SELECT count(*)::text
+      FROM guest_requests
+      WHERE request_draft_id = ${draftId}::uuid
+    `;
+    expect(requestRows[0]?.count).toBe('1');
+    const outboxRows = await app.sql<{ count: string }[]>`
+      SELECT count(*)::text
+      FROM outbox_events
+      WHERE aggregate_id = ${requestId}
+        AND event_type = 'request.submitted.v1'
+    `;
+    expect(outboxRows[0]?.count).toBe('1');
+
+    const detail = await app.inject({
+      method: 'GET',
+      url: `/v1/guest/conversations/${conversation.id}`,
+      headers: { cookie: context.guestCookie },
+    });
+    expect(detail.statusCode).toBe(200);
+    expect(
+      (detail.json() as { messages: Array<{ requestId: string | null }> }).messages.some(
+        (message) => message.requestId === requestId,
+      ),
+    ).toBe(true);
+  });
+
+  it('rejects expired drafts without committing a request', async () => {
+    const context = await createGuestContext();
+    const { conversation } = await createConversation(context.guestCookie);
+    const draftResponse = await app.inject({
+      method: 'POST',
+      url: '/v1/guest/request-drafts',
+      headers: { cookie: context.guestCookie },
+      payload: {
+        conversationId: conversation.id,
+        title: 'Late checkout',
+        details: 'Can I check out at 2pm?',
+      },
+    });
+    expect(draftResponse.statusCode).toBe(200);
+    const draftId = draftResponse.json().draft.id as string;
+
+    await app.sql`
+      UPDATE request_drafts
+      SET expires_at = now() - interval '1 second'
+      WHERE id = ${draftId}::uuid
+    `;
+    const confirm = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/request-drafts/${draftId}/confirm`,
+      headers: { cookie: context.guestCookie },
+      payload: { idempotencyKey: `expired-${draftId}` },
+    });
+    expect(confirm.statusCode).toBe(410);
+    expect(confirm.json().error.code).toBe('DRAFT_EXPIRED');
+
+    const requestRows = await app.sql<{ count: string }[]>`
+      SELECT count(*)::text
+      FROM guest_requests
+      WHERE request_draft_id = ${draftId}::uuid
+    `;
+    expect(requestRows[0]?.count).toBe('0');
+  });
+
+  it('denies unauthorized draft commits across guest sessions', async () => {
+    const ownerCookie = await createGuestCookie();
+    const otherCookie = await createGuestCookie();
+    const { conversation } = await createConversation(ownerCookie);
+    const draftResponse = await app.inject({
+      method: 'POST',
+      url: '/v1/guest/request-drafts',
+      headers: { cookie: ownerCookie },
+      payload: {
+        conversationId: conversation.id,
+        title: 'Room cleaning',
+        details: 'Please clean the room.',
+      },
+    });
+    expect(draftResponse.statusCode).toBe(200);
+
+    const unauthorized = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/request-drafts/${draftResponse.json().draft.id}/confirm`,
+      headers: { cookie: otherCookie },
+      payload: { idempotencyKey: 'unauthorized-confirm-1' },
+    });
+    expect(unauthorized.statusCode).toBe(404);
+    expect(unauthorized.json().error.code).toBe('DRAFT_NOT_FOUND');
+  });
+
+  it('creates order drafts through AI tools and commits only after guest confirmation', async () => {
+    const context = await createGuestContext();
+    const { conversation } = await createConversation(context.guestCookie);
+    const toolDraft = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/tool-results`,
+      headers: { cookie: context.guestCookie },
+      payload: {
+        toolName: 'order.draft',
+        input: {
+          title: 'Coffee order',
+          items: [{ itemId: 'coffee', label: 'Coffee', quantity: 2 }],
+          notes: 'No sugar',
+        },
+      },
+    });
+    expect(toolDraft.statusCode).toBe(200);
+    const draftId = toolDraft.json().result.draft.id as string;
+
+    const blockedCommitTool = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/tool-results`,
+      headers: { cookie: context.guestCookie },
+      payload: {
+        toolName: 'order.confirm',
+        input: { draftId },
+      },
+    });
+    expect(blockedCommitTool.statusCode).toBe(400);
+    expect(blockedCommitTool.json().error.code).toBe('VALIDATION_ERROR');
+
+    const confirm = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/order-drafts/${draftId}/confirm`,
+      headers: { cookie: context.guestCookie },
+      payload: { idempotencyKey: `order-confirm-${draftId}` },
+    });
+    expect(confirm.statusCode).toBe(200);
+    expect(confirm.json().idempotentReplay).toBe(false);
+    const orderId = confirm.json().order.id as string;
+
+    const transactionRows = await app.sql<{ outbox_count: string; message_count: string }[]>`
+      SELECT
+        (
+          SELECT count(*)::text
+          FROM outbox_events
+          WHERE aggregate_id = ${orderId}
+            AND event_type = 'order.submitted.v1'
+        ) AS outbox_count,
+        (
+          SELECT count(*)::text
+          FROM messages
+          WHERE conversation_id = ${conversation.id}::uuid
+            AND order_id = ${orderId}::uuid
+        ) AS message_count
+    `;
+    expect(transactionRows[0]).toEqual({ outbox_count: '1', message_count: '1' });
+  });
 });

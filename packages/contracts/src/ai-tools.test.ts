@@ -3,6 +3,8 @@ import {
   catalogReadToolOutputSchema,
   guestAiToolExecuteRequestSchema,
   knowledgeSearchToolInputSchema,
+  orderDraftToolInputSchema,
+  requestDraftToolInputSchema,
   serviceReadToolOutputSchema,
 } from './ai-tools.js';
 
@@ -19,7 +21,7 @@ describe('ai tool contracts', () => {
   it('rejects unknown tool execution requests', () => {
     expect(() =>
       guestAiToolExecuteRequestSchema.parse({
-        toolName: 'request.create',
+        toolName: 'request.confirm',
         input: {},
       }),
     ).toThrow();
@@ -50,5 +52,21 @@ describe('ai tool contracts', () => {
         noResult: false,
       }).services[0]?.type,
     ).toBe('service');
+  });
+
+  it('allows draft-only request and order tools', () => {
+    expect(
+      requestDraftToolInputSchema.parse({
+        requestType: 'housekeeping',
+        title: 'Extra towels',
+        details: 'Two towels please',
+      }).requestType,
+    ).toBe('housekeeping');
+    expect(
+      orderDraftToolInputSchema.parse({
+        title: 'Minibar refill',
+        items: [{ itemId: 'water', label: 'Water bottle', quantity: 2 }],
+      }).items[0]?.quantity,
+    ).toBe(2);
   });
 });

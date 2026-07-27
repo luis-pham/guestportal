@@ -489,6 +489,196 @@ export const messages = pgTable(
 export type Conversation = typeof conversations.$inferSelect;
 export type Message = typeof messages.$inferSelect;
 
+export type RequestDraftMetadata = Record<string, unknown>;
+export type OrderDraftItemJson = {
+  itemId: string;
+  label: string;
+  quantity: number;
+  notes: string;
+  metadata: Record<string, unknown>;
+};
+
+export const requestDrafts = pgTable(
+  'request_drafts',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    organizationId: uuid('organization_id')
+      .notNull()
+      .references(() => organizations.id),
+    propertyId: uuid('property_id')
+      .notNull()
+      .references(() => properties.id),
+    guestSessionId: uuid('guest_session_id')
+      .notNull()
+      .references(() => guestSessions.id, { onDelete: 'cascade' }),
+    conversationId: uuid('conversation_id')
+      .notNull()
+      .references(() => conversations.id, { onDelete: 'cascade' }),
+    status: text('status').notNull().default('draft'),
+    requestType: text('request_type').notNull().default('other'),
+    title: text('title').notNull(),
+    details: text('details').notNull().default(''),
+    locale: text('locale').notNull(),
+    metadata: jsonb('metadata').$type<RequestDraftMetadata>().notNull().default({}),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    confirmedRequestId: uuid('confirmed_request_id'),
+    confirmIdempotencyKey: text('confirm_idempotency_key'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    index('request_drafts_guest_idx').on(table.guestSessionId, table.createdAt),
+    index('request_drafts_conversation_idx').on(table.conversationId, table.createdAt),
+    index('request_drafts_expiry_idx').on(table.expiresAt),
+    uniqueIndex('request_drafts_confirm_key_uidx').on(
+      table.organizationId,
+      table.propertyId,
+      table.confirmIdempotencyKey,
+    ),
+  ],
+);
+
+export const guestRequests = pgTable(
+  'guest_requests',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    organizationId: uuid('organization_id')
+      .notNull()
+      .references(() => organizations.id),
+    propertyId: uuid('property_id')
+      .notNull()
+      .references(() => properties.id),
+    guestSessionId: uuid('guest_session_id')
+      .notNull()
+      .references(() => guestSessions.id, { onDelete: 'cascade' }),
+    conversationId: uuid('conversation_id')
+      .notNull()
+      .references(() => conversations.id, { onDelete: 'cascade' }),
+    requestDraftId: uuid('request_draft_id')
+      .notNull()
+      .references(() => requestDrafts.id),
+    status: text('status').notNull().default('submitted'),
+    requestType: text('request_type').notNull(),
+    title: text('title').notNull(),
+    details: text('details').notNull().default(''),
+    locale: text('locale').notNull(),
+    metadata: jsonb('metadata').$type<RequestDraftMetadata>().notNull().default({}),
+    idempotencyKey: text('idempotency_key').notNull(),
+    submittedAt: timestamp('submitted_at', { withTimezone: true }).notNull().defaultNow(),
+    cancelledAt: timestamp('cancelled_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex('guest_requests_draft_uidx').on(table.requestDraftId),
+    uniqueIndex('guest_requests_confirm_key_uidx').on(
+      table.organizationId,
+      table.propertyId,
+      table.idempotencyKey,
+    ),
+    index('guest_requests_guest_idx').on(table.guestSessionId, table.submittedAt),
+    index('guest_requests_property_status_idx').on(
+      table.organizationId,
+      table.propertyId,
+      table.status,
+      table.submittedAt,
+    ),
+  ],
+);
+
+export const orderDrafts = pgTable(
+  'order_drafts',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    organizationId: uuid('organization_id')
+      .notNull()
+      .references(() => organizations.id),
+    propertyId: uuid('property_id')
+      .notNull()
+      .references(() => properties.id),
+    guestSessionId: uuid('guest_session_id')
+      .notNull()
+      .references(() => guestSessions.id, { onDelete: 'cascade' }),
+    conversationId: uuid('conversation_id')
+      .notNull()
+      .references(() => conversations.id, { onDelete: 'cascade' }),
+    status: text('status').notNull().default('draft'),
+    title: text('title').notNull(),
+    items: jsonb('items').$type<OrderDraftItemJson[]>().notNull(),
+    locale: text('locale').notNull(),
+    notes: text('notes').notNull().default(''),
+    metadata: jsonb('metadata').$type<RequestDraftMetadata>().notNull().default({}),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    confirmedOrderId: uuid('confirmed_order_id'),
+    confirmIdempotencyKey: text('confirm_idempotency_key'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    index('order_drafts_guest_idx').on(table.guestSessionId, table.createdAt),
+    index('order_drafts_conversation_idx').on(table.conversationId, table.createdAt),
+    index('order_drafts_expiry_idx').on(table.expiresAt),
+    uniqueIndex('order_drafts_confirm_key_uidx').on(
+      table.organizationId,
+      table.propertyId,
+      table.confirmIdempotencyKey,
+    ),
+  ],
+);
+
+export const guestOrders = pgTable(
+  'guest_orders',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    organizationId: uuid('organization_id')
+      .notNull()
+      .references(() => organizations.id),
+    propertyId: uuid('property_id')
+      .notNull()
+      .references(() => properties.id),
+    guestSessionId: uuid('guest_session_id')
+      .notNull()
+      .references(() => guestSessions.id, { onDelete: 'cascade' }),
+    conversationId: uuid('conversation_id')
+      .notNull()
+      .references(() => conversations.id, { onDelete: 'cascade' }),
+    orderDraftId: uuid('order_draft_id')
+      .notNull()
+      .references(() => orderDrafts.id),
+    status: text('status').notNull().default('submitted'),
+    title: text('title').notNull(),
+    items: jsonb('items').$type<OrderDraftItemJson[]>().notNull(),
+    locale: text('locale').notNull(),
+    notes: text('notes').notNull().default(''),
+    metadata: jsonb('metadata').$type<RequestDraftMetadata>().notNull().default({}),
+    idempotencyKey: text('idempotency_key').notNull(),
+    submittedAt: timestamp('submitted_at', { withTimezone: true }).notNull().defaultNow(),
+    cancelledAt: timestamp('cancelled_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex('guest_orders_draft_uidx').on(table.orderDraftId),
+    uniqueIndex('guest_orders_confirm_key_uidx').on(
+      table.organizationId,
+      table.propertyId,
+      table.idempotencyKey,
+    ),
+    index('guest_orders_guest_idx').on(table.guestSessionId, table.submittedAt),
+    index('guest_orders_property_status_idx').on(
+      table.organizationId,
+      table.propertyId,
+      table.status,
+      table.submittedAt,
+    ),
+  ],
+);
+
+export type RequestDraft = typeof requestDrafts.$inferSelect;
+export type GuestRequest = typeof guestRequests.$inferSelect;
+export type OrderDraft = typeof orderDrafts.$inferSelect;
+export type GuestOrder = typeof guestOrders.$inferSelect;
+
 export const knowledgeSources = pgTable(
   'knowledge_sources',
   {

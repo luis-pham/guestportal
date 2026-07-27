@@ -20,6 +20,7 @@ import {
 } from '../services/guest-sessions.js';
 import { z } from 'zod';
 import { hybridSearchKnowledge } from '../knowledge-search.js';
+import { createOrderDraft, createRequestDraft } from '../services/request-orders.js';
 
 const RETENTION_POLICY_DAYS: Record<TranscriptRetentionPolicy, number> = {
   standard_30_days: 30,
@@ -530,6 +531,16 @@ export async function registerConversationRoutes(app: FastifyInstance) {
             noResult: services.length === 0,
           };
         },
+        draftRequest: async (input) =>
+          createRequestDraft(app, session, {
+            ...input,
+            conversationId: conversation.id,
+          }),
+        draftOrder: async (input) =>
+          createOrderDraft(app, session, {
+            ...input,
+            conversationId: conversation.id,
+          }),
       }),
     );
 
