@@ -5,6 +5,7 @@ import {
   guestAiToolExecuteRequestSchema,
   guestMessageCreateRequestSchema,
   portalConfigDocumentSchema,
+  voiceMetricCreateRequestSchema,
   type CatalogToolItem,
   type ConversationMessage,
   type ConversationSummary,
@@ -586,6 +587,37 @@ export async function registerConversationRoutes(app: FastifyInstance) {
     });
 
     return { message: toMessage(message) };
+  });
+
+  app.post('/v1/guest/conversations/:conversationId/voice-metrics', async (request) => {
+    const { session } = await requireGuestSession(app, request);
+    const params = z.object({ conversationId: z.string().uuid() }).parse(request.params);
+    const conversation = await loadScopedConversation(app, params.conversationId, session);
+    if (conversation.status !== 'active') {
+      throw new ApiError(409, 'CONVERSATION_CLOSED', 'Conversation is not accepting voice metrics.');
+    }
+    const body = voiceMetricCreateRequestSchema.parse(request.body ?? {});
+    const acceptedAt = new Date().toISOString();
+    request.log.info(
+      {
+        eventName: body.eventName,
+        conversationId: conversation.id,
+        organizationId: session.organizationId,
+        propertyId: session.propertyId,
+        guestSessionId: session.id,
+        valueMs: body.valueMs,
+        reconnectAttempt: body.reconnectAttempt,
+        transcriptRole: body.transcriptRole,
+      },
+      'voice.metric.accepted',
+    );
+    return {
+      metric: {
+        conversationId: conversation.id,
+        eventName: body.eventName,
+        acceptedAt,
+      },
+    };
   });
 
   app.post('/v1/guest/conversations/:conversationId/tool-results', async (request) => {

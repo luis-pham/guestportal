@@ -12,6 +12,7 @@ import {
   createGuestConversation,
   createGuestVoiceLiveSession,
   executeGuestConversationTool,
+  recordGuestVoiceMetric,
   sendGuestConversationMessage,
 } from '../lib/guest-portal';
 import {
@@ -63,6 +64,8 @@ const copy = {
     confirmOrder: 'Confirm order',
     draftReady: 'Draft ready for your confirmation.',
     confirmFailed: 'Confirmation failed. Please try again.',
+    interrupted: 'Response interrupted.',
+    reconnecting: 'Reconnecting voice session.',
   },
   vi: {
     assistant: 'Trợ lý',
@@ -78,6 +81,8 @@ const copy = {
     confirmOrder: 'Xác nhận đơn hàng',
     draftReady: 'Bản nháp đã sẵn sàng để bạn xác nhận.',
     confirmFailed: 'Xác nhận chưa thành công. Vui lòng thử lại.',
+    interrupted: 'Phản hồi đã được ngắt.',
+    reconnecting: 'Đang nối lại phiên thoại.',
   },
 };
 
@@ -149,6 +154,19 @@ export function VoiceAssistantShell({ data }: VoiceAssistantShellProps) {
     conversationIdRef.current = conversation.id;
     return conversation.id;
   }, [data.locale]);
+
+  const recordMetric = useCallback(
+    async (metric: Parameters<typeof recordGuestVoiceMetric>[0]['metric']) => {
+      const conversationId = conversationIdRef.current;
+      if (!conversationId) return;
+      try {
+        await recordGuestVoiceMetric({ conversationId, metric });
+      } catch {
+        // Metrics must not block the guest voice/text fallback flow.
+      }
+    },
+    [],
+  );
 
   const confirmDraft = useCallback(
     async (kind: 'request' | 'order', draftId: string) => {
@@ -238,6 +256,13 @@ export function VoiceAssistantShell({ data }: VoiceAssistantShellProps) {
           setVoiceState(event.state);
           if (event.state === 'listening') {
             setVoiceError(null);
+            void recordMetric({ eventName: 'live_connected' });
+          }
+          if (event.state === 'reconnecting') {
+            setMessages((current) => [
+              ...current,
+              messageFromText('system', labels.reconnecting),
+            ]);
           }
         }
         if (event.type === 'error') {
@@ -251,10 +276,42 @@ export function VoiceAssistantShell({ data }: VoiceAssistantShellProps) {
             messageFromText('system', denied ? labels.micDenied : labels.voiceFailed, true),
           ]);
         }
+        if (event.type === 'transcript') {
+          setMessages((current) => [
+            ...current,
+            messageFromText(event.role, event.text),
+          ]);
+          void recordMetric({
+            eventName: 'transcript_received',
+            transcriptRole: event.role,
+          });
+        }
+        if (event.type === 'interrupted') {
+          setMessages((current) => [...current, messageFromText('system', labels.interrupted)]);
+          void recordMetric({ eventName: 'interrupted' });
+        }
+        if (event.type === 'usage') {
+          if (event.latencyMs !== undefined) {
+            void recordMetric({ eventName: 'latency_sample', valueMs: event.latencyMs });
+          }
+          if (event.reconnectAttempt && event.reconnectAttempt > 0) {
+            void recordMetric({
+              eventName: 'reconnect_attempt',
+              reconnectAttempt: event.reconnectAttempt,
+            });
+          }
+        }
       },
     });
     return transportRef.current;
-  }, [executeVoiceToolCall, labels.micDenied, labels.voiceFailed]);
+  }, [
+    executeVoiceToolCall,
+    labels.interrupted,
+    labels.micDenied,
+    labels.reconnecting,
+    labels.voiceFailed,
+    recordMetric,
+  ]);
 
   const startVoice = useCallback(async () => {
     setVoiceError(null);

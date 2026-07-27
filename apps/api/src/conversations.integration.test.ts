@@ -526,6 +526,51 @@ describeIntegration('guest conversations', () => {
     expect(messages.some((message) => message.requestId === requestId)).toBe(true);
   });
 
+  it('accepts tenant-scoped voice metrics and denies cross-session metrics', async () => {
+    const ownerCookie = await createGuestCookie();
+    const otherCookie = await createGuestCookie();
+    const { conversation } = await createConversation(ownerCookie);
+
+    const metric = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/voice-metrics`,
+      headers: { cookie: ownerCookie },
+      payload: {
+        eventName: 'latency_sample',
+        valueMs: 420,
+        occurredAt: new Date().toISOString(),
+      },
+    });
+    expect(metric.statusCode).toBe(200);
+    expect(metric.json().metric).toMatchObject({
+      conversationId: conversation.id,
+      eventName: 'latency_sample',
+    });
+
+    const crossSession = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/voice-metrics`,
+      headers: { cookie: otherCookie },
+      payload: { eventName: 'reconnect_attempt', reconnectAttempt: 1 },
+    });
+    expect(crossSession.statusCode).toBe(404);
+
+    await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/handoff`,
+      headers: { cookie: ownerCookie },
+      payload: { reason: 'metric close test' },
+    });
+    const closed = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/voice-metrics`,
+      headers: { cookie: ownerCookie },
+      payload: { eventName: 'interrupted' },
+    });
+    expect(closed.statusCode).toBe(409);
+    expect(closed.json().error.code).toBe('CONVERSATION_CLOSED');
+  });
+
   it('requires explicit idempotent guest confirmation for request drafts', async () => {
     const context = await createGuestContext();
     const { conversation } = await createConversation(context.guestCookie);

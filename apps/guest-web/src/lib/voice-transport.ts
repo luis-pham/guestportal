@@ -15,7 +15,10 @@ export type VoiceTransportEvent =
   | { type: 'error'; error: Error }
   | { type: 'server-message'; payload: unknown }
   | { type: 'tool-call'; calls: VoiceToolCall[] }
-  | { type: 'tool-response'; responses: GeminiFunctionResponse[] };
+  | { type: 'tool-response'; responses: GeminiFunctionResponse[] }
+  | { type: 'transcript'; role: 'guest' | 'assistant'; text: string }
+  | { type: 'interrupted' }
+  | { type: 'usage'; latencyMs?: number; reconnectAttempt?: number };
 
 export type VoiceToolCall = {
   id: string;
@@ -37,6 +40,7 @@ export type VoiceTransportOptions = {
   mediaDevices?: MediaDevices;
   executeToolCall?: (call: VoiceToolCall) => Promise<Record<string, unknown>>;
   onEvent?: (event: VoiceTransportEvent) => void;
+  reconnectDelayMs?: number;
 };
 
 export type StartVoiceTransportInput = {
@@ -180,13 +184,16 @@ export function buildGeminiLiveWebSocketUrl(token: string) {
   return url.toString();
 }
 
-export function buildGeminiLiveSetupMessage(session: VoiceLiveSession) {
+export function buildGeminiLiveSetupMessage(session: VoiceLiveSession, sessionHandle?: string) {
   return {
     setup: {
       model: session.model,
       responseModalities: ['AUDIO'],
       tools: [{ functionDeclarations: GUEST_VOICE_TOOL_DECLARATIONS }],
-      sessionResumption: {},
+      realtimeInputConfig: {
+        activityHandling: 'START_OF_ACTIVITY_INTERRUPTS',
+      },
+      sessionResumption: sessionHandle ? { handle: sessionHandle } : {},
     },
   };
 }
@@ -229,6 +236,7 @@ export class BrowserVoiceTransport {
     | ((call: VoiceToolCall) => Promise<Record<string, unknown>>)
     | undefined;
   private readonly onEvent: ((event: VoiceTransportEvent) => void) | undefined;
+  private readonly reconnectDelayMs: number;
   private audioContext: AudioContext | null = null;
   private sourceNode: MediaStreamAudioSourceNode | null = null;
   private workletNode: AudioWorkletNode | null = null;
@@ -236,6 +244,11 @@ export class BrowserVoiceTransport {
   private socket: WebSocket | null = null;
   private workletUrl: string | null = null;
   private stopped = false;
+  private activeSession: VoiceLiveSession | null = null;
+  private sessionHandle: string | undefined;
+  private reconnectAttempts = 0;
+  private openedAt = 0;
+  private readonly toolResponsesByCallId = new Map<string, GeminiFunctionResponse>();
 
   constructor(options: VoiceTransportOptions = {}) {
     this.webSocketCtor = options.webSocketCtor;
@@ -244,6 +257,7 @@ export class BrowserVoiceTransport {
     this.mediaDevices = options.mediaDevices;
     this.executeToolCall = options.executeToolCall;
     this.onEvent = options.onEvent;
+    this.reconnectDelayMs = options.reconnectDelayMs ?? 600;
   }
 
   async start(input: StartVoiceTransportInput) {
@@ -271,6 +285,7 @@ export class BrowserVoiceTransport {
         conversationId: input.conversationId,
         locale: input.locale,
       });
+      this.activeSession = session;
 
       await this.startAudioWorklet();
       this.openSocket(session);
@@ -308,6 +323,10 @@ export class BrowserVoiceTransport {
     this.stream = null;
     this.audioContext = null;
     this.workletUrl = null;
+    this.activeSession = null;
+    this.sessionHandle = undefined;
+    this.reconnectAttempts = 0;
+    this.toolResponsesByCallId.clear();
     this.emitStatus(nextState);
   }
 
@@ -334,13 +353,34 @@ export class BrowserVoiceTransport {
   private openSocket(session: VoiceLiveSession) {
     const WebSocketCtor = this.webSocketCtor ?? WebSocket;
     this.socket = new WebSocketCtor(buildGeminiLiveWebSocketUrl(session.token));
+    this.openedAt = performance.now();
     this.socket.onopen = () => {
-      this.socket?.send(JSON.stringify(buildGeminiLiveSetupMessage(session)));
+      this.socket?.send(JSON.stringify(buildGeminiLiveSetupMessage(session, this.sessionHandle)));
+      this.emit({
+        type: 'usage',
+        latencyMs: Math.round(performance.now() - this.openedAt),
+        reconnectAttempt: this.reconnectAttempts,
+      });
       this.emitStatus('listening');
     };
     this.socket.onmessage = (event) => {
       const payload = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
       this.emit({ type: 'server-message', payload });
+      const inputText = payload?.serverContent?.inputTranscription?.text;
+      const outputText = payload?.serverContent?.outputTranscription?.text;
+      if (typeof inputText === 'string' && inputText.trim()) {
+        this.emit({ type: 'transcript', role: 'guest', text: inputText.trim() });
+      }
+      if (typeof outputText === 'string' && outputText.trim()) {
+        this.emit({ type: 'transcript', role: 'assistant', text: outputText.trim() });
+      }
+      if (payload?.serverContent?.interrupted) {
+        this.emit({ type: 'interrupted' });
+        this.emitStatus('listening');
+      }
+      if (payload?.sessionResumptionUpdate?.newHandle) {
+        this.sessionHandle = payload.sessionResumptionUpdate.newHandle;
+      }
       if (payload?.serverContent?.modelTurn) this.emitStatus('speaking');
       if (payload?.serverContent?.turnComplete) this.emitStatus('listening');
       if (payload?.goAway) this.emitStatus('reconnecting');
@@ -350,8 +390,23 @@ export class BrowserVoiceTransport {
     };
     this.socket.onerror = () => this.emitError(new Error('Live voice connection failed.'));
     this.socket.onclose = () => {
-      if (!this.stopped) this.emitStatus('reconnecting');
+      if (!this.stopped) this.scheduleReconnect();
     };
+  }
+
+  private scheduleReconnect() {
+    if (!this.activeSession || this.reconnectAttempts >= 3) {
+      this.emitStatus('error');
+      return;
+    }
+    this.reconnectAttempts += 1;
+    this.emitStatus('reconnecting');
+    this.emit({ type: 'usage', reconnectAttempt: this.reconnectAttempts });
+    globalThis.setTimeout(() => {
+      if (!this.stopped && this.activeSession) {
+        this.openSocket(this.activeSession);
+      }
+    }, this.reconnectDelayMs);
   }
 
   private async handleToolCalls(functionCalls: GeminiFunctionCall[]) {
@@ -361,9 +416,12 @@ export class BrowserVoiceTransport {
 
     const responses = await Promise.all(
       functionCalls.map(async (functionCall): Promise<GeminiFunctionResponse> => {
+        if (functionCall.id && this.toolResponsesByCallId.has(functionCall.id)) {
+          return this.toolResponsesByCallId.get(functionCall.id)!;
+        }
         const mapped = mapGeminiFunctionCall(functionCall);
         if (!mapped || !this.executeToolCall) {
-          return {
+          const response = {
             id: functionCall.id ?? crypto.randomUUID(),
             name: functionCall.name ?? 'unknown',
             response: {
@@ -373,17 +431,21 @@ export class BrowserVoiceTransport {
               },
             },
           };
+          if (functionCall.id) this.toolResponsesByCallId.set(functionCall.id, response);
+          return response;
         }
 
         try {
           const result = await this.executeToolCall(mapped);
-          return {
+          const response = {
             id: mapped.id,
             name: mapped.geminiName,
             response: { result },
           };
+          this.toolResponsesByCallId.set(mapped.id, response);
+          return response;
         } catch (error) {
-          return {
+          const response = {
             id: mapped.id,
             name: mapped.geminiName,
             response: {
@@ -393,6 +455,8 @@ export class BrowserVoiceTransport {
               },
             },
           };
+          this.toolResponsesByCallId.set(mapped.id, response);
+          return response;
         }
       }),
     );

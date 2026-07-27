@@ -13,6 +13,8 @@ import type {
   PortalConfigDocument,
   VoiceLiveSession,
   VoiceLiveSessionCreateResponse,
+  VoiceMetricCreateRequest,
+  VoiceMetricCreateResponse,
 } from '@guestportal/contracts';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
@@ -188,6 +190,25 @@ export async function confirmGuestOrderDraft({
     throw new Error(`Could not confirm order draft (${response.status}).`);
   }
   return (await response.json()) as GuestOrderDraftConfirmResponse;
+}
+
+export async function recordGuestVoiceMetric({
+  conversationId,
+  metric,
+}: {
+  conversationId: string;
+  metric: VoiceMetricCreateRequest;
+}): Promise<VoiceMetricCreateResponse> {
+  const response = await fetch(`${API_URL}/v1/guest/conversations/${conversationId}/voice-metrics`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(metric),
+  });
+  if (!response.ok) {
+    throw new Error(`Could not record voice metric (${response.status}).`);
+  }
+  return (await response.json()) as VoiceMetricCreateResponse;
 }
 
 export function findSection<T extends PortalConfigDocument['sections'][number]['type']>(

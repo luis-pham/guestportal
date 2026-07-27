@@ -169,11 +169,11 @@ describe('BrowserVoiceTransport', () => {
     expect(socket.url).not.toContain('localhost');
     expect(socket.url).not.toContain('GEMINI_API_KEY');
     expect(JSON.parse(socket.sent[0]!)).toEqual(buildGeminiLiveSetupMessage(session));
-    expect(events.map((event) => event.type === 'status' && event.state)).toEqual([
-      'requesting_permission',
-      'connecting',
-      'listening',
-    ]);
+    expect(
+      events
+        .filter((event) => event.type === 'status')
+        .map((event) => event.state),
+    ).toEqual(['requesting_permission', 'connecting', 'listening']);
 
     await transport.stop();
 
@@ -286,5 +286,90 @@ describe('BrowserVoiceTransport', () => {
         },
       },
     });
+  });
+
+  it('emits transcripts, handles interruption, reconnects with session handle, and deduplicates tool calls', async () => {
+    const events: VoiceTransportEvent[] = [];
+    const executeToolCall = vi.fn(async () => ({ noResult: true }));
+    FakeWebSocket.instances = [];
+    const transport = new BrowserVoiceTransport({
+      mediaDevices: {
+        getUserMedia: vi.fn(async () => new FakeMediaStream([new FakeTrack()])),
+      } as unknown as MediaDevices,
+      audioContextCtor: FakeAudioContext as unknown as typeof AudioContext,
+      audioWorkletNodeCtor: FakeAudioWorkletNode as unknown as typeof AudioWorkletNode,
+      webSocketCtor: FakeWebSocket as unknown as typeof WebSocket,
+      executeToolCall,
+      reconnectDelayMs: 0,
+      onEvent: (event) => events.push(event),
+    });
+
+    await transport.start({
+      locale: 'vi',
+      conversationId: session.conversationId,
+      createLiveSession: vi.fn(async () => session),
+    });
+    const firstSocket = FakeWebSocket.instances[0]!;
+    firstSocket.open();
+    firstSocket.receive({
+      sessionResumptionUpdate: { newHandle: 'resume-1', resumable: true },
+    });
+    firstSocket.receive({
+      serverContent: {
+        inputTranscription: { text: 'Xin thêm khăn' },
+        outputTranscription: { text: 'Tôi sẽ chuẩn bị bản nháp.' },
+      },
+    });
+    firstSocket.receive({ serverContent: { interrupted: true } });
+    firstSocket.receive({
+      toolCall: {
+        functionCalls: [
+          {
+            id: 'dup-call',
+            name: 'knowledge_search',
+            args: { query: 'pool hours' },
+          },
+        ],
+      },
+    });
+    await vi.waitFor(() => expect(firstSocket.sent).toHaveLength(2));
+    firstSocket.receive({
+      toolCall: {
+        functionCalls: [
+          {
+            id: 'dup-call',
+            name: 'knowledge_search',
+            args: { query: 'pool hours' },
+          },
+        ],
+      },
+    });
+    await vi.waitFor(() => expect(firstSocket.sent).toHaveLength(3));
+    firstSocket.close();
+    await vi.waitFor(() => expect(FakeWebSocket.instances).toHaveLength(2));
+    const secondSocket = FakeWebSocket.instances[1]!;
+    secondSocket.open();
+
+    expect(executeToolCall).toHaveBeenCalledTimes(1);
+    expect(JSON.parse(secondSocket.sent[0]!).setup.sessionResumption).toEqual({
+      handle: 'resume-1',
+    });
+    expect(events).toContainEqual({
+      type: 'transcript',
+      role: 'guest',
+      text: 'Xin thêm khăn',
+    });
+    expect(events).toContainEqual({
+      type: 'transcript',
+      role: 'assistant',
+      text: 'Tôi sẽ chuẩn bị bản nháp.',
+    });
+    expect(events).toContainEqual({ type: 'interrupted' });
+    expect(
+      events.some(
+        (event) =>
+          event.type === 'usage' && event.reconnectAttempt === 1,
+      ),
+    ).toBe(true);
   });
 });

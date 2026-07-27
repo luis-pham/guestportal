@@ -126,9 +126,15 @@ export {
   voiceLiveSessionCreateResponseSchema,
   voiceLiveSessionModelSchema,
   voiceLiveSessionSchema,
+  voiceMetricCreateRequestSchema,
+  voiceMetricCreateResponseSchema,
+  voiceMetricEventNameSchema,
   type VoiceLiveSession,
   type VoiceLiveSessionCreateRequest,
   type VoiceLiveSessionCreateResponse,
+  type VoiceMetricCreateRequest,
+  type VoiceMetricCreateResponse,
+  type VoiceMetricEventName,
 } from './voice-live.js';
 
 export {
