@@ -1,0 +1,364 @@
+'use client';
+
+import { useEffect, useMemo, useState } from 'react';
+import type { StaffWorkDetail, StaffWorkItem, StaffWorkQueue } from '../lib/api';
+import { fetchStaffDetail, fetchStaffWorkItems } from '../lib/api';
+import './staff-ops.css';
+
+type RouteKey = 'inbox' | 'myWork' | 'messages' | 'history' | 'settings' | 'more' | 'request' | 'order';
+
+const statusOptions = ['all', 'submitted', 'accepted', 'in_progress', 'confirmed', 'preparing', 'ready', 'delivering'];
+
+const labels = {
+  en: {
+    loading: 'Loading',
+    empty: 'No work items match this queue.',
+    error: 'Could not load staff workspace.',
+    retry: 'Retry',
+    filters: 'Filters',
+    status: 'Status',
+    all: 'All',
+    request: 'Request',
+    order: 'Order',
+    open: 'Open',
+    accept: 'Accept',
+    waiting: 'Waiting',
+    location: 'Location',
+    assignee: 'Assignee',
+    unassigned: 'Unassigned',
+    details: 'Details',
+    conversation: 'Conversation',
+    timeline: 'Timeline',
+    notes: 'Notes',
+    items: 'Items',
+    total: 'Total',
+    choose: 'Select an item from the queue.',
+    disabledAccept: 'Claim arrives in the next task',
+  },
+  vi: {
+    loading: 'Đang tải',
+    empty: 'Không có mục nào trong hàng đợi này.',
+    error: 'Không tải được không gian nhân viên.',
+    retry: 'Thử lại',
+    filters: 'Bộ lọc',
+    status: 'Trạng thái',
+    all: 'Tất cả',
+    request: 'Yêu cầu',
+    order: 'Đơn hàng',
+    open: 'Mở',
+    accept: 'Nhận',
+    waiting: 'Đang chờ',
+    location: 'Vị trí',
+    assignee: 'Người xử lý',
+    unassigned: 'Chưa gán',
+    details: 'Chi tiết',
+    conversation: 'Trò chuyện',
+    timeline: 'Dòng thời gian',
+    notes: 'Ghi chú',
+    items: 'Mặt hàng',
+    total: 'Tổng',
+    choose: 'Chọn một mục trong hàng đợi.',
+    disabledAccept: 'Chức năng nhận việc nằm ở task tiếp theo',
+  },
+};
+
+function queueForRoute(routeKey: RouteKey): StaffWorkQueue {
+  if (routeKey === 'myWork') return 'my_work';
+  if (routeKey === 'history') return 'history';
+  return 'inbox';
+}
+
+function pickName(name: { vi: string; en: string }, locale: string) {
+  return locale.startsWith('vi') ? name.vi || name.en : name.en || name.vi;
+}
+
+function waitingLabel(seconds: number) {
+  if (seconds < 60) return `${seconds}s`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m`;
+  return `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
+}
+
+function money(amountMinor: number, currency: string) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+    currencyDisplay: 'code',
+  }).format(amountMinor / 100);
+}
+
+function itemHref(locale: string, item: StaffWorkItem) {
+  return `/${locale}/${item.kind === 'request' ? 'requests' : 'orders'}/${item.id}`;
+}
+
+export function StaffOperationsWorkspace({
+  locale,
+  routeKey,
+  detailId,
+  propertyId,
+}: {
+  locale: string;
+  routeKey: RouteKey;
+  detailId?: string | undefined;
+  propertyId: string;
+}) {
+  const localeKey = locale.startsWith('vi') ? 'vi' : 'en';
+  const t = labels[localeKey];
+  const [status, setStatus] = useState('all');
+  const [items, setItems] = useState<StaffWorkItem[]>([]);
+  const [selected, setSelected] = useState<StaffWorkItem | null>(null);
+  const [detail, setDetail] = useState<StaffWorkDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const queue = useMemo(() => queueForRoute(routeKey), [routeKey]);
+
+  async function loadItems() {
+    if (!propertyId) return;
+    setLoading(true);
+    setError(false);
+    const result = await fetchStaffWorkItems({ propertyId, queue, status });
+    if (!result.ok) {
+      setError(true);
+      setItems([]);
+      setLoading(false);
+      return;
+    }
+    setItems(result.data.items);
+    setSelected((current) => {
+      const routeSelected = result.data.items.find((item) => item.id === detailId);
+      if (routeSelected) return routeSelected;
+      if (current && result.data.items.some((item) => item.id === current.id)) return current;
+      return result.data.items[0] ?? null;
+    });
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    void loadItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [propertyId, queue, status, detailId]);
+
+  useEffect(() => {
+    if (!selected) {
+      setDetail(null);
+      return;
+    }
+    void (async () => {
+      setDetailLoading(true);
+      const result = await fetchStaffDetail(selected);
+      setDetail(result.ok ? result.data : null);
+      setDetailLoading(false);
+    })();
+  }, [selected]);
+
+  if (!propertyId) {
+    return (
+      <section className="staff-ops__state" data-testid="staff-empty">
+        {t.empty}
+      </section>
+    );
+  }
+
+  return (
+    <section
+      className={`staff-ops${routeKey === 'request' || routeKey === 'order' ? ' staff-ops--detail-route' : ''}`}
+      data-testid="staff-inbox"
+    >
+      <div className="staff-ops__toolbar" aria-label={t.filters}>
+        <label>
+          <span>{t.status}</span>
+          <select
+            data-testid="staff-filter-status"
+            value={status}
+            onChange={(event) => setStatus(event.target.value)}
+          >
+            {statusOptions.map((option) => (
+              <option key={option} value={option}>
+                {option === 'all' ? t.all : option.replace(/_/g, ' ')}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button type="button" onClick={() => void loadItems()} data-testid="staff-refresh">
+          {t.retry}
+        </button>
+      </div>
+
+      {error ? (
+        <div className="staff-ops__state staff-ops__state--error" data-testid="staff-error">
+          {t.error}
+        </div>
+      ) : null}
+
+      <div className="staff-ops__layout">
+        <div className="staff-ops__list" data-testid="staff-work-list">
+          {loading ? (
+            <div className="staff-ops__state" data-testid="staff-ops-loading">
+              {t.loading}
+            </div>
+          ) : null}
+          {!loading && items.length === 0 ? (
+            <div className="staff-ops__state" data-testid="staff-empty">
+              {t.empty}
+            </div>
+          ) : null}
+          {items.map((item) => (
+            <article
+              key={`${item.kind}-${item.id}`}
+              className={`staff-card${selected?.id === item.id ? ' is-active' : ''}`}
+              data-testid="staff-work-item"
+            >
+              <button type="button" onClick={() => setSelected(item)}>
+                <span>{item.kind === 'request' ? t.request : t.order}</span>
+                <strong>{item.title}</strong>
+                <small>
+                  {t.location}: {pickName(item.location.name, locale)} · {item.status.replace(/_/g, ' ')}
+                </small>
+                <small>
+                  {t.waiting}: {waitingLabel(item.waitingSeconds)}
+                </small>
+              </button>
+              <div className="staff-card__actions">
+                <button type="button" disabled title={t.disabledAccept}>
+                  {t.accept}
+                </button>
+                <a href={itemHref(locale, item)} data-testid="staff-open-item">
+                  {t.open}
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <StaffDetailPanel
+          locale={locale}
+          detail={detail}
+          loading={detailLoading}
+          selected={selected}
+          labels={t}
+        />
+      </div>
+    </section>
+  );
+}
+
+function StaffDetailPanel({
+  locale,
+  detail,
+  loading,
+  selected,
+  labels: t,
+}: {
+  locale: string;
+  detail: StaffWorkDetail | null;
+  loading: boolean;
+  selected: StaffWorkItem | null;
+  labels: (typeof labels)['en'];
+}) {
+  if (!selected) {
+    return (
+      <aside className="staff-detail" data-testid="staff-detail-empty">
+        {t.choose}
+      </aside>
+    );
+  }
+  if (loading) {
+    return (
+      <aside className="staff-detail" data-testid="staff-detail-loading">
+        {t.loading}
+      </aside>
+    );
+  }
+  if (!detail) {
+    return (
+      <aside className="staff-detail" data-testid="staff-error">
+        {t.error}
+      </aside>
+    );
+  }
+
+  const isOrder = detail.kind === 'order';
+  const title = isOrder ? detail.order.title : detail.request.title;
+  const status = isOrder ? detail.order.status : detail.request.status;
+  const version = isOrder ? detail.order.version : detail.request.version;
+  const summary = isOrder ? detail.order.notes : detail.request.details;
+
+  return (
+    <aside className="staff-detail" data-testid="staff-detail">
+      <header className="staff-detail__header">
+        <span>{detail.kind === 'request' ? t.request : t.order}</span>
+        <h2>{title}</h2>
+        <p>
+          {status.replace(/_/g, ' ')} · v{version}
+        </p>
+      </header>
+
+      <section className="staff-detail__section">
+        <h3>{t.details}</h3>
+        <dl>
+          <div>
+            <dt>{t.location}</dt>
+            <dd>{pickName(detail.location.name, locale)}</dd>
+          </div>
+          <div>
+            <dt>{t.assignee}</dt>
+            <dd>{detail.assignee?.displayName ?? t.unassigned}</dd>
+          </div>
+          {isOrder ? (
+            <div>
+              <dt>{t.total}</dt>
+              <dd>{money(detail.order.totalMinor, detail.order.currency)}</dd>
+            </div>
+          ) : null}
+        </dl>
+        {summary ? <p>{summary}</p> : null}
+      </section>
+
+      {isOrder ? (
+        <section className="staff-detail__section">
+          <h3>{t.items}</h3>
+          <ul className="staff-detail__items">
+            {detail.order.items.map((item) => (
+              <li key={item.itemId}>
+                <span>{item.label}</span>
+                <strong>
+                  {item.quantity} × {money(item.unitPriceMinor, item.currency)}
+                </strong>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      <section className="staff-detail__section" data-testid="staff-conversation">
+        <h3>{t.conversation}</h3>
+        {detail.messages.length === 0 ? (
+          <p>{t.empty}</p>
+        ) : (
+          <ol className="staff-chat">
+            {detail.messages.map((message) => (
+              <li key={message.id}>
+                <span>{message.role}</span>
+                <p>{message.translatedText ?? message.originalText}</p>
+              </li>
+            ))}
+          </ol>
+        )}
+      </section>
+
+      <section className="staff-detail__section" data-testid="staff-timeline">
+        <h3>{t.timeline}</h3>
+        <ol className="staff-timeline">
+          {detail.timeline.map((item) => (
+            <li key={item.id}>
+              <strong>{item.nextStatus.replace(/_/g, ' ')}</strong>
+              <span>{new Date(item.createdAt).toLocaleString()}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </aside>
+  );
+}

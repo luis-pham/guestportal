@@ -1,16 +1,9 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import AxeBuilder from '@axe-core/playwright';
-
-async function signIn(page: Page, email: string) {
-  await page.goto('/en/login');
-  await page.getByTestId('login-email').fill(email);
-  await page.getByTestId('login-password').fill('Password123!');
-  await page.getByTestId('login-submit').click();
-  await expect(page.getByTestId('staff-workspace')).toBeVisible();
-}
+import { signIn } from './helpers';
 
 test('staff can navigate mobile and desktop shell routes', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });

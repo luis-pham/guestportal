@@ -510,4 +510,96 @@ describeIntegration('request/order lifecycle operations', () => {
       order: { id: orderId, status: 'cancelled', version: 2 },
     });
   });
+
+  it('lists staff inbox items with details only for assigned properties', async () => {
+    const staff = await login('staff.hotel@aurora.test');
+    const foreignStaff = await login('staff.cruise@aurora.test');
+    const { context, requestId } = await createSubmittedRequest();
+    const conversationId = await createConversation(context.guestCookie);
+    const orderDraft = await app.inject({
+      method: 'POST',
+      url: '/v1/guest/order-drafts',
+      headers: { cookie: context.guestCookie },
+      payload: {
+        conversationId,
+        title: 'Fresh juice',
+        items: [
+          {
+            itemId: 'fresh-juice',
+            label: 'Fresh juice',
+            quantity: 1,
+            unitPriceMinor: 0,
+            currency: 'USD',
+          },
+        ],
+      },
+    });
+    expect(orderDraft.statusCode).toBe(200);
+    const orderConfirm = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/order-drafts/${orderDraft.json().draft.id}/confirm`,
+      headers: { cookie: context.guestCookie },
+      payload: { idempotencyKey: `staff-inbox-order-${orderDraft.json().draft.id}` },
+    });
+    expect(orderConfirm.statusCode).toBe(200);
+    const orderId = orderConfirm.json().order.id as string;
+
+    const inbox = await app.inject({
+      method: 'GET',
+      url: `/v1/staff/work-items?propertyId=${context.propertyId}&queue=inbox`,
+      headers: { cookie: staff.cookie },
+    });
+    expect(inbox.statusCode).toBe(200);
+    expect(inbox.json().items).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          kind: 'request',
+          id: requestId,
+          title: 'Extra towels',
+          location: expect.objectContaining({ code: expect.any(String) }),
+        }),
+        expect.objectContaining({
+          kind: 'order',
+          id: orderId,
+          title: 'Fresh juice',
+          totalMinor: 0,
+        }),
+      ]),
+    );
+
+    const requestDetail = await app.inject({
+      method: 'GET',
+      url: `/v1/staff/requests/${requestId}`,
+      headers: { cookie: staff.cookie },
+    });
+    expect(requestDetail.statusCode).toBe(200);
+    expect(requestDetail.json()).toMatchObject({
+      kind: 'request',
+      request: { id: requestId, status: 'submitted' },
+      assignee: null,
+    });
+    expect(requestDetail.json().messages.length).toBeGreaterThanOrEqual(1);
+    expect(requestDetail.json().timeline).toEqual([
+      expect.objectContaining({ nextStatus: 'submitted', actorType: 'guest' }),
+    ]);
+
+    const orderDetail = await app.inject({
+      method: 'GET',
+      url: `/v1/staff/orders/${orderId}`,
+      headers: { cookie: staff.cookie },
+    });
+    expect(orderDetail.statusCode).toBe(200);
+    expect(orderDetail.json()).toMatchObject({
+      kind: 'order',
+      order: { id: orderId, items: [expect.objectContaining({ label: 'Fresh juice' })] },
+    });
+
+    const denied = await app.inject({
+      method: 'GET',
+      url: `/v1/staff/work-items?propertyId=${context.propertyId}&queue=inbox`,
+      headers: { cookie: foreignStaff.cookie },
+    });
+    expect(denied.statusCode).toBe(403);
+    expect(denied.json().error.code).toBe('FORBIDDEN');
+  });
 });

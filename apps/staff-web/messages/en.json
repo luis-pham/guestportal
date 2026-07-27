@@ -51,8 +51,8 @@
       "history": "Completed, rejected, and cancelled items",
       "settings": "Locale, notification, and account controls",
       "more": "Additional staff destinations",
-      "request": "Read-only shell for a future request workspace",
-      "order": "Read-only shell for a future order workspace"
+      "request": "Request detail, guest conversation, and status timeline",
+      "order": "Order detail, guest conversation, and status timeline"
     }
   }
 }

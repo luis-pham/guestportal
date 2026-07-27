@@ -22,6 +22,73 @@ import type { GuestSession, Sql, TransactionSql } from '@guestportal/db';
 import { ApiError } from '../errors.js';
 import { assertOrderTransition, assertRequestTransition } from './request-order-state.js';
 
+export type StaffWorkQueue = 'inbox' | 'my_work' | 'history' | 'all';
+
+export type StaffWorkItemSummary = {
+  kind: 'request' | 'order';
+  id: string;
+  status: GuestRequestStatus | GuestOrderStatus;
+  version: number;
+  title: string;
+  summary: string;
+  locale: string;
+  conversationId: string;
+  location: {
+    id: string;
+    code: string;
+    name: { vi: string; en: string };
+  };
+  assignee: {
+    id: string;
+    displayName: string;
+  } | null;
+  submittedAt: string;
+  waitingSeconds: number;
+  priority: 'normal';
+  totalMinor?: number;
+  currency?: string;
+};
+
+export type StaffTimelineItem = {
+  id: string;
+  previousStatus: string | null;
+  nextStatus: string;
+  actorType: 'guest' | 'staff' | 'system';
+  actorId: string | null;
+  reason: string | null;
+  version: number;
+  createdAt: string;
+};
+
+export type StaffConversationMessage = {
+  id: string;
+  sequence: number;
+  role: string;
+  source: string;
+  originalLanguage: string | null;
+  originalText: string;
+  translatedText: string | null;
+  createdAt: string;
+};
+
+export type StaffRequestDetail = {
+  kind: 'request';
+  request: GuestRequest;
+  location: StaffWorkItemSummary['location'];
+  assignee: StaffWorkItemSummary['assignee'];
+  messages: StaffConversationMessage[];
+  timeline: StaffTimelineItem[];
+};
+
+export type StaffOrderDetail = {
+  kind: 'order';
+  order: GuestOrder;
+  location: StaffWorkItemSummary['location'];
+  assignee: StaffWorkItemSummary['assignee'];
+  messages: StaffConversationMessage[];
+  timeline: StaffTimelineItem[];
+};
+
 type ConversationLockRow = {
   id: string;
   status: string;
@@ -109,6 +176,47 @@ type GuestOrderRow = {
   delivering_at: Date | string | null;
   cancelled_at: Date | string | null;
   completed_at: Date | string | null;
+};
+
+type StaffWorkRow = {
+  kind: 'request' | 'order';
+  id: string;
+  status: GuestRequestStatus | GuestOrderStatus;
+  version: number;
+  title: string;
+  summary: string;
+  locale: string;
+  conversation_id: string;
+  submitted_at: Date | string;
+  location_id: string;
+  location_code: string;
+  location_name: { vi: string; en: string };
+  assigned_staff_id: string | null;
+  assigned_staff_name: string | null;
+  total_minor: number | null;
+  currency: string | null;
+};
+
+type StaffMessageRow = {
+  id: string;
+  sequence: number;
+  role: string;
+  source: string;
+  original_language: string | null;
+  original_text: string;
+  translated_text: string | null;
+  created_at: Date | string;
+};
+
+type StaffTimelineRow = {
+  id: string;
+  previous_status: string | null;
+  next_status: string;
+  actor_type: 'guest' | 'staff' | 'system';
+  actor_id: string | null;
+  reason: string | null;
+  version: number;
+  created_at: Date | string;
 };
 
 type QueryExecutor = Sql | TransactionSql;
@@ -221,6 +329,63 @@ function toGuestOrder(row: GuestOrderRow): GuestOrder {
     deliveringAt: toNullableIso(row.delivering_at),
     cancelledAt: toNullableIso(row.cancelled_at),
     completedAt: toNullableIso(row.completed_at),
+  };
+}
+
+function toStaffWorkItem(row: StaffWorkRow): StaffWorkItemSummary {
+  const submittedAt = toIso(row.submitted_at);
+  const item: StaffWorkItemSummary = {
+    kind: row.kind,
+    id: row.id,
+    status: row.status,
+    version: row.version,
+    title: row.title,
+    summary: row.summary,
+    locale: row.locale,
+    conversationId: row.conversation_id,
+    location: {
+      id: row.location_id,
+      code: row.location_code,
+      name: row.location_name,
+    },
+    assignee:
+      row.assigned_staff_id && row.assigned_staff_name
+        ? { id: row.assigned_staff_id, displayName: row.assigned_staff_name }
+        : null,
+    submittedAt,
+    waitingSeconds: Math.max(0, Math.floor((Date.now() - Date.parse(submittedAt)) / 1000)),
+    priority: 'normal',
+  };
+  if (row.total_minor !== null && row.currency) {
+    item.totalMinor = row.total_minor;
+    item.currency = row.currency;
+  }
+  return item;
+}
+
+function toStaffMessage(row: StaffMessageRow): StaffConversationMessage {
+  return {
+    id: row.id,
+    sequence: row.sequence,
+    role: row.role,
+    source: row.source,
+    originalLanguage: row.original_language,
+    originalText: row.original_text,
+    translatedText: row.translated_text,
+    createdAt: toIso(row.created_at),
+  };
+}
+
+function toStaffTimeline(row: StaffTimelineRow): StaffTimelineItem {
+  return {
+    id: row.id,
+    previousStatus: row.previous_status,
+    nextStatus: row.next_status,
+    actorType: row.actor_type,
+    actorId: row.actor_id,
+    reason: row.reason,
+    version: row.version,
+    createdAt: toIso(row.created_at),
   };
 }
 
@@ -901,6 +1066,236 @@ export async function getGuestOrder(
     throw new ApiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
   }
   return { order: toGuestOrder(row) };
+}
+
+const terminalRequestStatuses = new Set<GuestRequestStatus>(['completed', 'rejected', 'cancelled']);
+const terminalOrderStatuses = new Set<GuestOrderStatus>(['completed', 'cancelled']);
+
+function matchesStaffQueue(
+  item: StaffWorkItemSummary,
+  queue: StaffWorkQueue,
+  staffUserId: string,
+) {
+  if (queue === 'all') return true;
+  if (queue === 'my_work') return item.assignee?.id === staffUserId;
+  const terminal =
+    item.kind === 'request'
+      ? terminalRequestStatuses.has(item.status as GuestRequestStatus)
+      : terminalOrderStatuses.has(item.status as GuestOrderStatus);
+  if (queue === 'history') return terminal;
+  return !item.assignee && !terminal;
+}
+
+export async function listStaffWorkItems(
+  app: FastifyInstance,
+  scope: WorkItemScope,
+  input: {
+    queue: StaffWorkQueue;
+    staffUserId: string;
+    status?: string | undefined;
+  },
+): Promise<{ items: StaffWorkItemSummary[] }> {
+  const requestRows = await app.sql<StaffWorkRow[]>`
+    SELECT
+      'request' AS kind,
+      r.id,
+      r.status,
+      r.version,
+      r.title,
+      r.details AS summary,
+      r.locale,
+      r.conversation_id,
+      r.submitted_at,
+      s.location_id,
+      l.code AS location_code,
+      l.name AS location_name,
+      r.assigned_staff_id,
+      u.display_name AS assigned_staff_name,
+      NULL::integer AS total_minor,
+      NULL::char(3) AS currency
+    FROM guest_requests r
+    INNER JOIN guest_sessions s ON s.id = r.guest_session_id
+    INNER JOIN locations l ON l.id = s.location_id
+    LEFT JOIN users u ON u.id = r.assigned_staff_id
+    WHERE r.organization_id = ${scope.organizationId}::uuid
+      AND r.property_id = ${scope.propertyId}::uuid
+    ORDER BY r.submitted_at DESC
+    LIMIT 100
+  `;
+  const orderRows = await app.sql<StaffWorkRow[]>`
+    SELECT
+      'order' AS kind,
+      o.id,
+      o.status,
+      o.version,
+      o.title,
+      o.notes AS summary,
+      o.locale,
+      o.conversation_id,
+      o.submitted_at,
+      s.location_id,
+      l.code AS location_code,
+      l.name AS location_name,
+      o.assigned_staff_id,
+      u.display_name AS assigned_staff_name,
+      o.total_minor,
+      o.currency
+    FROM guest_orders o
+    INNER JOIN guest_sessions s ON s.id = o.guest_session_id
+    INNER JOIN locations l ON l.id = s.location_id
+    LEFT JOIN users u ON u.id = o.assigned_staff_id
+    WHERE o.organization_id = ${scope.organizationId}::uuid
+      AND o.property_id = ${scope.propertyId}::uuid
+    ORDER BY o.submitted_at DESC
+    LIMIT 100
+  `;
+  const items = [...requestRows, ...orderRows]
+    .map(toStaffWorkItem)
+    .filter((item) => matchesStaffQueue(item, input.queue, input.staffUserId))
+    .filter((item) => !input.status || input.status === 'all' || item.status === input.status)
+    .sort((a, b) => {
+      if (a.priority !== b.priority) return a.priority === 'normal' ? 1 : -1;
+      if (a.waitingSeconds !== b.waitingSeconds) return b.waitingSeconds - a.waitingSeconds;
+      return Date.parse(b.submittedAt) - Date.parse(a.submittedAt);
+    });
+  return { items };
+}
+
+async function loadStaffMessages(
+  app: FastifyInstance,
+  scope: WorkItemScope,
+  conversationId: string,
+) {
+  const rows = await app.sql<StaffMessageRow[]>`
+    SELECT id, sequence, role, source, original_language, original_text, translated_text, created_at
+    FROM messages
+    WHERE organization_id = ${scope.organizationId}::uuid
+      AND property_id = ${scope.propertyId}::uuid
+      AND conversation_id = ${conversationId}::uuid
+    ORDER BY sequence ASC
+    LIMIT 100
+  `;
+  return rows.map(toStaffMessage);
+}
+
+async function loadRequestTimeline(app: FastifyInstance, scope: WorkItemScope, requestId: string) {
+  const rows = await app.sql<StaffTimelineRow[]>`
+    SELECT id, previous_status, next_status, actor_type, actor_id, reason, version, created_at
+    FROM request_status_history
+    WHERE organization_id = ${scope.organizationId}::uuid
+      AND property_id = ${scope.propertyId}::uuid
+      AND request_id = ${requestId}::uuid
+    ORDER BY created_at ASC, version ASC
+  `;
+  return rows.map(toStaffTimeline);
+}
+
+async function loadOrderTimeline(app: FastifyInstance, scope: WorkItemScope, orderId: string) {
+  const rows = await app.sql<StaffTimelineRow[]>`
+    SELECT id, previous_status, next_status, actor_type, actor_id, reason, version, created_at
+    FROM order_status_history
+    WHERE organization_id = ${scope.organizationId}::uuid
+      AND property_id = ${scope.propertyId}::uuid
+      AND order_id = ${orderId}::uuid
+    ORDER BY created_at ASC, version ASC
+  `;
+  return rows.map(toStaffTimeline);
+}
+
+export async function getStaffRequestDetail(
+  app: FastifyInstance,
+  scope: WorkItemScope,
+  requestId: string,
+): Promise<StaffRequestDetail> {
+  const rows = await app.sql<
+    Array<
+      GuestRequestRow & {
+        location_id: string;
+        location_code: string;
+        location_name: { vi: string; en: string };
+        assigned_staff_name: string | null;
+      }
+    >
+  >`
+    SELECT
+      r.*,
+      s.location_id,
+      l.code AS location_code,
+      l.name AS location_name,
+      u.display_name AS assigned_staff_name
+    FROM guest_requests r
+    INNER JOIN guest_sessions s ON s.id = r.guest_session_id
+    INNER JOIN locations l ON l.id = s.location_id
+    LEFT JOIN users u ON u.id = r.assigned_staff_id
+    WHERE r.id = ${requestId}::uuid
+      AND r.organization_id = ${scope.organizationId}::uuid
+      AND r.property_id = ${scope.propertyId}::uuid
+    LIMIT 1
+  `;
+  const row = rows[0];
+  if (!row) {
+    throw new ApiError(404, 'REQUEST_NOT_FOUND', 'Request not found.');
+  }
+  const request = toGuestRequest(row);
+  return {
+    kind: 'request',
+    request,
+    location: { id: row.location_id, code: row.location_code, name: row.location_name },
+    assignee:
+      request.assignedStaffId && row.assigned_staff_name
+        ? { id: request.assignedStaffId, displayName: row.assigned_staff_name }
+        : null,
+    messages: await loadStaffMessages(app, scope, request.conversationId),
+    timeline: await loadRequestTimeline(app, scope, request.id),
+  };
+}
+
+export async function getStaffOrderDetail(
+  app: FastifyInstance,
+  scope: WorkItemScope,
+  orderId: string,
+): Promise<StaffOrderDetail> {
+  const rows = await app.sql<
+    Array<
+      GuestOrderRow & {
+        location_id: string;
+        location_code: string;
+        location_name: { vi: string; en: string };
+        assigned_staff_name: string | null;
+      }
+    >
+  >`
+    SELECT
+      o.*,
+      s.location_id,
+      l.code AS location_code,
+      l.name AS location_name,
+      u.display_name AS assigned_staff_name
+    FROM guest_orders o
+    INNER JOIN guest_sessions s ON s.id = o.guest_session_id
+    INNER JOIN locations l ON l.id = s.location_id
+    LEFT JOIN users u ON u.id = o.assigned_staff_id
+    WHERE o.id = ${orderId}::uuid
+      AND o.organization_id = ${scope.organizationId}::uuid
+      AND o.property_id = ${scope.propertyId}::uuid
+    LIMIT 1
+  `;
+  const row = rows[0];
+  if (!row) {
+    throw new ApiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
+  }
+  const order = toGuestOrder(row);
+  return {
+    kind: 'order',
+    order,
+    location: { id: row.location_id, code: row.location_code, name: row.location_name },
+    assignee:
+      order.assignedStaffId && row.assigned_staff_name
+        ? { id: order.assignedStaffId, displayName: row.assigned_staff_name }
+        : null,
+    messages: await loadStaffMessages(app, scope, order.conversationId),
+    timeline: await loadOrderTimeline(app, scope, order.id),
+  };
 }
 
 export async function transitionRequestStatus(

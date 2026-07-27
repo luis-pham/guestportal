@@ -9,6 +9,7 @@ import { apiFetch } from '../lib/api';
 import { formatCurrency, formatDate, formatNumber } from '../i18n/format';
 import { resolveLocale, type AppLocale } from '../i18n/config';
 import { localeHref, persistLocalePreference } from '../lib/locale';
+import { StaffOperationsWorkspace } from './StaffOperationsWorkspace';
 
 type MeResponse = {
   user: { displayName: string; email: string };
@@ -234,22 +235,29 @@ export function StaffWorkspace({
           <p data-testid="access-denied">{t('accessDenied')}</p>
         ) : (
           <>
-            <p className="gp-state__body">{t('workspaceBody')}</p>
-            <p data-testid="long-fixture">{t('longFixture')}</p>
-            <p data-testid="sample-date">{t('sampleDate', { value: formatDate(sampleInstant, locale) })}</p>
-            <p data-testid="sample-number">{t('sampleNumber', { value: formatNumber(1234567.89, locale) })}</p>
-            <p data-testid="sample-currency">
-              {t('sampleCurrency', { value: formatCurrency(150000, locale) })}
-            </p>
             {denied ? <p data-testid="access-denied">{t('accessDenied')}</p> : null}
             <p data-testid="property-context">
               {properties.length
                 ? t('propertyContext', { property: propertyName })
                 : t('noProperties')}
             </p>
-            <p data-testid="empty-queue">{t('emptyQueue')}</p>
-            {detailId ? <p data-testid="detail-id">{detailId}</p> : null}
-            <p data-testid="admin-only-note">{t('adminOnlyBlocked')}</p>
+            <StaffOperationsWorkspace
+              locale={locale}
+              routeKey={activeKey}
+              detailId={detailId}
+              propertyId={propertyId}
+            />
+            <div className="gp-state__body" data-testid="staff-regression-fixtures">
+              <p data-testid="long-fixture">{t('longFixture')}</p>
+              <p data-testid="sample-date">{t('sampleDate', { value: formatDate(sampleInstant, locale) })}</p>
+              <p data-testid="sample-number">{t('sampleNumber', { value: formatNumber(1234567.89, locale) })}</p>
+              <p data-testid="sample-currency">
+                {t('sampleCurrency', { value: formatCurrency(150000, locale) })}
+              </p>
+              <p data-testid="empty-queue">{t('emptyQueue')}</p>
+              {detailId ? <p data-testid="detail-id">{detailId}</p> : null}
+              <p data-testid="admin-only-note">{t('adminOnlyBlocked')}</p>
+            </div>
             <ul data-testid="staff-user">
               <li>{me.user.displayName}</li>
               <li>{me.user.email}</li>

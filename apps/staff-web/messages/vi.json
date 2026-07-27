@@ -51,8 +51,8 @@
       "history": "Các mục đã hoàn thành, từ chối hoặc hủy",
       "settings": "Điều khiển ngôn ngữ, thông báo và tài khoản",
       "more": "Các điểm đến bổ sung cho nhân viên",
-      "request": "Khung chỉ đọc cho không gian yêu cầu ở giai đoạn sau",
-      "order": "Khung chỉ đọc cho không gian đơn hàng ở giai đoạn sau"
+      "request": "Chi tiết yêu cầu, trò chuyện với khách và dòng thời gian trạng thái",
+      "order": "Chi tiết đơn hàng, trò chuyện với khách và dòng thời gian trạng thái"
     }
   }
 }

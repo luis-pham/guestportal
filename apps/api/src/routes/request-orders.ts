@@ -3,12 +3,13 @@ import {
   guestCancelRequestSchema,
   guestDraftConfirmRequestSchema,
   guestOrderDraftCreateRequestSchema,
-  guestOrderStatusSchema,
   guestRequestDraftCreateRequestSchema,
-  guestRequestStatusSchema,
   staffTransitionRequestSchema,
 } from '@guestportal/contracts';
+import type { guestOrderStatusSchema, guestRequestStatusSchema } from '@guestportal/contracts';
+import { properties } from '@guestportal/db';
 import { z } from 'zod';
+import { eq } from 'drizzle-orm';
 import { assertCan, toAuthzContext } from '../auth-context.js';
 import { ApiError } from '../errors.js';
 import { requireActiveGuestSession } from '../services/guest-context.js';
@@ -21,11 +22,15 @@ import {
   createRequestDraft,
   getGuestOrder,
   getGuestRequest,
+  getStaffOrderDetail,
+  getStaffRequestDetail,
   listGuestWorkItems,
+  listStaffWorkItems,
   loadOrderScope,
   loadRequestScope,
   transitionOrderStatus,
   transitionRequestStatus,
+  type StaffWorkQueue,
 } from '../services/request-orders.js';
 
 const draftParamsSchema = z.object({
@@ -38,6 +43,12 @@ const requestParamsSchema = z.object({
 
 const orderParamsSchema = z.object({
   orderId: z.string().uuid(),
+});
+
+const staffListQuerySchema = z.object({
+  propertyId: z.string().uuid(),
+  queue: z.enum(['inbox', 'my_work', 'history', 'all']).default('inbox'),
+  status: z.string().trim().max(40).optional(),
 });
 
 const staffRequestTransitionByAction = {
@@ -68,6 +79,29 @@ async function requireStaffTransition(
   const authz = toAuthzContext(request.auth, scope.organizationId);
   assertCan(authz, permission, scope.propertyId);
   return request.auth.userId;
+}
+
+async function requireStaffRead(
+  app: FastifyInstance,
+  request: FastifyRequest,
+  propertyId: string,
+  permission: 'request.read' | 'order.read' | 'conversation.read',
+) {
+  if (!request.auth) {
+    throw new ApiError(401, 'UNAUTHORIZED', 'Authentication required.');
+  }
+  const rows = await app.db
+    .select({ organizationId: properties.organizationId })
+    .from(properties)
+    .where(eq(properties.id, propertyId))
+    .limit(1);
+  const property = rows[0];
+  if (!property) {
+    throw new ApiError(404, 'PROPERTY_NOT_FOUND', 'Property not found.');
+  }
+  const authz = toAuthzContext(request.auth, property.organizationId);
+  assertCan(authz, permission, propertyId);
+  return { organizationId: property.organizationId, propertyId };
 }
 
 export async function registerRequestOrderRoutes(app: FastifyInstance) {
@@ -145,6 +179,59 @@ export async function registerRequestOrderRoutes(app: FastifyInstance) {
     const params = orderParamsSchema.parse(request.params);
     const body = guestCancelRequestSchema.parse(request.body ?? {});
     return cancelGuestOrder(app, session, params.orderId, body);
+  });
+
+  app.get('/v1/staff/work-items', async (request) => {
+    const query = staffListQuerySchema.parse(request.query);
+    const scope = await requireStaffRead(app, request, query.propertyId, 'request.read');
+    await requireStaffRead(app, request, query.propertyId, 'order.read');
+    return listStaffWorkItems(app, scope, {
+      queue: query.queue as StaffWorkQueue,
+      staffUserId: request.auth!.userId,
+      status: query.status,
+    });
+  });
+
+  app.get('/v1/staff/requests', async (request) => {
+    const query = staffListQuerySchema.parse(request.query);
+    const scope = await requireStaffRead(app, request, query.propertyId, 'request.read');
+    const { items } = await listStaffWorkItems(app, scope, {
+      queue: query.queue as StaffWorkQueue,
+      staffUserId: request.auth!.userId,
+      status: query.status,
+    });
+    return { requests: items.filter((item) => item.kind === 'request') };
+  });
+
+  app.get('/v1/staff/requests/:requestId', async (request) => {
+    const params = requestParamsSchema.parse(request.params);
+    const scope = await loadRequestScope(app, params.requestId);
+    if (!scope) {
+      throw new ApiError(404, 'REQUEST_NOT_FOUND', 'Request not found.');
+    }
+    await requireStaffRead(app, request, scope.propertyId, 'request.read');
+    return getStaffRequestDetail(app, scope, params.requestId);
+  });
+
+  app.get('/v1/staff/orders', async (request) => {
+    const query = staffListQuerySchema.parse(request.query);
+    const scope = await requireStaffRead(app, request, query.propertyId, 'order.read');
+    const { items } = await listStaffWorkItems(app, scope, {
+      queue: query.queue as StaffWorkQueue,
+      staffUserId: request.auth!.userId,
+      status: query.status,
+    });
+    return { orders: items.filter((item) => item.kind === 'order') };
+  });
+
+  app.get('/v1/staff/orders/:orderId', async (request) => {
+    const params = orderParamsSchema.parse(request.params);
+    const scope = await loadOrderScope(app, params.orderId);
+    if (!scope) {
+      throw new ApiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
+    }
+    await requireStaffRead(app, request, scope.propertyId, 'order.read');
+    return getStaffOrderDetail(app, scope, params.orderId);
   });
 
   for (const [action, nextStatus] of Object.entries(staffRequestTransitionByAction)) {
