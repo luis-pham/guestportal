@@ -30,12 +30,17 @@ function isoAt(now: Date, ttlMs: number) {
   return new Date(now.getTime() + ttlMs).toISOString();
 }
 
+export function normalizeGeminiLiveModel(model: string) {
+  return model.includes('/') ? model : `models/${model}`;
+}
+
 export async function createGeminiLiveEphemeralToken({
   apiKey,
   model,
   now = new Date(),
   fetchImpl = fetch,
 }: GeminiLiveTokenRequest): Promise<GeminiLiveToken> {
+  const normalizedModel = normalizeGeminiLiveModel(model);
   const expiresAt = isoAt(now, GEMINI_LIVE_SESSION_TTL_MS);
   const newSessionExpiresAt = isoAt(now, GEMINI_LIVE_NEW_SESSION_TTL_MS);
   const response = await fetchImpl('https://generativelanguage.googleapis.com/v1beta/auth_tokens', {
@@ -48,12 +53,13 @@ export async function createGeminiLiveEphemeralToken({
       uses: 1,
       expireTime: expiresAt,
       newSessionExpireTime: newSessionExpiresAt,
-      liveConnectConstraints: {
-        model,
-        config: {
-          sessionResumption: {},
+      fieldMask: 'model,generationConfig.responseModalities,sessionResumption',
+      bidiGenerateContentSetup: {
+        model: normalizedModel,
+        generationConfig: {
           responseModalities: ['AUDIO'],
         },
+        sessionResumption: {},
       },
     }),
   });
@@ -67,7 +73,7 @@ export async function createGeminiLiveEphemeralToken({
   const parsed = geminiAuthTokenResponseSchema.parse(await response.json());
   return {
     token: parsed.name,
-    model,
+    model: normalizedModel,
     expiresAt: parsed.expireTime ?? expiresAt,
     newSessionExpiresAt: parsed.newSessionExpireTime ?? newSessionExpiresAt,
     uses: 1,

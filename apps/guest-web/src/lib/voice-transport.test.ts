@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import type { VoiceLiveSession } from '@guestportal/contracts';
 import {
   BrowserVoiceTransport,
+  buildGeminiAudioInputMessage,
   buildGeminiLiveSetupMessage,
   buildGeminiToolResponseMessage,
   buildGeminiLiveWebSocketUrl,
@@ -63,9 +64,20 @@ class FakeAudioContext {
 }
 
 class FakeAudioWorkletNode extends FakeNode {
+  port = {
+    onmessage: null as ((event: MessageEvent) => void) | null,
+  };
+
   constructor() {
     super();
+    FakeAudioWorkletNode.instances.push(this);
   }
+
+  emitAudio(pcm: Int16Array) {
+    this.port.onmessage?.(new MessageEvent('message', { data: { type: 'audio', pcm } }));
+  }
+
+  static instances: FakeAudioWorkletNode[] = [];
 }
 
 class FakeWebSocket {
@@ -145,6 +157,7 @@ describe('BrowserVoiceTransport', () => {
     const stream = new FakeMediaStream([track]);
     const events: VoiceTransportEvent[] = [];
     FakeWebSocket.instances = [];
+    FakeAudioWorkletNode.instances = [];
     const transport = new BrowserVoiceTransport({
       mediaDevices: {
         getUserMedia: vi.fn(async () => stream),
@@ -162,6 +175,9 @@ describe('BrowserVoiceTransport', () => {
     });
     const socket = FakeWebSocket.instances[0]!;
     socket.open();
+    const worklet = FakeAudioWorkletNode.instances[0]!;
+    const pcm = new Int16Array([0, 2048, -2048, 32767]);
+    worklet.emitAudio(pcm);
 
     expect(socket.url).toBe(buildGeminiLiveWebSocketUrl('ephemeral-token'));
     expect(socket.url).toContain('generativelanguage.googleapis.com');
@@ -169,6 +185,7 @@ describe('BrowserVoiceTransport', () => {
     expect(socket.url).not.toContain('localhost');
     expect(socket.url).not.toContain('GEMINI_API_KEY');
     expect(JSON.parse(socket.sent[0]!)).toEqual(buildGeminiLiveSetupMessage(session));
+    expect(JSON.parse(socket.sent[1]!)).toEqual(buildGeminiAudioInputMessage(pcm));
     expect(
       events
         .filter((event) => event.type === 'status')

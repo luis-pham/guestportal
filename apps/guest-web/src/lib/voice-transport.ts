@@ -161,14 +161,37 @@ export const GUEST_VOICE_TOOL_DECLARATIONS = [
 
 const MIC_WORKLET_SOURCE = `
 class GuestPortalMicMeter extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.pending = [];
+    this.pendingFrameCount = 0;
+  }
+
   process(inputs) {
     const input = inputs[0]?.[0];
     if (input) {
       let sum = 0;
+      const pcm = new Int16Array(input.length);
       for (let index = 0; index < input.length; index += 1) {
-        sum += input[index] * input[index];
+        const sample = Math.max(-1, Math.min(1, input[index]));
+        sum += sample * sample;
+        pcm[index] = sample < 0 ? sample * 0x8000 : sample * 0x7fff;
       }
       this.port.postMessage({ type: 'level', rms: Math.sqrt(sum / input.length) });
+      this.pending.push(pcm);
+      this.pendingFrameCount += pcm.length;
+
+      if (this.pendingFrameCount >= 2048) {
+        const chunk = new Int16Array(this.pendingFrameCount);
+        let offset = 0;
+        for (const block of this.pending) {
+          chunk.set(block, offset);
+          offset += block.length;
+        }
+        this.pending = [];
+        this.pendingFrameCount = 0;
+        this.port.postMessage({ type: 'audio', pcm: chunk }, [chunk.buffer]);
+      }
     }
     return true;
   }
@@ -188,7 +211,11 @@ export function buildGeminiLiveSetupMessage(session: VoiceLiveSession, sessionHa
   return {
     setup: {
       model: session.model,
-      responseModalities: ['AUDIO'],
+      generationConfig: {
+        responseModalities: ['AUDIO'],
+      },
+      inputAudioTranscription: {},
+      outputAudioTranscription: {},
       tools: [{ functionDeclarations: GUEST_VOICE_TOOL_DECLARATIONS }],
       realtimeInputConfig: {
         activityHandling: 'START_OF_ACTIVITY_INTERRUPTS',
@@ -202,6 +229,17 @@ export function buildGeminiToolResponseMessage(functionResponses: GeminiFunction
   return {
     toolResponse: {
       functionResponses,
+    },
+  };
+}
+
+export function buildGeminiAudioInputMessage(pcm: Int16Array) {
+  return {
+    realtimeInput: {
+      audio: {
+        data: int16ToBase64(pcm),
+        mimeType: 'audio/pcm;rate=16000',
+      },
     },
   };
 }
@@ -225,6 +263,17 @@ function resolveAudioContextCtor(input?: typeof AudioContext) {
 
 function asError(value: unknown) {
   return value instanceof Error ? value : new Error(String(value));
+}
+
+function int16ToBase64(pcm: Int16Array) {
+  const bytes = new Uint8Array(pcm.buffer, pcm.byteOffset, pcm.byteLength);
+  let binary = '';
+  const chunkSize = 0x8000;
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    const chunk = bytes.subarray(index, index + chunkSize);
+    binary += String.fromCharCode(...chunk);
+  }
+  return btoa(binary);
 }
 
 export class BrowserVoiceTransport {
@@ -347,6 +396,14 @@ export class BrowserVoiceTransport {
     this.sourceNode = this.audioContext.createMediaStreamSource(this.stream!);
     const AudioWorkletNodeCtor = this.audioWorkletNodeCtor ?? AudioWorkletNode;
     this.workletNode = new AudioWorkletNodeCtor(this.audioContext, WORKLET_NAME);
+    this.workletNode.port.onmessage = (event) => {
+      const payload = event.data;
+      if (payload?.type !== 'audio') return;
+      const pcm = payload.pcm instanceof Int16Array ? payload.pcm : null;
+      const socket = this.socket;
+      if (!pcm || !socket || socket.readyState !== socket.OPEN) return;
+      socket.send(JSON.stringify(buildGeminiAudioInputMessage(pcm)));
+    };
     this.sourceNode.connect(this.workletNode);
   }
 

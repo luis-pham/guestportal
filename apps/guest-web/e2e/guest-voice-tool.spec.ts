@@ -62,7 +62,10 @@ test('voice tool call creates a draft and requires guest confirmation', async ({
 
     class FakeAudioWorkletNode {
       constructor() {
-        return { disconnect: () => undefined };
+        return {
+          port: { onmessage: null },
+          disconnect: () => undefined,
+        };
       }
     }
     class FakeAudioContext {

@@ -64,7 +64,10 @@ test('guest voice transport starts on mobile without relaying audio through back
 
     class FakeAudioWorkletNode {
       constructor() {
-        return { disconnect: () => undefined };
+        return {
+          port: { onmessage: null },
+          disconnect: () => undefined,
+        };
       }
     }
     class FakeAudioContext {

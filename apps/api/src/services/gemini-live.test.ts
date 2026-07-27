@@ -4,9 +4,17 @@ import {
   GEMINI_LIVE_NEW_SESSION_TTL_MS,
   GEMINI_LIVE_SESSION_TTL_MS,
   createGeminiLiveEphemeralToken,
+  normalizeGeminiLiveModel,
 } from './gemini-live.js';
 
 describe('Gemini Live ephemeral token service', () => {
+  it('normalizes model ids for Gemini API resource names', () => {
+    expect(normalizeGeminiLiveModel('gemini-2.5-flash-preview-native-audio-dialog')).toBe(
+      'models/gemini-2.5-flash-preview-native-audio-dialog',
+    );
+    expect(normalizeGeminiLiveModel(GEMINI_LIVE_DEFAULT_MODEL)).toBe(GEMINI_LIVE_DEFAULT_MODEL);
+  });
+
   it('creates short-lived one-use scoped Live API tokens without returning the API key', async () => {
     const fetchImpl = vi.fn(async () =>
       Response.json({
@@ -39,25 +47,27 @@ describe('Gemini Live ephemeral token service', () => {
       uses: number;
       expireTime: string;
       newSessionExpireTime: string;
-      liveConnectConstraints: {
+      fieldMask: string;
+      bidiGenerateContentSetup: {
         model: string;
-        config: {
-          sessionResumption: Record<string, never>;
+        generationConfig: {
           responseModalities: string[];
         };
+        sessionResumption: Record<string, never>;
       };
     };
     expect(body.uses).toBe(1);
+    expect(body.fieldMask).toBe('model,generationConfig.responseModalities,sessionResumption');
     expect(Date.parse(body.newSessionExpireTime) - now.getTime()).toBe(
       GEMINI_LIVE_NEW_SESSION_TTL_MS,
     );
     expect(Date.parse(body.expireTime) - now.getTime()).toBe(GEMINI_LIVE_SESSION_TTL_MS);
-    expect(body.liveConnectConstraints).toEqual({
+    expect(body.bidiGenerateContentSetup).toEqual({
       model: GEMINI_LIVE_DEFAULT_MODEL,
-      config: {
-        sessionResumption: {},
+      generationConfig: {
         responseModalities: ['AUDIO'],
       },
+      sessionResumption: {},
     });
   });
 });

@@ -49,7 +49,10 @@ test('voice transcript interruption and reconnect remain visible on mobile', asy
     });
     class FakeAudioWorkletNode {
       constructor() {
-        return { disconnect: () => undefined };
+        return {
+          port: { onmessage: null },
+          disconnect: () => undefined,
+        };
       }
     }
     class FakeAudioContext {

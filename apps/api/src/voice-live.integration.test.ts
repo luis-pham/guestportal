@@ -169,11 +169,13 @@ describeIntegration('Gemini Live token endpoint', () => {
 
     const [, init] = geminiFetch.mock.calls[0]!;
     const requestBody = JSON.parse(String(init.body)) as {
-      liveConnectConstraints: { config: { responseModalities: string[] } };
+      bidiGenerateContentSetup: { generationConfig: { responseModalities: string[] } };
       uses: number;
     };
     expect(requestBody.uses).toBe(1);
-    expect(requestBody.liveConnectConstraints.config.responseModalities).toEqual(['AUDIO']);
+    expect(requestBody.bidiGenerateContentSetup.generationConfig.responseModalities).toEqual([
+      'AUDIO',
+    ]);
   });
 
   it('denies cross-session conversation scope and rate limits token creation', async () => {
