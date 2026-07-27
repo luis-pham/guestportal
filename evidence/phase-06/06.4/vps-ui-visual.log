@@ -1,0 +1,2 @@
+$ node scripts/guest-chat-visual.mjs
+Wrote guest chat visual snapshots to /opt/apps/guestportal/evidence/phase-06/06.4/screenshots
