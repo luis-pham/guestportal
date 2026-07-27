@@ -116,7 +116,7 @@ ${results
   .join('\n')}
 
 ## Test results
-Parsed from command-results.json (JUnit not required for Phase 00 unit smoke).
+Parsed from command-results.json.
 
 ## Known issues
 ${knownIssues.length > 0 ? knownIssues.map((issue) => `- ${issue}`).join('\n') : '- None'}
@@ -124,7 +124,7 @@ ${knownIssues.length > 0 ? knownIssues.map((issue) => `- ${issue}`).join('\n') :
 ## Honest conclusion
 ${
   status === 'PASS'
-    ? 'All mandatory Phase 00 checks passed.'
+    ? `All mandatory Phase ${phaseId} checks passed.`
     : status === 'BLOCKED'
       ? 'Core toolchain checks passed, but a required local infrastructure prerequisite is missing.'
       : 'One or more mandatory checks failed.'

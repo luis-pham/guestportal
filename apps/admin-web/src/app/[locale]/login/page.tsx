@@ -98,7 +98,7 @@ export default function LoginPage() {
         </button>
         <div style={{ marginTop: 16 }}>
           <a href={`/${locale === 'vi' ? 'en' : 'vi'}/login`}>
-            {locale === 'vi' ? 'English' : 'Tiếng Việt'}
+            {locale === 'vi' ? t('switchToEn') : t('switchToVi')}
           </a>
         </div>
       </form>

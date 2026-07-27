@@ -108,3 +108,23 @@ Không dùng `MOSTLY_DONE`, `NEARLY_PASS`, `CONDITIONAL_PASS` trừ khi tài li�
 
 
 Các tài liệu v2 khóa route, screen, API, database, permission, events, test cases, fixtures, UI acceptance và phase gate tự động. Khi có xung đột, tài liệu có số lớn hơn và cụ thể hơn được ưu tiên, trừ khi ADR mới thay đổi quyết định.
+
+
+## Execution layer (added after Phase 01)
+
+The roadmap remains 11 phases. Phase 01 is treated as an inherited baseline. Before continuing, coding agents must use the task-oriented execution layer under `execution/`.
+
+Start with:
+
+1. `execution/00_EXECUTION_README.md`
+2. `execution/01_PHASE_01_BASELINE_AND_TRANSITION.md`
+3. `execution/08_TASK_MANIFEST_INDEX.md`
+4. `execution/PHASE_02_EXECUTION_PLAN.md`
+5. `execution/tasks/02.1_design_tokens_and_theme_foundation.md`
+
+Use `execution/06_TASK_PROMPT_TEMPLATE.md` to invoke exactly one task at a time.
+
+
+## Reserved architecture layer (required before Phase 02)
+
+The roadmap remains unchanged. Read `reserved/00_RESERVED_ARCHITECTURE.md` before executing Task 02.1. Platform Admin, commercial plans, subscriptions, billing and payment integration are intentionally deferred. Current phases must preserve boundaries without guessing or scaffolding those business modules.

@@ -1,5 +1,15 @@
-:root {
-  /* Color semantic tokens — Admin/Staff foundation */
+/*
+ * GuestPortal design tokens — light theme baseline.
+ * Extension points:
+ * - [data-theme="…"] on <html> for alternate themes (same semantic names).
+ * - [data-surface="guest"][data-property-brand] may override only brand vars.
+ */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* Color semantic tokens */
   --gp-color-background: #f6f7f9;
   --gp-color-surface: #ffffff;
   --gp-color-surface-muted: #eef1f5;
@@ -36,13 +46,86 @@
   --gp-radius-xl: 20px;
   --gp-radius-full: 9999px;
 
-  /* Typography */
+  /* Typography families — Vietnamese + English capable stacks */
   --gp-font-sans: 'Source Sans 3', 'Be Vietnam Pro', 'Noto Sans', sans-serif;
   --gp-font-display: 'Source Serif 4', 'Noto Serif', serif;
   --gp-font-mono: 'IBM Plex Mono', 'SFMono-Regular', ui-monospace, monospace;
+
+  /* Typography sizes */
+  --gp-font-size-display: 2.5rem;
+  --gp-font-size-h1: 2rem;
+  --gp-font-size-h2: 1.5rem;
+  --gp-font-size-h3: 1.25rem;
+  --gp-font-size-body: 1rem;
+  --gp-font-size-body-small: 0.875rem;
+  --gp-font-size-label: 0.875rem;
+  --gp-font-size-caption: 0.75rem;
+  --gp-font-size-mono: 0.875rem;
+
+  /* Typography line heights */
+  --gp-line-height-display: 1.2;
+  --gp-line-height-h1: 1.25;
+  --gp-line-height-h2: 1.3;
+  --gp-line-height-h3: 1.35;
+  --gp-line-height-body: 1.5;
+  --gp-line-height-body-small: 1.45;
+  --gp-line-height-label: 1.4;
+  --gp-line-height-caption: 1.4;
+  --gp-line-height-mono: 1.45;
+
+  /* Font weights */
+  --gp-font-weight-regular: 400;
+  --gp-font-weight-medium: 500;
+  --gp-font-weight-semibold: 600;
+  --gp-font-weight-bold: 700;
+
+  /* Shadows */
+  --gp-shadow-none: none;
+  --gp-shadow-xs: 0 1px 2px rgb(18 24 38 / 0.06);
+  --gp-shadow-sm: 0 1px 3px rgb(18 24 38 / 0.08), 0 1px 2px rgb(18 24 38 / 0.04);
+  --gp-shadow-md: 0 4px 12px rgb(18 24 38 / 0.1), 0 2px 4px rgb(18 24 38 / 0.06);
+  --gp-shadow-lg: 0 12px 32px rgb(18 24 38 / 0.12), 0 4px 8px rgb(18 24 38 / 0.06);
+  --gp-shadow-focus: 0 0 0 3px color-mix(in srgb, var(--gp-color-focus-ring) 45%, transparent);
+
+  /* Motion */
+  --gp-duration-instant: 0ms;
+  --gp-duration-fast: 120ms;
+  --gp-duration-normal: 200ms;
+  --gp-duration-slow: 320ms;
+  --gp-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --gp-easing-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --gp-easing-exit: cubic-bezier(0.4, 0, 1, 1);
 
   /* Shell layout */
   --gp-sidebar-expanded: 240px;
   --gp-sidebar-collapsed: 68px;
   --gp-secondary-sidebar: 260px;
+}
+
+/* Guest property brand seam — brand only; keep text/surface contrast intact.
+   Consumers must set --gp-property-brand and --gp-property-brand-hover. */
+[data-surface='guest'][data-property-brand] {
+  --gp-color-brand: var(--gp-property-brand);
+  --gp-color-brand-hover: var(--gp-property-brand-hover);
+}
+
+/* Baseline document styles when tokens.css is the sole theme entry. */
+html {
+  background: var(--gp-color-background);
+  color: var(--gp-color-text-primary);
+}
+
+body {
+  margin: 0;
+  font-family: var(--gp-font-sans);
+  font-size: var(--gp-font-size-body);
+  line-height: var(--gp-line-height-body);
+  font-weight: var(--gp-font-weight-regular);
+  background: var(--gp-color-background);
+  color: var(--gp-color-text-primary);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--gp-shadow-focus);
 }

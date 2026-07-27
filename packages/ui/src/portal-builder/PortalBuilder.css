@@ -1,0 +1,124 @@
+.gp-builder {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 280px;
+  gap: 12px;
+  min-height: 560px;
+  align-items: stretch;
+}
+
+.gp-builder__toolbar {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.gp-builder__toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gp-builder__panel {
+  border: 1px solid color-mix(in srgb, var(--gp-color-border, #d4d4d8) 100%, transparent);
+  border-radius: 12px;
+  background: var(--gp-color-surface, #fff);
+  padding: 12px;
+  min-height: 480px;
+  overflow: auto;
+}
+
+.gp-builder__panel-title {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.gp-builder__palette-list {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gp-builder__palette-item {
+  width: 100%;
+  text-align: left;
+}
+
+.gp-builder__canvas {
+  display: grid;
+  gap: 10px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.gp-builder__section {
+  border: 2px solid transparent;
+  border-radius: 14px;
+  padding: 14px;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 55%);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+  cursor: pointer;
+}
+
+.gp-builder__section[data-selected='true'] {
+  border-color: var(--gp-color-primary, #0f766e);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gp-color-primary, #0f766e) 20%, transparent);
+}
+
+.gp-builder__section-type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+  margin: 0 0 6px;
+}
+
+.gp-builder__section-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.gp-builder__section-body {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.gp-builder__section-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.gp-builder__inspector {
+  display: grid;
+  gap: 10px;
+}
+
+.gp-builder__empty {
+  margin: 24px 0;
+  text-align: center;
+  opacity: 0.75;
+}
+
+.gp-builder__status[data-state='error'] {
+  color: var(--gp-color-danger, #b91c1c);
+}
+
+.gp-builder__status[data-state='saved'] {
+  color: var(--gp-color-success, #15803d);
+}
+
+@media (max-width: 1100px) {
+  .gp-builder {
+    grid-template-columns: 1fr;
+  }
+}

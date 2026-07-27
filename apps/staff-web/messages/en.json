@@ -1,0 +1,58 @@
+{
+  "login": {
+    "title": "Staff sign in",
+    "subtitle": "Operational workspace for assigned properties",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "error": "Invalid email or password",
+    "switchToVi": "Tiếng Việt",
+    "switchToEn": "English"
+  },
+  "shell": {
+    "loading": "Loading staff workspace",
+    "organization": "Organization",
+    "property": "Property",
+    "logout": "Sign out",
+    "accessDenied": "You do not have permission to use the staff workspace",
+    "adminOnlyBlocked": "Admin-only destinations are not available in the staff application",
+    "offline": "Offline — reconnecting when the network returns",
+    "workspaceBody": "Shell ready. Request and order workflows arrive in a later phase.",
+    "emptyQueue": "No items in this queue yet.",
+    "propertyContext": "Assigned property context: {property}",
+    "noProperties": "No assigned properties are available.",
+    "localeSwitch": "Language",
+    "sampleDate": "Sample date: {value}",
+    "sampleNumber": "Sample number: {value}",
+    "sampleCurrency": "Sample amount: {value}",
+    "longFixture": "Staff coordination guidance for high-volume hospitality operations covering inbox triage, claimed work continuity, multilingual guest messaging continuity, and historical audit clarity across Vietnamese and English service desks without clipping essential instructions.",
+    "routes": {
+      "inbox": "Inbox",
+      "myWork": "My work",
+      "messages": "Messages",
+      "more": "More",
+      "history": "History and completed work archive",
+      "settings": "Locale notifications and account preferences"
+    },
+    "titles": {
+      "inbox": "Inbox",
+      "myWork": "My work",
+      "messages": "Messages",
+      "history": "History",
+      "settings": "Settings",
+      "more": "More",
+      "request": "Request detail",
+      "order": "Order detail"
+    },
+    "subtitles": {
+      "inbox": "Unclaimed and newly arrived operational items",
+      "myWork": "Items claimed by the signed-in staff member",
+      "messages": "Guest conversation threads for assigned properties",
+      "history": "Completed, rejected, and cancelled items",
+      "settings": "Locale, notification, and account controls",
+      "more": "Additional staff destinations",
+      "request": "Read-only shell for a future request workspace",
+      "order": "Read-only shell for a future order workspace"
+    }
+  }
+}

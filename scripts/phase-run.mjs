@@ -52,6 +52,17 @@ const suitesByPhase = {
     { name: 'docker-health', command: 'pnpm docker:health', optionalBlocked: true },
     { name: 'e2e', command: 'node scripts/run-phase01-e2e.mjs' },
   ],
+  '02': [
+    { name: 'lint', command: 'pnpm lint' },
+    { name: 'typecheck', command: 'pnpm typecheck' },
+    { name: 'unit', command: 'pnpm test' },
+    { name: 'integration', command: 'pnpm test:integration' },
+    { name: 'build', command: 'pnpm build' },
+    { name: 'e2e-admin', command: 'node scripts/run-admin-e2e.mjs' },
+    { name: 'e2e-staff', command: 'node scripts/run-staff-e2e.mjs' },
+    { name: 'e2e-i18n', command: 'node scripts/run-i18n-e2e.mjs' },
+    { name: 'visual', command: 'node scripts/run-phase02-visual.mjs' },
+  ],
 };
 
 const suites = suitesByPhase[phaseId] ?? [

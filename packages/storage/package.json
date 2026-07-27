@@ -1,0 +1,31 @@
+{
+  "name": "@guestportal/storage",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --exclude src/**/*.staging.test.ts",
+    "test:r2:staging": "vitest run --config vitest.staging.config.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.850.0",
+    "@aws-sdk/s3-request-presigner": "^3.850.0"
+  },
+  "devDependencies": {
+    "@guestportal/eslint-config": "workspace:*",
+    "@guestportal/typescript-config": "workspace:*",
+    "@types/node": "^22.15.32",
+    "eslint": "^9.30.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

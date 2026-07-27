@@ -10,6 +10,13 @@ import authPlugin from './plugins/auth.js';
 import { registerAuthRoutes } from './routes/auth.js';
 import { registerOrganizationRoutes } from './routes/organizations.js';
 import { registerPropertyRoutes } from './routes/properties.js';
+import { registerBrandingRoutes } from './routes/branding.js';
+import { registerUploadRoutes } from './routes/uploads.js';
+import { registerPortalRoutes } from './routes/portal.js';
+import { registerQrRoutes } from './routes/qr.js';
+import { registerGuestSessionRoutes } from './routes/guest-sessions.js';
+import { registerGuestPortalRoutes } from './routes/guest-portal.js';
+import { registerKnowledgeRoutes } from './routes/knowledge.js';
 
 export type BuildAppOptions = {
   databaseUrl: string;
@@ -26,6 +33,9 @@ export async function buildApp(options: BuildAppOptions) {
   await app.register(cors, {
     origin: true,
     credentials: true,
+    methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    maxAge: 86400,
   });
   await app.register(cookie, {
     secret: options.cookieSecret,
@@ -47,6 +57,13 @@ export async function buildApp(options: BuildAppOptions) {
   await registerAuthRoutes(app);
   await registerOrganizationRoutes(app);
   await registerPropertyRoutes(app);
+  await registerBrandingRoutes(app);
+  await registerUploadRoutes(app);
+  await registerPortalRoutes(app);
+  await registerQrRoutes(app);
+  await registerGuestSessionRoutes(app);
+  await registerGuestPortalRoutes(app);
+  await registerKnowledgeRoutes(app);
 
   app.setErrorHandler((error, request, reply) => {
     const requestId = request.id;

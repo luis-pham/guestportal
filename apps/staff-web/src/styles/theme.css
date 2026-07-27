@@ -1,0 +1,10 @@
+/**
+ * Staff surface theme entry.
+ * Imports shared GuestPortal tokens; no feature-specific colors.
+ * Wire into the app layout in Task 02.4+ (shell work).
+ */
+@import '@guestportal/ui/tokens.css';
+
+[data-surface='staff'] {
+  --gp-surface-name: staff;
+}

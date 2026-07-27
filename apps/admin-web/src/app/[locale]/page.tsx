@@ -2,13 +2,28 @@
 
 import { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
-import { AppShellPlaceholder } from '@guestportal/ui';
+import { usePathname, useRouter } from 'next/navigation';
+// Import the browser-safe permission matrix directly. The package root also exports
+// server session helpers, which must not be bundled into this client component.
+import { roleHasPermission, type Permission, type Role } from '../../../../../packages/auth/src/roles';
+import { AdminShell, Button, Select } from '@guestportal/ui';
 import { apiFetch } from '../../lib/api';
+import { formatCurrency, formatDate, formatNumber } from '../../i18n/format';
+import { resolveLocale, type AppLocale } from '../../i18n/config';
+import { localeHref, persistLocalePreference } from '../../lib/locale';
+import { BrandingForm } from '../../components/BrandingForm';
+import { PortalBuilderWorkspace } from '../../components/PortalBuilderWorkspace';
+import { PortalNavigationEditor } from '../../components/PortalNavigationEditor';
+import { PortalPreviewPanel } from '../../components/PortalPreviewPanel';
+import { PortalPublishHistory } from '../../components/PortalPublishHistory';
+import { QrCodesPanel } from '../../components/QrCodesPanel';
+import { KnowledgeSourcesPanel } from '../../components/KnowledgeSourcesPanel';
+import { KnowledgeSearchPanel } from '../../components/KnowledgeSearchPanel';
+import { PropertySettingsForm } from '../../components/PropertySettingsForm';
 
 type MeResponse = {
-  user: { displayName: string; email: string };
-  memberships: Array<{ organizationId: string; role: string; propertyIds: string[] }>;
+  user: { displayName: string; email: string; locale?: string };
+  memberships: Array<{ organizationId: string; role: Role; propertyIds: string[] }>;
   activeOrganizationId: string | null;
 };
 
@@ -20,14 +35,123 @@ type PropertiesResponse = {
   properties: Array<{ id: string; name: string; slug: string }>;
 };
 
+type ModuleId =
+  | 'overview'
+  | 'portal'
+  | 'knowledge'
+  | 'catalog'
+  | 'operations'
+  | 'analytics'
+  | 'team'
+  | 'settings';
+
+type Module = {
+  id: ModuleId;
+  permission: Permission;
+  href: (propertyId?: string) => string;
+  secondary: Array<{ labelKey: string; suffix: string; permission: Permission }>;
+};
+
+const modules: Module[] = [
+  {
+    id: 'overview',
+    permission: 'property.read',
+    href: () => '/properties',
+    secondary: [
+      { labelKey: 'properties', suffix: '', permission: 'property.read' },
+      { labelKey: 'propertySettings', suffix: '/settings', permission: 'property.update' },
+    ],
+  },
+  {
+    id: 'portal',
+    permission: 'portal.read',
+    href: (propertyId) => `/properties/${propertyId ?? 'select-property'}/portal`,
+    secondary: [
+      { labelKey: 'overview', suffix: '', permission: 'portal.read' },
+      { labelKey: 'branding', suffix: '/branding', permission: 'portal.update' },
+      { labelKey: 'navigation', suffix: '/navigation', permission: 'portal.update' },
+      { labelKey: 'homepage', suffix: '/homepage', permission: 'portal.update' },
+      { labelKey: 'pages', suffix: '/pages', permission: 'portal.update' },
+      { labelKey: 'quickActions', suffix: '/quick-actions', permission: 'portal.update' },
+      { labelKey: 'preview', suffix: '/preview', permission: 'portal.read' },
+      { labelKey: 'publishHistory', suffix: '/publish-history', permission: 'portal.publish' },
+    ],
+  },
+  {
+    id: 'knowledge',
+    permission: 'knowledge.read',
+    href: (propertyId) => `/properties/${propertyId ?? 'select-property'}/knowledge`,
+    secondary: [
+      { labelKey: 'sources', suffix: '', permission: 'knowledge.read' },
+      { labelKey: 'searchTest', suffix: '/search', permission: 'knowledge.read' },
+      { labelKey: 'missingAnswers', suffix: '/missing-answers', permission: 'knowledge.read' },
+    ],
+  },
+  {
+    id: 'catalog',
+    permission: 'catalog.read',
+    href: (propertyId) => `/properties/${propertyId ?? 'select-property'}/catalog`,
+    secondary: [
+      { labelKey: 'overview', suffix: '', permission: 'catalog.read' },
+      { labelKey: 'categories', suffix: '/categories', permission: 'catalog.manage' },
+      { labelKey: 'products', suffix: '/products', permission: 'catalog.manage' },
+      { labelKey: 'services', suffix: '/services', permission: 'catalog.manage' },
+      { labelKey: 'availability', suffix: '/availability', permission: 'catalog.manage' },
+    ],
+  },
+  {
+    id: 'operations',
+    permission: 'request.read',
+    href: (propertyId) => `/properties/${propertyId ?? 'select-property'}/operations/requests`,
+    secondary: [
+      { labelKey: 'requests', suffix: '/requests', permission: 'request.read' },
+      { labelKey: 'orders', suffix: '/orders', permission: 'order.read' },
+      { labelKey: 'conversations', suffix: '/conversations', permission: 'conversation.read' },
+      { labelKey: 'qrCodes', suffix: '/qr', permission: 'property.update' },
+    ],
+  },
+  {
+    id: 'analytics',
+    permission: 'analytics.read',
+    href: (propertyId) => `/properties/${propertyId ?? 'select-property'}/analytics`,
+    secondary: [
+      { labelKey: 'overview', suffix: '', permission: 'analytics.read' },
+      { labelKey: 'operationsAnalytics', suffix: '/operations', permission: 'analytics.read' },
+      { labelKey: 'aiAnalytics', suffix: '/ai', permission: 'analytics.read' },
+    ],
+  },
+  {
+    id: 'team',
+    permission: 'team.read',
+    href: () => '/team',
+    secondary: [
+      { labelKey: 'members', suffix: '', permission: 'team.read' },
+      { labelKey: 'invitations', suffix: '/invitations', permission: 'team.manage' },
+    ],
+  },
+  {
+    id: 'settings',
+    // Viewers can organization.read but must not see Settings admin controls.
+    permission: 'organization.update',
+    href: () => '/settings/organization',
+    secondary: [
+      { labelKey: 'organization', suffix: '/organization', permission: 'organization.update' },
+      { labelKey: 'security', suffix: '/security', permission: 'security.manage' },
+      { labelKey: 'auditLog', suffix: '/audit-log', permission: 'audit.read' },
+    ],
+  },
+];
+
 export default function AdminHomePage() {
-  const t = useTranslations('dashboard');
+  const t = useTranslations('shell');
   const locale = useLocale();
   const router = useRouter();
+  const pathname = usePathname();
   const [me, setMe] = useState<MeResponse | null>(null);
   const [orgs, setOrgs] = useState<OrgResponse['organizations']>([]);
   const [properties, setProperties] = useState<PropertiesResponse['properties']>([]);
   const [orgId, setOrgId] = useState<string>('');
+  const [propertyId, setPropertyId] = useState<string>('');
   const [denied, setDenied] = useState(false);
 
   useEffect(() => {
@@ -38,6 +162,7 @@ export default function AdminHomePage() {
         return;
       }
       setMe(meResult.data);
+      persistLocalePreference(resolveLocale(locale));
       const orgResult = await apiFetch<OrgResponse>('/v1/organizations');
       if (orgResult.ok) {
         setOrgs(orgResult.data.organizations);
@@ -61,6 +186,11 @@ export default function AdminHomePage() {
       setDenied(false);
       if (result.ok) {
         setProperties(result.data.properties);
+        setPropertyId((current) =>
+          result.data.properties.some((property) => property.id === current)
+            ? current
+            : (result.data.properties[0]?.id ?? ''),
+        );
       }
     })();
   }, [orgId]);
@@ -71,64 +201,129 @@ export default function AdminHomePage() {
   }
 
   if (!me) {
-    return <main style={{ padding: 32 }}>Loading...</main>;
+    return <main className="gp-state">{t('loading')}</main>;
   }
 
+  const role = me.memberships.find((membership) => membership.organizationId === orgId)?.role;
+  const can = (permission: Permission) => Boolean(role && roleHasPermission(role, permission));
+  const activeModule =
+    modules.find((module) => {
+      const href = module.href(propertyId);
+      return pathname.includes(href.split('/').filter(Boolean)[0] ?? '');
+    }) ?? modules[0]!;
+  const availablePrimary = modules.filter((module) => can(module.permission));
+  const activeSecondary = activeModule.secondary.filter((item) => can(item.permission));
+  const localePrefix = `/${locale}`;
+  const route = (path: string) => `${localePrefix}${path}`;
+  const moduleLabel = t(`modules.${activeModule.id}`);
+  const nextLocale: AppLocale = locale === 'vi' ? 'en' : 'vi';
+  const sampleInstant = new Date('2026-07-26T10:30:00+07:00');
+
   return (
-    <AppShellPlaceholder
-      surface="admin"
-      title={t('title')}
-      subtitle={t('welcome', { name: me.user.displayName })}
-      primaryNav={[
-        'Overview',
-        'Portal',
-        'Knowledge',
-        'Catalog',
-        'Operations',
-        'Analytics',
-        'Team',
-        'Settings',
-      ]}
-      secondaryNav={['Dashboard', 'Properties']}
-    >
-      <div style={{ display: 'grid', gap: 16 }}>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-          <label>
-            {t('organization')}{' '}
-            <select
-              data-testid="org-switcher"
-              value={orgId}
-              onChange={(event) => setOrgId(event.target.value)}
-            >
-              {orgs.map((org) => (
-                <option key={org.id} value={org.id}>
-                  {org.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <a data-testid="locale-switch" href={`/${locale === 'vi' ? 'en' : 'vi'}`}>
-            {t('locale')}: {locale === 'vi' ? 'EN' : 'VI'}
+    <AdminShell
+      title={moduleLabel}
+      breadcrumbs={[{ label: t('workspace') }, { label: moduleLabel }]}
+      primaryNav={availablePrimary.map((module) => ({
+        href: route(module.href(propertyId)),
+        label: t(`modules.${module.id}`),
+        shortLabel: t(`modules.${module.id}`).slice(0, 1),
+        active: activeModule.id === module.id,
+      }))}
+      secondaryNav={activeSecondary.map((item) => ({
+        href: route(
+          activeModule.id === 'overview'
+            ? item.suffix === '/settings'
+              ? `/properties/${propertyId || 'select-property'}/settings`
+              : '/properties'
+            : activeModule.id === 'team'
+              ? `/team${item.suffix}`
+              : activeModule.id === 'settings'
+                ? `/settings${item.suffix}`
+                : `${activeModule.href(propertyId)}${item.suffix}`,
+        ),
+        label: t(`secondary.${item.labelKey}`),
+        active:
+          item.suffix === '/settings'
+            ? pathname.includes('/settings')
+            : item.suffix === '/branding'
+              ? pathname.includes('/branding')
+              : pathname.endsWith(item.suffix || activeModule.href(propertyId)),
+      }))}
+      controls={
+        <>
+          <Select
+            label={t('organization')}
+            data-testid="org-switcher"
+            value={orgId}
+            onChange={(event) => setOrgId(event.target.value)}
+            options={orgs.map((org) => ({ value: org.id, label: org.name }))}
+          />
+          <Select
+            label={t('property')}
+            data-testid="property-switcher"
+            value={propertyId}
+            onChange={(event) => setPropertyId(event.target.value)}
+            disabled={denied || properties.length === 0}
+            options={properties.map((property) => ({ value: property.id, label: property.name }))}
+          />
+        </>
+      }
+      actions={
+        <>
+          <a
+            data-testid="locale-switch"
+            className="gp-btn gp-btn--ghost"
+            aria-label={t('localeSwitch')}
+            href={localeHref(nextLocale, pathname)}
+            onClick={() => persistLocalePreference(nextLocale)}
+          >
+            {nextLocale === 'en' ? 'EN' : 'VI'}
           </a>
-          <button data-testid="logout-button" type="button" onClick={() => void logout()}>
+          <Button data-testid="logout-button" variant="secondary" onClick={() => void logout()}>
             {t('logout')}
-          </button>
-        </div>
-        <section>
-          <h2>{t('properties')}</h2>
-          {denied ? (
-            <p data-testid="access-denied">{t('accessDenied')}</p>
-          ) : (
-            <ul data-testid="property-list">
-              {properties.map((property) => (
-                <li key={property.id}>
-                  {property.name} ({property.slug})
-                </li>
-              ))}
-            </ul>
-          )}
+          </Button>
+        </>
+      }
+    >
+      {pathname.includes('/portal/branding') ? (
+        <BrandingForm />
+      ) : pathname.includes('/portal/homepage') ? (
+        <PortalBuilderWorkspace />
+      ) : pathname.includes('/portal/navigation') ? (
+        <PortalNavigationEditor />
+      ) : pathname.includes('/portal/preview') ? (
+        <PortalPreviewPanel />
+      ) : pathname.includes('/portal/publish-history') ? (
+        <PortalPublishHistory />
+      ) : pathname.includes('/operations/qr') ? (
+        <QrCodesPanel />
+      ) : pathname.includes('/knowledge/search') ? (
+        <KnowledgeSearchPanel />
+      ) : pathname.includes('/knowledge') && !pathname.includes('/missing-answers') ? (
+        <KnowledgeSourcesPanel />
+      ) : pathname.includes('/properties/') && pathname.endsWith('/settings') ? (
+        <PropertySettingsForm />
+      ) : (
+        <section className="gp-state" data-testid="module-workspace">
+          <h2 className="gp-state__title">{t('moduleWorkspace', { module: moduleLabel })}</h2>
+          <p className="gp-state__body">{t('moduleWorkspaceBody')}</p>
+          <p data-testid="long-fixture">{t('longFixture')}</p>
+          <p data-testid="sample-date">{t('sampleDate', { value: formatDate(sampleInstant, locale) })}</p>
+          <p data-testid="sample-number">{t('sampleNumber', { value: formatNumber(1234567.89, locale) })}</p>
+          <p data-testid="sample-currency">
+            {t('sampleCurrency', { value: formatCurrency(150000, locale) })}
+          </p>
+          {denied ? <p data-testid="access-denied">{t('accessDenied')}</p> : null}
+          <ul data-testid="property-list">
+            {properties.map((property) => (
+              <li key={property.id}>
+                {property.name} ({property.slug})
+              </li>
+            ))}
+          </ul>
+          {!denied && properties.length === 0 ? <p>{t('noProperties')}</p> : null}
         </section>
-      </div>
-    </AppShellPlaceholder>
+      )}
+    </AdminShell>
   );
 }

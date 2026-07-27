@@ -1,0 +1,52 @@
+   ▲ Next.js 15.5.21
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 650ms
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4)
+   Generating static pages (2/4)
+   Generating static pages (3/4)
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      123 B         102 kB
+├ ○ /_not-found                            991 B         103 kB
+├ ƒ /g/[qrToken]                           127 B         110 kB
+├ ƒ /g/[qrToken]/chat                      127 B         110 kB
+├ ƒ /g/[qrToken]/explore                   127 B         110 kB
+├ ƒ /g/[qrToken]/guide                     127 B         110 kB
+└ ƒ /g/[qrToken]/status                    126 B         110 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+  ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+  └ other shared chunks (total)          1.88 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+   ▲ Next.js 15.5.21
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.207:3000
+
+ ✓ Starting...
+ ✓ Ready in 246ms
+{"level":"info","time":"2026-07-27T06:06:29.762Z","service":"api","msg":"api.started","port":4000}
+{"level":"info","time":"2026-07-27T06:06:30.113Z","service":"api","msg":"request.completed","method":"GET","url":"/health","statusCode":200,"requestId":"e596ed62-94aa-40d2-a015-1544a715ecf3"}
+
+Running 3 tests using 1 worker
+···
+  3 passed (5.6s)
+$ tsc -p tsconfig.json
+$ next build
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+$ next start --port 3000
+$ node dist/server.js
+$ playwright test
+(node:91488) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

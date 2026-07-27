@@ -1,9 +1,11 @@
 import bcrypt from 'bcryptjs';
 import { and, eq } from 'drizzle-orm';
 import { createDb } from './client.js';
+import { PORTAL_TEMPLATE_SEEDS } from '@guestportal/contracts';
 import {
   organizationMemberships,
   organizations,
+  portalTemplates,
   properties,
   propertyAssignments,
   users,
@@ -258,6 +260,31 @@ async function main() {
           userId: user.id,
         });
       }
+    }
+  }
+
+  for (const template of PORTAL_TEMPLATE_SEEDS) {
+    const existing = await db
+      .select()
+      .from(portalTemplates)
+      .where(eq(portalTemplates.id, template.id))
+      .limit(1);
+    if (existing[0]) {
+      await db
+        .update(portalTemplates)
+        .set({
+          propertyType: template.propertyType,
+          name: template.name,
+          config: template.config,
+        })
+        .where(eq(portalTemplates.id, template.id));
+    } else {
+      await db.insert(portalTemplates).values({
+        id: template.id,
+        propertyType: template.propertyType,
+        name: template.name,
+        config: template.config,
+      });
     }
   }
 

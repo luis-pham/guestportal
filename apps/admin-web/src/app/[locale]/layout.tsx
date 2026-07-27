@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import '@guestportal/ui/tokens.css';
+import '@guestportal/ui/primitives.css';
+import '../../styles/theme.css';
 
 export function generateStaticParams() {
   return [{ locale: 'vi' }, { locale: 'en' }];

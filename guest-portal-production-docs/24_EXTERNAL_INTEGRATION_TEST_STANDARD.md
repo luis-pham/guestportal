@@ -13,11 +13,12 @@ Passing a lower level does not imply passing a higher level.
 
 ## 2. Cloudflare R2
 
+Cloudflare R2 is the canonical object storage provider. MinIO/local S3 emulation is optional developer tooling and is not a mandatory acceptance requirement.
+
 Required:
 
 - Unit signing tests.
-- Local S3-compatible integration.
-- Real R2 staging:
+- Real R2 staging (mandatory provider evidence):
   - presign PUT
   - upload
   - HEAD
@@ -26,6 +27,10 @@ Required:
   - forbidden wrong key
   - delete/lifecycle behavior
 - Public assets domain smoke.
+
+Optional:
+
+- Local S3-compatible integration (for example MinIO) for offline development only. Emulator success must not be labeled provider integration PASS.
 
 ## 3. Gemini Live
 

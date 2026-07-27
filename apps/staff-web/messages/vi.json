@@ -1,0 +1,58 @@
+{
+  "login": {
+    "title": "Đăng nhập nhân viên",
+    "subtitle": "Không gian vận hành cho các cơ sở được phân công",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "submit": "Đăng nhập",
+    "error": "Email hoặc mật khẩu không hợp lệ",
+    "switchToVi": "Tiếng Việt",
+    "switchToEn": "English"
+  },
+  "shell": {
+    "loading": "Đang tải không gian làm việc nhân viên",
+    "organization": "Tổ chức",
+    "property": "Cơ sở",
+    "logout": "Đăng xuất",
+    "accessDenied": "Bạn không có quyền sử dụng không gian làm việc nhân viên",
+    "adminOnlyBlocked": "Các điểm đến chỉ dành cho quản trị không khả dụng trong ứng dụng nhân viên",
+    "offline": "Ngoại tuyến — sẽ kết nối lại khi mạng trở lại",
+    "workspaceBody": "Khung giao diện đã sẵn sàng. Quy trình yêu cầu và đơn hàng sẽ có ở giai đoạn sau.",
+    "emptyQueue": "Chưa có mục nào trong hàng đợi này.",
+    "propertyContext": "Bối cảnh cơ sở được phân công: {property}",
+    "noProperties": "Không có cơ sở được phân công.",
+    "localeSwitch": "Ngôn ngữ",
+    "sampleDate": "Ngày mẫu: {value}",
+    "sampleNumber": "Số mẫu: {value}",
+    "sampleCurrency": "Số tiền mẫu: {value}",
+    "longFixture": "Hướng dẫn phối hợp nhân viên cho vận hành khách sạn lưu lượng cao bao gồm phân loại hộp thư đến, liên tục công việc đã nhận, duy trì tin nhắn đa ngôn ngữ với khách và rõ ràng lịch sử kiểm toán xuyên suốt quầy dịch vụ tiếng Việt và tiếng Anh mà không cắt ngắn hướng dẫn thiết yếu.",
+    "routes": {
+      "inbox": "Hộp thư đến",
+      "myWork": "Việc của tôi",
+      "messages": "Tin nhắn",
+      "more": "Thêm",
+      "history": "Lịch sử và kho lưu trữ công việc đã hoàn thành",
+      "settings": "Ngôn ngữ thông báo và tùy chọn tài khoản"
+    },
+    "titles": {
+      "inbox": "Hộp thư đến",
+      "myWork": "Việc của tôi",
+      "messages": "Tin nhắn",
+      "history": "Lịch sử",
+      "settings": "Cài đặt",
+      "more": "Thêm",
+      "request": "Chi tiết yêu cầu",
+      "order": "Chi tiết đơn hàng"
+    },
+    "subtitles": {
+      "inbox": "Các mục vận hành mới và chưa nhận",
+      "myWork": "Các mục do nhân viên hiện tại nhận xử lý",
+      "messages": "Cuộc trò chuyện khách cho cơ sở được phân công",
+      "history": "Các mục đã hoàn thành, từ chối hoặc hủy",
+      "settings": "Điều khiển ngôn ngữ, thông báo và tài khoản",
+      "more": "Các điểm đến bổ sung cho nhân viên",
+      "request": "Khung chỉ đọc cho không gian yêu cầu ở giai đoạn sau",
+      "order": "Khung chỉ đọc cho không gian đơn hàng ở giai đoạn sau"
+    }
+  }
+}

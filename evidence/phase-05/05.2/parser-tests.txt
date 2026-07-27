@@ -1,0 +1,10 @@
+$ vitest run
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/rag
+
+ ✓ src/parse.test.ts (6 tests) 100ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  18:12:14
+   Duration  605ms (transform 46ms, setup 0ms, collect 219ms, tests 100ms, environment 0ms, prepare 28ms)

@@ -1,0 +1,10 @@
+/**
+ * Admin surface theme entry.
+ * Imports shared GuestPortal tokens; no feature-specific colors.
+ * Wire into the app layout in Task 02.3+ (shell work).
+ */
+@import '@guestportal/ui/tokens.css';
+
+[data-surface='admin'] {
+  --gp-surface-name: admin;
+}
