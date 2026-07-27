@@ -170,8 +170,15 @@ test('staff inbox and detail workspace render real request/order data', async ({
     timeout: 30_000,
   });
   await expect(page.getByTestId('staff-work-item').filter({ hasText: seeded.orderTitle })).toBeVisible();
-  await page.getByTestId('staff-work-item').filter({ hasText: seeded.requestTitle }).locator('button').first().click();
-  await expect(page.getByTestId('staff-detail')).toContainText(seeded.requestTitle);
+  await page
+    .getByTestId('staff-work-item')
+    .filter({ hasText: seeded.requestTitle })
+    .locator('button')
+    .filter({ hasText: seeded.requestTitle })
+    .click();
+  await expect(page.getByTestId('staff-detail')).toContainText(seeded.requestTitle, {
+    timeout: 30_000,
+  });
   await expect(page.getByTestId('staff-conversation')).toContainText(seeded.guestMessage);
   await expect(page.getByTestId('staff-timeline')).toContainText('submitted');
 
