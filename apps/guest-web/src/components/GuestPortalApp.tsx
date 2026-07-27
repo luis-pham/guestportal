@@ -18,6 +18,17 @@ import './guest-ops.css';
 
 export type GuestView = 'home' | 'explore' | 'guide' | 'chat' | 'services' | 'status';
 
+async function fetchPortalWithSessionRetry() {
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const data = await fetchGuestPortal();
+    if (data) return data;
+    await new Promise((resolve) => {
+      window.setTimeout(resolve, 150);
+    });
+  }
+  return null;
+}
+
 export function GuestPortalApp({ qrToken, view }: { qrToken: string; view: GuestView }) {
   const [portal, setPortal] = useState<GuestPortalResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +56,7 @@ export function GuestPortalApp({ qrToken, view }: { qrToken: string; view: Guest
           setPortal(null);
           return;
         }
-        const data = await fetchGuestPortal();
+        const data = await fetchPortalWithSessionRetry();
         if (!data) {
           setError('Published portal is not available yet.');
           setPortal(null);
