@@ -30,6 +30,7 @@ Implementation fixes made during 07.5:
   - real tool call: `request_draft`
 - `logs/real-gemini-live.log`
 - `logs/real-gemini-live-transcript.log`
+- `logs/vps-validation.log`
 - `audio/pool-hours-16khz.wav`
 - `audio/gemini-output-24khz.pcm`
 - `screenshots/voice-mobile-390.png`
@@ -57,6 +58,7 @@ Implementation fixes made during 07.5:
 - `pnpm --filter @guestportal/guest-web build`
 - `pnpm --filter @guestportal/guest-web exec playwright test e2e/guest-voice.spec.ts`
 - client bundle secret scan: PASS
+- VPS regression validation: PASS (`logs/vps-validation.log`)
 
 ## Environment Notes
 
