@@ -3,7 +3,9 @@ import type { VoiceLiveSession } from '@guestportal/contracts';
 import {
   BrowserVoiceTransport,
   buildGeminiLiveSetupMessage,
+  buildGeminiToolResponseMessage,
   buildGeminiLiveWebSocketUrl,
+  mapGeminiFunctionCall,
   type VoiceTransportEvent,
 } from './voice-transport';
 
@@ -100,6 +102,10 @@ class FakeWebSocket {
     this.onclose?.(new CloseEvent('close'));
   }
 
+  receive(payload: unknown) {
+    this.onmessage?.(new MessageEvent('message', { data: JSON.stringify(payload) }));
+  }
+
   static instances: FakeWebSocket[] = [];
 }
 
@@ -174,5 +180,111 @@ describe('BrowserVoiceTransport', () => {
     expect(track.stopped).toBe(true);
     expect(socket.readyState).toBe(FakeWebSocket.CLOSED);
     expect(events.at(-1)).toEqual({ type: 'status', state: 'idle' });
+  });
+
+  it('maps Gemini tool calls to the guest tool gateway and responds with correlated ids', async () => {
+    const track = new FakeTrack();
+    const stream = new FakeMediaStream([track]);
+    const executeToolCall = vi.fn(async () => ({
+      draft: {
+        id: '55555555-5555-4555-8555-555555555555',
+        title: 'Extra towels',
+      },
+    }));
+    FakeWebSocket.instances = [];
+    const transport = new BrowserVoiceTransport({
+      mediaDevices: {
+        getUserMedia: vi.fn(async () => stream),
+      } as unknown as MediaDevices,
+      audioContextCtor: FakeAudioContext as unknown as typeof AudioContext,
+      audioWorkletNodeCtor: FakeAudioWorkletNode as unknown as typeof AudioWorkletNode,
+      webSocketCtor: FakeWebSocket as unknown as typeof WebSocket,
+      executeToolCall,
+    });
+
+    await transport.start({
+      locale: 'vi',
+      conversationId: session.conversationId,
+      createLiveSession: vi.fn(async () => session),
+    });
+    const socket = FakeWebSocket.instances[0]!;
+    socket.open();
+    socket.receive({
+      toolCall: {
+        functionCalls: [
+          {
+            id: 'call-1',
+            name: 'request_draft',
+            args: { title: 'Extra towels', requestType: 'housekeeping' },
+          },
+        ],
+      },
+    });
+    await vi.waitFor(() => expect(socket.sent).toHaveLength(2));
+
+    expect(executeToolCall).toHaveBeenCalledWith({
+      id: 'call-1',
+      geminiName: 'request_draft',
+      name: 'request.draft',
+      input: { title: 'Extra towels', requestType: 'housekeeping' },
+    });
+    expect(JSON.parse(socket.sent[1]!)).toEqual(
+      buildGeminiToolResponseMessage([
+        {
+          id: 'call-1',
+          name: 'request_draft',
+          response: {
+            result: {
+              draft: {
+                id: '55555555-5555-4555-8555-555555555555',
+                title: 'Extra towels',
+              },
+            },
+          },
+        },
+      ]),
+    );
+  });
+
+  it('fails closed for unsupported confirmation-like Gemini function names', async () => {
+    const executeToolCall = vi.fn(async () => ({}));
+    expect(mapGeminiFunctionCall({ id: 'call-confirm', name: 'request_confirm', args: {} }))
+      .toBeNull();
+
+    FakeWebSocket.instances = [];
+    const transport = new BrowserVoiceTransport({
+      mediaDevices: {
+        getUserMedia: vi.fn(async () => new FakeMediaStream([new FakeTrack()])),
+      } as unknown as MediaDevices,
+      audioContextCtor: FakeAudioContext as unknown as typeof AudioContext,
+      audioWorkletNodeCtor: FakeAudioWorkletNode as unknown as typeof AudioWorkletNode,
+      webSocketCtor: FakeWebSocket as unknown as typeof WebSocket,
+      executeToolCall,
+    });
+    await transport.start({
+      locale: 'vi',
+      conversationId: session.conversationId,
+      createLiveSession: vi.fn(async () => session),
+    });
+    const socket = FakeWebSocket.instances[0]!;
+    socket.open();
+    socket.receive({
+      toolCall: {
+        functionCalls: [{ id: 'call-confirm', name: 'request_confirm', args: {} }],
+      },
+    });
+    await vi.waitFor(() => expect(socket.sent).toHaveLength(2));
+
+    expect(executeToolCall).not.toHaveBeenCalled();
+    expect(JSON.parse(socket.sent[1]!).toolResponse.functionResponses[0]).toEqual({
+      id: 'call-confirm',
+      name: 'request_confirm',
+      response: {
+        error: {
+          code: 'AI_TOOL_UNAUTHORIZED',
+          message: 'Tool is not available for this guest session.',
+        },
+      },
+    });
   });
 });

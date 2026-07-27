@@ -1,16 +1,24 @@
 'use client';
 
 import { useCallback, useMemo, useRef, useState } from 'react';
-import type { GuestChatMessage } from '@guestportal/ui';
+import type { GuestChatConfirmation, GuestChatMessage } from '@guestportal/ui';
 import { GuestTextChat } from '@guestportal/ui';
 import '@guestportal/ui/guest-chat.css';
+import type { AiToolName } from '@guestportal/contracts';
 import type { GuestPortalResponse } from '@guestportal/contracts';
 import {
+  confirmGuestOrderDraft,
+  confirmGuestRequestDraft,
   createGuestConversation,
   createGuestVoiceLiveSession,
+  executeGuestConversationTool,
   sendGuestConversationMessage,
 } from '../lib/guest-portal';
-import { BrowserVoiceTransport, type VoiceTransportState } from '../lib/voice-transport';
+import {
+  BrowserVoiceTransport,
+  type VoiceToolCall,
+  type VoiceTransportState,
+} from '../lib/voice-transport';
 import './voice-assistant.css';
 
 type VoiceAssistantShellProps = {
@@ -51,6 +59,10 @@ const copy = {
     voiceReady: 'Voice session is ready.',
     textSaved: 'Message sent to the property team.',
     textFailed: 'Message could not be sent. Please try again.',
+    confirmRequest: 'Confirm request',
+    confirmOrder: 'Confirm order',
+    draftReady: 'Draft ready for your confirmation.',
+    confirmFailed: 'Confirmation failed. Please try again.',
   },
   vi: {
     assistant: 'Trợ lý',
@@ -62,6 +74,10 @@ const copy = {
     voiceReady: 'Phiên thoại đã sẵn sàng.',
     textSaved: 'Tin nhắn đã được gửi đến đội ngũ hỗ trợ.',
     textFailed: 'Chưa gửi được tin nhắn. Vui lòng thử lại.',
+    confirmRequest: 'Xác nhận yêu cầu',
+    confirmOrder: 'Xác nhận đơn hàng',
+    draftReady: 'Bản nháp đã sẵn sàng để bạn xác nhận.',
+    confirmFailed: 'Xác nhận chưa thành công. Vui lòng thử lại.',
   },
 };
 
@@ -81,6 +97,32 @@ function messageFromText(role: GuestChatMessage['role'], text: string, error = f
   };
 }
 
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === 'object' ? (value as Record<string, unknown>) : null;
+}
+
+function draftFromToolResult(result: Record<string, unknown>) {
+  const draft = asRecord(result.draft);
+  if (!draft || typeof draft.id !== 'string' || typeof draft.title !== 'string') return null;
+  return {
+    id: draft.id,
+    title: draft.title,
+    details: typeof draft.details === 'string' ? draft.details : '',
+    notes: typeof draft.notes === 'string' ? draft.notes : '',
+    expiresAt: typeof draft.expiresAt === 'string' ? draft.expiresAt : undefined,
+  };
+}
+
+function formatExpiresAt(value: string | undefined, locale: string) {
+  if (!value) return undefined;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return undefined;
+  return new Intl.DateTimeFormat(locale, {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
+}
+
 export function VoiceAssistantShell({ data }: VoiceAssistantShellProps) {
   const localeKey = data.locale.startsWith('vi') ? 'vi' : 'en';
   const labels = copy[localeKey];
@@ -89,6 +131,7 @@ export function VoiceAssistantShell({ data }: VoiceAssistantShellProps) {
   const [composer, setComposer] = useState('');
   const [sending, setSending] = useState(false);
   const [messages, setMessages] = useState<GuestChatMessage[]>([]);
+  const [confirmation, setConfirmation] = useState<GuestChatConfirmation | null>(null);
   const conversationIdRef = useRef<string | null>(null);
   const transportRef = useRef<BrowserVoiceTransport | null>(null);
 
@@ -107,9 +150,89 @@ export function VoiceAssistantShell({ data }: VoiceAssistantShellProps) {
     return conversation.id;
   }, [data.locale]);
 
+  const confirmDraft = useCallback(
+    async (kind: 'request' | 'order', draftId: string) => {
+      setConfirmation((current) =>
+        current && current.id === draftId ? { ...current, status: 'confirming' } : current,
+      );
+      try {
+        if (kind === 'request') {
+          await confirmGuestRequestDraft({
+            draftId,
+            idempotencyKey: `voice-request-confirm-${draftId}`,
+          });
+        } else {
+          await confirmGuestOrderDraft({
+            draftId,
+            idempotencyKey: `voice-order-confirm-${draftId}`,
+          });
+        }
+        setConfirmation((current) =>
+          current && current.id === draftId ? { ...current, status: 'confirmed' } : current,
+        );
+      } catch {
+        setConfirmation((current) =>
+          current && current.id === draftId ? { ...current, status: 'error' } : current,
+        );
+        setMessages((current) => [
+          ...current,
+          messageFromText('system', labels.confirmFailed, true),
+        ]);
+      }
+    },
+    [labels.confirmFailed],
+  );
+
+  const installDraftConfirmation = useCallback(
+    (toolName: AiToolName, result: Record<string, unknown>) => {
+      if (toolName !== 'request.draft' && toolName !== 'order.draft') return;
+      const draft = draftFromToolResult(result);
+      if (!draft) return;
+      const kind = toolName === 'request.draft' ? 'request' : 'order';
+      const summary = draft.details || draft.notes || labels.draftReady;
+      const nextConfirmation: GuestChatConfirmation = {
+        id: draft.id,
+        kind,
+        title: kind === 'request' ? labels.confirmRequest : labels.confirmOrder,
+        summary: `${draft.title}${summary ? ` - ${summary}` : ''}`,
+        status: 'needs_confirmation',
+        onConfirm: () => void confirmDraft(kind, draft.id),
+        onCancel: () => setConfirmation(null),
+      };
+      const expiresAtLabel = formatExpiresAt(draft.expiresAt, data.locale);
+      if (expiresAtLabel) {
+        nextConfirmation.expiresAtLabel = expiresAtLabel;
+      }
+      setConfirmation(nextConfirmation);
+      setMessages((current) => [...current, messageFromText('system', labels.draftReady)]);
+    },
+    [
+      confirmDraft,
+      data.locale,
+      labels.confirmOrder,
+      labels.confirmRequest,
+      labels.draftReady,
+    ],
+  );
+
+  const executeVoiceToolCall = useCallback(
+    async (call: VoiceToolCall) => {
+      const conversationId = conversationIdRef.current ?? (await ensureConversation());
+      const response = await executeGuestConversationTool({
+        conversationId,
+        toolName: call.name,
+        input: call.input,
+      });
+      installDraftConfirmation(call.name, response.result);
+      return response.result;
+    },
+    [ensureConversation, installDraftConfirmation],
+  );
+
   const getTransport = useCallback(() => {
     if (transportRef.current) return transportRef.current;
     transportRef.current = new BrowserVoiceTransport({
+      executeToolCall: executeVoiceToolCall,
       onEvent: (event) => {
         if (event.type === 'status') {
           setVoiceState(event.state);
@@ -131,7 +254,7 @@ export function VoiceAssistantShell({ data }: VoiceAssistantShellProps) {
       },
     });
     return transportRef.current;
-  }, [labels.micDenied, labels.voiceFailed]);
+  }, [executeVoiceToolCall, labels.micDenied, labels.voiceFailed]);
 
   const startVoice = useCallback(async () => {
     setVoiceError(null);
@@ -219,6 +342,7 @@ export function VoiceAssistantShell({ data }: VoiceAssistantShellProps) {
         assistantName={assistantName}
         connectionState={connectionStateFor(voiceState)}
         messages={messages}
+        confirmation={confirmation}
         composerValue={composer}
         sending={sending}
         labels={{ empty: labels.voiceReady }}

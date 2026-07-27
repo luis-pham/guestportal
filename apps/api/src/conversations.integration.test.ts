@@ -436,6 +436,96 @@ describeIntegration('guest conversations', () => {
     expect(body.result.items.length).toBeGreaterThan(0);
   });
 
+  it('keeps voice request draft tools behind idempotent guest confirmation', async () => {
+    const context = await createGuestContext();
+    const { conversation } = await createConversation(context.guestCookie);
+
+    const toolDraft = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/tool-results`,
+      headers: { cookie: context.guestCookie },
+      payload: {
+        toolName: 'request.draft',
+        input: {
+          requestType: 'housekeeping',
+          title: 'Extra towels',
+          details: 'Two towels please',
+          locale: 'vi',
+        },
+      },
+    });
+    expect(toolDraft.statusCode).toBe(200);
+    const draftId = toolDraft.json().result.draft.id as string;
+
+    const beforeConfirmRows = await app.sql<{ count: string }[]>`
+      SELECT count(*)::text
+      FROM guest_requests
+      WHERE conversation_id = ${conversation.id}::uuid
+    `;
+    expect(beforeConfirmRows[0]?.count).toBe('0');
+
+    const confirmPayload = { idempotencyKey: `voice-request-confirm-${draftId}` };
+    const firstConfirm = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/request-drafts/${draftId}/confirm`,
+      headers: { cookie: context.guestCookie },
+      payload: confirmPayload,
+    });
+    expect(firstConfirm.statusCode).toBe(200);
+    expect(firstConfirm.json().idempotentReplay).toBe(false);
+    const requestId = firstConfirm.json().request.id as string;
+
+    const duplicateConfirm = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/request-drafts/${draftId}/confirm`,
+      headers: { cookie: context.guestCookie },
+      payload: confirmPayload,
+    });
+    expect(duplicateConfirm.statusCode).toBe(200);
+    expect(duplicateConfirm.json().idempotentReplay).toBe(true);
+    expect(duplicateConfirm.json().request.id).toBe(requestId);
+
+    const rows = await app.sql<{ request_count: string; event_count: string }[]>`
+      SELECT
+        (
+          SELECT count(*)::text
+          FROM guest_requests
+          WHERE request_draft_id = ${draftId}::uuid
+        ) AS request_count,
+        (
+          SELECT count(*)::text
+          FROM outbox_events
+          WHERE aggregate_id = ${requestId}
+            AND event_type = 'request.submitted.v1'
+        ) AS event_count
+    `;
+    expect(rows[0]).toEqual({ request_count: '1', event_count: '1' });
+
+    const detail = await app.inject({
+      method: 'GET',
+      url: `/v1/guest/conversations/${conversation.id}`,
+      headers: { cookie: context.guestCookie },
+    });
+    expect(detail.statusCode).toBe(200);
+    const messages = (detail.json() as {
+      messages: Array<{
+        role: string;
+        toolName: string | null;
+        toolPayload: { draft?: { id?: string } } | null;
+        requestId: string | null;
+      }>;
+    }).messages;
+    expect(
+      messages.some(
+        (message) =>
+          message.role === 'tool' &&
+          message.toolName === 'request.draft' &&
+          message.toolPayload?.draft?.id === draftId,
+      ),
+    ).toBe(true);
+    expect(messages.some((message) => message.requestId === requestId)).toBe(true);
+  });
+
   it('requires explicit idempotent guest confirmation for request drafts', async () => {
     const context = await createGuestContext();
     const { conversation } = await createConversation(context.guestCookie);

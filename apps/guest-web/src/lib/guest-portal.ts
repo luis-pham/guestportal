@@ -1,10 +1,15 @@
 import type {
+  AiToolName,
   ConversationCreateResponse,
   ConversationDetailResponse,
   ConversationMessage,
   ConversationSummary,
+  GuestAiToolExecuteResponse,
+  GuestDraftConfirmRequest,
   GuestMessageCreateResponse,
+  GuestOrderDraftConfirmResponse,
   GuestPortalResponse,
+  GuestRequestDraftConfirmResponse,
   PortalConfigDocument,
   VoiceLiveSession,
   VoiceLiveSessionCreateResponse,
@@ -122,6 +127,67 @@ export async function createGuestVoiceLiveSession({
   }
   const body = (await response.json()) as VoiceLiveSessionCreateResponse;
   return body.liveSession;
+}
+
+export async function executeGuestConversationTool({
+  conversationId,
+  toolName,
+  input,
+}: {
+  conversationId: string;
+  toolName: AiToolName;
+  input: Record<string, unknown>;
+}): Promise<GuestAiToolExecuteResponse> {
+  const response = await fetch(`${API_URL}/v1/guest/conversations/${conversationId}/tool-results`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ toolName, input }),
+  });
+  if (!response.ok) {
+    throw new Error(`Could not execute guest tool (${response.status}).`);
+  }
+  return (await response.json()) as GuestAiToolExecuteResponse;
+}
+
+export async function confirmGuestRequestDraft({
+  draftId,
+  idempotencyKey,
+}: {
+  draftId: string;
+  idempotencyKey: string;
+}): Promise<GuestRequestDraftConfirmResponse> {
+  const payload: GuestDraftConfirmRequest = { idempotencyKey };
+  const response = await fetch(`${API_URL}/v1/guest/request-drafts/${draftId}/confirm`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) {
+    throw new Error(`Could not confirm request draft (${response.status}).`);
+  }
+  return (await response.json()) as GuestRequestDraftConfirmResponse;
+}
+
+export async function confirmGuestOrderDraft({
+  draftId,
+  idempotencyKey,
+}: {
+  draftId: string;
+  idempotencyKey: string;
+}): Promise<GuestOrderDraftConfirmResponse> {
+  const payload: GuestDraftConfirmRequest = { idempotencyKey };
+  const response = await fetch(`${API_URL}/v1/guest/order-drafts/${draftId}/confirm`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) {
+    throw new Error(`Could not confirm order draft (${response.status}).`);
+  }
+  return (await response.json()) as GuestOrderDraftConfirmResponse;
 }
 
 export function findSection<T extends PortalConfigDocument['sections'][number]['type']>(

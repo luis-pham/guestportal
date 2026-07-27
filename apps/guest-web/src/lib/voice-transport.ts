@@ -1,4 +1,4 @@
-import type { VoiceLiveSession } from '@guestportal/contracts';
+import type { AiToolName, VoiceLiveSession } from '@guestportal/contracts';
 
 export type VoiceTransportState =
   | 'idle'
@@ -13,13 +13,29 @@ export type VoiceTransportState =
 export type VoiceTransportEvent =
   | { type: 'status'; state: VoiceTransportState }
   | { type: 'error'; error: Error }
-  | { type: 'server-message'; payload: unknown };
+  | { type: 'server-message'; payload: unknown }
+  | { type: 'tool-call'; calls: VoiceToolCall[] }
+  | { type: 'tool-response'; responses: GeminiFunctionResponse[] };
+
+export type VoiceToolCall = {
+  id: string;
+  geminiName: GeminiToolName;
+  name: AiToolName;
+  input: Record<string, unknown>;
+};
+
+export type GeminiFunctionResponse = {
+  id: string;
+  name: GeminiToolName | string;
+  response: Record<string, unknown>;
+};
 
 export type VoiceTransportOptions = {
   webSocketCtor?: typeof WebSocket;
   audioContextCtor?: typeof AudioContext;
   audioWorkletNodeCtor?: typeof AudioWorkletNode;
   mediaDevices?: MediaDevices;
+  executeToolCall?: (call: VoiceToolCall) => Promise<Record<string, unknown>>;
   onEvent?: (event: VoiceTransportEvent) => void;
 };
 
@@ -33,6 +49,111 @@ export type StartVoiceTransportInput = {
 };
 
 const WORKLET_NAME = 'guestportal-mic-meter';
+
+type GeminiToolName =
+  | 'knowledge_search'
+  | 'catalog_read'
+  | 'service_read'
+  | 'request_draft'
+  | 'order_draft';
+
+type GeminiFunctionCall = {
+  id?: string;
+  name?: string;
+  args?: Record<string, unknown>;
+};
+
+const GEMINI_TOOL_TO_AI_TOOL: Record<GeminiToolName, AiToolName> = {
+  knowledge_search: 'knowledge.search',
+  catalog_read: 'catalog.read',
+  service_read: 'service.read',
+  request_draft: 'request.draft',
+  order_draft: 'order.draft',
+};
+
+export const GUEST_VOICE_TOOL_DECLARATIONS = [
+  {
+    name: 'knowledge_search',
+    description: 'Search the property knowledge base. Read-only.',
+    parameters: {
+      type: 'object',
+      properties: {
+        query: { type: 'string' },
+        locale: { type: 'string', enum: ['vi', 'en', 'ko', 'ja', 'zh', 'fr', 'auto'] },
+        limit: { type: 'integer', minimum: 1, maximum: 8 },
+      },
+      required: ['query'],
+    },
+  },
+  {
+    name: 'catalog_read',
+    description: 'Read visible guest portal catalog items. Read-only.',
+    parameters: {
+      type: 'object',
+      properties: {
+        locale: { type: 'string', enum: ['vi', 'en', 'auto'] },
+        limit: { type: 'integer', minimum: 1, maximum: 20 },
+      },
+    },
+  },
+  {
+    name: 'service_read',
+    description: 'Read visible guest service items. Read-only.',
+    parameters: {
+      type: 'object',
+      properties: {
+        locale: { type: 'string', enum: ['vi', 'en', 'auto'] },
+        limit: { type: 'integer', minimum: 1, maximum: 12 },
+      },
+    },
+  },
+  {
+    name: 'request_draft',
+    description: 'Create a request draft only. The guest must confirm before submission.',
+    parameters: {
+      type: 'object',
+      properties: {
+        requestType: {
+          type: 'string',
+          enum: ['service', 'housekeeping', 'maintenance', 'amenity', 'other'],
+        },
+        title: { type: 'string' },
+        details: { type: 'string' },
+        locale: { type: 'string' },
+        metadata: { type: 'object' },
+      },
+      required: ['title'],
+    },
+  },
+  {
+    name: 'order_draft',
+    description: 'Create an order draft only. The guest must confirm before submission.',
+    parameters: {
+      type: 'object',
+      properties: {
+        title: { type: 'string' },
+        items: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              itemId: { type: 'string' },
+              label: { type: 'string' },
+              quantity: { type: 'integer', minimum: 1, maximum: 99 },
+              notes: { type: 'string' },
+              metadata: { type: 'object' },
+            },
+            required: ['itemId', 'label', 'quantity'],
+          },
+        },
+        locale: { type: 'string' },
+        notes: { type: 'string' },
+        metadata: { type: 'object' },
+      },
+      required: ['title', 'items'],
+    },
+  },
+] as const;
 
 const MIC_WORKLET_SOURCE = `
 class GuestPortalMicMeter extends AudioWorkletProcessor {
@@ -64,8 +185,28 @@ export function buildGeminiLiveSetupMessage(session: VoiceLiveSession) {
     setup: {
       model: session.model,
       responseModalities: ['AUDIO'],
+      tools: [{ functionDeclarations: GUEST_VOICE_TOOL_DECLARATIONS }],
       sessionResumption: {},
     },
+  };
+}
+
+export function buildGeminiToolResponseMessage(functionResponses: GeminiFunctionResponse[]) {
+  return {
+    toolResponse: {
+      functionResponses,
+    },
+  };
+}
+
+export function mapGeminiFunctionCall(call: GeminiFunctionCall): VoiceToolCall | null {
+  if (!call.id || !call.name || !(call.name in GEMINI_TOOL_TO_AI_TOOL)) return null;
+  const geminiName = call.name as GeminiToolName;
+  return {
+    id: call.id,
+    geminiName,
+    name: GEMINI_TOOL_TO_AI_TOOL[geminiName],
+    input: call.args ?? {},
   };
 }
 
@@ -84,6 +225,9 @@ export class BrowserVoiceTransport {
   private readonly audioContextCtor: typeof AudioContext | undefined;
   private readonly audioWorkletNodeCtor: typeof AudioWorkletNode | undefined;
   private readonly mediaDevices: MediaDevices | undefined;
+  private readonly executeToolCall:
+    | ((call: VoiceToolCall) => Promise<Record<string, unknown>>)
+    | undefined;
   private readonly onEvent: ((event: VoiceTransportEvent) => void) | undefined;
   private audioContext: AudioContext | null = null;
   private sourceNode: MediaStreamAudioSourceNode | null = null;
@@ -98,6 +242,7 @@ export class BrowserVoiceTransport {
     this.audioContextCtor = options.audioContextCtor;
     this.audioWorkletNodeCtor = options.audioWorkletNodeCtor;
     this.mediaDevices = options.mediaDevices;
+    this.executeToolCall = options.executeToolCall;
     this.onEvent = options.onEvent;
   }
 
@@ -199,11 +344,62 @@ export class BrowserVoiceTransport {
       if (payload?.serverContent?.modelTurn) this.emitStatus('speaking');
       if (payload?.serverContent?.turnComplete) this.emitStatus('listening');
       if (payload?.goAway) this.emitStatus('reconnecting');
+      if (payload?.toolCall?.functionCalls) {
+        void this.handleToolCalls(payload.toolCall.functionCalls as GeminiFunctionCall[]);
+      }
     };
     this.socket.onerror = () => this.emitError(new Error('Live voice connection failed.'));
     this.socket.onclose = () => {
       if (!this.stopped) this.emitStatus('reconnecting');
     };
+  }
+
+  private async handleToolCalls(functionCalls: GeminiFunctionCall[]) {
+    const calls = functionCalls.map(mapGeminiFunctionCall).filter((call) => call !== null);
+    this.emitStatus('thinking');
+    this.emit({ type: 'tool-call', calls });
+
+    const responses = await Promise.all(
+      functionCalls.map(async (functionCall): Promise<GeminiFunctionResponse> => {
+        const mapped = mapGeminiFunctionCall(functionCall);
+        if (!mapped || !this.executeToolCall) {
+          return {
+            id: functionCall.id ?? crypto.randomUUID(),
+            name: functionCall.name ?? 'unknown',
+            response: {
+              error: {
+                code: 'AI_TOOL_UNAUTHORIZED',
+                message: 'Tool is not available for this guest session.',
+              },
+            },
+          };
+        }
+
+        try {
+          const result = await this.executeToolCall(mapped);
+          return {
+            id: mapped.id,
+            name: mapped.geminiName,
+            response: { result },
+          };
+        } catch (error) {
+          return {
+            id: mapped.id,
+            name: mapped.geminiName,
+            response: {
+              error: {
+                code: 'AI_TOOL_EXECUTION_FAILED',
+                message: asError(error).message,
+              },
+            },
+          };
+        }
+      }),
+    );
+
+    this.socket?.send(JSON.stringify(buildGeminiToolResponseMessage(responses)));
+    this.emit({ type: 'tool-response', responses });
+    this.emitStatus('listening');
   }
 
   private emitStatus(state: VoiceTransportState) {
