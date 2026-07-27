@@ -1,11 +1,51 @@
 import { expect, test, type APIRequestContext } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import type { PortalConfigDocument } from '@guestportal/contracts';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const apiBase = () => process.env.NEXT_PUBLIC_API_URL ?? 'http://127.0.0.1:4000';
 const evidenceDir = resolve(process.cwd(), '../../evidence/phase-08/08.2');
 const screenshotDir = resolve(evidenceDir, 'screenshots');
+
+function withPublishedServiceCatalog(config: PortalConfigDocument): PortalConfigDocument {
+  const actions = [
+    {
+      id: '00000000-0000-4000-8000-000000000111',
+      label: { vi: 'Don phong', en: 'Housekeeping' },
+      href: '/requests/housekeeping',
+      icon: 'bell' as const,
+    },
+    {
+      id: '00000000-0000-4000-8000-000000000112',
+      label: { vi: 'Dat do an', en: 'Order food' },
+      href: '/food',
+      icon: 'food' as const,
+    },
+    {
+      id: '00000000-0000-4000-8000-000000000113',
+      label: { vi: 'Chat', en: 'Chat' },
+      href: '/chat',
+      icon: 'chat' as const,
+    },
+  ];
+  let replaced = false;
+  const sections = config.sections.map((section) => {
+    if (section.type !== 'quick_actions') return section;
+    replaced = true;
+    return { ...section, enabled: true, actions };
+  });
+  if (!replaced) {
+    sections.push({
+      id: '00000000-0000-4000-8000-000000000820',
+      type: 'quick_actions',
+      enabled: true,
+      title: { vi: 'Thao tac nhanh', en: 'Quick actions' },
+      actions,
+    });
+  }
+  return { ...config, sections };
+}
 
 async function mintGuestToken(request: APIRequestContext) {
   const login = await request.post(`${apiBase()}/v1/auth/login`, {
@@ -21,7 +61,15 @@ async function mintGuestToken(request: APIRequestContext) {
     .properties[0]!.id;
 
   const draft = await request.get(`${apiBase()}/v1/properties/${propertyId}/portal/draft`);
-  const draftVersion = ((await draft.json()) as { version: number }).version;
+  const draftBody = (await draft.json()) as { version: number; config: PortalConfigDocument };
+  const updatedDraft = await request.put(`${apiBase()}/v1/properties/${propertyId}/portal/draft`, {
+    data: {
+      version: draftBody.version,
+      config: withPublishedServiceCatalog(draftBody.config),
+    },
+  });
+  expect(updatedDraft.ok()).toBeTruthy();
+  const draftVersion = ((await updatedDraft.json()) as { version: number }).version;
   const publish = await request.post(`${apiBase()}/v1/properties/${propertyId}/portal/publish`, {
     data: {
       expectedDraftVersion: draftVersion,
