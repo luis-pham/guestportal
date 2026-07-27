@@ -158,6 +158,9 @@ test('staff inbox and detail workspace render real request/order data', async ({
   await page.setViewportSize({ width: 1280, height: 800 });
   await signIn(page, 'staff.hotel@aurora.test');
 
+  await expect(page.getByTestId('property-switcher')).toContainText('Aurora City Hotel', {
+    timeout: 30_000,
+  });
   const propertyOptions = await page.getByTestId('property-switcher').locator('option').allTextContents();
   expect(propertyOptions).toContain('Aurora City Hotel');
   expect(propertyOptions).not.toContain('Aurora Bay Cruise');
