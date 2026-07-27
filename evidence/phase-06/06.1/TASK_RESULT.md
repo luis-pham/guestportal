@@ -34,6 +34,14 @@ Task 05.6 `PASS`
 - API lint — `api-lint.log`
 - API build — `api-build.log`
 
+## VPS validation
+
+- Pulled commit `c00550b` into `/opt/apps/guestportal`.
+- Applied migration `0012_conversations_messages.sql`.
+- Rebuilt `@guestportal/contracts`, `@guestportal/db`, and `@guestportal/api`.
+- Corrected guestportal VPS runtime DB role so `DATABASE_URL` uses non-superuser `guestportal_app`; preserved the previous owner connection as `DATABASE_OWNER_URL` for migrations.
+- Full VPS API integration passed after the RLS role correction: `11 passed`, `27 passed`.
+
 ## Acceptance
 
 - [x] Guest/property scope enforced through the resolved guest session.
