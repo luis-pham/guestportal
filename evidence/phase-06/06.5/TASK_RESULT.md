@@ -17,6 +17,12 @@ Task 06.4 `PASS`
 
 See `evidence/phase-06/PHASE_RESULT.generated.md`, `metadata.json`, `command-results.json`, logs in `evidence/phase-06/06.5/logs/`, and screenshots in `evidence/phase-06/06.5/screenshots/`.
 
+## VPS Validation
+
+PASS `node tests/phase-06/run-gate.mjs` in `/opt/apps/guestportal` on VPS.
+
+VPS summary log: `vps-phase06-gate.log`
+
 ## Classification
 
 **PASS**

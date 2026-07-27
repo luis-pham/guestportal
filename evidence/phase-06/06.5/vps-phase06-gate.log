@@ -1,0 +1,158 @@
+VPS_GATE_EXIT=0
+{"level":"info","time":"2026-07-27T14:24:16.257Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"14854cf8-3cd3-4d26-ac90-1ef2537f0d6a"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval
+{"level":"info","time":"2026-07-27T14:24:16.267Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"da119966-255a-4ca9-895c-88b38fa5d640"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval > returns citations mapped to source and stores benchmark recall
+{"level":"info","time":"2026-07-27T14:24:16.288Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/knowledge/search","statusCode":200,"requestId":"1e47b667-d720-40fd-be9a-c54b5bb9a6e2"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval > supports cross-language query against Vietnamese source text
+{"level":"info","time":"2026-07-27T14:24:16.299Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/knowledge/search","statusCode":200,"requestId":"20f763fa-aba3-42a1-9bf6-bb09078525d3"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval > returns noResult for unknown queries and blocks injection-only payloads
+{"level":"info","time":"2026-07-27T14:24:16.315Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/002f2a0b-fe57-46da-bd0f-68a3e40665f9/knowledge/search","statusCode":200,"requestId":"a7f5f7ff-5fa4-4ccf-9674-d54aa7f51c68"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval > returns noResult for unknown queries and blocks injection-only payloads
+{"level":"info","time":"2026-07-27T14:24:16.324Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/knowledge/search","statusCode":200,"requestId":"5d7e9f74-660f-4550-8475-fab2de2a3542"}
+
+stdout | src/knowledge-search.integration.test.ts > knowledge hybrid retrieval > denies cross-tenant leakage via property scope
+{"level":"info","time":"2026-07-27T14:24:16.335Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/86a7e2e6-6307-4a43-bb26-f7496fe693bd/knowledge/search","statusCode":403,"requestId":"efac2c7c-9e41-4877-9bec-85dd0fbb0f55"}
+
+ ✓ src/knowledge-search.integration.test.ts (4 tests) 491ms
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T14:24:17.728Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"71f45c77-b4d1-4249-a359-0b5e6ba510de"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T14:24:17.738Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=628710ca-e532-47a0-9ff7-fbdfdaf29170","statusCode":200,"requestId":"89212ca1-78e6-42f6-b674-1b5e4b11b94a"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T14:24:17.748Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/draft","statusCode":200,"requestId":"717fa472-543e-4d4a-82ae-77414b3aca1b"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T14:24:17.761Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/publish","statusCode":200,"requestId":"ac0972fb-709d-4701-98b4-8620cf14b756"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T14:24:17.768Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/publish","statusCode":200,"requestId":"2e4bb711-b3d9-4d34-8bf5-9cb84b08d39f"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T14:24:17.775Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/publish","statusCode":409,"requestId":"5e87c441-da65-4354-9ed1-4464f9dc540b"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T14:24:17.791Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/versions/4242a3ad-a849-4477-bb60-ec2d98687058/restore","statusCode":200,"requestId":"397f5c2d-aa04-4b63-9566-d41421654569"}
+
+stdout | src/portal-publish.integration.test.ts > portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version
+{"level":"info","time":"2026-07-27T14:24:17.800Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/a8101114-d53a-49f0-b37d-7cfd6947ec93/portal/versions","statusCode":200,"requestId":"d8995244-c63f-47f7-b5ee-3a52c1fe9871"}
+
+ ✓ src/portal-publish.integration.test.ts (1 test) 492ms
+   ✓ portal publish and rollback > publishes immutably, handles concurrency/idempotency, and rolls back as new version  413ms
+
+ Test Files  11 passed (11)
+      Tests  36 passed (36)
+   Start at  14:23:48
+   Duration  28.96s (transform 427ms, setup 0ms, collect 9.24s, tests 17.64s, environment 2ms, prepare 613ms)
+
+$ vitest run --config vitest.integration.config.ts
+
+> ui-lint: pnpm --filter @guestportal/ui lint
+$ eslint .
+
+> ui-typecheck: pnpm --filter @guestportal/ui typecheck
+$ tsc -p tsconfig.json --noEmit
+
+> ui-build: pnpm --filter @guestportal/ui build
+$ tsc -p tsconfig.json
+
+> ui-test: pnpm --filter @guestportal/ui test
+
+ RUN  v3.2.7 /opt/apps/guestportal/packages/ui
+
+ ✓ src/guest/GuestTextChat.test.tsx (6 tests) 282ms
+ ✓ src/guest/GuestHomepage.test.tsx (2 tests) 143ms
+ ✓ src/components/primitives.test.tsx (10 tests) 427ms
+ ✓ src/tokens.test.ts (8 tests) 6ms
+ ✓ src/guest/GuestStatusCenter.test.tsx (2 tests) 28ms
+
+ Test Files  5 passed (5)
+      Tests  28 passed (28)
+   Start at  14:24:24
+   Duration  2.16s (transform 307ms, setup 847ms, collect 1.17s, tests 885ms, environment 1.90s, prepare 408ms)
+
+$ vitest run
+
+> ui-visual: pnpm --filter @guestportal/ui test:guest-chat-visual
+Wrote guest chat visual snapshots to /opt/apps/guestportal/evidence/phase-06/06.4/screenshots
+$ node scripts/guest-chat-visual.mjs
+# Phase 06 Gate Result
+
+## Classification
+
+**PASS**
+
+## Commit
+
+779ca627d28437ac225f6b55463cf9e171d5a2fd
+
+## Suites
+
+- contracts-test: exit 0
+- ai-tools-test: exit 0
+- api-lint: exit 0
+- api-typecheck: exit 0
+- api-build: exit 0
+- api-unit: exit 0
+- api-integration: exit 0
+- ui-lint: exit 0
+- ui-typecheck: exit 0
+- ui-build: exit 0
+- ui-test: exit 0
+- ui-visual: exit 0
+
+## Required Coverage
+
+- Prompt injection: API integration
+- Duplicate confirm: API integration
+- RAG correctness: API integration
+- Conversation isolation: API integration
+- Full chat/tool/draft/handoff regression: API integration plus UI visual/unit suites
+- Mobile screenshots: copied from 06.4 visual evidence into 06.5
+
+Generated at 2026-07-27T14:24:30.466Z
+
+--- GENERATED SUMMARY ---
+# Phase 06 Gate Result
+
+## Classification
+
+**PASS**
+
+## Commit
+
+779ca627d28437ac225f6b55463cf9e171d5a2fd
+
+## Suites
+
+- contracts-test: exit 0
+- ai-tools-test: exit 0
+- api-lint: exit 0
+- api-typecheck: exit 0
+- api-build: exit 0
+- api-unit: exit 0
+- api-integration: exit 0
+- ui-lint: exit 0
+- ui-typecheck: exit 0
+- ui-build: exit 0
+- ui-test: exit 0
+- ui-visual: exit 0
+
+## Required Coverage
+
+- Prompt injection: API integration
+- Duplicate confirm: API integration
+- RAG correctness: API integration
+- Conversation isolation: API integration
+- Full chat/tool/draft/handoff regression: API integration plus UI visual/unit suites
+- Mobile screenshots: copied from 06.4 visual evidence into 06.5
+
+Generated at 2026-07-27T14:24:30.466Z
+--- VPS GIT STATUS ---
