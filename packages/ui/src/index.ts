@@ -60,3 +60,12 @@ export { PortalBuilder } from './portal-builder/PortalBuilder';
 export type { PortalBuilderLabels, PortalBuilderProps } from './portal-builder/types';
 export { GuestHomepage, type GuestHomepageProps } from './guest/GuestHomepage';
 export { GuestStatusCenter, type GuestStatusCenterProps } from './guest/GuestStatusCenter';
+export {
+  GuestTextChat,
+  type GuestChatCitation,
+  type GuestChatConfirmation,
+  type GuestChatLocale,
+  type GuestChatMessage,
+  type GuestTextChatLabels,
+  type GuestTextChatProps,
+} from './guest/GuestTextChat';

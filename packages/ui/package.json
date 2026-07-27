@@ -12,6 +12,7 @@
     "./tokens.css": "./src/tokens.css",
     "./primitives.css": "./src/primitives.css",
     "./guest-homepage.css": "./src/guest/guest-homepage.css",
+    "./guest-chat.css": "./src/guest/guest-chat.css",
     "./guest-status.css": "./src/guest/guest-status.css",
     "./tailwind-theme": {
       "types": "./src/tailwind-theme.ts",
@@ -26,7 +27,8 @@
     "test": "vitest run",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o storybook-static",
-    "test:visual": "node scripts/visual-snapshots.mjs"
+    "test:visual": "node scripts/visual-snapshots.mjs",
+    "test:guest-chat-visual": "node scripts/guest-chat-visual.mjs"
   },
   "peerDependencies": {
     "react": "^19.0.0",

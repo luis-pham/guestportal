@@ -17,3 +17,8 @@ HTMLDialogElement.prototype.close = function close() {
   this.removeAttribute('open');
   this.dispatchEvent(new Event('close'));
 };
+
+Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+  configurable: true,
+  value: () => null,
+});
