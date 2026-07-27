@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "label": "REAL_STAGING",
+  "startedAt": "2026-07-27T15:46:57.946Z",
+  "finishedAt": "2026-07-27T15:47:16.136Z",
+  "docsChecked": [
+    "https://ai.google.dev/gemini-api/docs/live-api",
+    "https://ai.google.dev/gemini-api/docs/live-api/ephemeral-tokens",
+    "https://ai.google.dev/gemini-api/docs/live-api/get-started-websocket",
+    "https://ai.google.dev/gemini-api/docs/live-api/capabilities",
+    "https://ai.google.dev/gemini-api/docs/live-api/tools"
+  ],
+  "model": "models/gemini-3.1-flash-live-preview",
+  "credential": "GEMINI_API_KEY=SET",
+  "ephemeralToken": {
+    "created": true,
+    "redacted": true
+  },
+  "websocket": {
+    "opened": true,
+    "endpoint": "BidiGenerateContentConstrained"
+  },
+  "audioInput": {
+    "generatedWith": "say + afconvert",
+    "wavPath": "./evidence/phase-07/07.5/audio/pool-hours-16khz.wav",
+    "pcmBytes": 64710,
+    "latencyMs": 5941,
+    "inputTranscript": "What time is the Aurora Hotel pool open?",
+    "outputTranscript": "The Aurora  Hotel  pool  is open  from  06:00  to  22:00  every  day.",
+    "outputAudioBytes": 206882,
+    "verified": true
+  },
+  "languageSamples": [
+    {
+      "locale": "en",
+      "modality": "audio",
+      "verified": true
+    },
+    {
+      "locale": "vi",
+      "modality": "text over Live realtimeInput",
+      "outputTranscript": "06:00 đến  22:00  mỗi  ngày.",
+      "verified": true
+    }
+  ],
+  "toolDraft": {
+    "requestedTool": "request_draft",
+    "calls": [
+      {
+        "id": "fc_3967684321457655850",
+        "name": "request_draft",
+        "args": {
+          "details": "Guest requested two extra towels.",
+          "requestType": "Housekeeping",
+          "title": "Extra Towels Request"
+        }
+      }
+    ],
+    "responseTranscript": "I have  created  a draft  for your  request  for two  extra  towels.  Please  confirm  if you  would like  to submit  it.",
+    "verified": true
+  },
+  "reconnect": {
+    "sessionHandleReceived": true
+  },
+  "usageMetadataReceived": true,
+  "artifacts": {
+    "transcriptLog": "./evidence/phase-07/07.5/logs/real-gemini-live-transcript.log",
+    "outputAudioPcm": "./evidence/phase-07/07.5/audio/gemini-output-24khz.pcm"
+  }
+}

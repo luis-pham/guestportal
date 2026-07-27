@@ -1,0 +1,5 @@
+audio.inputTranscript=What time is the Aurora Hotel pool open?
+audio.outputTranscript=The Aurora  Hotel  pool  is open  from  06:00  to  22:00  every  day.
+vi.outputTranscript=06:00 đến  22:00  mỗi  ngày.
+tool.calls=[{"id":"fc_3967684321457655850","name":"request_draft","args":{"details":"Guest requested two extra towels.","requestType":"Housekeeping","title":"Extra Towels Request"}}]
+tool.responseTranscript=I have  created  a draft  for your  request  for two  extra  towels.  Please  confirm  if you  would like  to submit  it.
