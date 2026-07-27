@@ -99,7 +99,7 @@ class FakeWebSocket {
 
   close() {
     this.readyState = FakeWebSocket.CLOSED;
-    this.onclose?.(new CloseEvent('close'));
+    this.onclose?.(new Event('close') as CloseEvent);
   }
 
   receive(payload: unknown) {
