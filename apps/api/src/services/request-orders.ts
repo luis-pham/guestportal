@@ -16,9 +16,11 @@ import type {
   GuestRequestStatus,
   GuestWorkItem,
   OrderDraftItem,
+  StaffClaimRequest,
   StaffTransitionRequest,
 } from '@guestportal/contracts';
 import type { GuestSession, Sql, TransactionSql } from '@guestportal/db';
+import { randomUUID } from 'node:crypto';
 import { ApiError } from '../errors.js';
 import { assertOrderTransition, assertRequestTransition } from './request-order-state.js';
 
@@ -1298,6 +1300,298 @@ export async function getStaffOrderDetail(
   };
 }
 
+function claimEventKey(kind: 'request' | 'order', idempotencyKey: string | undefined) {
+  return idempotencyKey ? `${kind}.claim:${idempotencyKey}` : null;
+}
+
+function assertActorOwnsWorkItem(
+  kind: 'request' | 'order',
+  assignedStaffId: string | null,
+  actorUserId: string,
+  currentVersion: number,
+) {
+  if (assignedStaffId && assignedStaffId !== actorUserId) {
+    throw new ApiError(409, 'ALREADY_CLAIMED', `${kind} is already claimed.`, {
+      assignedStaffId,
+      currentVersion,
+    });
+  }
+}
+
+async function loadClaimReplay(
+  tx: QueryExecutor,
+  scope: WorkItemScope,
+  input: {
+    resourceId: string;
+    eventKey: string | null;
+    actorUserId: string;
+  },
+) {
+  if (!input.eventKey) return false;
+  const rows = await tx<Array<{ aggregate_id: string; payload: { assignedStaffId?: string } }>>`
+    SELECT aggregate_id, payload
+    FROM outbox_events
+    WHERE organization_id = ${scope.organizationId}::uuid
+      AND event_type = 'staff.assignment_changed.v1'
+      AND idempotency_key = ${input.eventKey}
+    LIMIT 1
+  `;
+  const replay = rows[0];
+  if (!replay) return false;
+  if (replay.aggregate_id !== input.resourceId) {
+    throw new ApiError(409, 'IDEMPOTENCY_KEY_REUSED', 'Idempotency key was used elsewhere.');
+  }
+  if (replay.payload.assignedStaffId !== input.actorUserId) {
+    return false;
+  }
+  return true;
+}
+
+export async function claimRequest(
+  app: FastifyInstance,
+  scope: WorkItemScope,
+  requestId: string,
+  actorUserId: string,
+  input: StaffClaimRequest,
+): Promise<{ request: GuestRequest; idempotentReplay: boolean }> {
+  return app.sql.begin(async (tx) => {
+    const eventKey = claimEventKey('request', input.idempotencyKey);
+    if (await loadClaimReplay(tx, scope, { resourceId: requestId, eventKey, actorUserId })) {
+      const request = await loadConfirmedRequest(tx, requestId);
+      if (!request) {
+        throw new ApiError(404, 'REQUEST_NOT_FOUND', 'Request not found.');
+      }
+      return { request, idempotentReplay: true };
+    }
+
+    const expectedVersion = input.expectedVersion ?? null;
+    const updatedRows = await tx<GuestRequestRow[]>`
+      UPDATE guest_requests
+      SET assigned_staff_id = ${actorUserId}::uuid,
+          version = version + 1,
+          updated_at = now()
+      WHERE id = ${requestId}::uuid
+        AND organization_id = ${scope.organizationId}::uuid
+        AND property_id = ${scope.propertyId}::uuid
+        AND assigned_staff_id IS NULL
+        AND status NOT IN ('completed', 'rejected', 'cancelled')
+        AND (${expectedVersion}::integer IS NULL OR version = ${expectedVersion}::integer)
+      RETURNING *
+    `;
+    const updated = updatedRows[0];
+    if (!updated) {
+      const currentRows = await tx<GuestRequestRow[]>`
+        SELECT *
+        FROM guest_requests
+        WHERE id = ${requestId}::uuid
+          AND organization_id = ${scope.organizationId}::uuid
+          AND property_id = ${scope.propertyId}::uuid
+        LIMIT 1
+      `;
+      const current = currentRows[0];
+      if (!current) {
+        throw new ApiError(404, 'REQUEST_NOT_FOUND', 'Request not found.');
+      }
+      if (current.assigned_staff_id === actorUserId) {
+        return { request: toGuestRequest(current), idempotentReplay: true };
+      }
+      if (current.assigned_staff_id) {
+        throw new ApiError(409, 'ALREADY_CLAIMED', 'Request is already claimed.', {
+          assignedStaffId: current.assigned_staff_id,
+          currentVersion: current.version,
+        });
+      }
+      if (terminalRequestStatuses.has(current.status)) {
+        throw new ApiError(409, 'REQUEST_NOT_CLAIMABLE', 'Request cannot be claimed.', {
+          status: current.status,
+          currentVersion: current.version,
+        });
+      }
+      if (input.expectedVersion !== undefined && current.version !== input.expectedVersion) {
+        throw new ApiError(409, 'VERSION_CONFLICT', 'Request version is stale.', {
+          expectedVersion: input.expectedVersion,
+          currentVersion: current.version,
+        });
+      }
+      throw new ApiError(409, 'CLAIM_CONFLICT', 'Request could not be claimed.', {
+        currentVersion: current.version,
+      });
+    }
+
+    const idempotencyKey =
+      eventKey ?? `request.claim:${requestId}:${updated.version}:${randomUUID()}`;
+    await tx`
+      INSERT INTO outbox_events (
+        organization_id,
+        aggregate_type,
+        aggregate_id,
+        event_type,
+        payload,
+        idempotency_key
+      )
+      VALUES (
+        ${scope.organizationId}::uuid,
+        'request',
+        ${requestId},
+        'staff.assignment_changed.v1',
+        ${JSON.stringify({
+          propertyId: scope.propertyId,
+          resourceType: 'request',
+          previousAssigneeId: null,
+          assignedStaffId: actorUserId,
+          version: updated.version,
+        })}::jsonb,
+        ${idempotencyKey}
+      )
+    `;
+    await tx`
+      INSERT INTO audit_logs (
+        organization_id,
+        actor_user_id,
+        action,
+        resource_type,
+        resource_id,
+        metadata
+      )
+      VALUES (
+        ${scope.organizationId}::uuid,
+        ${actorUserId}::uuid,
+        'request.claimed',
+        'request',
+        ${requestId},
+        ${JSON.stringify({
+          propertyId: scope.propertyId,
+          assignedStaffId: actorUserId,
+          version: updated.version,
+        })}::jsonb
+      )
+    `;
+    return { request: toGuestRequest(updated), idempotentReplay: false };
+  }) as Promise<{ request: GuestRequest; idempotentReplay: boolean }>;
+}
+
+export async function claimOrder(
+  app: FastifyInstance,
+  scope: WorkItemScope,
+  orderId: string,
+  actorUserId: string,
+  input: StaffClaimRequest,
+): Promise<{ order: GuestOrder; idempotentReplay: boolean }> {
+  return app.sql.begin(async (tx) => {
+    const eventKey = claimEventKey('order', input.idempotencyKey);
+    if (await loadClaimReplay(tx, scope, { resourceId: orderId, eventKey, actorUserId })) {
+      const order = await loadConfirmedOrder(tx, orderId);
+      if (!order) {
+        throw new ApiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
+      }
+      return { order, idempotentReplay: true };
+    }
+
+    const expectedVersion = input.expectedVersion ?? null;
+    const updatedRows = await tx<GuestOrderRow[]>`
+      UPDATE guest_orders
+      SET assigned_staff_id = ${actorUserId}::uuid,
+          version = version + 1,
+          updated_at = now()
+      WHERE id = ${orderId}::uuid
+        AND organization_id = ${scope.organizationId}::uuid
+        AND property_id = ${scope.propertyId}::uuid
+        AND assigned_staff_id IS NULL
+        AND status NOT IN ('completed', 'cancelled')
+        AND (${expectedVersion}::integer IS NULL OR version = ${expectedVersion}::integer)
+      RETURNING *
+    `;
+    const updated = updatedRows[0];
+    if (!updated) {
+      const currentRows = await tx<GuestOrderRow[]>`
+        SELECT *
+        FROM guest_orders
+        WHERE id = ${orderId}::uuid
+          AND organization_id = ${scope.organizationId}::uuid
+          AND property_id = ${scope.propertyId}::uuid
+        LIMIT 1
+      `;
+      const current = currentRows[0];
+      if (!current) {
+        throw new ApiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
+      }
+      if (current.assigned_staff_id === actorUserId) {
+        return { order: toGuestOrder(current), idempotentReplay: true };
+      }
+      if (current.assigned_staff_id) {
+        throw new ApiError(409, 'ALREADY_CLAIMED', 'Order is already claimed.', {
+          assignedStaffId: current.assigned_staff_id,
+          currentVersion: current.version,
+        });
+      }
+      if (terminalOrderStatuses.has(current.status)) {
+        throw new ApiError(409, 'ORDER_NOT_CLAIMABLE', 'Order cannot be claimed.', {
+          status: current.status,
+          currentVersion: current.version,
+        });
+      }
+      if (input.expectedVersion !== undefined && current.version !== input.expectedVersion) {
+        throw new ApiError(409, 'VERSION_CONFLICT', 'Order version is stale.', {
+          expectedVersion: input.expectedVersion,
+          currentVersion: current.version,
+        });
+      }
+      throw new ApiError(409, 'CLAIM_CONFLICT', 'Order could not be claimed.', {
+        currentVersion: current.version,
+      });
+    }
+
+    const idempotencyKey = eventKey ?? `order.claim:${orderId}:${updated.version}:${randomUUID()}`;
+    await tx`
+      INSERT INTO outbox_events (
+        organization_id,
+        aggregate_type,
+        aggregate_id,
+        event_type,
+        payload,
+        idempotency_key
+      )
+      VALUES (
+        ${scope.organizationId}::uuid,
+        'order',
+        ${orderId},
+        'staff.assignment_changed.v1',
+        ${JSON.stringify({
+          propertyId: scope.propertyId,
+          resourceType: 'order',
+          previousAssigneeId: null,
+          assignedStaffId: actorUserId,
+          version: updated.version,
+        })}::jsonb,
+        ${idempotencyKey}
+      )
+    `;
+    await tx`
+      INSERT INTO audit_logs (
+        organization_id,
+        actor_user_id,
+        action,
+        resource_type,
+        resource_id,
+        metadata
+      )
+      VALUES (
+        ${scope.organizationId}::uuid,
+        ${actorUserId}::uuid,
+        'order.claimed',
+        'order',
+        ${orderId},
+        ${JSON.stringify({
+          propertyId: scope.propertyId,
+          assignedStaffId: actorUserId,
+          version: updated.version,
+        })}::jsonb
+      )
+    `;
+    return { order: toGuestOrder(updated), idempotentReplay: false };
+  }) as Promise<{ order: GuestOrder; idempotentReplay: boolean }>;
+}
+
 export async function transitionRequestStatus(
   app: FastifyInstance,
   scope: WorkItemScope,
@@ -1347,6 +1641,7 @@ export async function transitionRequestStatus(
         currentVersion: current.version,
       });
     }
+    assertActorOwnsWorkItem('request', current.assigned_staff_id, actorUserId, current.version);
     assertRequestTransition(current.status, nextStatus);
 
     const updatedRows = await tx<GuestRequestRow[]>`
@@ -1567,6 +1862,7 @@ export async function transitionOrderStatus(
         currentVersion: current.version,
       });
     }
+    assertActorOwnsWorkItem('order', current.assigned_staff_id, actorUserId, current.version);
     assertOrderTransition(current.status, nextStatus);
 
     const updatedRows = await tx<GuestOrderRow[]>`

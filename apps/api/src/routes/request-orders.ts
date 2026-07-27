@@ -4,6 +4,7 @@ import {
   guestDraftConfirmRequestSchema,
   guestOrderDraftCreateRequestSchema,
   guestRequestDraftCreateRequestSchema,
+  staffClaimRequestSchema,
   staffTransitionRequestSchema,
 } from '@guestportal/contracts';
 import type { guestOrderStatusSchema, guestRequestStatusSchema } from '@guestportal/contracts';
@@ -16,6 +17,8 @@ import { requireActiveGuestSession } from '../services/guest-context.js';
 import {
   cancelGuestOrder,
   cancelGuestRequest,
+  claimOrder,
+  claimRequest,
   confirmOrderDraft,
   confirmRequestDraft,
   createOrderDraft,
@@ -71,7 +74,7 @@ const staffOrderTransitionByAction = {
 async function requireStaffTransition(
   request: FastifyRequest,
   scope: { organizationId: string; propertyId: string },
-  permission: 'request.transition' | 'order.transition',
+  permission: 'request.assign' | 'request.transition' | 'order.transition',
 ) {
   if (!request.auth) {
     throw new ApiError(401, 'UNAUTHORIZED', 'Authentication required.');
@@ -213,6 +216,17 @@ export async function registerRequestOrderRoutes(app: FastifyInstance) {
     return getStaffRequestDetail(app, scope, params.requestId);
   });
 
+  app.post('/v1/staff/requests/:requestId/claim', async (request) => {
+    const params = requestParamsSchema.parse(request.params);
+    const body = staffClaimRequestSchema.parse(request.body ?? {});
+    const scope = await loadRequestScope(app, params.requestId);
+    if (!scope) {
+      throw new ApiError(404, 'REQUEST_NOT_FOUND', 'Request not found.');
+    }
+    const actorUserId = await requireStaffTransition(request, scope, 'request.assign');
+    return claimRequest(app, scope, params.requestId, actorUserId, body);
+  });
+
   app.get('/v1/staff/orders', async (request) => {
     const query = staffListQuerySchema.parse(request.query);
     const scope = await requireStaffRead(app, request, query.propertyId, 'order.read');
@@ -232,6 +246,17 @@ export async function registerRequestOrderRoutes(app: FastifyInstance) {
     }
     await requireStaffRead(app, request, scope.propertyId, 'order.read');
     return getStaffOrderDetail(app, scope, params.orderId);
+  });
+
+  app.post('/v1/staff/orders/:orderId/claim', async (request) => {
+    const params = orderParamsSchema.parse(request.params);
+    const body = staffClaimRequestSchema.parse(request.body ?? {});
+    const scope = await loadOrderScope(app, params.orderId);
+    if (!scope) {
+      throw new ApiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
+    }
+    const actorUserId = await requireStaffTransition(request, scope, 'order.transition');
+    return claimOrder(app, scope, params.orderId, actorUserId, body);
   });
 
   for (const [action, nextStatus] of Object.entries(staffRequestTransitionByAction)) {

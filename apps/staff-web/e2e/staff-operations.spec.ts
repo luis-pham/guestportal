@@ -7,6 +7,8 @@ import { signIn } from './helpers';
 const apiBase = () => process.env.NEXT_PUBLIC_API_URL ?? 'http://127.0.0.1:4000';
 const evidenceDir = resolve(process.cwd(), '../../evidence/phase-08/08.3');
 const screenshotDir = resolve(evidenceDir, 'screenshots');
+const claimEvidenceDir = resolve(process.cwd(), '../../evidence/phase-08/08.4');
+const claimScreenshotDir = resolve(claimEvidenceDir, 'screenshots');
 
 type SeededWork = {
   propertyId: string;
@@ -252,6 +254,58 @@ test('staff workspace exposes loading, error, and empty states', async ({ page }
   });
   await signIn(page, 'staff.hotel@aurora.test');
   await expect(page.getByTestId('staff-empty')).toBeVisible({ timeout: 30_000 });
+});
+
+test('staff claim conflict is visible when another worker claims first', async ({
+  browser,
+  request,
+}) => {
+  mkdirSync(claimScreenshotDir, { recursive: true });
+  const seeded = await seedSubmittedWork(request);
+  const staffContext = await browser.newContext();
+  const managerContext = await browser.newContext();
+  const staffPage = await staffContext.newPage();
+  const managerPage = await managerContext.newPage();
+
+  try {
+    await staffPage.setViewportSize({ width: 390, height: 844 });
+    await managerPage.setViewportSize({ width: 1280, height: 800 });
+    await signIn(staffPage, 'staff.hotel@aurora.test');
+    await signIn(managerPage, 'manager.hotel@aurora.test');
+
+    const staffCard = staffPage.getByTestId('staff-work-item').filter({ hasText: seeded.requestTitle });
+    const managerCard = managerPage
+      .getByTestId('staff-work-item')
+      .filter({ hasText: seeded.requestTitle });
+    await expect(staffCard).toBeVisible({ timeout: 30_000 });
+    await expect(managerCard).toBeVisible({ timeout: 30_000 });
+
+    await managerCard.getByTestId('staff-claim-item').click();
+    await expect(managerPage.getByTestId('staff-claim-notice')).toBeVisible({ timeout: 30_000 });
+
+    await staffCard.getByTestId('staff-claim-item').click();
+    await expect(staffPage.getByTestId('staff-claim-conflict')).toBeVisible({ timeout: 30_000 });
+    const accessibility = await new AxeBuilder({ page: staffPage }).analyze();
+    const blocking = accessibility.violations.filter(
+      (violation) => violation.impact === 'critical' || violation.impact === 'serious',
+    );
+    writeFileSync(
+      resolve(claimEvidenceDir, 'axe-staff-claim.json'),
+      JSON.stringify({ violations: blocking }, null, 2),
+    );
+    expect(blocking).toEqual([]);
+    await staffPage.screenshot({
+      path: resolve(claimScreenshotDir, 'staff-claim-conflict-390.png'),
+      fullPage: true,
+    });
+    const overflow = await staffPage.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth + 1,
+    );
+    expect(overflow).toBe(false);
+  } finally {
+    await staffContext.close();
+    await managerContext.close();
+  }
 });
 
 test('staff role cannot see properties outside assignment', async ({ page }) => {

@@ -241,6 +241,115 @@ describeIntegration('request/order lifecycle operations', () => {
     expect(rows[0]).toEqual({ history_count: '4', status_event_count: '3', audit_count: '3' });
   });
 
+  it('atomically claims requests with race safety, optimistic concurrency, permissions, and audit', async () => {
+    const staff = await login('staff.hotel@aurora.test');
+    const manager = await login('manager.hotel@aurora.test');
+    const viewer = await login('viewer@aurora.test');
+    const { context, requestId } = await createSubmittedRequest();
+
+    const stale = await app.inject({
+      method: 'POST',
+      url: `/v1/staff/requests/${requestId}/claim`,
+      headers: { cookie: staff.cookie },
+      payload: { expectedVersion: 99, idempotencyKey: `stale-claim-${requestId}` },
+    });
+    expect(stale.statusCode).toBe(409);
+    expect(stale.json().error.code).toBe('VERSION_CONFLICT');
+
+    const denied = await app.inject({
+      method: 'POST',
+      url: `/v1/staff/requests/${requestId}/claim`,
+      headers: { cookie: viewer.cookie },
+      payload: { expectedVersion: 1, idempotencyKey: `viewer-claim-${requestId}` },
+    });
+    expect(denied.statusCode).toBe(403);
+    expect(denied.json().error.code).toBe('FORBIDDEN');
+
+    const [staffClaim, managerClaim] = await Promise.all([
+      app.inject({
+        method: 'POST',
+        url: `/v1/staff/requests/${requestId}/claim`,
+        headers: { cookie: staff.cookie },
+        payload: { expectedVersion: 1, idempotencyKey: `race-staff-${requestId}` },
+      }),
+      app.inject({
+        method: 'POST',
+        url: `/v1/staff/requests/${requestId}/claim`,
+        headers: { cookie: manager.cookie },
+        payload: { expectedVersion: 1, idempotencyKey: `race-manager-${requestId}` },
+      }),
+    ]);
+    const successes = [staffClaim, managerClaim].filter((response) => response.statusCode === 200);
+    const conflicts = [staffClaim, managerClaim].filter((response) => response.statusCode === 409);
+    expect(successes).toHaveLength(1);
+    expect(conflicts).toHaveLength(1);
+    expect(conflicts[0]!.json().error.code).toBe('ALREADY_CLAIMED');
+    expect(successes[0]!.json().request).toMatchObject({
+      id: requestId,
+      status: 'submitted',
+      version: 2,
+    });
+
+    const winnerCookie = successes[0] === staffClaim ? staff.cookie : manager.cookie;
+    const loserCookie = successes[0] === staffClaim ? manager.cookie : staff.cookie;
+    const winnerReplayKey = successes[0] === staffClaim ? `race-staff-${requestId}` : `race-manager-${requestId}`;
+    const winnerReplay = await app.inject({
+      method: 'POST',
+      url: `/v1/staff/requests/${requestId}/claim`,
+      headers: { cookie: winnerCookie },
+      payload: { expectedVersion: 1, idempotencyKey: winnerReplayKey },
+    });
+    expect(winnerReplay.statusCode).toBe(200);
+    expect(winnerReplay.json()).toMatchObject({
+      idempotentReplay: true,
+      request: { id: requestId, version: 2 },
+    });
+
+    const loserTransition = await app.inject({
+      method: 'POST',
+      url: `/v1/staff/requests/${requestId}/accept`,
+      headers: { cookie: loserCookie },
+      payload: { expectedVersion: 2, idempotencyKey: `loser-accept-${requestId}` },
+    });
+    expect(loserTransition.statusCode).toBe(409);
+    expect(loserTransition.json().error.code).toBe('ALREADY_CLAIMED');
+
+    const rows = await app.sql<
+      {
+        assigned_staff_id: string | null;
+        version: number;
+        assignment_event_count: string;
+        audit_count: string;
+      }[]
+    >`
+      SELECT
+        r.assigned_staff_id,
+        r.version,
+        (
+          SELECT count(*)::text
+          FROM outbox_events
+          WHERE aggregate_id = ${requestId}
+            AND event_type = 'staff.assignment_changed.v1'
+        ) AS assignment_event_count,
+        (
+          SELECT count(*)::text
+          FROM audit_logs
+          WHERE resource_type = 'request'
+            AND resource_id = ${requestId}
+            AND action = 'request.claimed'
+        ) AS audit_count
+      FROM guest_requests r
+      WHERE r.id = ${requestId}::uuid
+        AND r.property_id = ${context.propertyId}::uuid
+    `;
+    expect(rows[0]?.assigned_staff_id).toBe(successes[0]!.json().request.assignedStaffId);
+    expect(rows[0]).toMatchObject({
+      version: 2,
+      assignment_event_count: '1',
+      audit_count: '1',
+    });
+  });
+
   it('keeps order item and price snapshots immutable after confirmation', async () => {
     const staff = await login('staff.hotel@aurora.test');
     const context = await createGuestContext();
@@ -335,6 +444,45 @@ describeIntegration('request/order lifecycle operations', () => {
     });
     expect(invalid.statusCode).toBe(409);
     expect(invalid.json().error.code).toBe('ORDER_INVALID_TRANSITION');
+  });
+
+  it('claims orders once and denies cross-property staff', async () => {
+    const staff = await login('staff.hotel@aurora.test');
+    const cruiseStaff = await login('staff.cruise@aurora.test');
+    const { orderId } = await createSubmittedOrder();
+
+    const claimed = await app.inject({
+      method: 'POST',
+      url: `/v1/staff/orders/${orderId}/claim`,
+      headers: { cookie: staff.cookie },
+      payload: { expectedVersion: 1, idempotencyKey: `claim-order-${orderId}` },
+    });
+    expect(claimed.statusCode).toBe(200);
+    expect(claimed.json()).toMatchObject({
+      idempotentReplay: false,
+      order: { id: orderId, status: 'submitted', version: 2 },
+    });
+
+    const duplicate = await app.inject({
+      method: 'POST',
+      url: `/v1/staff/orders/${orderId}/claim`,
+      headers: { cookie: staff.cookie },
+      payload: { expectedVersion: 1, idempotencyKey: `claim-order-${orderId}` },
+    });
+    expect(duplicate.statusCode).toBe(200);
+    expect(duplicate.json()).toMatchObject({
+      idempotentReplay: true,
+      order: { id: orderId, version: 2 },
+    });
+
+    const denied = await app.inject({
+      method: 'POST',
+      url: `/v1/staff/orders/${orderId}/claim`,
+      headers: { cookie: cruiseStaff.cookie },
+      payload: { expectedVersion: 1, idempotencyKey: `foreign-order-claim-${orderId}` },
+    });
+    expect(denied.statusCode).toBe(403);
+    expect(denied.json().error.code).toBe('FORBIDDEN');
   });
 
   it('denies staff transitions outside assigned tenant property', async () => {

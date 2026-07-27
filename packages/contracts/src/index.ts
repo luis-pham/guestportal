@@ -219,6 +219,9 @@ export {
   orderDraftItemSchema,
   orderDraftPayloadSchema,
   requestDraftPayloadSchema,
+  staffClaimRequestSchema,
+  staffOrderClaimResponseSchema,
+  staffRequestClaimResponseSchema,
   staffTransitionRequestSchema,
   type GuestCancelRequest,
   type GuestDraftConfirmRequest,
@@ -248,5 +251,8 @@ export {
   type OrderDraftItem,
   type OrderDraftPayload,
   type RequestDraftPayload,
+  type StaffClaimRequest,
+  type StaffOrderClaimResponse,
+  type StaffRequestClaimResponse,
   type StaffTransitionRequest,
 } from './request-order.js';

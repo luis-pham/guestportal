@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import type { StaffWorkDetail, StaffWorkItem, StaffWorkQueue } from '../lib/api';
-import { fetchStaffDetail, fetchStaffWorkItems } from '../lib/api';
+import { claimStaffWorkItem, fetchStaffDetail, fetchStaffWorkItems } from '../lib/api';
 import './staff-ops.css';
 
 type RouteKey = 'inbox' | 'myWork' | 'messages' | 'history' | 'settings' | 'more' | 'request' | 'order';
@@ -33,7 +33,10 @@ const labels = {
     items: 'Items',
     total: 'Total',
     choose: 'Select an item from the queue.',
-    disabledAccept: 'Claim arrives in the next task',
+    claiming: 'Claiming',
+    claimed: 'Work item claimed.',
+    claimConflict: 'Another staff member already claimed this item. The queue has been refreshed.',
+    claimFailed: 'Could not claim this item.',
   },
   vi: {
     loading: 'Đang tải',
@@ -58,7 +61,10 @@ const labels = {
     items: 'Mặt hàng',
     total: 'Tổng',
     choose: 'Chọn một mục trong hàng đợi.',
-    disabledAccept: 'Chức năng nhận việc nằm ở task tiếp theo',
+    claiming: 'Đang nhận',
+    claimed: 'Đã nhận việc.',
+    claimConflict: 'Một nhân viên khác đã nhận mục này. Hàng đợi đã được làm mới.',
+    claimFailed: 'Không nhận được mục này.',
   },
 };
 
@@ -111,6 +117,10 @@ export function StaffOperationsWorkspace({
   const [loading, setLoading] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [claimingId, setClaimingId] = useState<string | null>(null);
+  const [notice, setNotice] = useState<{ tone: 'success' | 'conflict' | 'error'; text: string } | null>(
+    null,
+  );
 
   const queue = useMemo(() => queueForRoute(routeKey), [routeKey]);
 
@@ -133,6 +143,22 @@ export function StaffOperationsWorkspace({
       return result.data.items[0] ?? null;
     });
     setLoading(false);
+  }
+
+  async function handleClaim(item: StaffWorkItem) {
+    const key = `${item.kind}-${item.id}`;
+    setClaimingId(key);
+    setNotice(null);
+    const result = await claimStaffWorkItem(item);
+    if (result.ok) {
+      setNotice({ tone: 'success', text: t.claimed });
+    } else if (result.status === 409) {
+      setNotice({ tone: 'conflict', text: t.claimConflict });
+    } else {
+      setNotice({ tone: 'error', text: t.claimFailed });
+    }
+    await loadItems();
+    setClaimingId(null);
   }
 
   useEffect(() => {
@@ -191,6 +217,14 @@ export function StaffOperationsWorkspace({
           {t.error}
         </div>
       ) : null}
+      {notice ? (
+        <div
+          className={`staff-ops__notice staff-ops__notice--${notice.tone}`}
+          data-testid={notice.tone === 'conflict' ? 'staff-claim-conflict' : 'staff-claim-notice'}
+        >
+          {notice.text}
+        </div>
+      ) : null}
 
       <div className="staff-ops__layout">
         <div className="staff-ops__list" data-testid="staff-work-list">
@@ -221,8 +255,13 @@ export function StaffOperationsWorkspace({
                 </small>
               </button>
               <div className="staff-card__actions">
-                <button type="button" disabled title={t.disabledAccept}>
-                  {t.accept}
+                <button
+                  type="button"
+                  disabled={Boolean(item.assignee) || claimingId === `${item.kind}-${item.id}`}
+                  onClick={() => void handleClaim(item)}
+                  data-testid="staff-claim-item"
+                >
+                  {claimingId === `${item.kind}-${item.id}` ? t.claiming : t.accept}
                 </button>
                 <a href={itemHref(locale, item)} data-testid="staff-open-item">
                   {t.open}

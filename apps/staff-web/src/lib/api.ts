@@ -131,3 +131,21 @@ export async function fetchStaffDetail(item: Pick<StaffWorkItem, 'kind' | 'id'>)
     item.kind === 'request' ? `/v1/staff/requests/${item.id}` : `/v1/staff/orders/${item.id}`;
   return apiFetch<StaffWorkDetail>(path);
 }
+
+export async function claimStaffWorkItem(item: Pick<StaffWorkItem, 'kind' | 'id' | 'version'>) {
+  const path =
+    item.kind === 'request'
+      ? `/v1/staff/requests/${item.id}/claim`
+      : `/v1/staff/orders/${item.id}/claim`;
+  return apiFetch<
+    | { request: StaffRequestDetail['request']; idempotentReplay: boolean }
+    | { order: StaffOrderDetail['order']; idempotentReplay: boolean }
+    | { error: { code: string; message: string; details?: Record<string, unknown> } }
+  >(path, {
+    method: 'POST',
+    body: JSON.stringify({
+      expectedVersion: item.version,
+      idempotencyKey: `staff-claim-${item.kind}-${item.id}-${item.version}`,
+    }),
+  });
+}

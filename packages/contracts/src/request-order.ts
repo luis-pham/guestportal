@@ -145,6 +145,8 @@ export const staffTransitionRequestSchema = z.object({
   reason: z.string().trim().max(500).optional(),
 });
 
+export const staffClaimRequestSchema = staffTransitionRequestSchema;
+
 export const guestRequestDraftCreateResponseSchema = z.object({
   draft: guestRequestDraftSchema,
 });
@@ -203,6 +205,16 @@ export const guestOrderCancelResponseSchema = z.object({
   idempotentReplay: z.boolean(),
 });
 
+export const staffRequestClaimResponseSchema = z.object({
+  request: guestRequestSchema,
+  idempotentReplay: z.boolean(),
+});
+
+export const staffOrderClaimResponseSchema = z.object({
+  order: guestOrderSchema,
+  idempotentReplay: z.boolean(),
+});
+
 export type GuestWorkItemKind = z.infer<typeof guestWorkItemKindSchema>;
 export type GuestDraftStatus = z.infer<typeof guestDraftStatusSchema>;
 export type GuestRequestStatus = z.infer<typeof guestRequestStatusSchema>;
@@ -225,6 +237,7 @@ export type GuestRequestDraftConfirmResponse = z.infer<
 >;
 export type GuestOrderDraftConfirmResponse = z.infer<typeof guestOrderDraftConfirmResponseSchema>;
 export type StaffTransitionRequest = z.infer<typeof staffTransitionRequestSchema>;
+export type StaffClaimRequest = z.infer<typeof staffClaimRequestSchema>;
 export type GuestWorkItem = z.infer<typeof guestWorkItemSchema>;
 export type GuestWorkItemsResponse = z.infer<typeof guestWorkItemsResponseSchema>;
 export type GuestRequestsResponse = z.infer<typeof guestRequestsResponseSchema>;
@@ -234,3 +247,5 @@ export type GuestOrderDetailResponse = z.infer<typeof guestOrderDetailResponseSc
 export type GuestCancelRequest = z.infer<typeof guestCancelRequestSchema>;
 export type GuestRequestCancelResponse = z.infer<typeof guestRequestCancelResponseSchema>;
 export type GuestOrderCancelResponse = z.infer<typeof guestOrderCancelResponseSchema>;
+export type StaffRequestClaimResponse = z.infer<typeof staffRequestClaimResponseSchema>;
+export type StaffOrderClaimResponse = z.infer<typeof staffOrderClaimResponseSchema>;
