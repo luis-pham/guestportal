@@ -122,6 +122,16 @@ export {
 } from './guest-portal.js';
 
 export {
+  voiceLiveSessionCreateRequestSchema,
+  voiceLiveSessionCreateResponseSchema,
+  voiceLiveSessionModelSchema,
+  voiceLiveSessionSchema,
+  type VoiceLiveSession,
+  type VoiceLiveSessionCreateRequest,
+  type VoiceLiveSessionCreateResponse,
+} from './voice-live.js';
+
+export {
   conversationCreateRequestSchema,
   conversationCreateResponseSchema,
   conversationDetailResponseSchema,

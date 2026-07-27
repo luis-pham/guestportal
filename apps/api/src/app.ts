@@ -19,10 +19,12 @@ import { registerGuestPortalRoutes } from './routes/guest-portal.js';
 import { registerKnowledgeRoutes } from './routes/knowledge.js';
 import { registerRequestOrderRoutes } from './routes/request-orders.js';
 import { registerConversationRoutes } from './routes/conversations.js';
+import { registerVoiceLiveRoutes } from './routes/voice-live.js';
 
 export type BuildAppOptions = {
   databaseUrl: string;
   cookieSecret: string;
+  geminiTokenFetch?: typeof fetch;
 };
 
 export async function buildApp(options: BuildAppOptions) {
@@ -68,6 +70,10 @@ export async function buildApp(options: BuildAppOptions) {
   await registerKnowledgeRoutes(app);
   await registerRequestOrderRoutes(app);
   await registerConversationRoutes(app);
+  await registerVoiceLiveRoutes(
+    app,
+    options.geminiTokenFetch ? { geminiTokenFetch: options.geminiTokenFetch } : {},
+  );
 
   app.setErrorHandler((error, request, reply) => {
     const requestId = request.id;
