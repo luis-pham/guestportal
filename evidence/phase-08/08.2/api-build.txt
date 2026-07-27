@@ -1,0 +1,2 @@
+Command: pnpm --filter @guestportal/api build
+Result: PASS

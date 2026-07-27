@@ -1,0 +1,2 @@
+Command: pnpm --filter @guestportal/guest-web lint
+Result: PASS

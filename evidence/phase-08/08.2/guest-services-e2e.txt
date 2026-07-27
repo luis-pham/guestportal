@@ -1,0 +1,6 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 [chromium] › e2e/guest-services.spec.ts:43:1 › catalog, cart, guest submission, and persisted status (1.4s)
+
+  1 passed (1.9s)

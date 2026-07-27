@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import type {
   GuestDraftConfirmRequest,
+  GuestCancelRequest,
   GuestOrder,
   GuestOrderDraft,
   GuestOrderDraftCreateRequest,
@@ -13,6 +14,7 @@ import type {
   GuestRequestDraftCreateResponse,
   GuestRequestDraftConfirmResponse,
   GuestRequestStatus,
+  GuestWorkItem,
   OrderDraftItem,
   StaffTransitionRequest,
 } from '@guestportal/contracts';
@@ -830,6 +832,77 @@ export async function loadOrderScope(
   return row ? { organizationId: row.organization_id, propertyId: row.property_id } : null;
 }
 
+export async function listGuestWorkItems(
+  app: FastifyInstance,
+  session: GuestSession,
+): Promise<{ items: GuestWorkItem[] }> {
+  const requestRows = await app.sql<GuestRequestRow[]>`
+    SELECT *
+    FROM guest_requests
+    WHERE organization_id = ${session.organizationId}::uuid
+      AND property_id = ${session.propertyId}::uuid
+      AND guest_session_id = ${session.id}::uuid
+    ORDER BY submitted_at DESC
+    LIMIT 50
+  `;
+  const orderRows = await app.sql<GuestOrderRow[]>`
+    SELECT *
+    FROM guest_orders
+    WHERE organization_id = ${session.organizationId}::uuid
+      AND property_id = ${session.propertyId}::uuid
+      AND guest_session_id = ${session.id}::uuid
+    ORDER BY submitted_at DESC
+    LIMIT 50
+  `;
+  const items = [
+    ...requestRows.map((row) => ({ ...toGuestRequest(row), kind: 'request' as const })),
+    ...orderRows.map((row) => ({ ...toGuestOrder(row), kind: 'order' as const })),
+  ].sort((a, b) => Date.parse(b.submittedAt) - Date.parse(a.submittedAt));
+  return { items };
+}
+
+export async function getGuestRequest(
+  app: FastifyInstance,
+  session: GuestSession,
+  requestId: string,
+): Promise<{ request: GuestRequest }> {
+  const rows = await app.sql<GuestRequestRow[]>`
+    SELECT *
+    FROM guest_requests
+    WHERE id = ${requestId}::uuid
+      AND organization_id = ${session.organizationId}::uuid
+      AND property_id = ${session.propertyId}::uuid
+      AND guest_session_id = ${session.id}::uuid
+    LIMIT 1
+  `;
+  const row = rows[0];
+  if (!row) {
+    throw new ApiError(404, 'REQUEST_NOT_FOUND', 'Request not found.');
+  }
+  return { request: toGuestRequest(row) };
+}
+
+export async function getGuestOrder(
+  app: FastifyInstance,
+  session: GuestSession,
+  orderId: string,
+): Promise<{ order: GuestOrder }> {
+  const rows = await app.sql<GuestOrderRow[]>`
+    SELECT *
+    FROM guest_orders
+    WHERE id = ${orderId}::uuid
+      AND organization_id = ${session.organizationId}::uuid
+      AND property_id = ${session.propertyId}::uuid
+      AND guest_session_id = ${session.id}::uuid
+    LIMIT 1
+  `;
+  const row = rows[0];
+  if (!row) {
+    throw new ApiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
+  }
+  return { order: toGuestOrder(row) };
+}
+
 export async function transitionRequestStatus(
   app: FastifyInstance,
   scope: WorkItemScope,
@@ -956,6 +1029,96 @@ export async function transitionRequestStatus(
       )
     `;
 
+    return { request: toGuestRequest(updated), idempotentReplay: false };
+  }) as Promise<{ request: GuestRequest; idempotentReplay: boolean }>;
+}
+
+export async function cancelGuestRequest(
+  app: FastifyInstance,
+  session: GuestSession,
+  requestId: string,
+  input: GuestCancelRequest,
+): Promise<{ request: GuestRequest; idempotentReplay: boolean }> {
+  return app.sql.begin(async (tx) => {
+    const replayRows = await tx<Array<{ request_id: string }>>`
+      SELECT request_id
+      FROM request_status_history
+      WHERE organization_id = ${session.organizationId}::uuid
+        AND property_id = ${session.propertyId}::uuid
+        AND idempotency_key = ${input.idempotencyKey}
+      LIMIT 1
+    `;
+    const replay = replayRows[0];
+    if (replay) {
+      if (replay.request_id !== requestId) {
+        throw new ApiError(409, 'IDEMPOTENCY_KEY_REUSED', 'Idempotency key was used elsewhere.');
+      }
+      const request = await loadConfirmedRequest(tx, requestId);
+      if (!request) {
+        throw new ApiError(404, 'REQUEST_NOT_FOUND', 'Request not found.');
+      }
+      return { request, idempotentReplay: true };
+    }
+
+    const rows = await tx<GuestRequestRow[]>`
+      SELECT *
+      FROM guest_requests
+      WHERE id = ${requestId}::uuid
+        AND organization_id = ${session.organizationId}::uuid
+        AND property_id = ${session.propertyId}::uuid
+        AND guest_session_id = ${session.id}::uuid
+      FOR UPDATE
+    `;
+    const current = rows[0];
+    if (!current) {
+      throw new ApiError(404, 'REQUEST_NOT_FOUND', 'Request not found.');
+    }
+    assertRequestTransition(current.status, 'cancelled');
+
+    const updatedRows = await tx<GuestRequestRow[]>`
+      UPDATE guest_requests
+      SET status = 'cancelled',
+          version = version + 1,
+          cancelled_at = now(),
+          updated_at = now()
+      WHERE id = ${requestId}::uuid
+        AND organization_id = ${session.organizationId}::uuid
+        AND property_id = ${session.propertyId}::uuid
+        AND guest_session_id = ${session.id}::uuid
+      RETURNING *
+    `;
+    const updated = updatedRows[0]!;
+    await appendRequestHistory(tx, updated, {
+      previousStatus: current.status,
+      nextStatus: 'cancelled',
+      actorType: 'guest',
+      actorId: session.id,
+      reason: input.reason,
+      idempotencyKey: input.idempotencyKey,
+    });
+    await tx`
+      INSERT INTO outbox_events (
+        organization_id,
+        aggregate_type,
+        aggregate_id,
+        event_type,
+        payload,
+        idempotency_key
+      )
+      VALUES (
+        ${session.organizationId}::uuid,
+        'request',
+        ${requestId},
+        'request.status_changed.v1',
+        ${JSON.stringify({
+          propertyId: session.propertyId,
+          previousStatus: current.status,
+          nextStatus: 'cancelled',
+          version: updated.version,
+        })}::jsonb,
+        ${`request.cancel:${requestId}:${input.idempotencyKey}`}
+      )
+    `;
     return { request: toGuestRequest(updated), idempotentReplay: false };
   }) as Promise<{ request: GuestRequest; idempotentReplay: boolean }>;
 }
@@ -1087,6 +1250,96 @@ export async function transitionOrderStatus(
       )
     `;
 
+    return { order: toGuestOrder(updated), idempotentReplay: false };
+  }) as Promise<{ order: GuestOrder; idempotentReplay: boolean }>;
+}
+
+export async function cancelGuestOrder(
+  app: FastifyInstance,
+  session: GuestSession,
+  orderId: string,
+  input: GuestCancelRequest,
+): Promise<{ order: GuestOrder; idempotentReplay: boolean }> {
+  return app.sql.begin(async (tx) => {
+    const replayRows = await tx<Array<{ order_id: string }>>`
+      SELECT order_id
+      FROM order_status_history
+      WHERE organization_id = ${session.organizationId}::uuid
+        AND property_id = ${session.propertyId}::uuid
+        AND idempotency_key = ${input.idempotencyKey}
+      LIMIT 1
+    `;
+    const replay = replayRows[0];
+    if (replay) {
+      if (replay.order_id !== orderId) {
+        throw new ApiError(409, 'IDEMPOTENCY_KEY_REUSED', 'Idempotency key was used elsewhere.');
+      }
+      const order = await loadConfirmedOrder(tx, orderId);
+      if (!order) {
+        throw new ApiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
+      }
+      return { order, idempotentReplay: true };
+    }
+
+    const rows = await tx<GuestOrderRow[]>`
+      SELECT *
+      FROM guest_orders
+      WHERE id = ${orderId}::uuid
+        AND organization_id = ${session.organizationId}::uuid
+        AND property_id = ${session.propertyId}::uuid
+        AND guest_session_id = ${session.id}::uuid
+      FOR UPDATE
+    `;
+    const current = rows[0];
+    if (!current) {
+      throw new ApiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
+    }
+    assertOrderTransition(current.status, 'cancelled');
+
+    const updatedRows = await tx<GuestOrderRow[]>`
+      UPDATE guest_orders
+      SET status = 'cancelled',
+          version = version + 1,
+          cancelled_at = now(),
+          updated_at = now()
+      WHERE id = ${orderId}::uuid
+        AND organization_id = ${session.organizationId}::uuid
+        AND property_id = ${session.propertyId}::uuid
+        AND guest_session_id = ${session.id}::uuid
+      RETURNING *
+    `;
+    const updated = updatedRows[0]!;
+    await appendOrderHistory(tx, updated, {
+      previousStatus: current.status,
+      nextStatus: 'cancelled',
+      actorType: 'guest',
+      actorId: session.id,
+      reason: input.reason,
+      idempotencyKey: input.idempotencyKey,
+    });
+    await tx`
+      INSERT INTO outbox_events (
+        organization_id,
+        aggregate_type,
+        aggregate_id,
+        event_type,
+        payload,
+        idempotency_key
+      )
+      VALUES (
+        ${session.organizationId}::uuid,
+        'order',
+        ${orderId},
+        'order.status_changed.v1',
+        ${JSON.stringify({
+          propertyId: session.propertyId,
+          previousStatus: current.status,
+          nextStatus: 'cancelled',
+          version: updated.version,
+        })}::jsonb,
+        ${`order.cancel:${orderId}:${input.idempotencyKey}`}
+      )
+    `;
     return { order: toGuestOrder(updated), idempotentReplay: false };
   }) as Promise<{ order: GuestOrder; idempotentReplay: boolean }>;
 }

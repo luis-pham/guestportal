@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { and, eq, sql } from 'drizzle-orm';
 import { guestSessionCreateRequestSchema } from '@guestportal/contracts';
-import { locations, properties, qrCodes } from '@guestportal/db';
+import { guestSessions, locations, properties, qrCodes } from '@guestportal/db';
 import { ApiError } from '../errors.js';
 import {
   GUEST_SESSION_COOKIE,
@@ -65,6 +65,68 @@ export async function registerGuestSessionRoutes(app: FastifyInstance) {
     }
 
     const locale = pickLocale(body.locale, row.property);
+    const existingToken = request.cookies[GUEST_SESSION_COOKIE];
+    if (existingToken) {
+      const existingSession = await resolveGuestSession(app.db, existingToken);
+      if (
+        existingSession &&
+        existingSession.organizationId === row.property.organizationId &&
+        existingSession.propertyId === row.property.id &&
+        existingSession.locationId === row.location.id &&
+        existingSession.qrCodeId === row.qr.id
+      ) {
+        const session =
+          existingSession.locale === locale
+            ? existingSession
+            : {
+                ...existingSession,
+                locale,
+              };
+        if (existingSession.locale !== locale) {
+          await app.db
+            .update(guestSessions)
+            .set({ locale, lastSeenAt: new Date() })
+            .where(eq(guestSessions.id, existingSession.id));
+        }
+        await app.db
+          .update(qrCodes)
+          .set({
+            scanCount: sql`${qrCodes.scanCount} + 1`,
+            lastScannedAt: new Date(),
+            updatedAt: new Date(),
+          })
+          .where(eq(qrCodes.id, row.qr.id));
+
+        reply.setCookie(GUEST_SESSION_COOKIE, existingToken, {
+          path: '/',
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+          expires: session.expiresAt,
+        });
+
+        return {
+          locale: session.locale,
+          expiresAt: session.expiresAt.toISOString(),
+          guestPath: guestPathForToken(body.token),
+          property: {
+            name: row.property.name,
+            slug: row.property.slug,
+            timezone: row.property.timezone,
+            defaultLocale: row.property.defaultLocale,
+            supportedLocales: row.property.supportedLocales,
+          },
+          location: {
+            code: row.location.code,
+            name: row.location.name,
+          },
+          destination: {
+            type: row.qr.destinationType,
+          },
+        };
+      }
+    }
+
     const { token, session } = await createGuestSessionRow(app.db, {
       organizationId: row.property.organizationId,
       propertyId: row.property.id,

@@ -163,6 +163,46 @@ export const guestOrderDraftConfirmResponseSchema = z.object({
   idempotentReplay: z.boolean(),
 });
 
+export const guestWorkItemSchema = z.discriminatedUnion('kind', [
+  guestRequestSchema.extend({ kind: z.literal('request') }),
+  guestOrderSchema.extend({ kind: z.literal('order') }),
+]);
+
+export const guestWorkItemsResponseSchema = z.object({
+  items: z.array(guestWorkItemSchema),
+});
+
+export const guestRequestsResponseSchema = z.object({
+  requests: z.array(guestRequestSchema),
+});
+
+export const guestOrdersResponseSchema = z.object({
+  orders: z.array(guestOrderSchema),
+});
+
+export const guestRequestDetailResponseSchema = z.object({
+  request: guestRequestSchema,
+});
+
+export const guestOrderDetailResponseSchema = z.object({
+  order: guestOrderSchema,
+});
+
+export const guestCancelRequestSchema = z.object({
+  idempotencyKey: z.string().trim().min(8).max(128),
+  reason: z.string().trim().max(500).optional(),
+});
+
+export const guestRequestCancelResponseSchema = z.object({
+  request: guestRequestSchema,
+  idempotentReplay: z.boolean(),
+});
+
+export const guestOrderCancelResponseSchema = z.object({
+  order: guestOrderSchema,
+  idempotentReplay: z.boolean(),
+});
+
 export type GuestWorkItemKind = z.infer<typeof guestWorkItemKindSchema>;
 export type GuestDraftStatus = z.infer<typeof guestDraftStatusSchema>;
 export type GuestRequestStatus = z.infer<typeof guestRequestStatusSchema>;
@@ -185,3 +225,12 @@ export type GuestRequestDraftConfirmResponse = z.infer<
 >;
 export type GuestOrderDraftConfirmResponse = z.infer<typeof guestOrderDraftConfirmResponseSchema>;
 export type StaffTransitionRequest = z.infer<typeof staffTransitionRequestSchema>;
+export type GuestWorkItem = z.infer<typeof guestWorkItemSchema>;
+export type GuestWorkItemsResponse = z.infer<typeof guestWorkItemsResponseSchema>;
+export type GuestRequestsResponse = z.infer<typeof guestRequestsResponseSchema>;
+export type GuestOrdersResponse = z.infer<typeof guestOrdersResponseSchema>;
+export type GuestRequestDetailResponse = z.infer<typeof guestRequestDetailResponseSchema>;
+export type GuestOrderDetailResponse = z.infer<typeof guestOrderDetailResponseSchema>;
+export type GuestCancelRequest = z.infer<typeof guestCancelRequestSchema>;
+export type GuestRequestCancelResponse = z.infer<typeof guestRequestCancelResponseSchema>;
+export type GuestOrderCancelResponse = z.infer<typeof guestOrderCancelResponseSchema>;

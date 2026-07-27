@@ -9,11 +9,14 @@ import { fetchGuestPortal, openGuestSession } from '../lib/guest-portal';
 import { GuestMobileNav } from './GuestMobileNav';
 import { ExploreView } from './ExploreView';
 import { GuideView } from './GuideView';
+import { GuestStatusView } from './GuestStatusView';
+import { ServicesView } from './ServicesView';
 import { GuestErrorBoundary } from './GuestErrorBoundary';
 import { VoiceAssistantShell } from './VoiceAssistantShell';
 import './guest-nav.css';
+import './guest-ops.css';
 
-export type GuestView = 'home' | 'explore' | 'guide' | 'chat' | 'status';
+export type GuestView = 'home' | 'explore' | 'guide' | 'chat' | 'services' | 'status';
 
 export function GuestPortalApp({ qrToken, view }: { qrToken: string; view: GuestView }) {
   const [portal, setPortal] = useState<GuestPortalResponse | null>(null);
@@ -131,20 +134,13 @@ export function GuestPortalApp({ qrToken, view }: { qrToken: string; view: Guest
         {view === 'home' ? <GuestHomepage data={portal} /> : null}
         {view === 'explore' ? <ExploreView qrToken={qrToken} data={portal} /> : null}
         {view === 'guide' ? <GuideView qrToken={qrToken} data={portal} /> : null}
-        {view === 'status' ? (
-          <GuestStatusCenter
-            locale={portal.locale}
-            items={[]}
-            onRetry={() => {
-              void load();
-            }}
-          />
-        ) : null}
+        {view === 'services' ? <ServicesView qrToken={qrToken} data={portal} /> : null}
+        {view === 'status' ? <GuestStatusView locale={portal.locale} /> : null}
         {view === 'chat' ? <VoiceAssistantShell data={portal} /> : null}
         <GuestMobileNav
           qrToken={qrToken}
           data={portal}
-          active={view === 'status' ? 'home' : view}
+          active={view}
           onToggleLocale={() => {
             const next = locale === 'vi' ? 'en' : 'vi';
             void load(next);

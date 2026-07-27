@@ -62,15 +62,17 @@ describeIntegration('request/order lifecycle operations', () => {
       payload: { locationId },
     });
     expect(qr.statusCode).toBe(200);
+    const token = qr.json().token as string;
     const session = await app.inject({
       method: 'POST',
       url: '/v1/guest/sessions',
-      payload: { token: qr.json().token, locale: 'vi' },
+      payload: { token, locale: 'vi' },
     });
     expect(session.statusCode).toBe(200);
     const guestCookie = session.cookies.find((item) => item.name === GUEST_SESSION_COOKIE);
     return {
       propertyId,
+      token,
       guestCookie: `${GUEST_SESSION_COOKIE}=${guestCookie!.value}`,
     };
   }
@@ -109,6 +111,38 @@ describeIntegration('request/order lifecycle operations', () => {
     });
     expect(confirm.statusCode).toBe(200);
     return { context, requestId: confirm.json().request.id as string };
+  }
+
+  async function createSubmittedOrder() {
+    const context = await createGuestContext();
+    const conversationId = await createConversation(context.guestCookie);
+    const draft = await app.inject({
+      method: 'POST',
+      url: '/v1/guest/order-drafts',
+      headers: { cookie: context.guestCookie },
+      payload: {
+        conversationId,
+        title: 'Breakfast tray',
+        items: [
+          {
+            itemId: 'breakfast-tray',
+            label: 'Breakfast tray',
+            quantity: 1,
+            unitPriceMinor: 0,
+            currency: 'USD',
+          },
+        ],
+      },
+    });
+    expect(draft.statusCode).toBe(200);
+    const confirm = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/order-drafts/${draft.json().draft.id}/confirm`,
+      headers: { cookie: context.guestCookie },
+      payload: { idempotencyKey: `phase08-order-${draft.json().draft.id}` },
+    });
+    expect(confirm.statusCode).toBe(200);
+    return { context, orderId: confirm.json().order.id as string };
   }
 
   it('transitions requests with optimistic versioning, history, outbox, and audit', async () => {
@@ -314,5 +348,166 @@ describeIntegration('request/order lifecycle operations', () => {
     });
     expect(response.statusCode).toBe(403);
     expect(response.json().error.code).toBe('FORBIDDEN');
+  });
+
+  it('lets guests list, inspect, and idempotently cancel their own submitted work', async () => {
+    const { context, requestId } = await createSubmittedRequest();
+    const conversationId = await createConversation(context.guestCookie);
+    const orderDraft = await app.inject({
+      method: 'POST',
+      url: '/v1/guest/order-drafts',
+      headers: { cookie: context.guestCookie },
+      payload: {
+        conversationId,
+        title: 'Tea service',
+        items: [
+          {
+            itemId: 'tea-service',
+            label: 'Tea service',
+            quantity: 2,
+            unitPriceMinor: 0,
+            currency: 'USD',
+          },
+        ],
+      },
+    });
+    expect(orderDraft.statusCode).toBe(200);
+    const orderConfirm = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/order-drafts/${orderDraft.json().draft.id}/confirm`,
+      headers: { cookie: context.guestCookie },
+      payload: { idempotencyKey: `guest-list-order-${orderDraft.json().draft.id}` },
+    });
+    expect(orderConfirm.statusCode).toBe(200);
+    const orderId = orderConfirm.json().order.id as string;
+
+    const requests = await app.inject({
+      method: 'GET',
+      url: '/v1/guest/requests',
+      headers: { cookie: context.guestCookie },
+    });
+    expect(requests.statusCode).toBe(200);
+    expect(requests.json().requests).toEqual([
+      expect.objectContaining({ id: requestId, status: 'submitted', title: 'Extra towels' }),
+    ]);
+    expect(requests.json().requests[0].kind).toBeUndefined();
+
+    const orders = await app.inject({
+      method: 'GET',
+      url: '/v1/guest/orders',
+      headers: { cookie: context.guestCookie },
+    });
+    expect(orders.statusCode).toBe(200);
+    expect(orders.json().orders).toEqual([
+      expect.objectContaining({ id: orderId, status: 'submitted', title: 'Tea service' }),
+    ]);
+    expect(orders.json().orders[0].kind).toBeUndefined();
+
+    const reopened = await app.inject({
+      method: 'POST',
+      url: '/v1/guest/sessions',
+      headers: { cookie: context.guestCookie },
+      payload: { token: context.token, locale: 'vi' },
+    });
+    expect(reopened.statusCode).toBe(200);
+    const reopenedCookie =
+      reopened.cookies.find((item) => item.name === GUEST_SESSION_COOKIE)?.value ??
+      context.guestCookie.replace(`${GUEST_SESSION_COOKIE}=`, '');
+    const reloadedRequests = await app.inject({
+      method: 'GET',
+      url: '/v1/guest/requests',
+      headers: { cookie: `${GUEST_SESSION_COOKIE}=${reopenedCookie}` },
+    });
+    expect(reloadedRequests.statusCode).toBe(200);
+    expect(reloadedRequests.json().requests).toEqual([
+      expect.objectContaining({ id: requestId, status: 'submitted' }),
+    ]);
+
+    const detail = await app.inject({
+      method: 'GET',
+      url: `/v1/guest/requests/${requestId}`,
+      headers: { cookie: context.guestCookie },
+    });
+    expect(detail.statusCode).toBe(200);
+    expect(detail.json().request).toMatchObject({ id: requestId, requestType: 'housekeeping' });
+
+    const foreign = await createGuestContext();
+    const denied = await app.inject({
+      method: 'GET',
+      url: `/v1/guest/orders/${orderId}`,
+      headers: { cookie: foreign.guestCookie },
+    });
+    expect(denied.statusCode).toBe(404);
+    expect(denied.json().error.code).toBe('ORDER_NOT_FOUND');
+
+    const cancelPayload = { idempotencyKey: `guest-cancel-${requestId}`, reason: 'No longer needed' };
+    const cancelled = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/requests/${requestId}/cancel`,
+      headers: { cookie: context.guestCookie },
+      payload: cancelPayload,
+    });
+    expect(cancelled.statusCode).toBe(200);
+    expect(cancelled.json()).toMatchObject({
+      idempotentReplay: false,
+      request: { id: requestId, status: 'cancelled', version: 2 },
+    });
+
+    const duplicate = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/requests/${requestId}/cancel`,
+      headers: { cookie: context.guestCookie },
+      payload: cancelPayload,
+    });
+    expect(duplicate.statusCode).toBe(200);
+    expect(duplicate.json()).toMatchObject({
+      idempotentReplay: true,
+      request: { id: requestId, status: 'cancelled', version: 2 },
+    });
+
+    const rows = await app.sql<{ cancel_count: string; status_event_count: string }[]>`
+      SELECT
+        (
+          SELECT count(*)::text
+          FROM request_status_history
+          WHERE request_id = ${requestId}::uuid
+            AND idempotency_key = ${cancelPayload.idempotencyKey}
+        ) AS cancel_count,
+        (
+          SELECT count(*)::text
+          FROM outbox_events
+          WHERE aggregate_id = ${requestId}
+            AND event_type = 'request.status_changed.v1'
+        ) AS status_event_count
+    `;
+    expect(rows[0]).toEqual({ cancel_count: '1', status_event_count: '1' });
+  });
+
+  it('lets guests cancel submitted orders without creating duplicate transitions', async () => {
+    const { context, orderId } = await createSubmittedOrder();
+    const payload = { idempotencyKey: `guest-order-cancel-${orderId}` };
+    const cancelled = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/orders/${orderId}/cancel`,
+      headers: { cookie: context.guestCookie },
+      payload,
+    });
+    expect(cancelled.statusCode).toBe(200);
+    expect(cancelled.json()).toMatchObject({
+      idempotentReplay: false,
+      order: { id: orderId, status: 'cancelled', version: 2 },
+    });
+
+    const duplicate = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/orders/${orderId}/cancel`,
+      headers: { cookie: context.guestCookie },
+      payload,
+    });
+    expect(duplicate.statusCode).toBe(200);
+    expect(duplicate.json()).toMatchObject({
+      idempotentReplay: true,
+      order: { id: orderId, status: 'cancelled', version: 2 },
+    });
   });
 });

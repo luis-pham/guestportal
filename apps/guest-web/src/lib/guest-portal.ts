@@ -7,9 +7,20 @@ import type {
   GuestAiToolExecuteResponse,
   GuestDraftConfirmRequest,
   GuestMessageCreateResponse,
+  GuestOrder,
+  GuestOrderCancelResponse,
+  GuestOrderDraftCreateRequest,
+  GuestOrderDraftCreateResponse,
   GuestOrderDraftConfirmResponse,
+  GuestOrdersResponse,
   GuestPortalResponse,
+  GuestRequest,
+  GuestRequestCancelResponse,
+  GuestRequestDraftCreateRequest,
+  GuestRequestDraftCreateResponse,
   GuestRequestDraftConfirmResponse,
+  GuestRequestsResponse,
+  GuestWorkItem,
   PortalConfigDocument,
   VoiceLiveSession,
   VoiceLiveSessionCreateResponse,
@@ -172,6 +183,21 @@ export async function confirmGuestRequestDraft({
   return (await response.json()) as GuestRequestDraftConfirmResponse;
 }
 
+export async function createGuestRequestDraft(
+  payload: GuestRequestDraftCreateRequest,
+): Promise<GuestRequestDraftCreateResponse> {
+  const response = await fetch(`${API_URL}/v1/guest/request-drafts`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) {
+    throw new Error(`Could not create request draft (${response.status}).`);
+  }
+  return (await response.json()) as GuestRequestDraftCreateResponse;
+}
+
 export async function confirmGuestOrderDraft({
   draftId,
   idempotencyKey,
@@ -190,6 +216,85 @@ export async function confirmGuestOrderDraft({
     throw new Error(`Could not confirm order draft (${response.status}).`);
   }
   return (await response.json()) as GuestOrderDraftConfirmResponse;
+}
+
+export async function createGuestOrderDraft(
+  payload: GuestOrderDraftCreateRequest,
+): Promise<GuestOrderDraftCreateResponse> {
+  const response = await fetch(`${API_URL}/v1/guest/order-drafts`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) {
+    throw new Error(`Could not create order draft (${response.status}).`);
+  }
+  return (await response.json()) as GuestOrderDraftCreateResponse;
+}
+
+export async function fetchGuestRequests(): Promise<GuestRequest[]> {
+  const response = await fetch(`${API_URL}/v1/guest/requests`, { credentials: 'include' });
+  if (!response.ok) {
+    throw new Error(`Could not load guest requests (${response.status}).`);
+  }
+  const body = (await response.json()) as GuestRequestsResponse;
+  return body.requests;
+}
+
+export async function fetchGuestOrders(): Promise<GuestOrder[]> {
+  const response = await fetch(`${API_URL}/v1/guest/orders`, { credentials: 'include' });
+  if (!response.ok) {
+    throw new Error(`Could not load guest orders (${response.status}).`);
+  }
+  const body = (await response.json()) as GuestOrdersResponse;
+  return body.orders;
+}
+
+export async function fetchGuestWorkItems(): Promise<GuestWorkItem[]> {
+  const [requests, orders] = await Promise.all([fetchGuestRequests(), fetchGuestOrders()]);
+  return [
+    ...requests.map((request) => ({ ...request, kind: 'request' as const })),
+    ...orders.map((order) => ({ ...order, kind: 'order' as const })),
+  ].sort((a, b) => Date.parse(b.submittedAt) - Date.parse(a.submittedAt));
+}
+
+export async function cancelGuestRequest({
+  requestId,
+  idempotencyKey,
+}: {
+  requestId: string;
+  idempotencyKey: string;
+}): Promise<GuestRequestCancelResponse> {
+  const response = await fetch(`${API_URL}/v1/guest/requests/${requestId}/cancel`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idempotencyKey }),
+  });
+  if (!response.ok) {
+    throw new Error(`Could not cancel request (${response.status}).`);
+  }
+  return (await response.json()) as GuestRequestCancelResponse;
+}
+
+export async function cancelGuestOrder({
+  orderId,
+  idempotencyKey,
+}: {
+  orderId: string;
+  idempotencyKey: string;
+}): Promise<GuestOrderCancelResponse> {
+  const response = await fetch(`${API_URL}/v1/guest/orders/${orderId}/cancel`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idempotencyKey }),
+  });
+  if (!response.ok) {
+    throw new Error(`Could not cancel order (${response.status}).`);
+  }
+  return (await response.json()) as GuestOrderCancelResponse;
 }
 
 export async function recordGuestVoiceMetric({

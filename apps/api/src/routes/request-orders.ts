@@ -1,5 +1,6 @@
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 import {
+  guestCancelRequestSchema,
   guestDraftConfirmRequestSchema,
   guestOrderDraftCreateRequestSchema,
   guestOrderStatusSchema,
@@ -12,10 +13,15 @@ import { assertCan, toAuthzContext } from '../auth-context.js';
 import { ApiError } from '../errors.js';
 import { requireActiveGuestSession } from '../services/guest-context.js';
 import {
+  cancelGuestOrder,
+  cancelGuestRequest,
   confirmOrderDraft,
   confirmRequestDraft,
   createOrderDraft,
   createRequestDraft,
+  getGuestOrder,
+  getGuestRequest,
+  listGuestWorkItems,
   loadOrderScope,
   loadRequestScope,
   transitionOrderStatus,
@@ -89,6 +95,56 @@ export async function registerRequestOrderRoutes(app: FastifyInstance) {
     const params = draftParamsSchema.parse(request.params);
     const body = guestDraftConfirmRequestSchema.parse(request.body);
     return confirmOrderDraft(app, session, params.draftId, body);
+  });
+
+  app.get('/v1/guest/requests', async (request) => {
+    const { session } = await requireActiveGuestSession(app, request);
+    const { items } = await listGuestWorkItems(app, session);
+    return {
+      requests: items.filter((item) => item.kind === 'request').map((item) => {
+        const { kind, ...requestItem } = item;
+        void kind;
+        return requestItem;
+      }),
+    };
+  });
+
+  app.get('/v1/guest/requests/:requestId', async (request) => {
+    const { session } = await requireActiveGuestSession(app, request);
+    const params = requestParamsSchema.parse(request.params);
+    return getGuestRequest(app, session, params.requestId);
+  });
+
+  app.post('/v1/guest/requests/:requestId/cancel', async (request) => {
+    const { session } = await requireActiveGuestSession(app, request);
+    const params = requestParamsSchema.parse(request.params);
+    const body = guestCancelRequestSchema.parse(request.body ?? {});
+    return cancelGuestRequest(app, session, params.requestId, body);
+  });
+
+  app.get('/v1/guest/orders', async (request) => {
+    const { session } = await requireActiveGuestSession(app, request);
+    const { items } = await listGuestWorkItems(app, session);
+    return {
+      orders: items.filter((item) => item.kind === 'order').map((item) => {
+        const { kind, ...orderItem } = item;
+        void kind;
+        return orderItem;
+      }),
+    };
+  });
+
+  app.get('/v1/guest/orders/:orderId', async (request) => {
+    const { session } = await requireActiveGuestSession(app, request);
+    const params = orderParamsSchema.parse(request.params);
+    return getGuestOrder(app, session, params.orderId);
+  });
+
+  app.post('/v1/guest/orders/:orderId/cancel', async (request) => {
+    const { session } = await requireActiveGuestSession(app, request);
+    const params = orderParamsSchema.parse(request.params);
+    const body = guestCancelRequestSchema.parse(request.body ?? {});
+    return cancelGuestOrder(app, session, params.orderId, body);
   });
 
   for (const [action, nextStatus] of Object.entries(staffRequestTransitionByAction)) {

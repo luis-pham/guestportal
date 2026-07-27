@@ -1,0 +1,17 @@
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/contracts
+
+ ✓ src/request-order.test.ts (4 tests) 10ms
+ ✓ src/guest-session.test.ts (2 tests) 7ms
+ ✓ src/voice-live.test.ts (2 tests) 22ms
+ ✓ src/qr.test.ts (4 tests) 20ms
+ ✓ src/conversation.test.ts (3 tests) 22ms
+ ✓ src/branding.test.ts (3 tests) 61ms
+ ✓ src/uploads.test.ts (2 tests) 5ms
+ ✓ src/portal.test.ts (4 tests) 11ms
+ ✓ src/ai-tools.test.ts (4 tests) 5ms
+
+ Test Files  9 passed (9)
+      Tests  28 passed (28)
+   Start at  23:32:26
+   Duration  1.15s (transform 782ms, setup 0ms, collect 1.61s, tests 162ms, environment 2ms, prepare 2.78s)
