@@ -1,0 +1,14 @@
+$ vitest run --exclude src/**/*.integration.test.ts
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/api
+
+ ✓ src/app.test.ts (1 test) 1ms
+ ✓ src/services/rate-limit.test.ts (1 test) 2ms
+ ✓ src/services/qr-tokens.test.ts (1 test) 10ms
+ ✓ src/services/gemini-live.test.ts (1 test) 6ms
+
+ Test Files  4 passed (4)
+      Tests  4 passed (4)
+   Start at  21:30:37
+   Duration  415ms (transform 96ms, setup 0ms, collect 148ms, tests 19ms, environment 0ms, prepare 246ms)
+

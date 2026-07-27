@@ -1,0 +1,113 @@
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/api
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T14:31:13.491Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":401,"requestId":"59073fac-cff2-4ed9-9188-af4fd2eaf20c"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T14:31:13.721Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"a7b102d4-2fff-4baf-9473-c696989657c9"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T14:31:13.725Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"1718b5c0-3b5b-40d9-a9b5-1ba56d762d5f"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T14:31:13.730Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/locations","statusCode":200,"requestId":"eb1b6b7d-dc8d-45ce-b750-ca5c9a51159c"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T14:31:13.738Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/qr-codes","statusCode":200,"requestId":"0c2cc059-fa34-4c1a-91ee-ccff50d44c8e"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T14:31:13.741Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"f306b470-1186-4825-bcab-3b96d9a3266a"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T14:31:13.746Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"39ec8b8b-c522-4699-81d8-f7b97c1139a1"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > requires guest authorization and a configured provider credential
+{"level":"info","time":"2026-07-27T14:31:13.748Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":503,"requestId":"cba878ff-22c9-4bb0-8711-641fe44e0e60"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T14:31:13.958Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"f0476766-8d80-4fdf-b40f-ff9da09c62e6"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T14:31:13.961Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"7013b61e-820a-419d-9c4b-a61cc8131c3d"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T14:31:13.964Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/locations","statusCode":200,"requestId":"6251fb4b-6c70-4043-b5fb-e53a6b67d940"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T14:31:13.968Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/qr-codes","statusCode":200,"requestId":"4c6b990a-6bfa-4f43-8ad6-95926e6f9173"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T14:31:13.971Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"efa70f94-2ca2-4694-8170-af0fa38a4f08"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T14:31:13.974Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"e7a1f0cb-ab4c-4e01-bd3f-d7df426fe8e7"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > issues scoped ephemeral tokens without leaking the provider key
+{"level":"info","time":"2026-07-27T14:31:13.977Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"a0ad2670-bc4a-4fcc-872c-c9a8c50eb64d"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.197Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"97e3519b-e200-4b05-9426-56c2ba3dd297"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.199Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"9b05d39b-2875-4046-b873-df8118d334f8"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.201Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/locations","statusCode":200,"requestId":"b9e22c92-47eb-4aa1-b0a0-247ef25cd5ac"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.204Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/qr-codes","statusCode":200,"requestId":"8c7db42d-1993-450b-ae09-a9a3ec6dab61"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.206Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"1a666d7f-a9b8-419e-8108-87dadbae49cc"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.430Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"73849adf-3016-425f-b332-4ec92ba2eb75"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.433Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"277f0c65-c186-433c-ac82-09de9d0791c2"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.435Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/locations","statusCode":200,"requestId":"fa2ad293-e4b9-4e36-b60c-70443fc24b05"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.439Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/qr-codes","statusCode":200,"requestId":"358e6d84-9d3d-481f-9659-c88b838979fd"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.441Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"323606d0-d4e0-4018-a405-4965eabac2fc"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.443Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"48f1d52e-3537-49a4-aa35-b6cf0eac1604"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.445Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":404,"requestId":"28ee4c46-97a9-4b7e-96df-66e257f5799f"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.446Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"6d2ccf41-eee9-40b5-ae82-6ce7e17a60b6"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.448Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"2a535875-b8c1-4e5f-a7b6-bdce5d0fb55f"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.450Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"0835fb37-df50-4226-8346-1f71402b4259"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.452Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"9b77f00c-95be-4186-aa19-c22393e5c826"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.454Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"79cfc6c2-5b31-4fd9-b255-19753e41afb3"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.455Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":200,"requestId":"9113d545-2a98-4910-8316-4c53bbfc7dba"}
+
+stdout | src/voice-live.integration.test.ts > Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation
+{"level":"info","time":"2026-07-27T14:31:14.456Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/live-sessions","statusCode":429,"requestId":"43fc9c92-d2dc-4515-be11-392d9d62ee56"}
+
+ ✓ src/voice-live.integration.test.ts (3 tests) 1017ms
+   ✓ Gemini Live token endpoint > denies cross-session conversation scope and rate limits token creation  478ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  21:31:12
+   Duration  2.01s (transform 194ms, setup 0ms, collect 869ms, tests 1.02s, environment 0ms, prepare 44ms)
+

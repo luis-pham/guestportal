@@ -1,0 +1,19 @@
+$ vitest run
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/contracts
+
+ ✓ src/voice-live.test.ts (2 tests) 6ms
+ ✓ src/qr.test.ts (4 tests) 4ms
+ ✓ src/uploads.test.ts (2 tests) 7ms
+ ✓ src/guest-session.test.ts (2 tests) 5ms
+ ✓ src/conversation.test.ts (3 tests) 8ms
+ ✓ src/request-order.test.ts (3 tests) 5ms
+ ✓ src/branding.test.ts (3 tests) 4ms
+ ✓ src/portal.test.ts (4 tests) 5ms
+ ✓ src/ai-tools.test.ts (4 tests) 4ms
+
+ Test Files  9 passed (9)
+      Tests  27 passed (27)
+   Start at  21:30:28
+   Duration  462ms (transform 952ms, setup 0ms, collect 1.32s, tests 48ms, environment 1ms, prepare 580ms)
+
