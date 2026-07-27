@@ -39,7 +39,15 @@ Task 06.1 `PASS`
 
 ## VPS validation
 
-- Pending push/pull validation.
+- Pulled commit `0b0fb68` into `/opt/apps/guestportal`.
+- Installed workspace dependencies with `pnpm install --frozen-lockfile`.
+- Rebuilt `@guestportal/contracts`, `@guestportal/ai-tools`, and `@guestportal/api`.
+- VPS validation passed:
+  - `@guestportal/ai-tools`: lint, typecheck, build, tests (`4 passed`)
+  - `@guestportal/contracts`: lint, typecheck, build, tests (`21 passed`)
+  - `@guestportal/api`: lint, typecheck, build
+  - Full API integration with VPS `.env`: `11 passed`, `30 passed`
+- Restored test-generated `evidence/phase-05/05.5/retrieval-benchmark.json` side effect; VPS worktree returned clean.
 
 ## Acceptance
 
