@@ -1,0 +1,10 @@
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/guest-voice-reconnect.spec.ts:41:1 › voice transcript interruption and reconnect remain visible on mobile (2.0s)
+  ✓  2 [chromium] › e2e/guest-voice-tool.spec.ts:49:1 › voice tool call creates a draft and requires guest confirmation (938ms)
+  ✓  3 [chromium] › e2e/guest-voice.spec.ts:49:1 › guest voice transport starts on mobile without relaying audio through backend (512ms)
+
+  3 passed (3.9s)
+(node:1214) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

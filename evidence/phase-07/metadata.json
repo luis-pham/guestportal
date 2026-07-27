@@ -1,0 +1,37 @@
+{
+  "phase": "07",
+  "commitSha": "b1be86e71d8cb9267d6ec657fa73d6ed8a4b1b35",
+  "startedAt": "2026-07-27T15:55:35.615Z",
+  "finishedAt": "2026-07-27T15:56:46.046Z",
+  "environment": "local",
+  "requiredSuites": [
+    "contracts-lint",
+    "contracts-typecheck",
+    "contracts-test",
+    "contracts-build",
+    "ai-tools-lint",
+    "ai-tools-typecheck",
+    "ai-tools-test",
+    "ai-tools-build",
+    "api-lint",
+    "api-typecheck",
+    "api-unit",
+    "api-integration",
+    "api-build",
+    "guest-web-lint",
+    "guest-web-typecheck",
+    "guest-web-test",
+    "guest-web-build",
+    "real-gemini-live",
+    "guest-web-e2e"
+  ],
+  "tasks": [
+    "07.1",
+    "07.2",
+    "07.3",
+    "07.4",
+    "07.5"
+  ],
+  "missingTasks": [],
+  "realProviderCredentialAvailable": true
+}

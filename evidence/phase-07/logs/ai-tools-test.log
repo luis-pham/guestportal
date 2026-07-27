@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/ai-tools
+
+ ✓ src/index.test.ts (5 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  22:55:41
+   Duration  321ms (transform 53ms, setup 0ms, collect 81ms, tests 3ms, environment 0ms, prepare 46ms)
+
+$ vitest run

@@ -1,0 +1,177 @@
+{
+  "generatedAt": "2026-07-27T15:56:46.046Z",
+  "classification": "PASS",
+  "results": [
+    {
+      "name": "contracts-lint",
+      "command": "pnpm --filter @guestportal/contracts lint",
+      "startedAt": "2026-07-27T15:55:35.635Z",
+      "finishedAt": "2026-07-27T15:55:36.663Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/contracts-lint.log"
+    },
+    {
+      "name": "contracts-typecheck",
+      "command": "pnpm --filter @guestportal/contracts typecheck",
+      "startedAt": "2026-07-27T15:55:36.663Z",
+      "finishedAt": "2026-07-27T15:55:37.729Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/contracts-typecheck.log"
+    },
+    {
+      "name": "contracts-test",
+      "command": "pnpm --filter @guestportal/contracts test",
+      "startedAt": "2026-07-27T15:55:37.729Z",
+      "finishedAt": "2026-07-27T15:55:38.743Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/contracts-test.log"
+    },
+    {
+      "name": "contracts-build",
+      "command": "pnpm --filter @guestportal/contracts build",
+      "startedAt": "2026-07-27T15:55:38.743Z",
+      "finishedAt": "2026-07-27T15:55:39.842Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/contracts-build.log"
+    },
+    {
+      "name": "ai-tools-lint",
+      "command": "pnpm --filter @guestportal/ai-tools lint",
+      "startedAt": "2026-07-27T15:55:39.842Z",
+      "finishedAt": "2026-07-27T15:55:40.502Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/ai-tools-lint.log"
+    },
+    {
+      "name": "ai-tools-typecheck",
+      "command": "pnpm --filter @guestportal/ai-tools typecheck",
+      "startedAt": "2026-07-27T15:55:40.502Z",
+      "finishedAt": "2026-07-27T15:55:41.079Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/ai-tools-typecheck.log"
+    },
+    {
+      "name": "ai-tools-test",
+      "command": "pnpm --filter @guestportal/ai-tools test",
+      "startedAt": "2026-07-27T15:55:41.079Z",
+      "finishedAt": "2026-07-27T15:55:41.901Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/ai-tools-test.log"
+    },
+    {
+      "name": "ai-tools-build",
+      "command": "pnpm --filter @guestportal/ai-tools build",
+      "startedAt": "2026-07-27T15:55:41.901Z",
+      "finishedAt": "2026-07-27T15:55:42.549Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/ai-tools-build.log"
+    },
+    {
+      "name": "api-lint",
+      "command": "pnpm --filter @guestportal/api lint",
+      "startedAt": "2026-07-27T15:55:42.549Z",
+      "finishedAt": "2026-07-27T15:55:43.361Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/api-lint.log"
+    },
+    {
+      "name": "api-typecheck",
+      "command": "pnpm --filter @guestportal/api typecheck",
+      "startedAt": "2026-07-27T15:55:43.361Z",
+      "finishedAt": "2026-07-27T15:55:44.540Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/api-typecheck.log"
+    },
+    {
+      "name": "api-unit",
+      "command": "pnpm --filter @guestportal/api test",
+      "startedAt": "2026-07-27T15:55:44.540Z",
+      "finishedAt": "2026-07-27T15:55:45.349Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/api-unit.log"
+    },
+    {
+      "name": "api-integration",
+      "command": "pnpm --filter @guestportal/api test:integration",
+      "startedAt": "2026-07-27T15:55:45.349Z",
+      "finishedAt": "2026-07-27T15:56:10.379Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/api-integration.log"
+    },
+    {
+      "name": "api-build",
+      "command": "pnpm --filter @guestportal/api build",
+      "startedAt": "2026-07-27T15:56:10.379Z",
+      "finishedAt": "2026-07-27T15:56:11.653Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/api-build.log"
+    },
+    {
+      "name": "guest-web-lint",
+      "command": "pnpm --filter @guestportal/guest-web lint",
+      "startedAt": "2026-07-27T15:56:11.653Z",
+      "finishedAt": "2026-07-27T15:56:12.529Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/guest-web-lint.log"
+    },
+    {
+      "name": "guest-web-typecheck",
+      "command": "pnpm --filter @guestportal/guest-web typecheck",
+      "startedAt": "2026-07-27T15:56:12.529Z",
+      "finishedAt": "2026-07-27T15:56:13.304Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/guest-web-typecheck.log"
+    },
+    {
+      "name": "guest-web-test",
+      "command": "pnpm --filter @guestportal/guest-web test",
+      "startedAt": "2026-07-27T15:56:13.304Z",
+      "finishedAt": "2026-07-27T15:56:14.245Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/guest-web-test.log"
+    },
+    {
+      "name": "guest-web-build",
+      "command": "pnpm --filter @guestportal/guest-web build",
+      "startedAt": "2026-07-27T15:56:14.245Z",
+      "finishedAt": "2026-07-27T15:56:20.423Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/guest-web-build.log"
+    },
+    {
+      "name": "real-gemini-live",
+      "command": "GEMINI_LIVE_MODEL=models/gemini-3.1-flash-live-preview node tests/phase-07/gemini-live-real.mjs",
+      "startedAt": "2026-07-27T15:56:20.423Z",
+      "finishedAt": "2026-07-27T15:56:37.636Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/real-gemini-live.log"
+    },
+    {
+      "name": "guest-web-e2e",
+      "command": "pnpm --filter @guestportal/guest-web exec playwright test e2e/guest-voice.spec.ts e2e/guest-voice-tool.spec.ts e2e/guest-voice-reconnect.spec.ts",
+      "startedAt": "2026-07-27T15:56:37.637Z",
+      "finishedAt": "2026-07-27T15:56:46.043Z",
+      "exitCode": 0,
+      "blocked": false,
+      "logPath": "logs/guest-web-e2e.log"
+    }
+  ]
+}
