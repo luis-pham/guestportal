@@ -1,0 +1,121 @@
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/api
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.050Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"945077e4-6bf3-4e38-9577-03c7a8e9290d"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.272Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"8d7f0ceb-3066-4ff7-b330-08334e95a420"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.280Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"a9483b64-1ce4-481d-a92b-97f68a784371"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.285Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/locations","statusCode":200,"requestId":"520b86f1-aa30-456f-ad77-9fa349b480de"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.293Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/qr-codes","statusCode":200,"requestId":"5034d366-7a1a-46ae-8da8-37bd06720fc8"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.298Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"d6f88fbf-a8e0-4ec9-b1e4-728a61a6c74f"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.306Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"e072e692-6448-43ed-aadf-b6d84554d1ee"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.310Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts","statusCode":200,"requestId":"fa25cd9c-a373-4e74-b676-9c685a81e7e0"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.322Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts/ae89ccbc-ffe1-4362-8131-3699f8f3c221/confirm","statusCode":200,"requestId":"9140ee56-b283-4b9f-b7d5-2d37d1830cf6"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.329Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/staff/requests/8a04a79b-2035-4544-b73c-64c9203310cd/accept","statusCode":200,"requestId":"c55822ef-d638-47cf-8b37-550702a0ff72"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.333Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/staff/requests/8a04a79b-2035-4544-b73c-64c9203310cd/accept","statusCode":200,"requestId":"15149ef0-2052-4d47-80bc-c32938a60fb4"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.337Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/staff/requests/8a04a79b-2035-4544-b73c-64c9203310cd/complete","statusCode":409,"requestId":"d0d75288-826d-4dc2-a723-040a1a1446d7"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.341Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/staff/requests/8a04a79b-2035-4544-b73c-64c9203310cd/start","statusCode":409,"requestId":"2350150b-23b9-439d-9799-44fc587f037f"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.347Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/staff/requests/8a04a79b-2035-4544-b73c-64c9203310cd/start","statusCode":200,"requestId":"52a86f69-7633-47ad-a97d-360ab51c64ea"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit
+{"level":"info","time":"2026-07-27T16:16:03.352Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/staff/requests/8a04a79b-2035-4544-b73c-64c9203310cd/complete","statusCode":200,"requestId":"58250e1b-4ee9-454b-90a3-35a6582f3908"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.579Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"b965db14-7d45-40d5-98a6-aa0e1ad083b5"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.799Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"0549b7d5-3caa-4719-b559-043e0eb22edd"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.801Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"6be4571a-1e20-4182-bac0-0aeb04bb18b5"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.803Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/locations","statusCode":200,"requestId":"5547260b-5ae7-42ec-b63b-7ba51155f5e0"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.808Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/qr-codes","statusCode":200,"requestId":"fe775863-06a0-4db6-9d6a-9c98a5f2e1aa"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.810Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"d435fb16-3521-4b2a-a51d-5c20f77e27b8"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.812Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"395dcca8-df32-4409-8220-8b5ac02a860b"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.816Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/order-drafts","statusCode":200,"requestId":"b8637f15-6af2-4cff-adf4-ed9948c32579"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.824Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/order-drafts/14f96d88-7640-412d-a672-f5f34dd43fec/confirm","statusCode":200,"requestId":"6667f85b-a807-4461-9137-4ce6ca41d31f"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.830Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/staff/orders/791ffcd0-939a-491a-a225-3f7d19b62172/confirm","statusCode":200,"requestId":"983b86e7-a37d-4d5d-9d9a-74310edd089a"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation
+{"level":"info","time":"2026-07-27T16:16:03.833Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/staff/orders/791ffcd0-939a-491a-a225-3f7d19b62172/ready","statusCode":409,"requestId":"c9c287e0-3d49-455f-b3c4-b2bdfe5e66ca"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > denies staff transitions outside assigned tenant property
+{"level":"info","time":"2026-07-27T16:16:04.057Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"b0c41e5a-d4da-47d2-b167-e44e70b16aec"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > denies staff transitions outside assigned tenant property
+{"level":"info","time":"2026-07-27T16:16:04.287Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"61badff4-e101-43de-9144-8158f2476c0f"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > denies staff transitions outside assigned tenant property
+{"level":"info","time":"2026-07-27T16:16:04.289Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"2b078267-a99d-4b23-bdcf-116a9fef5d65"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > denies staff transitions outside assigned tenant property
+{"level":"info","time":"2026-07-27T16:16:04.292Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/locations","statusCode":200,"requestId":"470a7131-4c60-4c89-b69e-0e20748d83b9"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > denies staff transitions outside assigned tenant property
+{"level":"info","time":"2026-07-27T16:16:04.296Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/qr-codes","statusCode":200,"requestId":"ac6c8720-b8eb-46bf-b69c-a7e89592ba22"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > denies staff transitions outside assigned tenant property
+{"level":"info","time":"2026-07-27T16:16:04.299Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"0b82e66c-5d3a-4b6d-9ab2-ffbc8c837639"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > denies staff transitions outside assigned tenant property
+{"level":"info","time":"2026-07-27T16:16:04.302Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/conversations","statusCode":200,"requestId":"0051cf28-880d-4121-843c-a71e3a0e1ef5"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > denies staff transitions outside assigned tenant property
+{"level":"info","time":"2026-07-27T16:16:04.304Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts","statusCode":200,"requestId":"539676cb-5534-4fc3-94ce-3e1d6880909e"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > denies staff transitions outside assigned tenant property
+{"level":"info","time":"2026-07-27T16:16:04.311Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/request-drafts/c8341311-5433-485d-86ec-ac7fd6d7c3e8/confirm","statusCode":200,"requestId":"8f634d96-79fe-42c0-a1b4-e9036ad60a08"}
+
+stdout | src/request-orders.integration.test.ts > request/order lifecycle operations > denies staff transitions outside assigned tenant property
+{"level":"info","time":"2026-07-27T16:16:04.313Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/staff/requests/da0e037a-5fd1-4b58-9f1c-b43a64213041/accept","statusCode":403,"requestId":"e607f7e3-f367-4e67-979d-a5d1eadd2af7"}
+
+ ✓ src/request-orders.integration.test.ts (3 tests) 1543ms
+   ✓ request/order lifecycle operations > transitions requests with optimistic versioning, history, outbox, and audit  541ms
+   ✓ request/order lifecycle operations > keeps order item and price snapshots immutable after confirmation  478ms
+   ✓ request/order lifecycle operations > denies staff transitions outside assigned tenant property  480ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  23:16:01
+   Duration  2.36s (transform 159ms, setup 0ms, collect 692ms, tests 1.54s, environment 0ms, prepare 40ms)
+

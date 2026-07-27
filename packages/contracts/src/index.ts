@@ -45,10 +45,7 @@ export {
   type KnowledgeSearchResponse,
 } from './knowledge-search.js';
 
-export {
-  normalizedDocumentSchema,
-  type NormalizedDocument,
-} from './normalized-document.js';
+export { normalizedDocumentSchema, type NormalizedDocument } from './normalized-document.js';
 
 export {
   createDefaultPortalConfig,
@@ -116,10 +113,7 @@ export {
   type GuestSessionCreateRequest,
 } from './guest-session.js';
 
-export {
-  guestPortalResponseSchema,
-  type GuestPortalResponse,
-} from './guest-portal.js';
+export { guestPortalResponseSchema, type GuestPortalResponse } from './guest-portal.js';
 
 export {
   voiceLiveSessionCreateRequestSchema,
@@ -199,6 +193,7 @@ export {
 export {
   guestDraftConfirmRequestSchema,
   guestDraftStatusSchema,
+  guestOrderStatusSchema,
   guestOrderDraftCreateRequestSchema,
   guestOrderDraftCreateResponseSchema,
   guestOrderDraftConfirmResponseSchema,
@@ -209,11 +204,13 @@ export {
   guestRequestDraftConfirmResponseSchema,
   guestRequestDraftSchema,
   guestRequestSchema,
+  guestRequestStatusSchema,
   guestSubmittedStatusSchema,
   guestWorkItemKindSchema,
   orderDraftItemSchema,
   orderDraftPayloadSchema,
   requestDraftPayloadSchema,
+  staffTransitionRequestSchema,
   type GuestDraftConfirmRequest,
   type GuestDraftStatus,
   type GuestOrder,
@@ -221,14 +218,17 @@ export {
   type GuestOrderDraftConfirmResponse,
   type GuestOrderDraftCreateRequest,
   type GuestOrderDraftCreateResponse,
+  type GuestOrderStatus,
   type GuestRequest,
   type GuestRequestDraft,
   type GuestRequestDraftConfirmResponse,
   type GuestRequestDraftCreateRequest,
   type GuestRequestDraftCreateResponse,
+  type GuestRequestStatus,
   type GuestSubmittedStatus,
   type GuestWorkItemKind,
   type OrderDraftItem,
   type OrderDraftPayload,
   type RequestDraftPayload,
+  type StaffTransitionRequest,
 } from './request-order.js';

@@ -494,6 +494,9 @@ export type OrderDraftItemJson = {
   itemId: string;
   label: string;
   quantity: number;
+  unitPriceMinor: number;
+  currency: string;
+  optionsSnapshot: Record<string, unknown>;
   notes: string;
   metadata: Record<string, unknown>;
 };
@@ -563,9 +566,15 @@ export const guestRequests = pgTable(
     details: text('details').notNull().default(''),
     locale: text('locale').notNull(),
     metadata: jsonb('metadata').$type<RequestDraftMetadata>().notNull().default({}),
+    version: integer('version').notNull().default(1),
+    assignedStaffId: uuid('assigned_staff_id').references(() => users.id),
     idempotencyKey: text('idempotency_key').notNull(),
     submittedAt: timestamp('submitted_at', { withTimezone: true }).notNull().defaultNow(),
+    acceptedAt: timestamp('accepted_at', { withTimezone: true }),
+    rejectedAt: timestamp('rejected_at', { withTimezone: true }),
     cancelledAt: timestamp('cancelled_at', { withTimezone: true }),
+    inProgressAt: timestamp('in_progress_at', { withTimezone: true }),
+    completedAt: timestamp('completed_at', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
@@ -648,12 +657,22 @@ export const guestOrders = pgTable(
     status: text('status').notNull().default('submitted'),
     title: text('title').notNull(),
     items: jsonb('items').$type<OrderDraftItemJson[]>().notNull(),
+    currency: char('currency', { length: 3 }).notNull().default('USD'),
+    subtotalMinor: integer('subtotal_minor').notNull().default(0),
+    totalMinor: integer('total_minor').notNull().default(0),
     locale: text('locale').notNull(),
     notes: text('notes').notNull().default(''),
     metadata: jsonb('metadata').$type<RequestDraftMetadata>().notNull().default({}),
+    version: integer('version').notNull().default(1),
+    assignedStaffId: uuid('assigned_staff_id').references(() => users.id),
     idempotencyKey: text('idempotency_key').notNull(),
     submittedAt: timestamp('submitted_at', { withTimezone: true }).notNull().defaultNow(),
+    confirmedAt: timestamp('confirmed_at', { withTimezone: true }),
+    preparingAt: timestamp('preparing_at', { withTimezone: true }),
+    readyAt: timestamp('ready_at', { withTimezone: true }),
+    deliveringAt: timestamp('delivering_at', { withTimezone: true }),
     cancelledAt: timestamp('cancelled_at', { withTimezone: true }),
+    completedAt: timestamp('completed_at', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
@@ -678,6 +697,73 @@ export type RequestDraft = typeof requestDrafts.$inferSelect;
 export type GuestRequest = typeof guestRequests.$inferSelect;
 export type OrderDraft = typeof orderDrafts.$inferSelect;
 export type GuestOrder = typeof guestOrders.$inferSelect;
+
+export const requestStatusHistory = pgTable(
+  'request_status_history',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    organizationId: uuid('organization_id')
+      .notNull()
+      .references(() => organizations.id),
+    propertyId: uuid('property_id')
+      .notNull()
+      .references(() => properties.id),
+    requestId: uuid('request_id')
+      .notNull()
+      .references(() => guestRequests.id, { onDelete: 'cascade' }),
+    previousStatus: text('previous_status'),
+    nextStatus: text('next_status').notNull(),
+    actorType: text('actor_type').notNull(),
+    actorId: uuid('actor_id'),
+    reason: text('reason'),
+    idempotencyKey: text('idempotency_key'),
+    version: integer('version').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    index('request_status_history_request_idx').on(table.requestId, table.createdAt),
+    uniqueIndex('request_status_history_idempotency_uidx').on(
+      table.organizationId,
+      table.propertyId,
+      table.idempotencyKey,
+    ),
+  ],
+);
+
+export const orderStatusHistory = pgTable(
+  'order_status_history',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    organizationId: uuid('organization_id')
+      .notNull()
+      .references(() => organizations.id),
+    propertyId: uuid('property_id')
+      .notNull()
+      .references(() => properties.id),
+    orderId: uuid('order_id')
+      .notNull()
+      .references(() => guestOrders.id, { onDelete: 'cascade' }),
+    previousStatus: text('previous_status'),
+    nextStatus: text('next_status').notNull(),
+    actorType: text('actor_type').notNull(),
+    actorId: uuid('actor_id'),
+    reason: text('reason'),
+    idempotencyKey: text('idempotency_key'),
+    version: integer('version').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    index('order_status_history_order_idx').on(table.orderId, table.createdAt),
+    uniqueIndex('order_status_history_idempotency_uidx').on(
+      table.organizationId,
+      table.propertyId,
+      table.idempotencyKey,
+    ),
+  ],
+);
+
+export type RequestStatusHistory = typeof requestStatusHistory.$inferSelect;
+export type OrderStatusHistory = typeof orderStatusHistory.$inferSelect;
 
 export const knowledgeSources = pgTable(
   'knowledge_sources',
@@ -737,10 +823,7 @@ export const knowledgeChunks = pgTable(
     headingPath: jsonb('heading_path').$type<string[]>().notNull().default([]),
     sourceLanguage: text('source_language').notNull(),
     contentHash: text('content_hash').notNull(),
-    metadata: jsonb('metadata')
-      .$type<Record<string, unknown>>()
-      .notNull()
-      .default({}),
+    metadata: jsonb('metadata').$type<Record<string, unknown>>().notNull().default({}),
     active: boolean('active').notNull().default(true),
     version: integer('version').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),

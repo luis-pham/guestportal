@@ -24,6 +24,21 @@ describe('request/order confirmation migration', () => {
     expect(sql).toContain('request_drafts_tenant_policy');
     expect(sql).toContain('guest_orders_tenant_policy');
   });
+
+  it('defines lifecycle versioning, snapshots, and tenant-scoped history', () => {
+    const sql = readFileSync(
+      join(__dirname, '../drizzle/0014_request_order_lifecycle.sql'),
+      'utf8',
+    );
+    expect(sql).toContain('ADD COLUMN IF NOT EXISTS version integer NOT NULL DEFAULT 1');
+    expect(sql).toContain('guest_requests_status_check');
+    expect(sql).toContain('guest_orders_status_check');
+    expect(sql).toContain('subtotal_minor integer NOT NULL DEFAULT 0');
+    expect(sql).toContain('CREATE TABLE IF NOT EXISTS request_status_history');
+    expect(sql).toContain('CREATE TABLE IF NOT EXISTS order_status_history');
+    expect(sql).toContain('request_status_history_tenant_policy');
+    expect(sql).toContain('order_status_history_tenant_policy');
+  });
 });
 
 describeDb('request/order live schema', () => {
@@ -58,7 +73,29 @@ describeDb('request/order live schema', () => {
       ORDER BY column_name
     `;
     expect(orderCols.map((c) => c.column_name)).toEqual(
-      expect.arrayContaining(['idempotency_key', 'items', 'order_draft_id', 'submitted_at']),
+      expect.arrayContaining([
+        'currency',
+        'idempotency_key',
+        'items',
+        'order_draft_id',
+        'subtotal_minor',
+        'submitted_at',
+        'total_minor',
+        'version',
+      ]),
     );
+  });
+
+  it('exposes lifecycle history tables', async () => {
+    const rows = await sql<{ table_name: string }[]>`
+      SELECT table_name
+      FROM information_schema.tables
+      WHERE table_name IN ('request_status_history', 'order_status_history')
+      ORDER BY table_name
+    `;
+    expect(rows.map((row) => row.table_name)).toEqual([
+      'order_status_history',
+      'request_status_history',
+    ]);
   });
 });
