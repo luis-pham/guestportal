@@ -1,0 +1,159 @@
+.gp-voice-assistant {
+  min-height: 100dvh;
+  background: #f6faf7;
+  color: #17211c;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: 0;
+}
+
+.gp-voice-assistant *,
+.gp-voice-assistant *::before,
+.gp-voice-assistant *::after {
+  box-sizing: border-box;
+}
+
+.gp-voice-strip {
+  width: min(100%, 520px);
+  min-height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fffdf8;
+  border-bottom: 1px solid #d8e5dd;
+}
+
+.gp-voice-strip__status {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 12px minmax(0, auto);
+  column-gap: 8px;
+  align-items: center;
+  color: #17211c;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.gp-voice-strip__status small {
+  grid-column: 2;
+  color: #50645a;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.gp-voice-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #9ca3af;
+}
+
+.gp-voice-dot.is-listening,
+.gp-voice-dot.is-speaking,
+.gp-voice-dot.is-thinking {
+  background: #14734f;
+}
+
+.gp-voice-dot.is-connecting,
+.gp-voice-dot.is-requesting_permission,
+.gp-voice-dot.is-reconnecting {
+  background: #d97706;
+}
+
+.gp-voice-dot.is-error {
+  background: #dc2626;
+}
+
+.gp-voice-strip__actions {
+  display: inline-flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.gp-voice-icon-button {
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: #14734f;
+  color: #fff;
+  cursor: pointer;
+}
+
+.gp-voice-icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+.gp-voice-icon-button:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.gp-voice-icon {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.gp-voice-icon.is-mic::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 1px;
+  width: 7px;
+  height: 13px;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+}
+
+.gp-voice-icon.is-mic::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 1px;
+  bottom: 0;
+  height: 8px;
+  border: solid currentColor;
+  border-width: 0 2px 2px;
+  border-radius: 0 0 8px 8px;
+}
+
+.gp-voice-icon.is-stop {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  background: currentColor;
+}
+
+.gp-voice-error {
+  width: min(100%, 520px);
+  margin: 0 auto;
+  padding: 10px 14px;
+  border-bottom: 1px solid #f1c5ba;
+  background: #fff3ee;
+  color: #8f271b;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.gp-voice-assistant .gp-guest-chat {
+  min-height: calc(100dvh - 148px);
+}
+
+@media (max-width: 340px) {
+  .gp-voice-strip {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .gp-voice-strip__status {
+    font-size: 0.88rem;
+  }
+}

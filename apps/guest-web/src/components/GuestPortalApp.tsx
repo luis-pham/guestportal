@@ -10,6 +10,7 @@ import { GuestMobileNav } from './GuestMobileNav';
 import { ExploreView } from './ExploreView';
 import { GuideView } from './GuideView';
 import { GuestErrorBoundary } from './GuestErrorBoundary';
+import { VoiceAssistantShell } from './VoiceAssistantShell';
 import './guest-nav.css';
 
 export type GuestView = 'home' | 'explore' | 'guide' | 'chat' | 'status';
@@ -139,14 +140,7 @@ export function GuestPortalApp({ qrToken, view }: { qrToken: string; view: Guest
             }}
           />
         ) : null}
-        {view === 'chat' ? (
-          <main data-testid="guest-chat-shell" style={{ padding: 24 }}>
-            <h1>{locale === 'vi' ? 'Trợ lý' : 'Assistant'}</h1>
-            <p>
-              {locale === 'vi' ? 'Trợ lý sẽ có ở giai đoạn sau.' : 'Assistant arrives in a later phase.'}
-            </p>
-          </main>
-        ) : null}
+        {view === 'chat' ? <VoiceAssistantShell data={portal} /> : null}
         <GuestMobileNav
           qrToken={qrToken}
           data={portal}

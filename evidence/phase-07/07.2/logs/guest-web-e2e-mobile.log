@@ -1,0 +1,8 @@
+
+Running 1 test using 1 worker
+
+(node:40399) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › e2e/guest-voice.spec.ts:49:1 › guest voice transport starts on mobile without relaying audio through backend (2.8s)
+
+  1 passed (3.3s)

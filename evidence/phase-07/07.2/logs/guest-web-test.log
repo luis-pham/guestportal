@@ -1,0 +1,13 @@
+$ vitest run
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/guest-web
+
+ ✓ src/lib/guest-portal.test.ts (2 tests) 2ms
+ ✓ src/lib/voice-transport.test.ts (2 tests) 6ms
+ ✓ src/foundation.test.ts (1 test) 1ms
+
+ Test Files  3 passed (3)
+      Tests  5 passed (5)
+   Start at  21:48:24
+   Duration  516ms (transform 187ms, setup 0ms, collect 280ms, tests 9ms, environment 0ms, prepare 176ms)
+
