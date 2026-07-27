@@ -1,19 +1,25 @@
 import type { FastifyInstance, FastifyRequest } from 'fastify';
-import { and, eq } from 'drizzle-orm';
+import { and, desc, eq } from 'drizzle-orm';
 import {
   conversationCreateRequestSchema,
+  guestAiToolExecuteRequestSchema,
   guestMessageCreateRequestSchema,
+  portalConfigDocumentSchema,
+  type CatalogToolItem,
   type ConversationMessage,
   type ConversationSummary,
+  type PortalConfigDocument,
   type TranscriptRetentionPolicy,
 } from '@guestportal/contracts';
-import { locations, properties, type GuestSession } from '@guestportal/db';
+import { AiToolError, createAiToolGateway, createGuestAiToolDefinitions } from '@guestportal/ai-tools';
+import { locations, portalVersions, properties, type GuestSession } from '@guestportal/db';
 import { ApiError } from '../errors.js';
 import {
   GUEST_SESSION_COOKIE,
   resolveGuestSession,
 } from '../services/guest-sessions.js';
 import { z } from 'zod';
+import { hybridSearchKnowledge } from '../knowledge-search.js';
 
 const RETENTION_POLICY_DAYS: Record<TranscriptRetentionPolicy, number> = {
   standard_30_days: 30,
@@ -97,6 +103,118 @@ function toMessage(row: MessageRow): ConversationMessage {
 
 function isRetentionExpired(row: ConversationRow, now = new Date()) {
   return toDate(row.retention_expires_at).getTime() <= now.getTime() || row.status === 'expired';
+}
+
+function normalizeLocale(requested: 'vi' | 'en' | 'auto' | undefined, fallback: string) {
+  return requested && requested !== 'auto' ? requested : fallback;
+}
+
+function text(value: { vi: string; en: string } | undefined | null) {
+  return value ?? { vi: '', en: '' };
+}
+
+function fromPublishedPortal(config: PortalConfigDocument): CatalogToolItem[] {
+  const items: CatalogToolItem[] = [];
+  for (const section of config.sections) {
+    if (!section.enabled) continue;
+    if (section.type === 'quick_actions') {
+      for (const action of section.actions) {
+        items.push({
+          id: action.id,
+          type: 'action',
+          label: action.label,
+          body: null,
+          href: action.href,
+          metadata: { icon: action.icon },
+        });
+      }
+    }
+    if (section.type === 'featured_services') {
+      for (const serviceId of section.serviceIds) {
+        items.push({
+          id: serviceId,
+          type: 'service',
+          label: { vi: serviceId, en: serviceId },
+          body: null,
+          href: null,
+          metadata: { serviceId },
+        });
+      }
+    }
+    if (section.type === 'schedule') {
+      for (const item of section.items) {
+        items.push({
+          id: item.id,
+          type: 'schedule',
+          label: item.label,
+          body: item.timeLabel,
+          href: null,
+          metadata: {},
+        });
+      }
+    }
+    if (section.type === 'guide_links') {
+      for (const link of section.links) {
+        items.push({
+          id: link.id,
+          type: 'guide',
+          label: link.label,
+          body: null,
+          href: link.href,
+          metadata: {},
+        });
+      }
+    }
+    if (section.type === 'promotion_banner') {
+      items.push({
+        id: section.id,
+        type: 'promotion',
+        label: section.title,
+        body: section.body,
+        href: section.href ?? null,
+        metadata: {},
+      });
+    }
+    if (section.type === 'contact_help') {
+      items.push({
+        id: section.id,
+        type: 'contact',
+        label: section.title,
+        body: text(section.body),
+        href: null,
+        metadata: {
+          phone: section.phone ?? null,
+          email: section.email ?? null,
+        },
+      });
+    }
+  }
+  return items;
+}
+
+async function loadPublishedPortalConfig(
+  app: FastifyInstance,
+  organizationId: string,
+  propertyId: string,
+) {
+  const rows = await app.db
+    .select()
+    .from(portalVersions)
+    .where(
+      and(
+        eq(portalVersions.organizationId, organizationId),
+        eq(portalVersions.propertyId, propertyId),
+      ),
+    )
+    .orderBy(desc(portalVersions.versionNumber))
+    .limit(1);
+  const version = rows[0];
+  if (!version) return null;
+  return portalConfigDocumentSchema.parse(version.config);
+}
+
+function toApiError(error: AiToolError) {
+  return new ApiError(error.statusCode, error.code, error.message, error.details);
 }
 
 async function requireGuestSession(app: FastifyInstance, request: FastifyRequest) {
@@ -350,5 +468,145 @@ export async function registerConversationRoutes(app: FastifyInstance) {
     });
 
     return { message: toMessage(message) };
+  });
+
+  app.post('/v1/guest/conversations/:conversationId/tool-results', async (request) => {
+    const { session } = await requireGuestSession(app, request);
+    const params = z.object({ conversationId: z.string().uuid() }).parse(request.params);
+    const conversation = await loadScopedConversation(app, params.conversationId, session);
+    if (conversation.status !== 'active') {
+      throw new ApiError(409, 'CONVERSATION_CLOSED', 'Conversation is not accepting tool calls.');
+    }
+
+    const body = guestAiToolExecuteRequestSchema.parse(request.body);
+    const scope = {
+      organizationId: session.organizationId,
+      propertyId: session.propertyId,
+      guestSessionId: session.id,
+      conversationId: conversation.id,
+      locale: conversation.locale,
+    };
+    const gateway = createAiToolGateway(
+      createGuestAiToolDefinitions({
+        searchKnowledge: async (input, toolScope) =>
+          hybridSearchKnowledge({
+            sql: app.sql,
+            organizationId: toolScope.organizationId,
+            propertyId: toolScope.propertyId,
+            query: input.query,
+            limit: input.limit,
+          }),
+        readCatalog: async (input, toolScope) => {
+          const locale = normalizeLocale(input.locale, toolScope.locale);
+          const config = await loadPublishedPortalConfig(
+            app,
+            toolScope.organizationId,
+            toolScope.propertyId,
+          );
+          const items = config ? fromPublishedPortal(config).slice(0, input.limit) : [];
+          return {
+            propertyId: toolScope.propertyId,
+            locale,
+            items,
+            noResult: items.length === 0,
+          };
+        },
+        readServices: async (input, toolScope) => {
+          const locale = normalizeLocale(input.locale, toolScope.locale);
+          const config = await loadPublishedPortalConfig(
+            app,
+            toolScope.organizationId,
+            toolScope.propertyId,
+          );
+          const services = config
+            ? fromPublishedPortal(config)
+                .filter((item) => item.type === 'service')
+                .slice(0, input.limit)
+            : [];
+          return {
+            propertyId: toolScope.propertyId,
+            locale,
+            services,
+            noResult: services.length === 0,
+          };
+        },
+      }),
+    );
+
+    let result: Record<string, unknown>;
+    try {
+      result = (await gateway.execute({
+        toolName: body.toolName,
+        input: body.input,
+        scope,
+      })) as Record<string, unknown>;
+    } catch (error) {
+      if (error instanceof AiToolError) {
+        throw toApiError(error);
+      }
+      throw error;
+    }
+
+    await app.sql.begin(async (tx) => {
+      const conversations = await tx<ConversationRow[]>`
+        SELECT *
+        FROM conversations
+        WHERE id = ${conversation.id}::uuid
+          AND organization_id = ${session.organizationId}::uuid
+          AND property_id = ${session.propertyId}::uuid
+          AND guest_session_id = ${session.id}::uuid
+        FOR UPDATE
+      `;
+      const locked = conversations[0];
+      if (!locked) {
+        throw new ApiError(404, 'CONVERSATION_NOT_FOUND', 'Conversation not found.');
+      }
+      if (isRetentionExpired(locked)) {
+        await tx`
+          UPDATE conversations
+          SET status = 'expired', updated_at = now()
+          WHERE id = ${locked.id}::uuid AND status <> 'expired'
+        `;
+        throw new ApiError(410, 'CONVERSATION_EXPIRED', 'Conversation transcript has expired.');
+      }
+
+      const nextSequence = locked.last_message_sequence + 1;
+      await tx`
+        INSERT INTO messages (
+          organization_id,
+          property_id,
+          guest_session_id,
+          conversation_id,
+          sequence,
+          role,
+          source,
+          original_text,
+          tool_name,
+          tool_payload
+        )
+        VALUES (
+          ${session.organizationId}::uuid,
+          ${session.propertyId}::uuid,
+          ${session.id}::uuid,
+          ${locked.id}::uuid,
+          ${nextSequence},
+          'tool',
+          'tool_gateway',
+          ${`Tool result: ${body.toolName}`},
+          ${body.toolName},
+          ${JSON.stringify(result)}::jsonb
+        )
+      `;
+      await tx`
+        UPDATE conversations
+        SET last_message_sequence = ${nextSequence}, last_message_at = now(), updated_at = now()
+        WHERE id = ${locked.id}::uuid
+      `;
+    });
+
+    return {
+      toolName: body.toolName,
+      result,
+    };
   });
 }

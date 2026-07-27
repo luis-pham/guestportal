@@ -1,5 +1,7 @@
+import { randomUUID } from 'node:crypto';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import type { FastifyInstance } from 'fastify';
+import { hashEmbedText, toPgVectorLiteral } from '@guestportal/rag';
 import { buildApp } from './app.js';
 import { resetRateLimits } from './services/rate-limit.js';
 import { GUEST_SESSION_COOKIE } from './services/guest-sessions.js';
@@ -10,12 +12,17 @@ const describeIntegration = databaseUrl ? describe : describe.skip;
 
 describeIntegration('guest conversations', () => {
   let app: FastifyInstance;
+  const knowledgeSourceIds: string[] = [];
 
   beforeAll(async () => {
     app = await buildApp({ databaseUrl: databaseUrl!, cookieSecret });
   });
 
   afterAll(async () => {
+    for (const sourceId of knowledgeSourceIds) {
+      await app.sql`DELETE FROM knowledge_chunks WHERE source_id = ${sourceId}::uuid`;
+      await app.sql`DELETE FROM knowledge_sources WHERE id = ${sourceId}::uuid`;
+    }
     await app.close();
   });
 
@@ -58,10 +65,10 @@ describeIntegration('guest conversations', () => {
       payload: { locationId },
     });
     expect(created.statusCode).toBe(200);
-    return { token: created.json().token as string };
+    return { propertyId, token: created.json().token as string };
   }
 
-  async function createGuestCookie(email = 'owner@aurora.test') {
+  async function createGuestContext(email = 'owner@aurora.test') {
     const owner = await login(email);
     const qr = await mintQr(owner.cookie, owner.body.activeOrganizationId);
     const session = await app.inject({
@@ -71,7 +78,16 @@ describeIntegration('guest conversations', () => {
     });
     expect(session.statusCode).toBe(200);
     const guestCookie = session.cookies.find((item) => item.name === GUEST_SESSION_COOKIE);
-    return `${GUEST_SESSION_COOKIE}=${guestCookie!.value}`;
+    return {
+      adminCookie: owner.cookie,
+      organizationId: owner.body.activeOrganizationId,
+      propertyId: qr.propertyId,
+      guestCookie: `${GUEST_SESSION_COOKIE}=${guestCookie!.value}`,
+    };
+  }
+
+  async function createGuestCookie(email = 'owner@aurora.test') {
+    return (await createGuestContext(email)).guestCookie;
   }
 
   async function createConversation(cookie: string) {
@@ -180,5 +196,122 @@ describeIntegration('guest conversations', () => {
     });
     expect(expired.statusCode).toBe(410);
     expect(expired.json().error.code).toBe('CONVERSATION_EXPIRED');
+  });
+
+  it('executes scoped read-only AI tools and persists validated tool output', async () => {
+    const context = await createGuestContext();
+    const { conversation } = await createConversation(context.guestCookie);
+    const sourceId = randomUUID();
+    const chunkId = randomUUID();
+    const content = 'Spa towels are available from the front desk. Khăn spa có tại lễ tân.';
+    knowledgeSourceIds.push(sourceId);
+    await app.sql`
+      INSERT INTO knowledge_sources (
+        id, organization_id, property_id, type, title, source_language, version, status
+      ) VALUES (
+        ${sourceId}::uuid, ${context.organizationId}::uuid, ${context.propertyId}::uuid,
+        'manual', 'Spa Guide', 'en', 1, 'ready'
+      )
+    `;
+    await app.sql`
+      INSERT INTO knowledge_chunks (
+        id, organization_id, property_id, source_id, ordinal, content, heading_path,
+        source_language, content_hash, metadata, embedding, active, version
+      ) VALUES (
+        ${chunkId}::uuid, ${context.organizationId}::uuid, ${context.propertyId}::uuid,
+        ${sourceId}::uuid, 0, ${content}, ${JSON.stringify(['Spa'])}::jsonb, 'en',
+        ${'hash-spa-tools'}, ${JSON.stringify({ fixture: true })}::jsonb,
+        ${toPgVectorLiteral(hashEmbedText(content))}::vector, true, 1
+      )
+    `;
+
+    const response = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/tool-results`,
+      headers: { cookie: context.guestCookie },
+      payload: {
+        toolName: 'knowledge.search',
+        input: { query: 'spa towels', limit: 5 },
+      },
+    });
+    expect(response.statusCode).toBe(200);
+    const body = response.json() as {
+      result: { citations: Array<{ sourceId: string }>; noResult: boolean };
+    };
+    expect(body.result.noResult).toBe(false);
+    expect(body.result.citations.some((citation) => citation.sourceId === sourceId)).toBe(true);
+
+    const detail = await app.inject({
+      method: 'GET',
+      url: `/v1/guest/conversations/${conversation.id}`,
+      headers: { cookie: context.guestCookie },
+    });
+    expect(detail.statusCode).toBe(200);
+    expect(
+      (detail.json() as { messages: Array<{ role: string; toolName: string | null }> }).messages
+        .some((message) => message.role === 'tool' && message.toolName === 'knowledge.search'),
+    ).toBe(true);
+  });
+
+  it('validates AI tool input and denies unscoped tool calls', async () => {
+    const cookie = await createGuestCookie();
+    const otherCookie = await createGuestCookie();
+    const { conversation } = await createConversation(cookie);
+
+    const missingSession = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/tool-results`,
+      payload: { toolName: 'catalog.read', input: {} },
+    });
+    expect(missingSession.statusCode).toBe(401);
+
+    const crossSession = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/tool-results`,
+      headers: { cookie: otherCookie },
+      payload: { toolName: 'catalog.read', input: {} },
+    });
+    expect(crossSession.statusCode).toBe(404);
+
+    const malformed = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/tool-results`,
+      headers: { cookie },
+      payload: { toolName: 'knowledge.search', input: { query: 'pool', limit: 99 } },
+    });
+    expect(malformed.statusCode).toBe(400);
+    expect(malformed.json().error.code).toBe('AI_TOOL_INPUT_INVALID');
+  });
+
+  it('reads catalog tool output only from the scoped published portal', async () => {
+    const context = await createGuestContext();
+    const draft = await app.inject({
+      method: 'GET',
+      url: `/v1/properties/${context.propertyId}/portal/draft`,
+      headers: { cookie: context.adminCookie },
+    });
+    expect(draft.statusCode).toBe(200);
+    const publish = await app.inject({
+      method: 'POST',
+      url: `/v1/properties/${context.propertyId}/portal/publish`,
+      headers: { cookie: context.adminCookie },
+      payload: { expectedDraftVersion: draft.json().version },
+    });
+    expect(publish.statusCode).toBe(200);
+
+    const { conversation } = await createConversation(context.guestCookie);
+    const response = await app.inject({
+      method: 'POST',
+      url: `/v1/guest/conversations/${conversation.id}/tool-results`,
+      headers: { cookie: context.guestCookie },
+      payload: { toolName: 'catalog.read', input: { locale: 'vi', limit: 20 } },
+    });
+    expect(response.statusCode).toBe(200);
+    const body = response.json() as {
+      result: { propertyId: string; items: Array<{ type: string }> };
+    };
+    expect(body.result.propertyId).toBe(context.propertyId);
+    expect(body.result).not.toHaveProperty('organizationId');
+    expect(body.result.items.length).toBeGreaterThan(0);
   });
 });

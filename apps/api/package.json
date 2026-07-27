@@ -15,6 +15,7 @@
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^11.0.1",
+    "@guestportal/ai-tools": "workspace:*",
     "@guestportal/auth": "workspace:*",
     "@guestportal/config": "workspace:*",
     "@guestportal/contracts": "workspace:*",
