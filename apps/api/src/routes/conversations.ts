@@ -114,6 +114,10 @@ function text(value: { vi: string; en: string } | undefined | null) {
   return value ?? { vi: '', en: '' };
 }
 
+const handoffRequestSchema = z.object({
+  reason: z.string().trim().min(1).max(1000).optional(),
+});
+
 function fromPublishedPortal(config: PortalConfigDocument): CatalogToolItem[] {
   const items: CatalogToolItem[] = [];
   for (const section of config.sections) {
@@ -349,6 +353,119 @@ export async function registerConversationRoutes(app: FastifyInstance) {
     return {
       conversation: toConversation(conversation),
       messages: messageRows.map(toMessage),
+    };
+  });
+
+  app.post('/v1/guest/conversations/:conversationId/handoff', async (request) => {
+    const { session } = await requireGuestSession(app, request);
+    const params = z.object({ conversationId: z.string().uuid() }).parse(request.params);
+    const body = handoffRequestSchema.parse(request.body ?? {});
+
+    const result = await app.sql.begin(async (tx) => {
+      const conversations = await tx<ConversationRow[]>`
+        SELECT *
+        FROM conversations
+        WHERE id = ${params.conversationId}::uuid
+          AND organization_id = ${session.organizationId}::uuid
+          AND property_id = ${session.propertyId}::uuid
+          AND guest_session_id = ${session.id}::uuid
+        FOR UPDATE
+      `;
+      const conversation = conversations[0];
+      if (!conversation) {
+        throw new ApiError(404, 'CONVERSATION_NOT_FOUND', 'Conversation not found.');
+      }
+      if (isRetentionExpired(conversation)) {
+        await tx`
+          UPDATE conversations
+          SET status = 'expired', updated_at = now()
+          WHERE id = ${conversation.id}::uuid AND status <> 'expired'
+        `;
+        throw new ApiError(410, 'CONVERSATION_EXPIRED', 'Conversation transcript has expired.');
+      }
+      if (conversation.status === 'handed_off') {
+        return {
+          conversation,
+          message: null,
+          alreadyRequested: true,
+        };
+      }
+      if (conversation.status !== 'active') {
+        throw new ApiError(409, 'CONVERSATION_CLOSED', 'Conversation is not accepting handoff.');
+      }
+
+      const note = body.reason ? ` Guest note: ${body.reason}` : '';
+      const originalText = `Human handoff requested. Staff can review this conversation when available.${note}`;
+      const nextSequence = conversation.last_message_sequence + 1;
+      const inserted = await tx<MessageRow[]>`
+        INSERT INTO messages (
+          organization_id,
+          property_id,
+          guest_session_id,
+          conversation_id,
+          sequence,
+          role,
+          source,
+          original_language,
+          original_text
+        )
+        VALUES (
+          ${session.organizationId}::uuid,
+          ${session.propertyId}::uuid,
+          ${session.id}::uuid,
+          ${conversation.id}::uuid,
+          ${nextSequence},
+          'system',
+          'system',
+          ${conversation.locale},
+          ${originalText}
+        )
+        RETURNING
+          id,
+          conversation_id,
+          sequence,
+          role,
+          source,
+          original_language,
+          original_text,
+          translated_text,
+          tool_name,
+          tool_payload,
+          request_id,
+          order_id,
+          client_message_id,
+          created_at
+      `;
+      const updated = await tx<ConversationRow[]>`
+        UPDATE conversations
+        SET
+          status = 'handed_off',
+          handed_off_at = now(),
+          last_message_sequence = ${nextSequence},
+          last_message_at = now(),
+          updated_at = now()
+        WHERE id = ${conversation.id}::uuid
+        RETURNING *
+      `;
+      const message = inserted[0];
+      const row = updated[0];
+      if (!message || !row) {
+        throw new ApiError(500, 'HANDOFF_CREATE_FAILED', 'Could not request handoff.');
+      }
+      return {
+        conversation: row,
+        message,
+        alreadyRequested: false,
+      };
+    });
+
+    return {
+      conversation: toConversation(result.conversation),
+      handoff: {
+        state: 'requested',
+        alreadyRequested: result.alreadyRequested,
+        message: result.message ? toMessage(result.message) : null,
+      },
     };
   });
 
