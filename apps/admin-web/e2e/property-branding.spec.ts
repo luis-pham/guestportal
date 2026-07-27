@@ -10,8 +10,19 @@ async function signIn(page: Page) {
   await expect(page.getByTestId('module-workspace')).toBeVisible();
 }
 
+async function signInApi(page: Page) {
+  const response = await page.request.post(`${apiBase()}/v1/auth/login`, {
+    data: {
+      email: 'owner@aurora.test',
+      password: 'Password123!',
+    },
+  });
+  expect(response.ok()).toBe(true);
+}
+
 test('property settings and branding forms validate and persist', async ({ page }) => {
   await signIn(page);
+  await signInApi(page);
   await page.getByRole('link', { name: 'Property settings' }).click();
   await expect(page.getByTestId('property-settings-form')).toBeVisible();
 
@@ -22,7 +33,7 @@ test('property settings and branding forms validate and persist', async ({ page 
   const propertyId = page.url().match(/\/properties\/([^/]+)\//)?.[1];
   expect(propertyId).toBeTruthy();
 
-  // API mutations via page.request share the browser storage cookie jar for the API host.
+  // API mutations use an authenticated request context to avoid browser cookie policy drift.
   const patch = await page.request.patch(`${apiBase()}/v1/properties/${propertyId}`, {
     data: {
       timezone: 'Asia/Ho_Chi_Minh',

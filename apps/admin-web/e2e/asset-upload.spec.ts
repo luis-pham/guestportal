@@ -3,6 +3,8 @@ import { writeFileSync, mkdtempSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
+const apiBase = process.env.NEXT_PUBLIC_API_URL ?? 'http://127.0.0.1:4000';
+
 async function signIn(page: Page) {
   await page.goto('/en/login');
   await page.getByTestId('login-email').fill('owner@aurora.test');
@@ -11,8 +13,19 @@ async function signIn(page: Page) {
   await expect(page.getByTestId('module-workspace')).toBeVisible();
 }
 
+async function signInApi(page: Page) {
+  const response = await page.request.post(`${apiBase}/v1/auth/login`, {
+    data: {
+      email: 'owner@aurora.test',
+      password: 'Password123!',
+    },
+  });
+  expect(response.ok()).toBe(true);
+}
+
 test('branding upload UI shows controls and rejects invalid files', async ({ page }) => {
   await signIn(page);
+  await signInApi(page);
   await page.getByRole('link', { name: 'Property settings' }).click();
   await expect(page.getByTestId('property-settings-form')).toBeVisible();
   const propertyId = page.url().match(/\/properties\/([^/]+)\//)?.[1];
@@ -36,7 +49,6 @@ test('branding upload UI shows controls and rejects invalid files', async ({ pag
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
     'base64',
   );
-  const apiBase = process.env.NEXT_PUBLIC_API_URL ?? 'http://127.0.0.1:4000';
   const presign = await page.request.post(`${apiBase}/v1/uploads/presign`, {
     data: {
       purpose: 'branding_logo',

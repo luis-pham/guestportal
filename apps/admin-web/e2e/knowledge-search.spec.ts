@@ -31,6 +31,16 @@ async function signIn(page: Page) {
   await expect(page.getByTestId('module-workspace')).toBeVisible({ timeout: 30_000 });
 }
 
+async function signInApi(page: Page) {
+  const response = await page.context().request.post(`${API_URL}/v1/auth/login`, {
+    data: {
+      email: 'owner@aurora.test',
+      password: 'Password123!',
+    },
+  });
+  expect(response.ok()).toBe(true);
+}
+
 async function currentPropertyId(page: Page) {
   await page.getByRole('link', { name: 'Property settings' }).click();
   const propertyId = page.url().match(/\/properties\/([^/]+)\//)?.[1];
@@ -39,6 +49,7 @@ async function currentPropertyId(page: Page) {
 }
 
 async function createEmptyProperty(page: Page) {
+  await signInApi(page);
   const api = page.context().request;
   const organizations = await api.get(`${API_URL}/v1/organizations`);
   expect(organizations.ok()).toBe(true);
@@ -68,6 +79,7 @@ async function createEmptyProperty(page: Page) {
 
 test('admin can upload, process and search knowledge with citations', async ({ page }) => {
   await signIn(page);
+  await signInApi(page);
   const propertyId = await currentPropertyId(page);
   const api = page.context().request;
 
