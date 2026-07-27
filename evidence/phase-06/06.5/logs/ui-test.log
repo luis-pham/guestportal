@@ -1,0 +1,15 @@
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/ui
+
+ ✓ src/tokens.test.ts (8 tests) 7ms
+ ✓ src/guest/GuestStatusCenter.test.tsx (2 tests) 47ms
+ ✓ src/guest/GuestTextChat.test.tsx (6 tests) 301ms
+ ✓ src/guest/GuestHomepage.test.tsx (2 tests) 96ms
+ ✓ src/components/primitives.test.tsx (10 tests) 241ms
+
+ Test Files  5 passed (5)
+      Tests  28 passed (28)
+   Start at  21:19:48
+   Duration  1.95s (transform 481ms, setup 1.33s, collect 1.95s, tests 692ms, environment 2.31s, prepare 326ms)
+
+$ vitest run

@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-27T14:19:53.643Z",
+  "classification": "PASS",
+  "results": [
+    {
+      "name": "contracts-test",
+      "command": "pnpm --filter @guestportal/contracts test",
+      "startedAt": "2026-07-27T14:19:14.043Z",
+      "finishedAt": "2026-07-27T14:19:15.261Z",
+      "exitCode": 0
+    },
+    {
+      "name": "ai-tools-test",
+      "command": "pnpm --filter @guestportal/ai-tools test",
+      "startedAt": "2026-07-27T14:19:15.261Z",
+      "finishedAt": "2026-07-27T14:19:16.364Z",
+      "exitCode": 0
+    },
+    {
+      "name": "api-lint",
+      "command": "pnpm --filter @guestportal/api lint",
+      "startedAt": "2026-07-27T14:19:16.364Z",
+      "finishedAt": "2026-07-27T14:19:17.493Z",
+      "exitCode": 0
+    },
+    {
+      "name": "api-typecheck",
+      "command": "pnpm --filter @guestportal/api typecheck",
+      "startedAt": "2026-07-27T14:19:17.493Z",
+      "finishedAt": "2026-07-27T14:19:19.114Z",
+      "exitCode": 0
+    },
+    {
+      "name": "api-build",
+      "command": "pnpm --filter @guestportal/api build",
+      "startedAt": "2026-07-27T14:19:19.114Z",
+      "finishedAt": "2026-07-27T14:19:20.440Z",
+      "exitCode": 0
+    },
+    {
+      "name": "api-unit",
+      "command": "pnpm --filter @guestportal/api test",
+      "startedAt": "2026-07-27T14:19:20.440Z",
+      "finishedAt": "2026-07-27T14:19:21.842Z",
+      "exitCode": 0
+    },
+    {
+      "name": "api-integration",
+      "command": "pnpm --filter @guestportal/api test:integration",
+      "startedAt": "2026-07-27T14:19:21.842Z",
+      "finishedAt": "2026-07-27T14:19:44.474Z",
+      "exitCode": 0
+    },
+    {
+      "name": "ui-lint",
+      "command": "pnpm --filter @guestportal/ui lint",
+      "startedAt": "2026-07-27T14:19:44.474Z",
+      "finishedAt": "2026-07-27T14:19:45.867Z",
+      "exitCode": 0
+    },
+    {
+      "name": "ui-typecheck",
+      "command": "pnpm --filter @guestportal/ui typecheck",
+      "startedAt": "2026-07-27T14:19:45.867Z",
+      "finishedAt": "2026-07-27T14:19:46.764Z",
+      "exitCode": 0
+    },
+    {
+      "name": "ui-build",
+      "command": "pnpm --filter @guestportal/ui build",
+      "startedAt": "2026-07-27T14:19:46.764Z",
+      "finishedAt": "2026-07-27T14:19:47.746Z",
+      "exitCode": 0
+    },
+    {
+      "name": "ui-test",
+      "command": "pnpm --filter @guestportal/ui test",
+      "startedAt": "2026-07-27T14:19:47.746Z",
+      "finishedAt": "2026-07-27T14:19:50.409Z",
+      "exitCode": 0
+    },
+    {
+      "name": "ui-visual",
+      "command": "pnpm --filter @guestportal/ui test:guest-chat-visual",
+      "startedAt": "2026-07-27T14:19:50.409Z",
+      "finishedAt": "2026-07-27T14:19:53.641Z",
+      "exitCode": 0
+    }
+  ]
+}
