@@ -1,4 +1,5 @@
 import type { FastifyInstance, FastifyRequest } from 'fastify';
+import { randomUUID } from 'node:crypto';
 import { and, desc, eq } from 'drizzle-orm';
 import {
   conversationCreateRequestSchema,
@@ -453,6 +454,55 @@ export async function registerConversationRoutes(app: FastifyInstance) {
       if (!message || !row) {
         throw new ApiError(500, 'HANDOFF_CREATE_FAILED', 'Could not request handoff.');
       }
+      await tx`
+        INSERT INTO outbox_events (
+          organization_id,
+          aggregate_type,
+          aggregate_id,
+          event_type,
+          payload,
+          idempotency_key
+        )
+        VALUES (
+          ${session.organizationId}::uuid,
+          'conversation',
+          ${conversation.id},
+          'conversation.handoff_requested.v1',
+          ${JSON.stringify({
+            propertyId: session.propertyId,
+            guestSessionId: session.id,
+            conversationId: conversation.id,
+            messageId: message.id,
+            sequence: message.sequence,
+          })}::jsonb,
+          ${`conversation.handoff:${conversation.id}`}
+        )
+      `;
+      await tx`
+        INSERT INTO outbox_events (
+          organization_id,
+          aggregate_type,
+          aggregate_id,
+          event_type,
+          payload,
+          idempotency_key
+        )
+        VALUES (
+          ${session.organizationId}::uuid,
+          'conversation',
+          ${conversation.id},
+          'conversation.message_created.v1',
+          ${JSON.stringify({
+            propertyId: session.propertyId,
+            guestSessionId: session.id,
+            conversationId: conversation.id,
+            messageId: message.id,
+            sequence: message.sequence,
+            role: message.role,
+          })}::jsonb,
+          ${`conversation.message:${conversation.id}:${message.id}`}
+        )
+      `;
       return {
         conversation: row,
         message,
@@ -583,6 +633,31 @@ export async function registerConversationRoutes(app: FastifyInstance) {
       if (!row) {
         throw new ApiError(500, 'MESSAGE_CREATE_FAILED', 'Could not persist message.');
       }
+      await tx`
+        INSERT INTO outbox_events (
+          organization_id,
+          aggregate_type,
+          aggregate_id,
+          event_type,
+          payload,
+          idempotency_key
+        )
+        VALUES (
+          ${session.organizationId}::uuid,
+          'conversation',
+          ${conversation.id},
+          'conversation.message_created.v1',
+          ${JSON.stringify({
+            propertyId: session.propertyId,
+            guestSessionId: session.id,
+            conversationId: conversation.id,
+            messageId: row.id,
+            sequence: row.sequence,
+            role: row.role,
+          })}::jsonb,
+          ${`conversation.message:${conversation.id}:${body.clientMessageId ?? row.id}`}
+        )
+      `;
       return row;
     });
 
@@ -731,7 +806,7 @@ export async function registerConversationRoutes(app: FastifyInstance) {
       }
 
       const nextSequence = locked.last_message_sequence + 1;
-      await tx`
+      const inserted = await tx<MessageRow[]>`
         INSERT INTO messages (
           organization_id,
           property_id,
@@ -756,11 +831,55 @@ export async function registerConversationRoutes(app: FastifyInstance) {
           ${body.toolName},
           ${JSON.stringify(result)}::jsonb
         )
+        RETURNING
+          id,
+          conversation_id,
+          sequence,
+          role,
+          source,
+          original_language,
+          original_text,
+          translated_text,
+          tool_name,
+          tool_payload,
+          request_id,
+          order_id,
+          client_message_id,
+          created_at
       `;
+      const message = inserted[0];
+      if (!message) {
+        throw new ApiError(500, 'MESSAGE_CREATE_FAILED', 'Could not persist tool message.');
+      }
       await tx`
         UPDATE conversations
         SET last_message_sequence = ${nextSequence}, last_message_at = now(), updated_at = now()
         WHERE id = ${locked.id}::uuid
+      `;
+      await tx`
+        INSERT INTO outbox_events (
+          organization_id,
+          aggregate_type,
+          aggregate_id,
+          event_type,
+          payload,
+          idempotency_key
+        )
+        VALUES (
+          ${session.organizationId}::uuid,
+          'conversation',
+          ${locked.id},
+          'conversation.message_created.v1',
+          ${JSON.stringify({
+            propertyId: session.propertyId,
+            guestSessionId: session.id,
+            conversationId: locked.id,
+            messageId: message.id,
+            sequence: message.sequence,
+            role: message.role,
+          })}::jsonb,
+          ${`conversation.message:${locked.id}:${message.id}:${randomUUID()}`}
+        )
       `;
     });
 

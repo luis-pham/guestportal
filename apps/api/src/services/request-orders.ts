@@ -1688,6 +1688,8 @@ export async function transitionRequestStatus(
         'request.status_changed.v1',
         ${JSON.stringify({
           propertyId: scope.propertyId,
+          guestSessionId: updated.guest_session_id,
+          conversationId: updated.conversation_id,
           previousStatus: current.status,
           nextStatus,
           version: updated.version,
@@ -1802,6 +1804,8 @@ export async function cancelGuestRequest(
         'request.status_changed.v1',
         ${JSON.stringify({
           propertyId: session.propertyId,
+          guestSessionId: session.id,
+          conversationId: updated.conversation_id,
           previousStatus: current.status,
           nextStatus: 'cancelled',
           version: updated.version,
@@ -1910,6 +1914,8 @@ export async function transitionOrderStatus(
         'order.status_changed.v1',
         ${JSON.stringify({
           propertyId: scope.propertyId,
+          guestSessionId: updated.guest_session_id,
+          conversationId: updated.conversation_id,
           previousStatus: current.status,
           nextStatus,
           version: updated.version,
@@ -2024,6 +2030,8 @@ export async function cancelGuestOrder(
         'order.status_changed.v1',
         ${JSON.stringify({
           propertyId: session.propertyId,
+          guestSessionId: session.id,
+          conversationId: updated.conversation_id,
           previousStatus: current.status,
           nextStatus: 'cancelled',
           version: updated.version,

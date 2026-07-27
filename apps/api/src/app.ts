@@ -20,6 +20,7 @@ import { registerKnowledgeRoutes } from './routes/knowledge.js';
 import { registerRequestOrderRoutes } from './routes/request-orders.js';
 import { registerConversationRoutes } from './routes/conversations.js';
 import { registerVoiceLiveRoutes } from './routes/voice-live.js';
+import { registerRealtimeRoutes } from './routes/realtime.js';
 
 export type BuildAppOptions = {
   databaseUrl: string;
@@ -70,6 +71,7 @@ export async function buildApp(options: BuildAppOptions) {
   await registerKnowledgeRoutes(app);
   await registerRequestOrderRoutes(app);
   await registerConversationRoutes(app);
+  await registerRealtimeRoutes(app);
   await registerVoiceLiveRoutes(
     app,
     options.geminiTokenFetch ? { geminiTokenFetch: options.geminiTokenFetch } : {},

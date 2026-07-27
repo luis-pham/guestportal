@@ -5,8 +5,11 @@ import type { GuestOrderStatus, GuestRequestStatus, GuestWorkItem } from '@guest
 import {
   cancelGuestOrder,
   cancelGuestRequest,
+  fetchGuestRealtimeEvents,
   fetchGuestWorkItems,
+  guestRealtimeStreamUrl,
 } from '../lib/guest-portal';
+import type { GuestRealtimeEvent } from '../lib/guest-portal';
 
 const labels = {
   vi: {
@@ -19,6 +22,7 @@ const labels = {
     order: 'Đơn',
     total: 'Tổng',
     error: 'Không tải được trạng thái.',
+    liveUpdate: 'Trạng thái vừa được cập nhật.',
     cancelling: 'Đang hủy',
     submitted: 'Đã gửi',
     accepted: 'Đã nhận',
@@ -41,6 +45,7 @@ const labels = {
     order: 'Order',
     total: 'Total',
     error: 'Could not load status.',
+    liveUpdate: 'Status updated.',
     cancelling: 'Cancelling',
     submitted: 'Submitted',
     accepted: 'Accepted',
@@ -66,6 +71,23 @@ const cancellableOrderStatuses = new Set<GuestOrderStatus>([
   'preparing',
   'ready',
   'delivering',
+]);
+const requestStatuses = new Set<GuestRequestStatus>([
+  'submitted',
+  'accepted',
+  'rejected',
+  'cancelled',
+  'in_progress',
+  'completed',
+]);
+const orderStatuses = new Set<GuestOrderStatus>([
+  'submitted',
+  'confirmed',
+  'preparing',
+  'ready',
+  'delivering',
+  'cancelled',
+  'completed',
 ]);
 
 function money(amountMinor: number, currency: string) {
@@ -102,6 +124,7 @@ export function GuestStatusView({ locale }: { locale: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [liveNotice, setLiveNotice] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -117,6 +140,77 @@ export function GuestStatusView({ locale }: { locale: string }) {
 
   useEffect(() => {
     void load();
+  }, [load]);
+
+  useEffect(() => {
+    if (typeof EventSource === 'undefined') return;
+    const storageKey = 'guestportal.guest.realtime';
+    let lastEventId = window.localStorage.getItem(storageKey);
+    let closed = false;
+    let replayTimer: number | null = null;
+    let replayInterval: number | null = null;
+    const seen = new Set<string>();
+
+    const rememberEvent = (event: Pick<GuestRealtimeEvent, 'id'>) => {
+      if (seen.has(event.id)) return false;
+      seen.add(event.id);
+      lastEventId = event.id;
+      window.localStorage.setItem(storageKey, event.id);
+      return true;
+    };
+
+    const applyEvents = (events: GuestRealtimeEvent[], notify: boolean) => {
+      const changed = events.some(rememberEvent);
+      if (!changed || !notify) return;
+      setItems((currentItems) =>
+        currentItems.map((item) => {
+          const statusEvent = events.find(
+            (event) =>
+              event.aggregateId === item.id &&
+              event.type === `${item.kind}.status_changed.v1` &&
+              typeof event.payload.nextStatus === 'string',
+          );
+          const nextStatus = statusEvent?.payload.nextStatus;
+          if (item.kind === 'request' && requestStatuses.has(nextStatus as GuestRequestStatus)) {
+            return { ...item, status: nextStatus as GuestRequestStatus };
+          }
+          if (item.kind === 'order' && orderStatuses.has(nextStatus as GuestOrderStatus)) {
+            return { ...item, status: nextStatus as GuestOrderStatus };
+          }
+          return item;
+        }),
+      );
+      setLiveNotice(true);
+      void load();
+    };
+
+    const replay = async (notify: boolean) => {
+      try {
+        const result = await fetchGuestRealtimeEvents(lastEventId);
+        if (!closed) applyEvents(result.events, notify);
+      } catch {
+        // Status polling continues through the normal Retry path.
+      }
+    };
+
+    void replay(lastEventId !== null);
+    const source = new EventSource(guestRealtimeStreamUrl(lastEventId), { withCredentials: true });
+    source.onmessage = (event) => {
+      const id = event.lastEventId;
+      if (!id) return;
+      applyEvents([{ id } as GuestRealtimeEvent], true);
+    };
+    source.onerror = () => {
+      if (replayTimer) window.clearTimeout(replayTimer);
+      replayTimer = window.setTimeout(() => void replay(true), 1500);
+    };
+    replayInterval = window.setInterval(() => void replay(true), 1500);
+    return () => {
+      closed = true;
+      if (replayTimer) window.clearTimeout(replayTimer);
+      if (replayInterval) window.clearInterval(replayInterval);
+      source.close();
+    };
   }, [load]);
 
   async function cancel(item: GuestWorkItem) {
@@ -155,6 +249,11 @@ export function GuestStatusView({ locale }: { locale: string }) {
       {error ? (
         <p className="gp-services__error" data-testid="guest-status-error" role="alert">
           {t.error}
+        </p>
+      ) : null}
+      {liveNotice ? (
+        <p className="gp-services__notice" data-testid="guest-status-live" role="status">
+          {t.liveUpdate}
         </p>
       ) : null}
 

@@ -11,6 +11,7 @@ export async function apiFetch<T>(
 
   const response = await fetch(`${API_URL}${path}`, {
     ...init,
+    cache: init.cache ?? 'no-store',
     credentials: 'include',
     headers,
   });
@@ -112,6 +113,15 @@ export type StaffOrderDetail = {
 
 export type StaffWorkDetail = StaffRequestDetail | StaffOrderDetail;
 
+export type StaffRealtimeEvent = {
+  id: string;
+  type: string;
+  aggregateType: string;
+  aggregateId: string;
+  payload: Record<string, unknown>;
+  occurredAt: string;
+};
+
 export async function fetchStaffWorkItems({
   propertyId,
   queue,
@@ -148,4 +158,20 @@ export async function claimStaffWorkItem(item: Pick<StaffWorkItem, 'kind' | 'id'
       idempotencyKey: `staff-claim-${item.kind}-${item.id}-${item.version}`,
     }),
   });
+}
+
+export function staffRealtimeStreamUrl(propertyId: string, lastEventId?: string | null) {
+  const params = new URLSearchParams({ propertyId });
+  if (lastEventId) params.set('lastEventId', lastEventId);
+  return `${API_URL}/v1/staff/realtime/stream?${params.toString()}`;
+}
+
+export async function fetchStaffRealtimeEvents(propertyId: string, lastEventId?: string | null) {
+  const params = new URLSearchParams({ propertyId });
+  if (lastEventId) params.set('lastEventId', lastEventId);
+  return apiFetch<{
+    events: StaffRealtimeEvent[];
+    reconnectAfterMs: number;
+    notificationsSupported: string[];
+  }>(`/v1/staff/realtime/events?${params.toString()}`);
 }

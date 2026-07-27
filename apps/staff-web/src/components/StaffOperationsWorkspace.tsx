@@ -1,8 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { StaffWorkDetail, StaffWorkItem, StaffWorkQueue } from '../lib/api';
-import { claimStaffWorkItem, fetchStaffDetail, fetchStaffWorkItems } from '../lib/api';
+import {
+  claimStaffWorkItem,
+  fetchStaffRealtimeEvents,
+  fetchStaffDetail,
+  fetchStaffWorkItems,
+  staffRealtimeStreamUrl,
+} from '../lib/api';
+import type { StaffRealtimeEvent } from '../lib/api';
 import './staff-ops.css';
 
 type RouteKey = 'inbox' | 'myWork' | 'messages' | 'history' | 'settings' | 'more' | 'request' | 'order';
@@ -37,6 +44,7 @@ const labels = {
     claimed: 'Work item claimed.',
     claimConflict: 'Another staff member already claimed this item. The queue has been refreshed.',
     claimFailed: 'Could not claim this item.',
+    liveUpdate: 'Live update received.',
   },
   vi: {
     loading: 'Đang tải',
@@ -65,6 +73,7 @@ const labels = {
     claimed: 'Đã nhận việc.',
     claimConflict: 'Một nhân viên khác đã nhận mục này. Hàng đợi đã được làm mới.',
     claimFailed: 'Không nhận được mục này.',
+    liveUpdate: 'Đã nhận cập nhật mới.',
   },
 };
 
@@ -118,13 +127,13 @@ export function StaffOperationsWorkspace({
   const [detailLoading, setDetailLoading] = useState(false);
   const [error, setError] = useState(false);
   const [claimingId, setClaimingId] = useState<string | null>(null);
-  const [notice, setNotice] = useState<{ tone: 'success' | 'conflict' | 'error'; text: string } | null>(
-    null,
-  );
+  const [notice, setNotice] = useState<
+    { tone: 'success' | 'conflict' | 'error' | 'info'; text: string } | null
+  >(null);
 
   const queue = useMemo(() => queueForRoute(routeKey), [routeKey]);
 
-  async function loadItems() {
+  const loadItems = useCallback(async () => {
     if (!propertyId) return;
     setLoading(true);
     setError(false);
@@ -143,7 +152,7 @@ export function StaffOperationsWorkspace({
       return result.data.items[0] ?? null;
     });
     setLoading(false);
-  }
+  }, [detailId, propertyId, queue, status]);
 
   async function handleClaim(item: StaffWorkItem) {
     const key = `${item.kind}-${item.id}`;
@@ -163,8 +172,62 @@ export function StaffOperationsWorkspace({
 
   useEffect(() => {
     void loadItems();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [propertyId, queue, status, detailId]);
+  }, [loadItems]);
+
+  useEffect(() => {
+    if (!propertyId || typeof EventSource === 'undefined') return;
+    const storageKey = `guestportal.staff.realtime.${propertyId}`;
+    let lastEventId = window.localStorage.getItem(storageKey);
+    let closed = false;
+    let replayTimer: number | null = null;
+    let replayInterval: number | null = null;
+    const seen = new Set<string>();
+
+    const rememberEvent = (event: Pick<StaffRealtimeEvent, 'id'>) => {
+      if (seen.has(event.id)) return false;
+      seen.add(event.id);
+      lastEventId = event.id;
+      window.localStorage.setItem(storageKey, event.id);
+      return true;
+    };
+
+    const applyEvents = (events: StaffRealtimeEvent[], notify: boolean) => {
+      const changed = events.some(rememberEvent);
+      if (!changed || !notify) return;
+      setNotice({ tone: 'info', text: t.liveUpdate });
+      void loadItems();
+      if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+        new Notification(t.liveUpdate);
+      }
+    };
+
+    const replay = async (notify: boolean) => {
+      const result = await fetchStaffRealtimeEvents(propertyId, lastEventId);
+      if (closed || !result.ok) return;
+      applyEvents(result.data.events, notify);
+    };
+
+    void replay(lastEventId !== null);
+    const source = new EventSource(staffRealtimeStreamUrl(propertyId, lastEventId), {
+      withCredentials: true,
+    });
+    source.onmessage = (event) => {
+      const id = event.lastEventId;
+      if (!id) return;
+      applyEvents([{ id } as StaffRealtimeEvent], true);
+    };
+    source.onerror = () => {
+      if (replayTimer) window.clearTimeout(replayTimer);
+      replayTimer = window.setTimeout(() => void replay(true), 1500);
+    };
+    replayInterval = window.setInterval(() => void replay(true), 1500);
+    return () => {
+      closed = true;
+      if (replayTimer) window.clearTimeout(replayTimer);
+      if (replayInterval) window.clearInterval(replayInterval);
+      source.close();
+    };
+  }, [loadItems, propertyId, t.liveUpdate]);
 
   useEffect(() => {
     if (!selected) {

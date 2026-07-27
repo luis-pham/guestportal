@@ -234,7 +234,10 @@ export async function createGuestOrderDraft(
 }
 
 export async function fetchGuestRequests(): Promise<GuestRequest[]> {
-  const response = await fetch(`${API_URL}/v1/guest/requests`, { credentials: 'include' });
+  const response = await fetch(`${API_URL}/v1/guest/requests`, {
+    cache: 'no-store',
+    credentials: 'include',
+  });
   if (!response.ok) {
     throw new Error(`Could not load guest requests (${response.status}).`);
   }
@@ -243,7 +246,10 @@ export async function fetchGuestRequests(): Promise<GuestRequest[]> {
 }
 
 export async function fetchGuestOrders(): Promise<GuestOrder[]> {
-  const response = await fetch(`${API_URL}/v1/guest/orders`, { credentials: 'include' });
+  const response = await fetch(`${API_URL}/v1/guest/orders`, {
+    cache: 'no-store',
+    credentials: 'include',
+  });
   if (!response.ok) {
     throw new Error(`Could not load guest orders (${response.status}).`);
   }
@@ -257,6 +263,40 @@ export async function fetchGuestWorkItems(): Promise<GuestWorkItem[]> {
     ...requests.map((request) => ({ ...request, kind: 'request' as const })),
     ...orders.map((order) => ({ ...order, kind: 'order' as const })),
   ].sort((a, b) => Date.parse(b.submittedAt) - Date.parse(a.submittedAt));
+}
+
+export type GuestRealtimeEvent = {
+  id: string;
+  type: string;
+  aggregateType: string;
+  aggregateId: string;
+  payload: Record<string, unknown>;
+  occurredAt: string;
+};
+
+export async function fetchGuestRealtimeEvents(lastEventId?: string | null) {
+  const params = new URLSearchParams();
+  if (lastEventId) params.set('lastEventId', lastEventId);
+  const query = params.toString();
+  const response = await fetch(`${API_URL}/v1/guest/realtime/events${query ? `?${query}` : ''}`, {
+    cache: 'no-store',
+    credentials: 'include',
+  });
+  if (!response.ok) {
+    throw new Error(`Could not load realtime events (${response.status}).`);
+  }
+  return (await response.json()) as {
+    events: GuestRealtimeEvent[];
+    reconnectAfterMs: number;
+    notificationsSupported: string[];
+  };
+}
+
+export function guestRealtimeStreamUrl(lastEventId?: string | null) {
+  const params = new URLSearchParams();
+  if (lastEventId) params.set('lastEventId', lastEventId);
+  const query = params.toString();
+  return `${API_URL}/v1/guest/realtime/stream${query ? `?${query}` : ''}`;
 }
 
 export async function cancelGuestRequest({

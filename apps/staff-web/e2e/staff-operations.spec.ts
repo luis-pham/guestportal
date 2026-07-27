@@ -9,6 +9,10 @@ const evidenceDir = resolve(process.cwd(), '../../evidence/phase-08/08.3');
 const screenshotDir = resolve(evidenceDir, 'screenshots');
 const claimEvidenceDir = resolve(process.cwd(), '../../evidence/phase-08/08.4');
 const claimScreenshotDir = resolve(claimEvidenceDir, 'screenshots');
+const realtimeEvidenceDir = resolve(process.cwd(), '../../evidence/phase-08/08.5');
+const realtimeScreenshotDir = resolve(realtimeEvidenceDir, 'screenshots');
+
+test.describe.configure({ mode: 'serial' });
 
 type SeededWork = {
   propertyId: string;
@@ -254,6 +258,40 @@ test('staff workspace exposes loading, error, and empty states', async ({ page }
   });
   await signIn(page, 'staff.hotel@aurora.test');
   await expect(page.getByTestId('staff-empty')).toBeVisible({ timeout: 30_000 });
+});
+
+test('staff inbox receives realtime submitted work and survives reload', async ({ page, request }) => {
+  mkdirSync(realtimeScreenshotDir, { recursive: true });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await signIn(page, 'staff.hotel@aurora.test');
+  await expect(page.getByTestId('staff-inbox')).toBeVisible({ timeout: 30_000 });
+
+  const seeded = await seedSubmittedWork(request);
+  await expect(page.getByTestId('staff-claim-notice')).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByTestId('staff-work-item').filter({ hasText: seeded.requestTitle })).toBeVisible({
+    timeout: 30_000,
+  });
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  const blocking = accessibility.violations.filter(
+    (violation) => violation.impact === 'critical' || violation.impact === 'serious',
+  );
+  writeFileSync(
+    resolve(realtimeEvidenceDir, 'axe-staff-realtime.json'),
+    JSON.stringify({ violations: blocking }, null, 2),
+  );
+  expect(blocking).toEqual([]);
+
+  await page.screenshot({
+    path: resolve(realtimeScreenshotDir, 'staff-realtime-inbox-390.png'),
+    fullPage: true,
+  });
+  await page.reload();
+  await expect(page.getByTestId('staff-work-item').filter({ hasText: seeded.requestTitle })).toBeVisible({
+    timeout: 30_000,
+  });
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
+  expect(overflow).toBe(false);
 });
 
 test('staff claim conflict is visible when another worker claims first', async ({

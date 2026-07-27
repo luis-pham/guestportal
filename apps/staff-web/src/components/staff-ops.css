@@ -253,6 +253,12 @@
   color: #166534;
 }
 
+.staff-ops__notice--info {
+  border-color: #8bd3bd;
+  background: #eefaf6;
+  color: #0f766e;
+}
+
 .staff-ops__notice--conflict,
 .staff-ops__notice--error {
   border-color: #fecaca;
