@@ -52,7 +52,7 @@ try {
   const api = start('pnpm --filter @guestportal/api start', {
     PORT: '4000',
     DATABASE_URL:
-      process.env.DATABASE_URL ?? 'postgresql://guestportal:guestportal@127.0.0.1:5432/guestportal',
+      process.env.DATABASE_URL ?? 'postgresql://guestportal@127.0.0.1:5432/guestportal',
     AUTH_COOKIE_SECRET: process.env.AUTH_COOKIE_SECRET ?? 'abcdefghijklmnopqrstuvwxyz012345',
   });
   children.push(api);

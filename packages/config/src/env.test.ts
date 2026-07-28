@@ -4,7 +4,7 @@ import { loadEnv } from './env.js';
 const validEnv = {
   NODE_ENV: 'test',
   LOG_LEVEL: 'info',
-  DATABASE_URL: 'postgresql://guestportal:guestportal@localhost:5432/guestportal',
+  DATABASE_URL: 'postgresql://guestportal@localhost:5432/guestportal',
   REDIS_URL: 'redis://localhost:6379',
   S3_ENDPOINT: 'http://localhost:9000',
   S3_ACCESS_KEY_ID: 'guestportal',

@@ -1,0 +1,13 @@
+$ vitest run --exclude src/**/*.staging.test.ts
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/storage
+
+ ✓ src/constraints.test.ts (3 tests) 1ms
+ ✓ src/keys.test.ts (4 tests) 1ms
+ ✓ src/config.test.ts (3 tests) 1ms
+
+ Test Files  3 passed (3)
+      Tests  10 passed (10)
+   Start at  15:37:30
+   Duration  304ms (transform 150ms, setup 0ms, collect 164ms, tests 4ms, environment 0ms, prepare 127ms)
+

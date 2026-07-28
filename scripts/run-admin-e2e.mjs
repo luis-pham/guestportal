@@ -82,7 +82,7 @@ try {
       PORT: '4000',
       DATABASE_URL:
         process.env.DATABASE_URL ??
-        'postgresql://guestportal_app:guestportal@127.0.0.1:5432/guestportal',
+        'postgresql://guestportal_app@127.0.0.1:5432/guestportal',
       AUTH_COOKIE_SECRET: process.env.AUTH_COOKIE_SECRET ?? 'abcdefghijklmnopqrstuvwxyz012345',
     }),
   );

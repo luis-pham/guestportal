@@ -6,6 +6,6 @@ export default defineConfig({
   dialect: 'postgresql',
   dbCredentials: {
     url:
-      process.env.DATABASE_URL ?? 'postgresql://guestportal:guestportal@localhost:5432/guestportal',
+      process.env.DATABASE_URL ?? 'postgresql://guestportal@localhost:5432/guestportal',
   },
 });
