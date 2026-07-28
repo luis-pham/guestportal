@@ -203,6 +203,19 @@ export {
 } from './admin-operations.js';
 
 export {
+  adminAuditLogEntrySchema,
+  adminAuditLogListResponseSchema,
+  adminAuditLogQuerySchema,
+  adminAuditResourceTypeSchema,
+  adminOperationExportQuerySchema,
+  type AdminAuditLogEntry,
+  type AdminAuditLogListResponse,
+  type AdminAuditLogQuery,
+  type AdminAuditResourceType,
+  type AdminOperationExportQuery,
+} from './admin-audit.js';
+
+export {
   adminAnalyticsDashboardResponseSchema,
   adminAnalyticsDashboardSchema,
   adminAnalyticsQuerySchema,

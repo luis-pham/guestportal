@@ -121,7 +121,12 @@
     "items": "Items",
     "requestType": "Request type",
     "conversation": "Conversation",
-    "timeline": "Timeline"
+    "timeline": "Timeline",
+    "exportCsv": "Export CSV",
+    "exported": "Exported {count} rows",
+    "exportedTruncated": "Exported {count} rows; refine filters for more",
+    "exportError": "Unable to export CSV",
+    "exportPermissionError": "You do not have permission to export this queue"
   },
   "portalPublish": {
     "title": "Publish history",
@@ -360,6 +365,31 @@
     "service": "Service",
     "quantity": "Quantity",
     "emptyServices": "No services in this date range"
+  },
+  "auditLog": {
+    "title": "Audit log",
+    "body": "Read-only event history scoped by organization and assigned properties.",
+    "refresh": "Refresh",
+    "property": "Property",
+    "allProperties": "All assigned properties",
+    "resourceType": "Resource",
+    "allResources": "All resources",
+    "action": "Action",
+    "actionPlaceholder": "request.status_changed",
+    "search": "Search",
+    "searchPlaceholder": "Action, resource, actor or metadata",
+    "loading": "Loading audit log",
+    "loadMore": "Load more",
+    "empty": "No audit events match these filters",
+    "loadError": "Unable to load audit log",
+    "permissionError": "You do not have permission to view audit logs",
+    "createdAt": "Created",
+    "actor": "Actor",
+    "systemActor": "System",
+    "actionColumn": "Action",
+    "resource": "Resource",
+    "metadata": "Metadata",
+    "tableRegion": "Audit log table"
   },
   "knowledgeSearch": {
     "title": "Knowledge search test",

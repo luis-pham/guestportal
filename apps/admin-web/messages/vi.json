@@ -120,7 +120,12 @@
     "items": "Món",
     "requestType": "Loại yêu cầu",
     "conversation": "Hội thoại",
-    "timeline": "Dòng thời gian"
+    "timeline": "Dòng thời gian",
+    "exportCsv": "Xuất CSV",
+    "exported": "Đã xuất {count} dòng",
+    "exportedTruncated": "Đã xuất {count} dòng; lọc hẹp hơn để xem thêm",
+    "exportError": "Không thể xuất CSV",
+    "exportPermissionError": "Bạn không có quyền xuất hàng đợi này"
   },
   "portalPublish": {
     "title": "Lịch sử xuất bản",
@@ -359,6 +364,31 @@
     "service": "Dịch vụ",
     "quantity": "Số lượng",
     "emptyServices": "Không có dịch vụ trong khoảng ngày này"
+  },
+  "auditLog": {
+    "title": "Nhật ký kiểm toán",
+    "body": "Lịch sử sự kiện chỉ đọc theo tổ chức và các cơ sở được phân quyền.",
+    "refresh": "Làm mới",
+    "property": "Cơ sở",
+    "allProperties": "Tất cả cơ sở được phân quyền",
+    "resourceType": "Tài nguyên",
+    "allResources": "Tất cả tài nguyên",
+    "action": "Hành động",
+    "actionPlaceholder": "request.status_changed",
+    "search": "Tìm kiếm",
+    "searchPlaceholder": "Hành động, tài nguyên, người thực hiện hoặc metadata",
+    "loading": "Đang tải nhật ký",
+    "loadMore": "Tải thêm",
+    "empty": "Không có sự kiện phù hợp",
+    "loadError": "Không thể tải nhật ký kiểm toán",
+    "permissionError": "Bạn không có quyền xem nhật ký kiểm toán",
+    "createdAt": "Thời điểm",
+    "actor": "Người thực hiện",
+    "systemActor": "Hệ thống",
+    "actionColumn": "Hành động",
+    "resource": "Tài nguyên",
+    "metadata": "Metadata",
+    "tableRegion": "Bảng nhật ký kiểm toán"
   },
   "knowledgeSearch": {
     "title": "Kiểm thử tìm kiếm tri thức",

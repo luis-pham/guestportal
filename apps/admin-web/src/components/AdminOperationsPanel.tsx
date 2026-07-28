@@ -12,7 +12,7 @@ import type {
   StaffRequestDetail,
   StaffWorkItemSummary,
 } from '@guestportal/contracts';
-import { apiFetch } from '../lib/api';
+import { apiFetch, apiUrl } from '../lib/api';
 
 type OperationKind = 'request' | 'order';
 type OperationDetail = StaffRequestDetail | StaffOrderDetail;
@@ -63,7 +63,9 @@ export function AdminOperationsPanel({ kind }: Props) {
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [detailLoading, setDetailLoading] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [exportStatus, setExportStatus] = useState<string | null>(null);
   const [detail, setDetail] = useState<OperationDetail | null>(null);
 
   const statusOptions = useMemo(
@@ -150,6 +152,41 @@ export function AdminOperationsPanel({ kind }: Props) {
     router.push(`${basePath}/${item.id}`);
   };
 
+  async function exportCsv() {
+    if (!propertyId) return;
+    setExporting(true);
+    setError(null);
+    setExportStatus(null);
+    const params = new URLSearchParams({ status, limit: '1000' });
+    const from = toApiDate(dateFrom);
+    const to = toApiDate(dateTo, true);
+    if (from) params.set('dateFrom', from);
+    if (to) params.set('dateTo', to);
+    const response = await fetch(
+      apiUrl(`/v1/admin/properties/${propertyId}/operations/${collection}/export?${params}`),
+      { credentials: 'include' },
+    );
+    setExporting(false);
+    if (!response.ok) {
+      setError(response.status === 403 ? t('exportPermissionError') : t('exportError'));
+      return;
+    }
+    const blob = await response.blob();
+    const disposition = response.headers.get('content-disposition') ?? '';
+    const filename = disposition.match(/filename="([^"]+)"/)?.[1] ?? `guestportal-${collection}.csv`;
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    const rowCount = response.headers.get('x-export-row-count') ?? '0';
+    const truncated = response.headers.get('x-export-truncated') === 'true';
+    setExportStatus(t(truncated ? 'exportedTruncated' : 'exported', { count: rowCount }));
+  }
+
   return (
     <main className="gp-state admin-ops" data-testid="admin-operations-panel">
       <div
@@ -167,9 +204,19 @@ export function AdminOperationsPanel({ kind }: Props) {
           </h2>
           <p className="gp-state__body">{t('body')}</p>
         </div>
-        <Button data-testid="admin-ops-refresh" variant="secondary" onClick={() => void loadPage()}>
-          {t('refresh')}
-        </Button>
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <Button data-testid="admin-ops-refresh" variant="secondary" onClick={() => void loadPage()}>
+            {t('refresh')}
+          </Button>
+          <Button
+            data-testid="admin-ops-export"
+            variant="secondary"
+            loading={exporting}
+            onClick={() => void exportCsv()}
+          >
+            {t('exportCsv')}
+          </Button>
+        </div>
       </div>
 
       <div
@@ -232,6 +279,11 @@ export function AdminOperationsPanel({ kind }: Props) {
           style={{ marginTop: '1rem', color: '#b42318' }}
         >
           {error}
+        </p>
+      ) : null}
+      {exportStatus ? (
+        <p data-testid="admin-ops-export-status" style={{ marginTop: '1rem' }}>
+          {exportStatus}
         </p>
       ) : null}
       {loading ? (

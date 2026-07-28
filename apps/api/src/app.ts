@@ -19,6 +19,7 @@ import { registerGuestPortalRoutes } from './routes/guest-portal.js';
 import { registerKnowledgeRoutes } from './routes/knowledge.js';
 import { registerRequestOrderRoutes } from './routes/request-orders.js';
 import { registerAnalyticsRoutes } from './routes/analytics.js';
+import { registerAdminAuditRoutes } from './routes/admin-audit.js';
 import { registerConversationRoutes } from './routes/conversations.js';
 import { registerVoiceLiveRoutes } from './routes/voice-live.js';
 import { registerRealtimeRoutes } from './routes/realtime.js';
@@ -70,6 +71,7 @@ export async function buildApp(options: BuildAppOptions) {
   await registerGuestSessionRoutes(app);
   await registerGuestPortalRoutes(app);
   await registerKnowledgeRoutes(app);
+  await registerAdminAuditRoutes(app);
   await registerRequestOrderRoutes(app);
   await registerAnalyticsRoutes(app);
   await registerConversationRoutes(app);

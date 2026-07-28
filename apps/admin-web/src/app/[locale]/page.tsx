@@ -27,6 +27,7 @@ import { PropertySettingsForm } from '../../components/PropertySettingsForm';
 import { AdminOperationsPanel } from '../../components/AdminOperationsPanel';
 import { AdminTeamPanel } from '../../components/AdminTeamPanel';
 import { AdminAnalyticsDashboard } from '../../components/AdminAnalyticsDashboard';
+import { AdminAuditLogPanel } from '../../components/AdminAuditLogPanel';
 import {
   OrganizationSettingsPanel,
   SecuritySettingsPanel,
@@ -142,8 +143,8 @@ const modules: Module[] = [
   },
   {
     id: 'settings',
-    // Viewers can organization.read but must not see Settings admin controls.
-    permission: 'organization.update',
+    // Settings includes the audit viewer; secondary items still enforce exact permissions.
+    permission: 'audit.read',
     href: () => '/settings/organization',
     secondary: [
       { labelKey: 'organization', suffix: '/organization', permission: 'organization.update' },
@@ -335,6 +336,8 @@ export default function AdminHomePage() {
         <AdminTeamPanel organizationId={orgId} properties={properties} invitations />
       ) : pathname.includes('/team') ? (
         <AdminTeamPanel organizationId={orgId} properties={properties} />
+      ) : pathname.includes('/settings/audit-log') ? (
+        <AdminAuditLogPanel organizationId={orgId} properties={properties} />
       ) : pathname.includes('/settings/security') ? (
         <SecuritySettingsPanel organizationId={orgId} />
       ) : pathname.includes('/settings/organization') ? (

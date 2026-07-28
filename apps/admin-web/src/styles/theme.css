@@ -36,9 +36,19 @@
   justify-items: stretch;
 }
 
+.admin-audit,
+.admin-audit__filters,
+.admin-audit__tableWrap {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 @media (max-width: 767px) {
   .admin-ops__filters,
-  .admin-analytics__filters {
+  .admin-analytics__filters,
+  .admin-audit__filters {
     grid-template-columns: minmax(0, 1fr) !important;
     max-width: 100% !important;
   }
