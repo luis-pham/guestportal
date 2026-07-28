@@ -1,0 +1,70 @@
+$ tsc -p tsconfig.json --noEmit
+$ eslint .
+$ vitest run --dir src
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/staff-web
+
+ ✓ src/i18n/format.test.ts (3 tests) 28ms
+ ✓ src/app-shell.test.ts (2 tests) 1ms
+
+ Test Files  2 passed (2)
+      Tests  5 passed (5)
+   Start at  13:18:08
+   Duration  408ms (transform 152ms, setup 0ms, collect 185ms, tests 29ms, environment 0ms, prepare 86ms)
+
+$ next build
+   ▲ Next.js 15.5.21
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 740ms
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/19) ...
+   Generating static pages (4/19)
+   Generating static pages (9/19)
+   Generating static pages (14/19)
+ ✓ Generating static pages (19/19)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /_not-found                            991 B         103 kB
+├ ● /[locale]                              130 B         102 kB
+├   ├ /vi
+├   └ /en
+├ ● /[locale]/history                      134 B         122 kB
+├   ├ /vi/history
+├   └ /en/history
+├ ● /[locale]/inbox                        134 B         122 kB
+├   ├ /vi/inbox
+├   └ /en/inbox
+├ ● /[locale]/login                      1.68 kB         116 kB
+├   ├ /vi/login
+├   └ /en/login
+├ ● /[locale]/messages                     134 B         122 kB
+├   ├ /vi/messages
+├   └ /en/messages
+├ ● /[locale]/more                         134 B         122 kB
+├   ├ /vi/more
+├   └ /en/more
+├ ● /[locale]/my-work                      134 B         122 kB
+├   ├ /vi/my-work
+├   └ /en/my-work
+├ ƒ /[locale]/orders/[orderId]             134 B         122 kB
+├ ƒ /[locale]/requests/[requestId]         133 B         122 kB
+└ ● /[locale]/settings                     134 B         122 kB
+    ├ /vi/settings
+    └ /en/settings
++ First Load JS shared by all             102 kB
+  ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+  ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+  └ other shared chunks (total)          1.89 kB
+
+
+ƒ Middleware                               46 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand

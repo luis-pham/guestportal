@@ -1,0 +1,64 @@
+$ tsc -p tsconfig.json
+$ next build
+   ▲ Next.js 15.5.21
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 990ms
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4)
+   Generating static pages (2/4)
+   Generating static pages (3/4)
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      123 B         102 kB
+├ ○ /_not-found                            991 B         103 kB
+├ ƒ /g/[qrToken]                           128 B         121 kB
+├ ƒ /g/[qrToken]/chat                      128 B         121 kB
+├ ƒ /g/[qrToken]/explore                   128 B         121 kB
+├ ƒ /g/[qrToken]/food                      128 B         121 kB
+├ ƒ /g/[qrToken]/guide                     128 B         121 kB
+├ ƒ /g/[qrToken]/requests/[requestType]    128 B         121 kB
+├ ƒ /g/[qrToken]/services                  128 B         121 kB
+└ ƒ /g/[qrToken]/status                    127 B         121 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+  ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+  └ other shared chunks (total)          1.88 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+$ next start --port 3000
+$ node dist/server.js
+   ▲ Next.js 15.5.21
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.184:3000
+
+ ✓ Starting...
+ ✓ Ready in 263ms
+{"level":"info","time":"2026-07-28T05:56:55.273Z","service":"api","msg":"api.started","port":4000}
+{"level":"info","time":"2026-07-28T05:56:56.072Z","service":"api","msg":"request.completed","method":"GET","url":"/health","statusCode":200,"requestId":"64eb7791-2c23-4ade-8113-ca4907517eb5"}
+$ playwright test
+
+Running 8 tests using 1 worker
+
+(node:54405) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › e2e/guest-homepage.spec.ts:40:1 › guest homepage renders brand fallbacks across mobile widths (1.5s)
+  ✓  2 [chromium] › e2e/guest-navigation.spec.ts:48:1 › explore, guide, locale, and empty-safe navigation (572ms)
+  ✓  3 [chromium] › e2e/guest-services.spec.ts:91:1 › catalog, cart, guest submission, and persisted status (1.4s)
+  ✓  4 [chromium] › e2e/guest-status.spec.ts:60:1 › status center empty shell, offline banner, and slow network hint (3.3s)
+  ✓  5 [chromium] › e2e/guest-status.spec.ts:93:1 › guest status receives realtime staff status updates and converges after reload (4.1s)
+  ✓  6 [chromium] › e2e/guest-voice-reconnect.spec.ts:41:1 › voice transcript interruption and reconnect remain visible on mobile (1.1s)
+  ✓  7 [chromium] › e2e/guest-voice-tool.spec.ts:49:1 › voice tool call creates a draft and requires guest confirmation (261ms)
+  ✓  8 [chromium] › e2e/guest-voice.spec.ts:49:1 › guest voice transport starts on mobile without relaying audio through backend (198ms)
+
+  8 passed (13.1s)

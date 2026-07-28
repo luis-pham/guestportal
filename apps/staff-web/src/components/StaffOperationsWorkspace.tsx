@@ -232,14 +232,20 @@ export function StaffOperationsWorkspace({
   useEffect(() => {
     if (!selected) {
       setDetail(null);
+      setDetailLoading(false);
       return;
     }
+    let active = true;
     void (async () => {
       setDetailLoading(true);
       const result = await fetchStaffDetail(selected);
+      if (!active) return;
       setDetail(result.ok ? result.data : null);
       setDetailLoading(false);
     })();
+    return () => {
+      active = false;
+    };
   }, [selected]);
 
   if (!propertyId) {

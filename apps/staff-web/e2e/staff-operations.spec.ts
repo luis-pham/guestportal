@@ -358,7 +358,9 @@ test('staff claim conflict is visible when another worker claims first', async (
 
 test('staff role cannot see properties outside assignment', async ({ page }) => {
   await signIn(page, 'staff.cruise@aurora.test');
-  const propertyOptions = await page.getByTestId('property-switcher').locator('option').allTextContents();
+  const propertySwitcher = page.getByTestId('property-switcher');
+  await expect(propertySwitcher).toContainText('Aurora Bay Cruise', { timeout: 30_000 });
+  const propertyOptions = await propertySwitcher.locator('option').allTextContents();
   expect(propertyOptions).toContain('Aurora Bay Cruise');
   expect(propertyOptions).not.toContain('Aurora City Hotel');
   await expect(page.getByTestId('access-denied')).toHaveCount(0);

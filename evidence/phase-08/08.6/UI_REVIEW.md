@@ -19,6 +19,7 @@ Date: 2026-07-28
 - Mobile staff navigation and touch-target checks passed.
 - Guest status empty/offline/slow states and realtime convergence checks passed.
 - Axe artifacts included in this task all report 0 violations.
+- VPS replay found and local rerun verified a fix for stale async detail responses overwriting the selected staff work item.
 
 ## Evidence
 

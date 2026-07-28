@@ -13,6 +13,7 @@ Task 08.6 is complete. The evidence package proves guest-to-staff-to-guest opera
 - Claim race/concurrency: duplicate and competing claim paths return conflict/permission-safe outcomes; UI exposes the conflict state.
 - Realtime recovery: staff inbox and guest status converge from realtime events and recover after reload/reconnect with dedupe.
 - Mobile operation: screenshots cover guest services/status and staff inbox/detail/claim/realtime at mobile widths.
+- VPS staff E2E exposed an async detail-load race where a stale detail response could overwrite the newly selected item. The race is fixed in `apps/staff-web/src/components/StaffOperationsWorkspace.tsx`, and the local full quality/integration plus staff/guest E2E were rerun after the fix.
 
 ## Commands
 
@@ -32,6 +33,10 @@ NODE_ENV=production pnpm --filter @guestportal/guest-web build
 
 Result: PASS. Output: `logs/quality-build-unit.txt`
 
+Post-fix rerun result: PASS. Output: `logs/quality-build-integration-after-race-fix.txt`
+
+Final staff-only rerun result after the E2E wait stabilization: PASS. Output: `logs/staff-quality-final.txt`
+
 ```bash
 pnpm --filter @guestportal/api test:integration -- src/request-orders.integration.test.ts src/realtime.integration.test.ts
 ```
@@ -50,6 +55,8 @@ node scripts/run-staff-e2e.mjs
 
 Result: PASS. Output: `logs/staff-e2e.txt`
 
+Post-fix rerun result: PASS. Output: `logs/staff-e2e-after-race-fix.txt`
+
 Observed result:
 
 - Staff E2E: 20 tests passed.
@@ -60,6 +67,8 @@ node scripts/run-guest-e2e.mjs
 ```
 
 Result: PASS. Output: `logs/guest-e2e.txt`
+
+Post-fix rerun result: PASS. Output: `logs/guest-e2e-after-race-fix.txt`
 
 Observed result:
 
