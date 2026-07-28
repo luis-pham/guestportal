@@ -1,0 +1,140 @@
+{
+  "phase": "10",
+  "task": "10.6",
+  "name": "Full Regression and Release Result",
+  "generatedAt": "2026-07-28T09:55:00.000Z",
+  "baseCommit": "09ef249d456fa26bfc51d516c1cea1b741df7266",
+  "status": "PASS",
+  "severityGate": {
+    "s0": 0,
+    "s1": 0,
+    "releaseBlocked": false
+  },
+  "localVerification": {
+    "environment": "local",
+    "result": "PASS",
+    "suites": [
+      {
+        "name": "repository lint",
+        "command": "pnpm exec turbo run lint --force",
+        "result": "PASS",
+        "summary": "29 successful, 29 total",
+        "evidence": "evidence/phase-10/10.6/logs/repo-lint.log"
+      },
+      {
+        "name": "repository typecheck",
+        "command": "pnpm typecheck",
+        "result": "PASS",
+        "summary": "29 successful, 29 total",
+        "evidence": "evidence/phase-10/10.6/logs/repo-typecheck.log"
+      },
+      {
+        "name": "repository unit tests",
+        "command": "pnpm test",
+        "result": "PASS",
+        "summary": "29 successful, 29 total",
+        "evidence": "evidence/phase-10/10.6/logs/repo-test.log"
+      },
+      {
+        "name": "repository build",
+        "command": "pnpm build",
+        "result": "PASS",
+        "summary": "18 successful, 18 total",
+        "evidence": "evidence/phase-10/10.6/logs/repo-build.log"
+      },
+      {
+        "name": "api integration regression",
+        "command": "PHASE10_EVIDENCE_DIR=evidence/phase-10/10.6/performance PHASE09_EVIDENCE_DIR=evidence/phase-10/10.6/performance pnpm test:integration",
+        "result": "PASS",
+        "summary": "19 files passed, 65 tests passed",
+        "evidence": "evidence/phase-10/10.6/logs/api-integration-full-env.log"
+      },
+      {
+        "name": "tenant isolation integration",
+        "command": "pnpm exec vitest run --config vitest.integration.config.ts src/tenant.integration.test.ts",
+        "result": "PASS",
+        "summary": "1 file passed, 5 tests passed",
+        "evidence": "evidence/phase-10/10.6/logs/tenant-integration-env.log"
+      },
+      {
+        "name": "phase 10 API, realtime, and DB load",
+        "command": "pnpm exec vitest run --config vitest.integration.config.ts src/phase10-load.integration.test.ts",
+        "result": "PASS",
+        "summary": "1 file passed, 1 test passed; API p95 <= 191.1ms; realtime p95 136.69ms; DB profiles below target",
+        "evidence": "evidence/phase-10/10.6/logs/phase10-load-env.log",
+        "report": "evidence/phase-10/10.6/performance/api-db-realtime-load.json"
+      },
+      {
+        "name": "worker queue stress",
+        "command": "pnpm --filter @guestportal/worker test -- src/phase10-queue-stress.test.ts",
+        "result": "PASS",
+        "summary": "5 files passed, 7 tests passed",
+        "evidence": "evidence/phase-10/10.6/logs/queue-stress.log"
+      },
+      {
+        "name": "security secret scan",
+        "command": "SECRET_SCAN_REPORT=evidence/phase-10/10.6/reports/secret-scan.json pnpm security:secret-scan",
+        "result": "PASS",
+        "summary": "809 files scanned, 0 findings",
+        "evidence": "evidence/phase-10/10.6/logs/security-secret-scan-10.6.log",
+        "report": "evidence/phase-10/10.6/reports/secret-scan.json"
+      },
+      {
+        "name": "guest E2E",
+        "command": "node scripts/run-guest-e2e.mjs",
+        "result": "PASS",
+        "summary": "8 tests passed",
+        "evidence": "evidence/phase-10/10.6/logs/e2e-guest.log"
+      },
+      {
+        "name": "admin E2E",
+        "command": "node scripts/run-admin-e2e.mjs",
+        "result": "PASS",
+        "summary": "39 tests passed after synthetic future-dated integration rows were aged out",
+        "evidence": "evidence/phase-10/10.6/logs/e2e-admin-rerun.log"
+      },
+      {
+        "name": "staff E2E",
+        "command": "node scripts/run-staff-e2e.mjs",
+        "result": "PASS",
+        "summary": "20 tests passed",
+        "evidence": "evidence/phase-10/10.6/logs/e2e-staff.log"
+      },
+      {
+        "name": "i18n E2E",
+        "command": "node scripts/run-i18n-e2e.mjs",
+        "result": "PASS",
+        "summary": "admin 7 tests passed; staff 7 tests passed",
+        "evidence": "evidence/phase-10/10.6/logs/e2e-i18n.log"
+      },
+      {
+        "name": "phase 10 Lighthouse",
+        "command": "API_URL=http://127.0.0.1:4010 GUEST_WEB_URL=http://127.0.0.1:3010 ADMIN_WEB_URL=http://127.0.0.1:3110 PHASE10_EVIDENCE_DIR=evidence/phase-10/10.6/lighthouse pnpm phase10:lighthouse",
+        "result": "PASS",
+        "summary": "guest home: performance 1.00, accessibility 1.00, best practices 0.96; admin login: performance 1.00, accessibility 1.00, best practices 1.00",
+        "evidence": "evidence/phase-10/10.6/logs/lighthouse.log",
+        "report": "evidence/phase-10/10.6/lighthouse/lighthouse/summary.json"
+      },
+      {
+        "name": "release controls",
+        "command": "PHASE10_RELEASE_REPORT=evidence/phase-10/10.6/reports/release-controls.json node scripts/validate-release-controls.mjs",
+        "result": "PASS",
+        "summary": "5 release-control checks passed",
+        "evidence": "evidence/phase-10/10.6/logs/release-controls.log",
+        "report": "evidence/phase-10/10.6/reports/release-controls.json"
+      }
+    ],
+    "notes": [
+      "Admin E2E was rerun after local database cleanup aged synthetic future-dated integration rows out of the admin operations default listing window.",
+      "Next.js build emitted an existing Next ESLint plugin warning and exited successfully.",
+      "No local test servers remained listening on the checked Guestportal ports after verification."
+    ]
+  },
+  "vpsVerification": {
+    "environment": "root@187.127.210.176:/opt/apps/guestportal",
+    "result": "PENDING",
+    "notes": [
+      "To be updated after the 10.6 evidence commit is pushed and pulled on VPS."
+    ]
+  }
+}

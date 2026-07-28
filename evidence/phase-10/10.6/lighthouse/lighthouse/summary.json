@@ -1,0 +1,39 @@
+{
+  "generatedAt": "2026-07-28T09:53:39.624Z",
+  "environment": "local",
+  "reports": [
+    {
+      "name": "guest-home-desktop",
+      "url": "http://127.0.0.1:3010/g/_zX25jrV5gnLRIzHRdS_CfFu83RKG2GFgeGcIsAWv58",
+      "report": "/Users/huypq/Documents/Projects/guestportal/evidence/phase-10/10.6/lighthouse/lighthouse/guest-home-desktop.json",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "bestPractices": 0.96
+      },
+      "target": {
+        "minPerformance": 0.5,
+        "minAccessibility": 0.9,
+        "minBestPractices": 0.8
+      },
+      "passed": true
+    },
+    {
+      "name": "admin-login-desktop",
+      "url": "http://127.0.0.1:3110/vi/login",
+      "report": "/Users/huypq/Documents/Projects/guestportal/evidence/phase-10/10.6/lighthouse/lighthouse/admin-login-desktop.json",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "bestPractices": 1
+      },
+      "target": {
+        "minPerformance": 0.5,
+        "minAccessibility": 0.9,
+        "minBestPractices": 0.8
+      },
+      "passed": true
+    }
+  ],
+  "passed": true
+}
