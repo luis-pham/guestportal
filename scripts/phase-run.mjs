@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { execSync, spawnSync } from 'node:child_process';
-import { mkdirSync, writeFileSync, createWriteStream } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const phase = process.argv[2];
@@ -78,7 +78,6 @@ let hardFailure = false;
 for (const suite of suites) {
   const start = new Date().toISOString();
   const logPath = join(logsDir, `${suite.name}.log`);
-  const out = createWriteStream(logPath);
   console.log(`\n▶ ${suite.name}: ${suite.command}`);
 
   const result = spawnSync(suite.command, {
@@ -88,9 +87,7 @@ for (const suite of suites) {
     env: process.env,
   });
 
-  out.write(result.stdout ?? '');
-  out.write(result.stderr ?? '');
-  out.end();
+  writeFileSync(logPath, `${result.stdout ?? ''}${result.stderr ?? ''}`);
 
   const exitCode = result.status ?? 1;
   const blocked = Boolean(suite.optionalBlocked && exitCode === 2);
