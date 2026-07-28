@@ -1,17 +1,18 @@
 # Guestportal Release Result
 
-Status: LOCAL PASS, VPS PENDING
+Status: PASS
 Date: 2026-07-28
 Phase: 10.6 Full Regression and Release Result
 Base commit: `09ef249d456fa26bfc51d516c1cea1b741df7266`
+Verified commit: `1612a18`
 
 ## Sign-Off
 
 Local release gate: PASS
-VPS release gate: PENDING
+VPS release gate: PASS
 S0 issues: 0
 S1 issues: 0
-Release decision: Pending VPS verification on `/opt/apps/guestportal`.
+Release decision: APPROVED for release from the Phase 10.6 gate.
 
 ## Local Regression Summary
 
@@ -34,5 +35,7 @@ Release decision: Pending VPS verification on `/opt/apps/guestportal`.
 ## Notes
 
 - No S0/S1 findings were identified in the local release gate.
+- VPS verification passed on `root@187.127.210.176:/opt/apps/guestportal` at commit `1612a18`.
 - Admin E2E passed on rerun after local test data cleanup aged synthetic future-dated integration rows out of the default operations listing window.
-- This file will be updated with VPS verification before final release sign-off.
+- VPS browser tests used `localhost` for web/API origins after clearing an orphaned `next-server` process on port `3101`; the final accepted admin run passed 39/39.
+- VPS was left with a clean git status and no Guestportal test ports listening.

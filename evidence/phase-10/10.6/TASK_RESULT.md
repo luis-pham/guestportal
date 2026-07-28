@@ -8,7 +8,7 @@ Base commit: `09ef249d456fa26bfc51d516c1cea1b741df7266`
 
 Full local regression is complete and passing across unit, integration, E2E, security, tenant isolation, load, Lighthouse, release controls, and manual UX evidence review. No S0/S1 issues were found, so the local release gate is green.
 
-VPS verification will be appended after this evidence is committed, pushed, pulled to `/opt/apps/guestportal`, and rerun on `root@187.127.210.176`.
+VPS verification is complete on `root@187.127.210.176:/opt/apps/guestportal` at commit `1612a18`. The VPS gate passed after force-rebuilding stale web artifacts, clearing an orphaned `next-server` on port `3101`, and rerunning the affected browser suites on `localhost` origins.
 
 ## Evidence
 
@@ -31,10 +31,12 @@ VPS verification will be appended after this evidence is committed, pushed, pull
 | Release controls | PASS | `logs/release-controls.log`, `reports/release-controls.json` |
 | Manual UX checklist | PASS | `reports/manual-ux-checklist.md` |
 | Regression summary | PASS | `reports/regression-summary.json` |
+| VPS verification | PASS | `reports/vps-verification.json` |
 
 ## Notes
 
 - Admin E2E was rerun after synthetic future-dated integration rows were aged out of the local test database; the accepted final run is `logs/e2e-admin-rerun.log` with 39 tests passed.
 - The full API integration run passed with 19 files and 65 tests.
 - Lighthouse passed on isolated local ports `4010`, `3010`, and `3110`.
+- VPS passed install, lint, typecheck, unit, force build, integration, tenant, load, secret scan, queue stress, guest E2E, admin E2E, staff E2E, i18n E2E, Lighthouse, and release controls.
 - Next.js build emitted the existing missing Next ESLint plugin warning and exited successfully.

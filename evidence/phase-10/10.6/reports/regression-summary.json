@@ -132,9 +132,94 @@
   },
   "vpsVerification": {
     "environment": "root@187.127.210.176:/opt/apps/guestportal",
-    "result": "PENDING",
+    "commit": "1612a18",
+    "result": "PASS",
+    "suites": [
+      {
+        "name": "install",
+        "result": "PASS"
+      },
+      {
+        "name": "repository lint",
+        "result": "PASS",
+        "summary": "29 successful, 29 total"
+      },
+      {
+        "name": "repository typecheck",
+        "result": "PASS",
+        "summary": "29 successful, 29 total"
+      },
+      {
+        "name": "repository unit tests",
+        "result": "PASS",
+        "summary": "29 successful, 29 total"
+      },
+      {
+        "name": "repository force build",
+        "result": "PASS",
+        "summary": "18 successful, 18 total; 0 cached after .next cleanup"
+      },
+      {
+        "name": "api integration regression",
+        "result": "PASS",
+        "summary": "19 files passed, 65 tests passed"
+      },
+      {
+        "name": "tenant isolation integration",
+        "result": "PASS",
+        "summary": "1 file passed, 5 tests passed"
+      },
+      {
+        "name": "phase 10 API, realtime, and DB load",
+        "result": "PASS",
+        "summary": "1 file passed, 1 test passed"
+      },
+      {
+        "name": "security secret scan",
+        "result": "PASS"
+      },
+      {
+        "name": "worker queue stress",
+        "result": "PASS",
+        "summary": "5 files passed, 7 tests passed"
+      },
+      {
+        "name": "guest E2E",
+        "result": "PASS",
+        "summary": "8 tests passed"
+      },
+      {
+        "name": "admin E2E",
+        "result": "PASS",
+        "summary": "39 tests passed"
+      },
+      {
+        "name": "staff E2E",
+        "result": "PASS",
+        "summary": "20 tests passed"
+      },
+      {
+        "name": "i18n E2E",
+        "result": "PASS",
+        "summary": "admin 7 tests passed; staff 7 tests passed"
+      },
+      {
+        "name": "phase 10 Lighthouse",
+        "result": "PASS",
+        "summary": "guest home: performance 1.00, accessibility 1.00, best practices 0.96; admin login: performance 1.00, accessibility 1.00, best practices 1.00"
+      },
+      {
+        "name": "release controls",
+        "result": "PASS",
+        "summary": "5 release-control checks passed"
+      }
+    ],
     "notes": [
-      "To be updated after the 10.6 evidence commit is pushed and pulled on VPS."
+      "VPS was fast-forwarded to 1612a18 before verification.",
+      "Stale .next artifacts were removed and web apps were force-built on VPS before browser reruns.",
+      "Synthetic future-dated integration rows were aged out before admin browser verification.",
+      "An orphaned next-server process on port 3101 from an interrupted run was killed before the final accepted admin run.",
+      "VPS git status was clean after cleanup and no Guestportal test ports remained listening."
     ]
   }
 }

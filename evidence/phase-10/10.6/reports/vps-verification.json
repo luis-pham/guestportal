@@ -1,0 +1,93 @@
+{
+  "phase": "10",
+  "task": "10.6",
+  "generatedAt": "2026-07-28T10:35:00.000Z",
+  "environment": "root@187.127.210.176:/opt/apps/guestportal",
+  "commit": "1612a18",
+  "status": "PASS",
+  "s0": 0,
+  "s1": 0,
+  "suites": [
+    { "name": "install", "result": "PASS" },
+    {
+      "name": "lint",
+      "result": "PASS",
+      "summary": "29 successful, 29 total"
+    },
+    {
+      "name": "typecheck",
+      "result": "PASS",
+      "summary": "29 successful, 29 total"
+    },
+    {
+      "name": "unit",
+      "result": "PASS",
+      "summary": "29 successful, 29 total"
+    },
+    {
+      "name": "force build",
+      "result": "PASS",
+      "summary": "18 successful, 18 total; 0 cached after web .next cleanup"
+    },
+    {
+      "name": "integration",
+      "result": "PASS",
+      "summary": "19 files passed, 65 tests passed"
+    },
+    {
+      "name": "tenant isolation",
+      "result": "PASS",
+      "summary": "1 file passed, 5 tests passed"
+    },
+    {
+      "name": "load",
+      "result": "PASS",
+      "summary": "1 file passed, 1 test passed"
+    },
+    { "name": "secret scan", "result": "PASS" },
+    {
+      "name": "queue stress",
+      "result": "PASS",
+      "summary": "5 files passed, 7 tests passed"
+    },
+    {
+      "name": "guest E2E",
+      "result": "PASS",
+      "summary": "8 tests passed"
+    },
+    {
+      "name": "admin E2E",
+      "result": "PASS",
+      "summary": "39 tests passed"
+    },
+    {
+      "name": "staff E2E",
+      "result": "PASS",
+      "summary": "20 tests passed"
+    },
+    {
+      "name": "i18n E2E",
+      "result": "PASS",
+      "summary": "admin 7 tests passed; staff 7 tests passed"
+    },
+    {
+      "name": "Lighthouse",
+      "result": "PASS",
+      "summary": "guest home and admin login passed all Phase 10 thresholds"
+    },
+    {
+      "name": "release controls",
+      "result": "PASS",
+      "summary": "5 release-control checks passed"
+    }
+  ],
+  "cleanup": {
+    "gitStatus": "clean",
+    "testPortsListening": []
+  },
+  "notes": [
+    "Final browser verification used localhost origins to match the built NEXT_PUBLIC_API_URL and keep cookies first-party.",
+    "No VPS files outside Guestportal were changed.",
+    "No S0/S1 findings were present after the accepted reruns."
+  ]
+}
