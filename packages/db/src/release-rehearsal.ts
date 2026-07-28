@@ -398,7 +398,7 @@ async function runRehearsal(input: {
 
   return {
     generatedAt: new Date().toISOString(),
-    environment: process.env.CI ? 'ci' : 'local',
+    environment: process.env.PHASE10_REHEARSAL_ENVIRONMENT ?? (process.env.CI ? 'ci' : 'local'),
     mode: input.mode,
     sourceDatabase: input.sourceDatabase,
     migrationCount: input.files.length,
