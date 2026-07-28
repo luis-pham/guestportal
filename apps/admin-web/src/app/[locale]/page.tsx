@@ -26,6 +26,7 @@ import { KnowledgeSearchPanel } from '../../components/KnowledgeSearchPanel';
 import { PropertySettingsForm } from '../../components/PropertySettingsForm';
 import { AdminOperationsPanel } from '../../components/AdminOperationsPanel';
 import { AdminTeamPanel } from '../../components/AdminTeamPanel';
+import { AdminAnalyticsDashboard } from '../../components/AdminAnalyticsDashboard';
 import {
   OrganizationSettingsPanel,
   SecuritySettingsPanel,
@@ -222,6 +223,10 @@ export default function AdminHomePage() {
     router.replace(`/${locale}/login`);
   }
 
+  useEffect(() => {
+    document.title = 'GuestPortal Admin';
+  }, []);
+
   if (!me) {
     return <main className="gp-state">{t('loading')}</main>;
   }
@@ -320,6 +325,8 @@ export default function AdminHomePage() {
         <AdminOperationsPanel kind="order" />
       ) : pathname.includes('/operations/qr') ? (
         <QrCodesPanel />
+      ) : pathname.includes('/analytics') ? (
+        <AdminAnalyticsDashboard />
       ) : pathname.includes('/knowledge/search') ? (
         <KnowledgeSearchPanel />
       ) : pathname.includes('/knowledge') && !pathname.includes('/missing-answers') ? (

@@ -93,6 +93,9 @@ importers:
       '@guestportal/ai-tools':
         specifier: workspace:*
         version: link:../../packages/ai-tools
+      '@guestportal/analytics':
+        specifier: workspace:*
+        version: link:../../packages/analytics
       '@guestportal/auth':
         specifier: workspace:*
         version: link:../../packages/auth
@@ -318,6 +321,34 @@ importers:
         version: 9.39.5(jiti@2.6.1)
       typescript:
         specifier: ^5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.7(@types/node@22.20.1)(jiti@2.6.1)(jsdom@26.1.0)(tsx@4.23.1)(yaml@2.9.0)
+
+  packages/analytics:
+    dependencies:
+      '@guestportal/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      postgres:
+        specifier: ^3.4.7
+        version: 3.4.9
+    devDependencies:
+      '@guestportal/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@guestportal/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.15.32
+        version: 22.20.1
+      eslint:
+        specifier: ^9.30.1
+        version: 9.39.5(jiti@2.6.1)
+      typescript:
+        specifier: ^5.8.3
         version: 5.9.3
       vitest:
         specifier: ^3.2.4

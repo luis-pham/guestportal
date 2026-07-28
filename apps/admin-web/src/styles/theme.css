@@ -26,13 +26,25 @@
   box-sizing: border-box;
 }
 
+.admin-analytics,
+.admin-analytics__filters,
+.admin-analytics__grid {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  justify-items: stretch;
+}
+
 @media (max-width: 767px) {
-  .admin-ops__filters {
+  .admin-ops__filters,
+  .admin-analytics__filters {
     grid-template-columns: minmax(0, 1fr) !important;
     max-width: 100% !important;
   }
 
-  .admin-ops__workspace {
+  .admin-ops__workspace,
+  .admin-analytics__grid {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 

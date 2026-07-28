@@ -203,6 +203,21 @@ export {
 } from './admin-operations.js';
 
 export {
+  adminAnalyticsDashboardResponseSchema,
+  adminAnalyticsDashboardSchema,
+  adminAnalyticsQuerySchema,
+  analyticsDailyBucketSchema,
+  analyticsStatusCountSchema,
+  analyticsTopServiceSchema,
+  type AdminAnalyticsDashboard,
+  type AdminAnalyticsDashboardResponse,
+  type AdminAnalyticsQuery,
+  type AnalyticsDailyBucket,
+  type AnalyticsStatusCount,
+  type AnalyticsTopService,
+} from './analytics.js';
+
+export {
   adminOperationListQuerySchema,
   adminOperationListResponseSchema,
   adminOrderDetailResponseSchema,
