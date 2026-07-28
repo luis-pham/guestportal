@@ -179,8 +179,8 @@ async function seedIntegrityFixture(target: Target) {
     RETURNING id
   `;
   const [location] = await sql<{ id: string }[]>`
-    INSERT INTO locations (organization_id, property_id, name, type)
-    VALUES (${org!.id}, ${property!.id}, 'Lobby', 'public_area')
+    INSERT INTO locations (organization_id, property_id, code, name, type)
+    VALUES (${org!.id}, ${property!.id}, 'lobby', ${JSON.stringify({ vi: 'Sanh', en: 'Lobby' })}::jsonb, 'public_area')
     RETURNING id
   `;
   const [user] = await sql<{ id: string }[]>`
@@ -201,11 +201,11 @@ async function seedIntegrityFixture(target: Target) {
       organization_id,
       property_id,
       location_id,
-      token_hash,
-      destination_type,
-      created_by
+      public_token,
+      public_token_hash,
+      destination_type
     )
-    VALUES (${org!.id}, ${property!.id}, ${location!.id}, 'phase10-rehearsal-token-hash', 'portal_home', ${user!.id})
+    VALUES (${org!.id}, ${property!.id}, ${location!.id}, 'phase10-rehearsal-token', 'phase10-rehearsal-token-hash', 'portal_home')
   `;
 
   await sql.end();
