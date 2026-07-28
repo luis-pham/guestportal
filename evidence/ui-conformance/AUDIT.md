@@ -100,3 +100,23 @@ Staff:
 - Admin Messages, Integrations, Roles, Services/Menu are reimplemented as blueprint-inspired placeholder surfaces when no real feature component exists yet.
 - Staff Messages/Profile/Shift state remain route-compatible but receive visual shell/workspace treatment first.
 - Business logic, API calls, routes, permissions, data models and existing test IDs are preserved.
+
+## Implementation Evidence
+
+- Deployed commit: `a28b6ae`.
+- VPS build: admin, staff, and guest frontends rebuilt with production base paths `/admin`, `/staff`, and `/guest`.
+- VPS services verified active: `guestportal-admin-web`, `guestportal-staff-web`, `guestportal-web`, `guestportal-api`.
+- Live capture URLs:
+  - `https://app.lotavi.com/admin/en`
+  - `https://app.lotavi.com/staff/en/inbox`
+- Captured files:
+  - `evidence/ui-conformance/admin/actual-desktop.png`
+  - `evidence/ui-conformance/admin/actual-mobile.png`
+  - `evidence/ui-conformance/staff/actual-desktop.png`
+  - `evidence/ui-conformance/staff/actual-mobile.png`
+  - `evidence/ui-conformance/capture-report.json`
+- Live overflow assertions:
+  - Admin desktop: pass.
+  - Admin mobile 390px: pass.
+  - Staff desktop: pass.
+  - Staff mobile 390px: pass.

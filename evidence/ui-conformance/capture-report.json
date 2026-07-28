@@ -1,0 +1,16 @@
+[
+  {
+    "name": "admin",
+    "desktopUrl": "https://app.lotavi.com/admin/en",
+    "mobileUrl": "https://app.lotavi.com/admin/en",
+    "desktopOverflow": false,
+    "mobileOverflow": false
+  },
+  {
+    "name": "staff",
+    "desktopUrl": "https://app.lotavi.com/staff/en/inbox",
+    "mobileUrl": "https://app.lotavi.com/staff/en/inbox",
+    "desktopOverflow": false,
+    "mobileOverflow": false
+  }
+]
