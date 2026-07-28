@@ -1,0 +1,22 @@
+[
+  {
+    "file": "evidence/phase-09/09.5/accessibility/axe-admin-analytics.json",
+    "violations": 0,
+    "seriousOrCritical": 0
+  },
+  {
+    "file": "evidence/phase-09/09.5/accessibility/axe-admin-audit.json",
+    "violations": 0,
+    "seriousOrCritical": 0
+  },
+  {
+    "file": "evidence/phase-09/09.5/accessibility/axe-admin-operations-requests.json",
+    "violations": 0,
+    "seriousOrCritical": 0
+  },
+  {
+    "file": "evidence/phase-09/09.5/accessibility/axe-admin-team.json",
+    "violations": 0,
+    "seriousOrCritical": 0
+  }
+]

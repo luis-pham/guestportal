@@ -1,0 +1,8 @@
+bc1526b98e6508cb2ea0e08c8c9805d15254c788fa93e1205d7aff36d0a81be6  evidence/phase-09/09.5/screenshots/admin-analytics-1280.png
+7a25eecdf547368ea18777a65ed3b3f26d0ba940d68acc26e3c8a30fdf0eee8f  evidence/phase-09/09.5/screenshots/admin-analytics-390.png
+b6802e6df5233aa3ae2b7ade55b9902279cff0bf4af0435b6eec2c467147dfc5  evidence/phase-09/09.5/screenshots/admin-audit-1280.png
+8425034ce872f511bf197012e135f842e6b76e6f3f773f36c9541bd35bec0849  evidence/phase-09/09.5/screenshots/admin-audit-390.png
+5c03bd768cda96fb02139ee5431cf269cc8e40a36fcc4c9c05d4778581c375d9  evidence/phase-09/09.5/screenshots/admin-invitations-390.png
+1b499b7aa62b9ae8a46f9331c7f34a527b1f72b41626142f46b343baf48eb39d  evidence/phase-09/09.5/screenshots/admin-operations-orders-390.png
+03154663ee22820a674a6c01b7f6b7a270500a8a2fe0bc1f82e92243c8485de2  evidence/phase-09/09.5/screenshots/admin-operations-requests-1280.png
+fd7ddfbc3cce8133bc47fdb72e6f8f921e1aa42e2ec51fa147ca7297799de76b  evidence/phase-09/09.5/screenshots/admin-team-1280.png

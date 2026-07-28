@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/api
+
+ ✓ src/phase09-performance.integration.test.ts (1 test) 89ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  15:19:11
+   Duration  1.04s (transform 177ms, setup 0ms, collect 812ms, tests 89ms, environment 0ms, prepare 50ms)
+
