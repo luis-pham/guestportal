@@ -137,6 +137,16 @@ function writeSse(reply: FastifyReply, event: RealtimeEvent) {
   reply.raw.write(`data: ${JSON.stringify(event)}\n\n`);
 }
 
+function sseCorsHeaders(request: FastifyRequest) {
+  const origin = request.headers.origin;
+  if (!origin || Array.isArray(origin)) return {};
+  return {
+    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Credentials': 'true',
+    Vary: 'Origin',
+  };
+}
+
 async function streamEvents(
   request: FastifyRequest,
   reply: FastifyReply,
@@ -153,6 +163,7 @@ async function streamEvents(
     'Cache-Control': 'no-cache, no-transform',
     Connection: 'keep-alive',
     'X-Accel-Buffering': 'no',
+    ...sseCorsHeaders(request),
   });
   reply.raw.write('retry: 1500\n\n');
 
