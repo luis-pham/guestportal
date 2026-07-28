@@ -1,0 +1,18 @@
+{
+  "service": "guestportal",
+  "title": "GuestPortal Production Operations",
+  "panels": [
+    { "id": "availability", "metric": "availability", "owner": "api" },
+    { "id": "api-error-rate", "metric": "api_error_rate", "owner": "api" },
+    { "id": "api-p95-latency", "metric": "api_p95_latency_ms", "owner": "api" },
+    { "id": "db-connections", "metric": "db_connections_used_ratio", "owner": "database" },
+    { "id": "queue-backlog", "metric": "queue_backlog", "owner": "worker" },
+    { "id": "queue-failures", "metric": "queue_failed_jobs", "owner": "worker" },
+    { "id": "realtime-errors", "metric": "websocket_connection_errors", "owner": "api" },
+    { "id": "rag-no-result", "metric": "rag_no_result_rate", "owner": "ai" },
+    { "id": "rag-latency", "metric": "rag_p95_latency_ms", "owner": "ai" },
+    { "id": "voice-success", "metric": "voice_session_success_rate", "owner": "ai" },
+    { "id": "r2-errors", "metric": "r2_error_rate", "owner": "storage" },
+    { "id": "tenant-anomaly", "metric": "tenant_anomaly_score", "owner": "tenant" }
+  ]
+}

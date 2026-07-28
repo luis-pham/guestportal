@@ -1,3 +1,5 @@
+import { redactLogPayload } from './redaction.js';
+
 export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
 
 const LEVEL_WEIGHT: Record<LogLevel, number> = {
@@ -46,7 +48,7 @@ function write(
     ...fields,
   };
 
-  const line = JSON.stringify(payload);
+  const line = JSON.stringify(redactLogPayload(payload));
   if (level === 'error' || level === 'fatal') {
     console.error(line);
     return;

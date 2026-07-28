@@ -1,0 +1,90 @@
+{
+  "service": "guestportal",
+  "environment": "staging",
+  "rules": [
+    {
+      "id": "api.availability.down",
+      "metric": "availability",
+      "severity": "S1",
+      "threshold": "< 0.995",
+      "window": "5m"
+    },
+    {
+      "id": "api.error_rate.high",
+      "metric": "api_error_rate",
+      "severity": "S1",
+      "threshold": ">= 0.02",
+      "window": "5m"
+    },
+    {
+      "id": "api.latency.p95.high",
+      "metric": "api_p95_latency_ms",
+      "severity": "S2",
+      "threshold": ">= 900",
+      "window": "10m"
+    },
+    {
+      "id": "db.connections.high",
+      "metric": "db_connections_used_ratio",
+      "severity": "S1",
+      "threshold": ">= 0.85",
+      "window": "5m"
+    },
+    {
+      "id": "queue.backlog.high",
+      "metric": "queue_backlog",
+      "severity": "S1",
+      "threshold": ">= 100",
+      "window": "10m"
+    },
+    {
+      "id": "queue.failed_jobs.high",
+      "metric": "queue_failed_jobs",
+      "severity": "S1",
+      "threshold": ">= 5",
+      "window": "10m"
+    },
+    {
+      "id": "realtime.websocket_errors.high",
+      "metric": "websocket_connection_errors",
+      "severity": "S2",
+      "threshold": ">= 10",
+      "window": "10m"
+    },
+    {
+      "id": "rag.no_result.high",
+      "metric": "rag_no_result_rate",
+      "severity": "S2",
+      "threshold": ">= 0.25",
+      "window": "30m"
+    },
+    {
+      "id": "rag.latency.p95.high",
+      "metric": "rag_p95_latency_ms",
+      "severity": "S2",
+      "threshold": ">= 1500",
+      "window": "10m"
+    },
+    {
+      "id": "voice.success.low",
+      "metric": "voice_session_success_rate",
+      "severity": "S2",
+      "threshold": "< 0.9",
+      "window": "30m"
+    },
+    {
+      "id": "r2.error_rate.high",
+      "metric": "r2_error_rate",
+      "severity": "S1",
+      "threshold": ">= 0.01",
+      "window": "10m"
+    },
+    {
+      "id": "tenant.anomaly.high",
+      "metric": "tenant_anomaly_score",
+      "severity": "S1",
+      "threshold": ">= 0.8",
+      "window": "15m"
+    }
+  ]
+}

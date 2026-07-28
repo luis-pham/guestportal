@@ -1,0 +1,39 @@
+{
+  "generatedAt": "2026-07-28T09:30:49.438Z",
+  "environment": "local",
+  "alertTriggerChecks": {
+    "expected": 12,
+    "actual": 12,
+    "triggeredRuleIds": [
+      "api.availability.down",
+      "api.error_rate.high",
+      "api.latency.p95.high",
+      "db.connections.high",
+      "queue.backlog.high",
+      "queue.failed_jobs.high",
+      "realtime.websocket_errors.high",
+      "rag.no_result.high",
+      "rag.latency.p95.high",
+      "voice.success.low",
+      "r2.error_rate.high",
+      "tenant.anomaly.high"
+    ]
+  },
+  "logRedactionChecks": {
+    "authorization": "[REDACTED]",
+    "guestEmail": "[REDACTED]",
+    "sessionToken": "[REDACTED]",
+    "safeField": "request.failed"
+  },
+  "dashboardCheck": {
+    "passed": true,
+    "missingMetrics": [],
+    "alertsWithoutRunbook": []
+  },
+  "infraChecks": {
+    "alertIdsMatch": true,
+    "panelMetricsMatch": true,
+    "missingRunbooks": []
+  },
+  "passed": true
+}
