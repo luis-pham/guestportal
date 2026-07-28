@@ -1,0 +1,1289 @@
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/api
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:11.679Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"4d720c71-1c5b-41a2-97a3-b870d4f29d3f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:11.962Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"ece539e2-bb01-4bc5-8d56-fb8fe60737ad"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:11.972Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"fccf53a8-696a-46c7-9f72-17cab3217903"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:11.979Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/locations","statusCode":200,"requestId":"659e5df4-2078-44fc-b8aa-bfb397b38334"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:11.986Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/qr-codes","statusCode":200,"requestId":"d7c59221-556d-4681-a352-da1fdb393057"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:11.990Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"ecb3ce3c-5b37-485f-a032-9ab1f639a240"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.042Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"59552120-6999-41d4-87d6-94b6e0cc83c4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.045Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"179cdcbb-722c-4636-935f-746f94ee599d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.046Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"53033afa-0b3e-41d0-b961-c0b632a76f19"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.047Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"70af9379-4f4c-439f-8d3a-121c830240d9"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.047Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"f1427ab7-7c75-47a3-8879-eda83ae81aea"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.048Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"04fee711-3a82-46f1-b329-6991ee93e2dc"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.049Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"00ba76f5-4baa-432b-83e0-67075b815bdd"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.050Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"ff70ace9-b899-4d88-8480-2f8484004ebc"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.050Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"0b8eca35-d4e1-4c9b-9516-6fc68c48c9d8"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.050Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"7be2b4a4-5b9f-4ce5-8aa3-e1d01e35bedd"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.051Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"d2cf2620-8b53-4fcd-ab15-a5b5f4e493a7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.052Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"5e52e30b-ea9b-4e59-bfed-64c54eb3651f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.053Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"a8315900-9446-4fd9-97ad-7ea1f799af2f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.053Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"4e3a94a1-d647-4404-aed5-4bac25b2ad1c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.055Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"347588e3-5b27-4b71-af14-db91ad7c485a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.055Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"fb2d4673-3b09-47ef-ba36-03813158178f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.056Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"4673a896-bf9a-4157-ad53-e4702f38dc5a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.058Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"e02abf7c-3a0e-4793-97ea-9f6403090d44"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.059Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"73c02035-90cb-44c7-b4ce-5f60fa0db1d3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.069Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"ac0d0827-e490-4c39-8a65-c02d32517a1c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.070Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"6ae793a3-d17b-4225-b9dc-ea8db7abc2d1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.071Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"213806b6-dd2d-4b99-b7c4-de6849d82961"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.073Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"c42648d0-b59c-492e-96ff-7cb45e0e6201"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.075Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"f87544ec-770f-4511-bffa-fd72ced84ce8"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.075Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"b90bde72-5ee3-4709-9292-eddbc35c154f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.077Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"7fc27220-e66a-4c59-8a5a-ff3d5bbe0783"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.079Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"5539141d-fbda-4829-adc4-95756ac9ff93"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.080Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"dd3e68ab-32c1-4025-bb51-77ab8a7a0553"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.082Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"fb1e8626-f97f-4dcc-aa89-5a2babca9d85"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.085Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"6ec57332-ef0a-442d-a50b-c8ffbd9e1d35"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.096Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"3288c931-bc56-4137-a9a8-73f4d2e12b8e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.098Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"ea2827ef-0f6c-4c99-ba7e-5d454849fd59"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.100Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"0eb38fb1-58a6-43e5-83fe-19ac952c3c87"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.101Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"72664308-3f26-46cc-b820-911b4d4cb42d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.102Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"0adf40e9-2637-4684-b0d9-a9be8b66295d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.103Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"cc85a5e8-1861-4988-bc0c-d6503134cfb4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.104Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"5a438ae6-0d38-4dd6-bd36-632ba49f29cf"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.106Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"94cf577a-9faf-41e2-a566-2082486fae7b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.107Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"6930736d-e18b-47d0-9f77-3df369a9fe6c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.108Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"5570ff1d-f104-4f3e-8e00-729b53350d98"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.109Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"5e6cd26d-d95d-4bfc-a18e-c5beb35424fd"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.110Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"32aefd6d-e5ec-4d40-a5d4-97832933038b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.111Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"345e8532-263a-45ed-94e5-f59bc7d4e1ac"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.112Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"01edb778-0c6a-4bb7-9eea-8953426a5571"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.112Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"d5ed4f16-0340-4092-81f1-cae1426be2ee"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.113Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"6027f6f7-db79-42c2-bf5d-d7487fbae892"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.113Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"1676547c-a0f2-49a7-a3f1-3215a75aec53"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.113Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"9bff0fb6-c965-4375-931f-dbf3c6e2db84"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.114Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"2a0719f3-a5d8-4125-b62e-d26f2d88a9d0"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.115Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"ee0fbc21-a85c-4bb4-ae64-9856aa19ef45"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.115Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"77209281-5f44-4d8d-94e6-0741ff211f4a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.118Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"e562a23c-1e4e-4eda-b8d4-cecdfbf324c0"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.118Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"0b07423b-ec39-4084-8889-6df65eae29bd"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.120Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"a9ba8bce-2cb5-47b3-9746-61aea20d97e8"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.122Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"09c5457e-1046-4b36-aaef-ae776cd836e6"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.122Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"c1830b2c-ee9c-4f0e-bd8b-cc9721efae31"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.122Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"a46f1cb7-806b-46df-a0ca-1fc254ac2e3c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.124Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"9a449bb5-8814-4a9b-a753-8588d29a89ea"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.124Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"d026d6f1-c9c4-45ce-93c5-f5f15f2d8fea"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.125Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"0859494e-a21c-45fc-aea3-2beabbc9d4d4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.126Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"f2c6c555-7be1-421a-87e1-63269f67dd03"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.129Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"5d00aada-a659-462f-93a7-0d0992cc689e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.131Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"7294fa38-deb1-469d-b713-0e28532fd908"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.135Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"4df6c147-1a3c-4879-8b3f-9d549556f32f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.136Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"331acccf-1af1-46dc-8e06-172e93030509"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.138Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"3d86b7d3-cb77-4d46-871a-ecae863477a8"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.139Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"60bdd9fb-0fb0-4b31-8389-1b049279ac55"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.141Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"8cee4cad-48c4-4170-9c7d-81a94a39c99f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.142Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"3c122b3c-f717-4407-bd2f-7a0ce3bc68c9"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.143Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"18bd06b5-0fdc-43d0-855b-2a4e2a02f1fd"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.146Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"5998fb6b-6264-43fb-a634-1b82b84d25b4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.147Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"19054012-e0b6-41ba-bb06-6920c96d401f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.147Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"206a0704-b61c-4072-a40b-bf8b348274b7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.148Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"0966307d-dd19-4ac7-b30e-6de275f1272b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.149Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"612ca80d-5800-4b04-8f5e-d553fddadf17"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.149Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"2f30fe9e-582b-47d6-8d6d-4d65df2ccef7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.150Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"09e893fd-591e-40dd-8197-8e20a8bdcbe4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.150Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"a6b968e7-a6e2-4cb9-81f2-0806ea2bebc3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.151Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"480f0f3e-fa17-4033-bbeb-7898f918ca3c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.151Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"6efea9d3-5464-42b9-a8f1-1d9967bab554"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.151Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"0cd668b8-e4c9-4347-b101-5fe8a9c27528"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.151Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"02ec9351-5d5b-4feb-9500-6c7fbc166e9e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.155Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"5b42f6ae-0fcf-4e63-b631-faf349c6175f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.156Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"ae9f0158-52bf-423c-8816-0a158897874e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.157Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"c20da97a-9f0c-4a81-803d-1740eaf5e89b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.158Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"37b3d9f4-c419-4730-b684-19e875216218"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.159Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"36f53fed-a7b2-4c4e-9f68-7fb20d14aaa1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.160Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"7319705b-4d3e-4a7a-8336-550f0197c6f7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.160Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"b434d7dc-51f7-4b29-b54a-91660fac5001"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.161Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"1dd5b4f2-7a04-42de-80f6-608b53e106a4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.161Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"b5fbaa7a-b136-418b-a734-bc18f62fa760"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.166Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"9a78babc-0dfa-4c9d-b846-acb763a6228b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.168Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"1f88f29e-3d78-432b-acc1-a7eab0253820"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.170Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"12a0a6aa-bb7a-47fc-a5fb-367d8c777a63"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.171Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"44809e02-4149-4236-bc56-d067e66d6afd"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.172Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"b56b99c6-48bd-4fa0-8fc4-ebbd66ae58ba"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.174Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"1f809034-3d3c-4f85-851d-a77389d2e1a6"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.175Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"bbc31a03-2264-4933-9835-a47ca32055a7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.176Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"de816565-128f-4c1f-88db-613bec5afe92"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.177Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"1a22a1a0-cb8b-46a7-981a-48d1be577bfc"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.178Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"1e7c3bbf-bc61-4e00-b399-dc76604bbcf2"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.180Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"31cc1531-9d69-4078-af18-b99c6bb5a584"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.185Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"7dbb6ba1-0118-4e2a-8ad5-716866831acc"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.186Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"a5058ba8-fc05-4e9c-acaa-835820941840"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.186Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"0657ff6a-1b9e-4440-bf36-623c807dea62"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.186Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"c462caa7-1cc4-4f5b-a120-2baa033cf151"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.186Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"defe30d6-10df-4f5c-8497-a8238a9d56b4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.187Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"51b5231a-8a26-41ec-8a19-808a602675f6"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.210Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"a6adacd6-3571-49e5-a304-1760affb3afe"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.212Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"b2b10f03-6f05-4542-8e2e-2474dd662465"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.213Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"85ac8fa0-1f3c-462f-a586-2a86350e12c4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.219Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"82d429b8-d2f6-4bc5-9df1-3d259496c2f4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.221Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"5db7a171-35b2-420d-bc37-a00445dfbb6b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.221Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"ac6d0e22-848c-4a13-82c4-1e588c43399e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.222Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"4062863a-2e27-487a-8b16-d95963142dae"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.225Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"103543fe-b878-4aa7-a477-e1c18526dbea"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.227Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"c676cda9-866b-46bf-a906-cf6eab300803"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.229Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"856950d7-ff23-4862-94d4-a3e71118a351"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.230Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"d45e079d-27a2-4c32-9089-d324463715d1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.233Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"3bd65fca-e003-43af-92fc-aa543e7f14d3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.235Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"c2d7e30a-cfc5-40e5-9f2e-7d87c8230a42"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.236Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"67616840-6871-42ce-b8ed-be5c218845ab"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.237Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"9e0db9ce-faa2-4e08-b116-c8a51143850b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.238Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"0a7fbaa4-1130-4511-a2cf-4a7d23125732"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.242Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"f2505ebb-9bf1-4bbd-83b7-5daef55179a7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.242Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"114429a6-4e01-494e-971d-5f497837d3cd"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.244Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"2d0c51a4-5d3a-4574-b03d-a7d82ed9d9b8"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.245Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"412dee2a-7777-42c8-8a0a-1094be1b288d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.246Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"6a0893fb-4f8f-442f-8247-38164ed998ff"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.247Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"09fc2037-06c1-4a5c-a3a8-e9d2a2901198"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.249Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"7419907b-fd05-44cd-90ee-228102d6698a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.249Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"9721e773-b5a1-472a-a6bd-ddbbe73074da"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.250Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"d06a6d88-bd33-4ba6-89b7-e1939f3b779c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.251Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"99e1c8c5-d225-479f-9db0-0194500ceea7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.252Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"6419fb7e-1152-4d1c-846b-7ea4022858ca"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.252Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"5c6f2153-e4ef-4f6f-bc9c-308785d622b1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.253Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"028c5680-9c88-4f72-9bbb-4e62d759abc5"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.253Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"717aef3e-8c52-4816-ba4f-ddbbd465f795"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.253Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"71f4b934-1e82-4940-8035-761ce32e008d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.254Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"ff5506e0-4a70-4c1c-b765-05aa865d9f02"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.255Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"05bcb2e7-e4ee-43b2-a98b-b4ca2ccf2c4e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.255Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"14fb087a-ca68-4d41-b49c-532f7e384293"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.257Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"9324b74a-5102-4e55-9e3d-bc06ff89c971"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.257Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"b34e02df-0435-475e-b5a9-14133d65e9cc"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.258Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"69542f2b-17b5-46ba-949e-37eaa437cc3f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.263Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"c6c5bb47-0b67-48e7-aa71-060b48b86cf6"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.275Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"8f79eb22-f5ca-4c1d-ad8c-673c09eefc51"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.276Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"fed2e58f-29ed-4166-9ed6-8a4f23339477"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.277Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"91d6b61f-5bd4-46ee-bb78-9a89c6484b34"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.278Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"8c56fc80-8b2a-467c-8fd7-3c6b4bfb6da4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.280Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"590d829b-5138-4850-bce7-3d17c3dceffe"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.280Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"4ee11831-0bbb-4443-ad3c-dce104c407f4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.282Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"5e890870-5369-4cc9-bc89-4718840c1e75"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.285Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"0d78f41f-3697-45c7-90c5-f7b60b0c90f6"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.287Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"91bb43fe-97b5-4eac-b559-db69eb0fd5f1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.288Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"5fdbacda-06ac-42bf-8594-c9f61d6a59e9"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.289Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"ee45b5c8-b527-4d63-bc54-4920934171de"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.290Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"6138d8f6-d45e-478d-a431-809213143dcb"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.291Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"2af173cc-4df2-4552-af5b-eb608784ddcb"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.292Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"0a54ea11-3260-4aa2-86e5-426321768b75"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.294Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"497d4100-1e65-415b-8a0e-e0d8689ce027"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.295Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"5981530e-ad7e-4260-aec8-41a395d66166"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.295Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"268d7253-b135-40ad-be62-be42aed46f2e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.296Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"d0e541fc-0453-40b6-8f2e-6aa7890490eb"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.297Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"4b4a7df7-d4de-40e7-b927-c81e7657cbaf"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.299Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"d15be456-a0ac-4f03-98f4-a334e86a508d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.299Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"ad4ebab8-f297-4eae-b250-1f1c70caf251"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.300Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"bcc095eb-ed79-4363-a47d-0b46d3dacf38"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.301Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"8c3f66d9-fe1a-4bf3-b257-428b904e40e2"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.302Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"7b87f2d1-3a47-4a5d-85f5-72ff795612cb"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.302Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"22578c73-4686-453a-a640-fce68d890447"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.303Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"820a3e3a-07b0-49e5-a6e1-0ac474660d8c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.303Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"a65ea64f-fe1f-4fc6-934c-b462bd6fb88c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.303Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"269855de-b19f-4dce-91b6-4c41b177bf88"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.304Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"44642781-723a-422d-91c4-19ecda51074c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.304Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"95d154df-723f-45d4-adb4-ba8598985e37"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.304Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"30b840b6-279c-47fa-822a-31bdd3b4f186"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.305Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"69475c3a-4af7-47fb-bd60-dc85908b6dc0"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.307Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"64cba971-ac73-43ad-9813-80a63716e532"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.308Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"dfa5fac3-a94b-4438-88c6-3b30df1744b0"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.309Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"e32cc1b9-a90c-4746-9177-13ae046de1ef"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.310Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"01117237-c48b-42eb-8d2b-3118c3c04fed"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.310Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"d8f2d83c-6531-4992-bcb1-67269f59f18c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.310Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"4ed402e5-e736-4516-89f5-84df61bf72e8"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.311Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"748c9617-98b4-4a19-b2f4-fc7dea85d679"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.312Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"c37a4aab-3c5b-4386-abc7-4a68fcdd318e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.313Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"12658eee-ccef-4e22-96d9-543d01b15b64"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.315Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"e2366103-bae1-4735-ab49-718fbae5db4d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.322Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"03a952a9-165a-4ffe-8058-6e52e91dd306"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.326Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"23b63646-817e-4f9c-9b4a-3fdd4323441e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.327Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"783814ea-cddb-48f9-9ab5-7e30b70c1ffa"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.327Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"1d3e84ca-42b1-4e41-b4cd-9891bd353e4f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.327Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"6278b834-ff2d-4d3b-8183-3fff9f8c83f6"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.328Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"75babde2-00bd-439f-9d44-b7068e63bbc1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.328Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"9c6d1129-3c9d-4190-8a9f-47a8cab4a169"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.328Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"478bbd9d-d6e1-4213-a5a9-e668e4402b2c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.329Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"0c583dd2-8a6e-4e3b-9b9d-c6fdac156283"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.330Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"5bd58216-a795-4df6-9612-17f7627e0254"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.330Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"bc5d3083-0ef9-4618-8b0a-ea81d18d842f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.330Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"615826d5-e546-4af6-b872-3db940e5d430"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.332Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"7db63e94-a045-4b45-a23b-2645d2a032bf"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.332Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"d155c75a-9287-4aec-b387-1f30d18a4b1a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.332Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"b2056ba4-c3a9-41e3-835a-11a994c3f319"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.333Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"5c4f6e8d-4436-41bb-9636-9453172ad88d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.333Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"84a28bf7-4750-4a5f-bd09-c21644d6dad9"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.334Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"57430e86-666e-4fe8-82ae-e53815cddf27"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.335Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"1f55245c-511e-4614-86a0-959b901405ef"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.335Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"09912e61-7c8f-4fbf-be91-12a45661e269"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.336Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"81e65c6f-8d0d-4ee4-8ae1-c2f259d87335"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.337Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"b88d2863-5f2b-4138-bb07-347dafcaaceb"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.339Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"fdf1e55e-6c1c-4225-b63f-e6a37dabb6a8"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.340Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"a3a50221-f40e-457f-ac2b-8fb92054a69a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.341Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"6f81872f-390f-4cdd-b4b0-d3b10a298ce1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.342Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"29acf60c-4492-4cf0-b679-8e4edba5a283"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.343Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"7147c8e4-a60b-435c-ab12-71e8a95024c8"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.343Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"d2202be5-5501-430c-ab74-54b5e3b072af"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.344Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"0e674dff-79ea-4bc1-814a-5beb8e6c4270"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.353Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"a5d6331d-64c4-4049-9862-69bb65365461"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.359Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"7d40acef-ff95-4f7a-811d-bc5882088ff9"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.361Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"b6cc9e2a-4260-42fd-a9bf-a0707ecde14e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.363Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"be7cb12c-d80b-44c7-852f-370b84b9a2e1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.365Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"8cbd3702-8a5f-4b92-83fd-ea4454691e54"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.367Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"93fa6e4e-af5c-4401-8873-6fd8d5b26468"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.368Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"63ba5a77-a02d-4e34-8300-ebc8dd551d15"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.372Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"75a0b398-7f83-4426-9b6e-84f530d3851f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.374Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"8c5f87d6-050f-4f2b-aeaf-a076227cb378"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.375Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"a82ebc39-d4c4-453f-8512-e80bbabc6ece"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.376Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"a8c03d6f-0f8c-4dac-9587-8b68cf3b9e1a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.376Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"b1a2c870-c2e9-4051-911a-76c84c90a0b5"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.379Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"e9002c22-8f42-4029-8633-be02e37b9987"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.379Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"18b6476f-da99-4808-8c97-a97184d38767"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.379Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"077f20de-829a-418e-972f-e9c05be06166"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.384Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"78471b9e-d390-407b-bfae-7694547528fd"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.386Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"79fc0551-0b0f-45fc-8731-e59c5feb7950"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.387Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"b81746fb-1995-4845-8b6e-de6ebbc01eee"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.389Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"ab87942a-e318-46e1-b3de-4168262fb952"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.391Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"5167a9cf-96cb-46aa-92d9-99dd1fdff2c1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.391Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"99ef1ec2-0e54-4213-b96f-7e2065c30799"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.392Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"7df2e3fa-6d5c-46d2-8977-d33fd5426bff"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.392Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"e50e4e04-85cb-488b-a6cb-4b29f910997f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.393Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"105d3d4c-773a-4018-957d-1aeeed95e628"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.395Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"0db164d0-d757-49fe-8530-cf0566784823"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.396Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"e2419925-31c9-49db-97c4-f1c220c58421"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.396Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"c98aab82-0d82-4a41-9d3f-73a189b34357"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.397Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"fc963f4c-63d7-4ece-829d-34e45624492d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.399Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"4e9c611e-8776-4534-9af7-d5af4621152a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.401Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"0e90f827-651e-4052-a97a-ec286e3fad18"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.401Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"3b028f8a-1a59-4955-b469-b9696c31ec83"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.402Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"374efc36-9c00-421d-aba8-f8465ca13742"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.405Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"167d4388-c7d0-48a7-8bba-f29026fa3853"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.408Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"bd75ef01-c363-422f-995d-c55815669675"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.410Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"84098448-4e2a-4e66-87a6-661d2254c779"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.413Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"8fc64521-d4b4-4521-aa23-f8d401709fdc"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.417Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"e3abfb14-9e0e-41c5-8ed7-a48f1d79be03"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.418Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"344b8b1f-477f-432b-a5c3-67b338a95bc7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.420Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"0e796725-4048-4192-ac2c-b8c813807815"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.422Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"cfae442e-b5c5-4beb-93bb-4dda9f8cb7c5"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.425Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"712315bd-4605-46b3-a0b8-1937265ad26a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.426Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"20c215e5-938e-4f8d-8015-2a0fe6c91e78"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.428Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"b4324d2b-1acc-4df6-b898-49a7b7c8cdb1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.429Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"807fe7c3-3ba1-4c71-8d38-2f68be327eee"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.429Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"0fea6ec8-8a4c-4803-a221-5e41e1250b09"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.431Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"fd994b74-8dbb-409d-9080-1490e2fa44a1"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.433Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"7e00438e-7bb0-47b1-9ced-348ba8b82ff2"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.433Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"2ab809cf-54cf-45ae-bd95-c21c5e55b7d3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.434Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"724e3b5a-19ae-4863-b312-f860a9e6993a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.437Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"e43221a0-810a-4c8d-b037-bac6c4595ed5"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.438Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"749ae1bd-e765-4bdf-90cb-1b1f2ced7c43"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.439Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"55ce827a-e550-4c44-81b8-f089a9f70a0c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.440Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"c9656201-425e-4f06-b12f-53800b6d5fd3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.465Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"f1bf83f8-5abf-4902-a7c4-42253c223220"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.513Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"4f7984f8-afee-4f84-acbc-452251865c11"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.522Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"79730813-770f-4cd1-91b8-2cb4f4119c7d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.529Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"d33636f7-840c-444e-a988-8639408a2143"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.531Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"509b2a7d-5044-458d-b426-12b0f24f2c6c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.532Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"00c20984-cdb5-45e2-a8d6-9743cc23725c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.533Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"df34371c-1b9c-495a-811c-7cf6c569e860"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.534Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"623318fb-73ef-4e7b-88f5-069acd65cccb"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.534Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"1badd820-ec98-4fe8-adf6-b5ea9d22d36a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.550Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"658ab149-24de-4e4e-8ec6-ef087ca85a16"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.552Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"32b14fa0-aaa2-474a-a56a-5a66e840581b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.554Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"ca68e8e2-08ce-456e-aeec-2b986d633a09"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.556Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"b2c85967-2c81-4601-aaa8-c718e8af70e3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.557Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"fd2ef257-1452-4c02-9c43-9cacdd391e04"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.559Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"0ae6c6bf-a09c-46cd-837c-37d1ffe75e18"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.560Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"aa995775-307e-4d88-9004-d84a1220fe5b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.561Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"9c9122e7-7e1b-478c-a709-ac6e1445bf68"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.563Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"c15639ac-a787-4ad1-9ce8-94bbdd26bb3a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.563Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"8ed691e6-bf44-409c-aabe-d7ba58971a6a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.564Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"5a39b1e6-fbb5-48cc-950b-5e94cb5eaee4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.566Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"9e00f002-12b6-448a-b0c5-2bca426d7e0a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.567Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"3d09c9f5-dff9-4ad8-b92a-f6b0a75ad6c7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.568Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"b54b7312-75b3-445a-8a30-0eaecacfb7ba"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.568Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"43f69139-84d2-4bed-a973-7825afb87c7d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.568Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"61347174-3b64-4d12-9d0e-0d7c9d0be7e4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.569Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"04191726-ed7d-4761-b179-b9499d9c8c4e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.571Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"f00369aa-1577-4665-9bdb-9d0685d894b5"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.576Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"77a54b9f-e832-4e9f-8183-5679f0e34ca4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.577Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"de0f5412-3b36-439c-96ca-0777d3145e72"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.582Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"5cefd90d-1569-4276-befe-9bc2fa4d0844"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.583Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"ad3e29ce-be68-43f0-9c40-16d4e40fb9ed"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.584Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"2f1e5a54-2e1a-415e-a209-6a369ed4795c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.584Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"e84e102a-a53f-4ff3-adae-f137ac7201a4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.584Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"72c075f2-b892-4266-a1a2-c75308967240"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.585Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"34c9b689-9743-4667-9789-73a5377001a5"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.586Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/realtime/events?limit=20","statusCode":200,"requestId":"93665074-944f-4471-8bf8-ad57500d0897"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.588Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"5302f974-4e09-4a0e-91ee-d31029d2a29b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.589Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"96893909-b88e-46e4-b74c-af05a7cd86de"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.591Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"f1ef1df8-deae-4f09-86a6-4d5b0cc32b1e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.592Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"33e5f265-dd63-4bae-9790-b0a0667b4e37"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.594Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"7bf19786-a4fc-4037-936a-d7112250a27a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.595Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"4912837a-0e8d-45c6-84c0-d9f84de22c61"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.596Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"9ec1a066-eeee-447f-9453-7cd54f9b83f7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.599Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"fc26621e-db64-4a1c-ab38-0b5fd36e66d4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.599Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"46edb951-75e8-4270-b3c7-1093e4703961"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.600Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"a3d365a9-51c7-4b35-b821-1805f9d194d3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.601Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"f82bc0be-5a0a-4813-bf2e-9dbd4681360d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.602Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"26334ced-8db9-40f3-8afe-438e576f5492"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.602Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"c6065361-5560-4271-809d-11f5f576cfe5"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.602Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"b392f122-562c-45ea-bf42-878b1ada038a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.603Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"3dd77a4e-6c16-4df0-8513-af4ed177212b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.605Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"b8fff61c-97b7-4654-b2a2-f010e659e738"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.607Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"fa1763d5-d4b3-4657-9270-33d7713bcfe8"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.610Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"85ab9771-c8e1-4573-8e28-214fd82adf79"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.617Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"9eee4384-3f3c-43ee-a9d7-242ac387340f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.618Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"3c54d722-9d7d-4440-af75-fce3e8c7a3c5"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.619Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"c04a9504-59bf-4e40-9664-ef170062a9da"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.621Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"eed8685b-b647-484d-ab21-1b80981a38df"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.624Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"9f3590bb-a4da-444a-a689-a650a9dc8e20"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.624Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"04597fc5-ed53-4783-b655-a046fbacec98"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.624Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"3345aa70-e0f7-4a84-a8cc-fed5ec5c9fba"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.627Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"14ba7a1d-dce6-437a-8518-e1a6ffddcc61"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.628Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"23199756-8ca4-4292-8a3e-8521cd73b38d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.629Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"30c070eb-eb48-4084-b98d-fcff833ade82"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.630Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"60f39108-db5e-49bd-af19-8358fc2aea6a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.632Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"512c2471-51b3-4ab3-b931-083716480414"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.633Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"ecd9b12e-e4ca-4aa1-9f54-8c13780ec6e3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.634Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"0d99a6e9-e1c1-48e8-91de-1eedf107185c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.635Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"12d15de9-2c67-4f47-afdc-65b754ab25d2"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.636Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"3cf459d2-331f-46fe-b3e7-b48f4760a5da"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.637Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"dce1afac-990f-44d6-b80a-a5fecf5dbfb2"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.645Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"541b20a1-9b8a-4988-bd8d-541baf7aa5ed"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.647Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"5323a3a9-c4e6-48be-8aab-ca8e34bc0961"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.650Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"a51b7863-6a85-4db4-9a17-214239c0c7aa"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.653Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"cd3dc7c7-48c3-4fff-9eeb-173661b83633"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.659Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"8e2d374e-97f7-4b15-8142-101ad54c454a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.660Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"c1f9f6e4-9d6b-459b-8a2f-24e9f5e4215f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.661Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"666da7ac-d8a8-4774-b858-9d0296b844fb"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.661Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"7e93a05b-f7ee-4e35-b8c8-c32dff00e36f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.661Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"3cac3598-dc94-408a-b280-766566e5515d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.666Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"46d09854-0bda-4563-ad9b-3bf7b5e8a079"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.667Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"c7fb68f7-9bbf-471e-a47d-4def5e12a875"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.668Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"8d6eafc6-9d29-4c64-a132-84ca0f2a04a0"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.668Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"6b2aed5f-3d14-4f9d-980f-d880c8e04bd7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.670Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"59c79bfa-fba6-4be4-848d-04490c2c15a0"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.672Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"1274658f-1e38-45e0-bffb-8df0a8ce3e30"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.677Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"c8940a24-3b51-4a39-80cd-174b38041264"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.678Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"b912f6ca-9fad-43d9-b13b-bdcc9c64a8df"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.679Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"382c3943-8d7e-49bb-9e17-9d2cfc48af41"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.680Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"ffc5a1c1-78fa-4154-be99-3351e3bda753"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.682Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"28ba1f25-87e4-41b8-84e5-1f0bbbff27be"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.683Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"56db64c5-af6a-4a5a-8ee2-fee10fe6402a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.684Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"288d885e-b65f-4958-85f6-bd31a9a1db5e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.686Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"bd7d83bc-02c5-4e42-b069-c2f70679d475"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.690Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"c33c4db7-9f6d-4e5a-a2c1-c5c2c406e3cc"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.692Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"54bb2236-5890-4e80-a6e9-e5861a769216"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.693Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"63bd14b1-c00d-4d4b-ac6d-0aa3c3677ba6"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.694Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"4188d5cb-16d3-4910-b6db-6c41429d2d9d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.695Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"a914e228-019d-4309-8dbf-2f0ddbf6a17a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.697Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"c78324c9-ee0f-4604-af55-3d163bc3ddd4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.698Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"1c85ece9-f63f-4667-836d-a22f9360dd7b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.699Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"cef3d64c-9182-4a64-9700-76f538cda916"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.702Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"1976c80c-6a66-4f35-814e-db394eb68b8f"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.703Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"644a3968-62ad-4cc6-ab48-ae8b184aeb0a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.704Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"4d7c75c9-7b88-4431-a9a7-324bd31d7696"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.709Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"fb2a9e2c-b189-4517-b4c1-d38952b0ef82"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.713Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"b3acfab5-326d-4aca-9f74-f23f38fcea41"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.714Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"0cfd56e3-39a7-45b1-9421-b4d60795ca0c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.715Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"1ff3c42a-f91c-4bf2-8a7b-48b5a251316b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.716Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"267499c2-7e1a-46c6-aa68-d93eec68a64d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.717Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"f820a014-fcb7-4f94-88f2-1c7fce19073a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.717Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"aaa60932-e957-462a-a333-50629965d7da"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.719Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"4705b44c-7645-45b1-8ffa-4cdf5f88f9ab"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.719Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/admin/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/analytics?timezone=Asia/Ho_Chi_Minh","statusCode":200,"requestId":"20664360-a241-4920-8d07-944eff8e8f8e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.732Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"e21ca9dc-f8e9-4c13-a1e5-f22920fbb7fc"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.733Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"420d47b5-9490-4866-af61-441665781d0c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.734Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"55bd1dac-3d63-4155-ac21-41447020b475"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.735Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"a5300ae8-94fd-4baf-b1f4-c0e90206971d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.737Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"cc9fd839-5cf0-46b3-84a2-3fb7735cf001"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.738Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"000c6c5f-3b14-4d99-b776-928111c4e527"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.740Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"03f55908-aaa6-4568-9bbb-03ec1e3f02d2"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.741Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"b596b411-9781-4d3a-ae78-c3ff0fb6d2a3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.742Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"09b00fe9-4830-48ac-b674-bd262b40b38b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.745Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"1f7eddca-2f08-49a2-976b-6eb2b9f932c9"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.747Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"dc84821b-e0f4-4cdb-aca4-37536ef6e0ca"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.751Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"0e22de8f-f357-43eb-9574-9894b7cc93cc"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.755Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"9a095c5d-206c-4bd4-9263-8e43750724c3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.758Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"333c32a9-cdc2-4d0e-bd8d-a492ba681f83"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.759Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"c94d68e4-a50e-478e-bc5b-d48d6f1d47bc"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.760Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"52f71af0-54ce-4d01-9c94-878c8ae849d8"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.765Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"b92e0441-9b29-4cc7-a066-29fb880fb73e"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.767Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"b3b8d9d6-55dd-4180-8887-ab2549f64fb7"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.769Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"77755b45-5dda-4108-aa1f-cfd0501f3557"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.770Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"35086135-768d-4fd6-92b3-78a0db279df2"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.771Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"e4ebe378-406b-48b1-b96a-b51c70cc96ab"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.775Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"47250cca-3ebf-48b9-a4b5-2c363e8acc52"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.777Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"ce9bea52-59ca-42f7-9955-bbbe1406666a"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.783Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"d6a2add5-b214-4481-8805-a66f78c82f02"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.785Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"f23cd21e-e32e-4570-ab7c-b9068bcbebaf"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.786Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"278ddc33-5dd0-4952-88d3-504db9aba5e4"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.787Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"ad035910-b93c-4671-a8c5-58544eab45c0"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.789Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"e3e9df1d-0c15-4672-aaa9-b6c6e4041733"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.791Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"b75a09c7-8b85-483a-93e8-5f779e1de0c2"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.792Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"007be5e0-e52b-4ce9-a5fa-3e9c2e14b881"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.793Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"d4c73ec6-5d4f-42b4-8566-5d2da41c390d"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.794Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"aa8ac4e9-f9c7-435a-81ad-acaf0f02b914"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.794Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"d3675c9c-5006-43a4-8768-a6c751769d2c"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.799Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"65e50bd1-ff84-4f60-b4be-3e3b3315f4d3"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.800Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"340941d5-6959-46fb-8bf7-94c95eae230b"}
+
+stdout | src/phase10-load.integration.test.ts > phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets
+{"level":"info","time":"2026-07-28T09:45:12.801Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/staff/work-items?propertyId=3ab87d2a-0c78-4fac-aa15-515a733cc3ae&queue=inbox","statusCode":200,"requestId":"2f5e229d-3a7f-45a6-be53-b8c329103c6e"}
+
+ ✓ src/phase10-load.integration.test.ts (1 test) 1438ms
+   ✓ phase 10.2 performance and load qualification > records API load, realtime load, and DB query profiles against Phase 10 targets  1394ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  16:45:10
+   Duration  2.77s (transform 221ms, setup 0ms, collect 1.09s, tests 1.44s, environment 0ms, prepare 131ms)
+

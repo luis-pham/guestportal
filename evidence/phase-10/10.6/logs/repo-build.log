@@ -1,0 +1,178 @@
+$ turbo run build
+• turbo 2.10.7
+
+   • Packages in scope: @guestportal/admin-web, @guestportal/ai-tools, @guestportal/analytics, @guestportal/api, @guestportal/auth, @guestportal/config, @guestportal/contracts, @guestportal/db, @guestportal/embedding-service, @guestportal/eslint-config, @guestportal/guest-web, @guestportal/observability, @guestportal/rag, @guestportal/staff-web, @guestportal/storage, @guestportal/tenancy, @guestportal/test-kit, @guestportal/typescript-config, @guestportal/ui, @guestportal/worker
+   • Running build in 20 packages
+   • Remote caching disabled
+
+@guestportal/embedding-service:build: cache hit, replaying logs 5b2d4356c93fef7f
+@guestportal/storage:build: cache hit, replaying logs a1b68005047fd1c7
+@guestportal/storage:build: $ tsc -p tsconfig.json
+@guestportal/config:build: cache hit, replaying logs 869f39729b1a8b1b
+@guestportal/embedding-service:build: $ python3 -m compileall app
+@guestportal/embedding-service:build: Listing 'app'...
+@guestportal/config:build: $ tsc -p tsconfig.json
+@guestportal/observability:build: cache hit, replaying logs 26262074b9bf5080
+@guestportal/observability:build: $ tsc -p tsconfig.json
+@guestportal/test-kit:build: cache hit, replaying logs 922f8eb64cccd006
+@guestportal/test-kit:build: $ tsc -p tsconfig.json
+@guestportal/contracts:build: cache hit, replaying logs eb9099df2ada4263
+@guestportal/contracts:build: $ tsc -p tsconfig.json
+@guestportal/rag:build: cache hit, replaying logs 25bd400252082ba2
+@guestportal/rag:build: $ tsc -p tsconfig.json
+@guestportal/analytics:build: cache hit, replaying logs f21cda56911d365e
+@guestportal/analytics:build: $ tsc -p tsconfig.json
+@guestportal/ai-tools:build: cache hit, replaying logs af13861d8b50b242
+@guestportal/ai-tools:build: $ tsc -p tsconfig.json
+@guestportal/db:build: cache hit, replaying logs 159794577ef3fc07
+@guestportal/db:build: $ tsc -p tsconfig.json
+@guestportal/auth:build: cache hit, replaying logs 75de3b3b8e035992
+@guestportal/ui:build: cache hit, replaying logs d0c4bbfafb3fd0ad
+@guestportal/auth:build: $ tsc -p tsconfig.json
+@guestportal/ui:build: $ tsc -p tsconfig.json
+@guestportal/worker:build: cache hit, replaying logs afe61590931a9b0b
+@guestportal/tenancy:build: cache hit, replaying logs 590cee56fe066d67
+@guestportal/tenancy:build: $ tsc -p tsconfig.json
+@guestportal/worker:build: $ tsc -p tsconfig.json
+@guestportal/api:build: cache miss, executing d70986f75e4b2409
+@guestportal/admin-web:build: cache hit, replaying logs 9e5ab98ad2c30537
+@guestportal/admin-web:build: $ next build
+@guestportal/admin-web:build:    ▲ Next.js 15.5.21
+@guestportal/admin-web:build: 
+@guestportal/admin-web:build:    Creating an optimized production build ...
+@guestportal/admin-web:build:  ✓ Compiled successfully in 3.4s
+@guestportal/admin-web:build:    Linting and checking validity of types ...
+@guestportal/admin-web:build: 
+@guestportal/admin-web:build:  ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+@guestportal/admin-web:build:    Collecting page data ...
+@guestportal/admin-web:build:    Generating static pages (0/7) ...
+@guestportal/admin-web:build:    Generating static pages (1/7) 
+@guestportal/admin-web:build:    Generating static pages (3/7) 
+@guestportal/admin-web:build:    Generating static pages (5/7) 
+@guestportal/admin-web:build:  ✓ Generating static pages (7/7)
+@guestportal/admin-web:build:    Finalizing page optimization ...
+@guestportal/admin-web:build:    Collecting build traces ...
+@guestportal/admin-web:build: 
+@guestportal/admin-web:build: Route (app)                                 Size  First Load JS
+@guestportal/admin-web:build: ┌ ○ /_not-found                            991 B         103 kB
+@guestportal/admin-web:build: ├ ● /[locale]                              170 B         153 kB
+@guestportal/admin-web:build: ├   ├ /vi
+@guestportal/admin-web:build: ├   └ /en
+@guestportal/admin-web:build: ├ ƒ /[locale]/[...slug]                    170 B         153 kB
+@guestportal/admin-web:build: └ ● /[locale]/login                      1.41 kB         115 kB
+@guestportal/admin-web:build:     ├ /vi/login
+@guestportal/admin-web:build:     └ /en/login
+@guestportal/admin-web:build: + First Load JS shared by all             102 kB
+@guestportal/admin-web:build:   ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+@guestportal/admin-web:build:   ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+@guestportal/admin-web:build:   └ other shared chunks (total)          1.88 kB
+@guestportal/admin-web:build: 
+@guestportal/admin-web:build: 
+@guestportal/admin-web:build: ƒ Middleware                               46 kB
+@guestportal/admin-web:build: 
+@guestportal/admin-web:build: ○  (Static)   prerendered as static content
+@guestportal/admin-web:build: ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+@guestportal/admin-web:build: ƒ  (Dynamic)  server-rendered on demand
+@guestportal/admin-web:build: 
+@guestportal/staff-web:build: cache hit, replaying logs 6581e4de4e93fa32
+@guestportal/staff-web:build: $ next build
+@guestportal/staff-web:build:    ▲ Next.js 15.5.21
+@guestportal/staff-web:build: 
+@guestportal/staff-web:build:    Creating an optimized production build ...
+@guestportal/staff-web:build:  ✓ Compiled successfully in 3.4s
+@guestportal/staff-web:build:    Linting and checking validity of types ...
+@guestportal/staff-web:build: 
+@guestportal/staff-web:build:  ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+@guestportal/staff-web:build:    Collecting page data ...
+@guestportal/staff-web:build:    Generating static pages (0/19) ...
+@guestportal/staff-web:build:    Generating static pages (4/19) 
+@guestportal/staff-web:build:    Generating static pages (9/19) 
+@guestportal/staff-web:build:    Generating static pages (14/19) 
+@guestportal/staff-web:build:  ✓ Generating static pages (19/19)
+@guestportal/staff-web:build:    Finalizing page optimization ...
+@guestportal/staff-web:build:    Collecting build traces ...
+@guestportal/staff-web:build: 
+@guestportal/staff-web:build: Route (app)                                 Size  First Load JS
+@guestportal/staff-web:build: ┌ ○ /_not-found                            991 B         103 kB
+@guestportal/staff-web:build: ├ ● /[locale]                              130 B         102 kB
+@guestportal/staff-web:build: ├   ├ /vi
+@guestportal/staff-web:build: ├   └ /en
+@guestportal/staff-web:build: ├ ● /[locale]/history                      134 B         122 kB
+@guestportal/staff-web:build: ├   ├ /vi/history
+@guestportal/staff-web:build: ├   └ /en/history
+@guestportal/staff-web:build: ├ ● /[locale]/inbox                        134 B         122 kB
+@guestportal/staff-web:build: ├   ├ /vi/inbox
+@guestportal/staff-web:build: ├   └ /en/inbox
+@guestportal/staff-web:build: ├ ● /[locale]/login                      1.72 kB         116 kB
+@guestportal/staff-web:build: ├   ├ /vi/login
+@guestportal/staff-web:build: ├   └ /en/login
+@guestportal/staff-web:build: ├ ● /[locale]/messages                     134 B         122 kB
+@guestportal/staff-web:build: ├   ├ /vi/messages
+@guestportal/staff-web:build: ├   └ /en/messages
+@guestportal/staff-web:build: ├ ● /[locale]/more                         134 B         122 kB
+@guestportal/staff-web:build: ├   ├ /vi/more
+@guestportal/staff-web:build: ├   └ /en/more
+@guestportal/staff-web:build: ├ ● /[locale]/my-work                      134 B         122 kB
+@guestportal/staff-web:build: ├   ├ /vi/my-work
+@guestportal/staff-web:build: ├   └ /en/my-work
+@guestportal/staff-web:build: ├ ƒ /[locale]/orders/[orderId]             134 B         122 kB
+@guestportal/staff-web:build: ├ ƒ /[locale]/requests/[requestId]         133 B         122 kB
+@guestportal/staff-web:build: └ ● /[locale]/settings                     134 B         122 kB
+@guestportal/staff-web:build:     ├ /vi/settings
+@guestportal/staff-web:build:     └ /en/settings
+@guestportal/staff-web:build: + First Load JS shared by all             102 kB
+@guestportal/staff-web:build:   ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+@guestportal/staff-web:build:   ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+@guestportal/staff-web:build:   └ other shared chunks (total)          1.89 kB
+@guestportal/staff-web:build: 
+@guestportal/staff-web:build: 
+@guestportal/staff-web:build: ƒ Middleware                               46 kB
+@guestportal/staff-web:build: 
+@guestportal/staff-web:build: ○  (Static)   prerendered as static content
+@guestportal/staff-web:build: ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+@guestportal/staff-web:build: ƒ  (Dynamic)  server-rendered on demand
+@guestportal/staff-web:build: 
+@guestportal/guest-web:build: cache hit, replaying logs bdf7c3302bbe0804
+@guestportal/guest-web:build: $ next build
+@guestportal/guest-web:build:    ▲ Next.js 15.5.21
+@guestportal/guest-web:build: 
+@guestportal/guest-web:build:    Creating an optimized production build ...
+@guestportal/guest-web:build:  ✓ Compiled successfully in 2.6s
+@guestportal/guest-web:build:    Linting and checking validity of types ...
+@guestportal/guest-web:build: 
+@guestportal/guest-web:build:  ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+@guestportal/guest-web:build:    Collecting page data ...
+@guestportal/guest-web:build:    Generating static pages (0/4) ...
+@guestportal/guest-web:build:    Generating static pages (1/4) 
+@guestportal/guest-web:build:    Generating static pages (2/4) 
+@guestportal/guest-web:build:    Generating static pages (3/4) 
+@guestportal/guest-web:build:  ✓ Generating static pages (4/4)
+@guestportal/guest-web:build:    Finalizing page optimization ...
+@guestportal/guest-web:build:    Collecting build traces ...
+@guestportal/guest-web:build: 
+@guestportal/guest-web:build: Route (app)                                 Size  First Load JS
+@guestportal/guest-web:build: ┌ ○ /                                      123 B         102 kB
+@guestportal/guest-web:build: ├ ○ /_not-found                            991 B         103 kB
+@guestportal/guest-web:build: ├ ƒ /g/[qrToken]                           128 B         121 kB
+@guestportal/guest-web:build: ├ ƒ /g/[qrToken]/chat                      128 B         121 kB
+@guestportal/guest-web:build: ├ ƒ /g/[qrToken]/explore                   128 B         121 kB
+@guestportal/guest-web:build: ├ ƒ /g/[qrToken]/food                      128 B         121 kB
+@guestportal/guest-web:build: ├ ƒ /g/[qrToken]/guide                     128 B         121 kB
+@guestportal/guest-web:build: ├ ƒ /g/[qrToken]/requests/[requestType]    128 B         121 kB
+@guestportal/guest-web:build: ├ ƒ /g/[qrToken]/services                  128 B         121 kB
+@guestportal/guest-web:build: └ ƒ /g/[qrToken]/status                    127 B         121 kB
+@guestportal/guest-web:build: + First Load JS shared by all             102 kB
+@guestportal/guest-web:build:   ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+@guestportal/guest-web:build:   ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+@guestportal/guest-web:build:   └ other shared chunks (total)          1.88 kB
+@guestportal/guest-web:build: 
+@guestportal/guest-web:build: 
+@guestportal/guest-web:build: ○  (Static)   prerendered as static content
+@guestportal/guest-web:build: ƒ  (Dynamic)  server-rendered on demand
+@guestportal/guest-web:build: 
+@guestportal/api:build: $ tsc -p tsconfig.json
+
+ Tasks:    18 successful, 18 total
+Cached:    17 cached, 18 total
+  Time:    1.372s 
+

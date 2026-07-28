@@ -1,0 +1,291 @@
+$ turbo run test
+• turbo 2.10.7
+
+   • Packages in scope: @guestportal/admin-web, @guestportal/ai-tools, @guestportal/analytics, @guestportal/api, @guestportal/auth, @guestportal/config, @guestportal/contracts, @guestportal/db, @guestportal/embedding-service, @guestportal/eslint-config, @guestportal/guest-web, @guestportal/observability, @guestportal/rag, @guestportal/staff-web, @guestportal/storage, @guestportal/tenancy, @guestportal/test-kit, @guestportal/typescript-config, @guestportal/ui, @guestportal/worker
+   • Running test in 20 packages
+   • Remote caching disabled
+
+@guestportal/observability:test: cache hit, replaying logs e535c70ad14351e4
+@guestportal/embedding-service:test: cache hit, replaying logs 3050b24a39791df2
+@guestportal/observability:test: $ vitest run
+@guestportal/observability:test: 
+@guestportal/observability:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/observability
+@guestportal/observability:test: 
+@guestportal/observability:test:  ✓ src/alerts.test.ts (4 tests) 3ms
+@guestportal/observability:test:  ✓ src/logger.test.ts (2 tests) 4ms
+@guestportal/observability:test:  ✓ src/phase10-observability.test.ts (1 test) 4ms
+@guestportal/observability:test:  ✓ src/dashboards.test.ts (2 tests) 2ms
+@guestportal/observability:test: 
+@guestportal/observability:test:  Test Files  4 passed (4)
+@guestportal/observability:test:       Tests  9 passed (9)
+@guestportal/observability:test:    Start at  16:30:48
+@guestportal/observability:test:    Duration  861ms (transform 150ms, setup 0ms, collect 364ms, tests 12ms, environment 0ms, prepare 528ms)
+@guestportal/observability:test: 
+@guestportal/test-kit:test: cache hit, replaying logs ebed9c48c39005cd
+@guestportal/observability:build: cache hit, replaying logs 26262074b9bf5080
+@guestportal/observability:build: $ tsc -p tsconfig.json
+@guestportal/storage:build: cache hit, replaying logs a1b68005047fd1c7
+@guestportal/storage:build: $ tsc -p tsconfig.json
+@guestportal/contracts:test: cache hit, replaying logs 22c2794d5232f869
+@guestportal/test-kit:test: $ vitest run
+@guestportal/test-kit:test: 
+@guestportal/test-kit:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/test-kit
+@guestportal/test-kit:test: 
+@guestportal/test-kit:test:  ✓ src/local-infra.test.ts (1 test) 54ms
+@guestportal/test-kit:test: 
+@guestportal/test-kit:test:  Test Files  1 passed (1)
+@guestportal/test-kit:test:       Tests  1 passed (1)
+@guestportal/test-kit:test:    Start at  19:25:50
+@guestportal/test-kit:test:    Duration  3.57s (transform 323ms, setup 0ms, collect 372ms, tests 54ms, environment 0ms, prepare 1.55s)
+@guestportal/test-kit:test: 
+@guestportal/embedding-service:test: $ PYTHONPATH=. .venv/bin/python -m unittest discover -s tests -v
+@guestportal/embedding-service:test: test_embed_text_dimension_and_stability (test_embeddings.EmbeddingServiceTests) ... ok
+@guestportal/embedding-service:test: test_embeddings_endpoint_enforces_tenant_batch (test_embeddings.EmbeddingServiceTests) ... ok
+@guestportal/embedding-service:test: test_embeddings_reject_missing_org (test_embeddings.EmbeddingServiceTests) ... ok
+@guestportal/embedding-service:test: test_model_dimensions (test_embeddings.EmbeddingServiceTests) ... ok
+@guestportal/embedding-service:test: test_health_payload_shape (test_health.EmbeddingServiceFoundationTests) ... ok
+@guestportal/embedding-service:test: test_model_dimensions (test_health.EmbeddingServiceFoundationTests) ... ok
+@guestportal/embedding-service:test: 
+@guestportal/embedding-service:test: ----------------------------------------------------------------------
+@guestportal/embedding-service:test: Ran 6 tests in 0.013s
+@guestportal/embedding-service:test: 
+@guestportal/embedding-service:test: OK
+@guestportal/contracts:test: $ vitest run
+@guestportal/contracts:test: 
+@guestportal/contracts:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/contracts
+@guestportal/contracts:test: 
+@guestportal/contracts:test:  ✓ src/voice-live.test.ts (2 tests) 30ms
+@guestportal/contracts:test:  ✓ src/portal.test.ts (4 tests) 14ms
+@guestportal/contracts:test:  ✓ src/admin-operations.test.ts (2 tests) 25ms
+@guestportal/contracts:test:  ✓ src/admin-audit.test.ts (3 tests) 15ms
+@guestportal/contracts:test:  ✓ src/conversation.test.ts (3 tests) 25ms
+@guestportal/contracts:test:  ✓ src/request-order.test.ts (5 tests) 14ms
+@guestportal/contracts:test:  ✓ src/analytics.test.ts (2 tests) 13ms
+@guestportal/contracts:test:  ✓ src/uploads.test.ts (2 tests) 5ms
+@guestportal/contracts:test:  ✓ src/ai-tools.test.ts (4 tests) 12ms
+@guestportal/contracts:test:  ✓ src/qr.test.ts (4 tests) 5ms
+@guestportal/contracts:test:  ✓ src/branding.test.ts (3 tests) 18ms
+@guestportal/contracts:test:  ✓ src/guest-session.test.ts (2 tests) 2ms
+@guestportal/contracts:test: 
+@guestportal/contracts:test:  Test Files  12 passed (12)
+@guestportal/contracts:test:       Tests  36 passed (36)
+@guestportal/contracts:test:    Start at  15:31:16
+@guestportal/contracts:test:    Duration  4.32s (transform 1.78s, setup 0ms, collect 3.56s, tests 179ms, environment 35ms, prepare 4.32s)
+@guestportal/contracts:test: 
+@guestportal/config:build: cache hit, replaying logs 869f39729b1a8b1b
+@guestportal/config:build: $ tsc -p tsconfig.json
+@guestportal/storage:test: cache hit, replaying logs c2f5c60bf4c2d3d4
+@guestportal/config:test: cache hit, replaying logs 40cb4c4761275bfa
+@guestportal/storage:test: $ vitest run --exclude src/**/*.staging.test.ts
+@guestportal/storage:test: 
+@guestportal/storage:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/storage
+@guestportal/storage:test: 
+@guestportal/storage:test:  ✓ src/constraints.test.ts (3 tests) 4ms
+@guestportal/storage:test:  ✓ src/keys.test.ts (4 tests) 4ms
+@guestportal/storage:test:  ✓ src/config.test.ts (3 tests) 3ms
+@guestportal/storage:test: 
+@guestportal/storage:test:  Test Files  3 passed (3)
+@guestportal/storage:test:       Tests  10 passed (10)
+@guestportal/storage:test:    Start at  19:25:50
+@guestportal/storage:test:    Duration  3.62s (transform 926ms, setup 0ms, collect 1.40s, tests 11ms, environment 1ms, prepare 1.65s)
+@guestportal/storage:test: 
+@guestportal/config:test: $ vitest run
+@guestportal/config:test: 
+@guestportal/config:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/config
+@guestportal/config:test: 
+@guestportal/config:test:  ✓ src/env.test.ts (3 tests) 4ms
+@guestportal/config:test: 
+@guestportal/config:test:  Test Files  1 passed (1)
+@guestportal/config:test:       Tests  3 passed (3)
+@guestportal/config:test:    Start at  15:40:14
+@guestportal/config:test:    Duration  1.19s (transform 156ms, setup 0ms, collect 213ms, tests 4ms, environment 0ms, prepare 414ms)
+@guestportal/config:test: 
+@guestportal/contracts:build: cache hit, replaying logs eb9099df2ada4263
+@guestportal/contracts:build: $ tsc -p tsconfig.json
+@guestportal/db:test: cache hit, replaying logs 0efc092460db78e8
+@guestportal/ui:test: cache hit, replaying logs 983a43f2a846cea9
+@guestportal/db:test: $ vitest run
+@guestportal/db:test: 
+@guestportal/db:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/db
+@guestportal/db:test: 
+@guestportal/db:test:  ✓ src/conversations-migration.test.ts (2 tests | 1 skipped) 13ms
+@guestportal/db:test:  ✓ src/embedding-index-migration.test.ts (2 tests | 1 skipped) 16ms
+@guestportal/db:test:  ✓ src/knowledge-chunks-migration.test.ts (2 tests | 1 skipped) 4ms
+@guestportal/db:test:  ✓ src/request-order-migration.test.ts (4 tests | 2 skipped) 4ms
+@guestportal/db:test:  ✓ src/portal-migration.test.ts (1 test) 11ms
+@guestportal/db:test:  ✓ src/smoke.test.ts (1 test) 1ms
+@guestportal/db:test: 
+@guestportal/db:test:  Test Files  6 passed (6)
+@guestportal/db:test:       Tests  7 passed | 5 skipped (12)
+@guestportal/db:test:    Start at  16:25:53
+@guestportal/db:test:    Duration  2.34s (transform 351ms, setup 0ms, collect 1.82s, tests 49ms, environment 1ms, prepare 1.66s)
+@guestportal/db:test: 
+@guestportal/rag:test: cache hit, replaying logs 6724274c573d07d8
+@guestportal/ui:test: $ vitest run
+@guestportal/ui:test: 
+@guestportal/ui:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/ui
+@guestportal/ui:test: 
+@guestportal/ui:test:  ✓ src/guest/GuestStatusCenter.test.tsx (2 tests) 33ms
+@guestportal/ui:test:  ✓ src/tokens.test.ts (8 tests) 9ms
+@guestportal/ui:test:  ✓ src/guest/GuestTextChat.test.tsx (6 tests) 375ms
+@guestportal/ui:test:  ✓ src/guest/GuestHomepage.test.tsx (2 tests) 186ms
+@guestportal/ui:test:  ✓ src/components/primitives.test.tsx (10 tests) 313ms
+@guestportal/ui:test: 
+@guestportal/ui:test:  Test Files  5 passed (5)
+@guestportal/ui:test:       Tests  28 passed (28)
+@guestportal/ui:test:    Start at  15:31:16
+@guestportal/ui:test:    Duration  5.77s (transform 549ms, setup 2.35s, collect 1.98s, tests 917ms, environment 8.90s, prepare 1.18s)
+@guestportal/ui:test: 
+@guestportal/rag:test: $ vitest run
+@guestportal/rag:test: 
+@guestportal/rag:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/rag
+@guestportal/rag:test: 
+@guestportal/rag:test:  ✓ src/embeddings.test.ts (3 tests) 6ms
+@guestportal/rag:test:  ✓ src/retrieval.test.ts (3 tests) 23ms
+@guestportal/rag:test:  ✓ src/chunk.test.ts (4 tests) 6ms
+@guestportal/rag:test:  ✓ src/parse.test.ts (6 tests) 206ms
+@guestportal/rag:test: 
+@guestportal/rag:test:  Test Files  4 passed (4)
+@guestportal/rag:test:       Tests  16 passed (16)
+@guestportal/rag:test:    Start at  15:31:16
+@guestportal/rag:test:    Duration  5.12s (transform 1.26s, setup 0ms, collect 4.13s, tests 241ms, environment 7ms, prepare 3.15s)
+@guestportal/rag:test: 
+@guestportal/ai-tools:test: cache hit, replaying logs 4320d7f6bc633bc9
+@guestportal/db:build: cache hit, replaying logs 159794577ef3fc07
+@guestportal/db:build: $ tsc -p tsconfig.json
+@guestportal/ai-tools:build: cache hit, replaying logs af13861d8b50b242
+@guestportal/ai-tools:build: $ tsc -p tsconfig.json
+@guestportal/ai-tools:test: $ vitest run
+@guestportal/ai-tools:test: 
+@guestportal/ai-tools:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/ai-tools
+@guestportal/ai-tools:test: 
+@guestportal/ai-tools:test:  ✓ src/index.test.ts (5 tests) 7ms
+@guestportal/ai-tools:test: 
+@guestportal/ai-tools:test:  Test Files  1 passed (1)
+@guestportal/ai-tools:test:       Tests  5 passed (5)
+@guestportal/ai-tools:test:    Start at  15:31:16
+@guestportal/ai-tools:test:    Duration  4.06s (transform 993ms, setup 0ms, collect 1.51s, tests 7ms, environment 0ms, prepare 285ms)
+@guestportal/ai-tools:test: 
+@guestportal/analytics:build: cache hit, replaying logs f21cda56911d365e
+@guestportal/analytics:build: $ tsc -p tsconfig.json
+@guestportal/rag:build: cache hit, replaying logs 25bd400252082ba2
+@guestportal/analytics:test: cache hit, replaying logs a65a135fa5ab6d3a
+@guestportal/rag:build: $ tsc -p tsconfig.json
+@guestportal/ui:build: cache hit, replaying logs d0c4bbfafb3fd0ad
+@guestportal/ui:build: $ tsc -p tsconfig.json
+@guestportal/auth:build: cache hit, replaying logs 75de3b3b8e035992
+@guestportal/auth:build: $ tsc -p tsconfig.json
+@guestportal/analytics:test: $ vitest run
+@guestportal/analytics:test: 
+@guestportal/analytics:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/analytics
+@guestportal/analytics:test: 
+@guestportal/analytics:test:  ✓ src/index.test.ts (3 tests) 9ms
+@guestportal/analytics:test: 
+@guestportal/analytics:test:  Test Files  1 passed (1)
+@guestportal/analytics:test:       Tests  3 passed (3)
+@guestportal/analytics:test:    Start at  15:31:16
+@guestportal/analytics:test:    Duration  2.86s (transform 179ms, setup 0ms, collect 248ms, tests 9ms, environment 15ms, prepare 490ms)
+@guestportal/analytics:test: 
+@guestportal/auth:test: cache hit, replaying logs 10963cd8f8309f45
+@guestportal/auth:test: $ vitest run
+@guestportal/auth:test: 
+@guestportal/auth:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/auth
+@guestportal/auth:test: 
+@guestportal/auth:test:  ✓ src/roles.test.ts (152 tests) 6ms
+@guestportal/auth:test: 
+@guestportal/auth:test:  Test Files  1 passed (1)
+@guestportal/auth:test:       Tests  152 passed (152)
+@guestportal/auth:test:    Start at  16:25:53
+@guestportal/auth:test:    Duration  1.45s (transform 155ms, setup 0ms, collect 130ms, tests 6ms, environment 10ms, prepare 744ms)
+@guestportal/auth:test: 
+@guestportal/worker:test: cache hit, replaying logs c534ba7ea97270f1
+@guestportal/admin-web:test: cache hit, replaying logs 94f886197b33ecd9
+@guestportal/admin-web:test: $ vitest run --dir src
+@guestportal/admin-web:test: 
+@guestportal/admin-web:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/admin-web
+@guestportal/admin-web:test: 
+@guestportal/admin-web:test:  ✓ src/i18n/format.test.ts (3 tests) 97ms
+@guestportal/admin-web:test:  ✓ src/app-shell.test.ts (1 test) 2ms
+@guestportal/admin-web:test: 
+@guestportal/admin-web:test:  Test Files  2 passed (2)
+@guestportal/admin-web:test:       Tests  4 passed (4)
+@guestportal/admin-web:test:    Start at  15:31:16
+@guestportal/admin-web:test:    Duration  4.16s (transform 842ms, setup 0ms, collect 1.43s, tests 99ms, environment 0ms, prepare 761ms)
+@guestportal/admin-web:test: 
+@guestportal/worker:test: $ vitest run
+@guestportal/worker:test: 
+@guestportal/worker:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/worker
+@guestportal/worker:test: 
+@guestportal/worker:test:  ✓ src/queues.test.ts (1 test) 2ms
+@guestportal/worker:test:  ✓ src/knowledge-ingestion.test.ts (2 tests) 3ms
+@guestportal/worker:test:  ✓ src/embedding-job.test.ts (2 tests) 3ms
+@guestportal/worker:test:  ✓ src/chunk-versioning.test.ts (1 test) 4ms
+@guestportal/worker:test:  ✓ src/phase10-queue-stress.test.ts (1 test) 14ms
+@guestportal/worker:test: 
+@guestportal/worker:test:  Test Files  5 passed (5)
+@guestportal/worker:test:       Tests  7 passed (7)
+@guestportal/worker:test:    Start at  16:30:48
+@guestportal/worker:test:    Duration  1.34s (transform 267ms, setup 0ms, collect 3.02s, tests 24ms, environment 0ms, prepare 646ms)
+@guestportal/worker:test: 
+@guestportal/staff-web:test: cache hit, replaying logs 195a727464e4cf91
+@guestportal/tenancy:test: cache hit, replaying logs b1c5daff24c3c566
+@guestportal/tenancy:build: cache hit, replaying logs 590cee56fe066d67
+@guestportal/tenancy:build: $ tsc -p tsconfig.json
+@guestportal/guest-web:test: cache hit, replaying logs 2e6f9ddd3a3ca1a6
+@guestportal/tenancy:test: $ vitest run
+@guestportal/tenancy:test: 
+@guestportal/tenancy:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/packages/tenancy
+@guestportal/tenancy:test: 
+@guestportal/tenancy:test:  ✓ src/context.test.ts (1 test) 2ms
+@guestportal/tenancy:test: 
+@guestportal/tenancy:test:  Test Files  1 passed (1)
+@guestportal/tenancy:test:       Tests  1 passed (1)
+@guestportal/tenancy:test:    Start at  16:25:53
+@guestportal/tenancy:test:    Duration  1.62s (transform 76ms, setup 0ms, collect 61ms, tests 2ms, environment 0ms, prepare 229ms)
+@guestportal/tenancy:test: 
+@guestportal/staff-web:test: $ vitest run --dir src
+@guestportal/staff-web:test: 
+@guestportal/staff-web:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/staff-web
+@guestportal/staff-web:test: 
+@guestportal/staff-web:test:  ✓ src/i18n/format.test.ts (3 tests) 15ms
+@guestportal/staff-web:test:  ✓ src/app-shell.test.ts (2 tests) 1ms
+@guestportal/staff-web:test: 
+@guestportal/staff-web:test:  Test Files  2 passed (2)
+@guestportal/staff-web:test:       Tests  5 passed (5)
+@guestportal/staff-web:test:    Start at  15:31:22
+@guestportal/staff-web:test:    Duration  871ms (transform 257ms, setup 0ms, collect 373ms, tests 16ms, environment 0ms, prepare 279ms)
+@guestportal/staff-web:test: 
+@guestportal/guest-web:test: $ vitest run
+@guestportal/guest-web:test: 
+@guestportal/guest-web:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/guest-web
+@guestportal/guest-web:test: 
+@guestportal/guest-web:test:  ✓ src/lib/guest-portal.test.ts (2 tests) 2ms
+@guestportal/guest-web:test:  ✓ src/foundation.test.ts (1 test) 1ms
+@guestportal/guest-web:test:  ✓ src/lib/voice-transport.test.ts (5 tests) 268ms
+@guestportal/guest-web:test: 
+@guestportal/guest-web:test:  Test Files  3 passed (3)
+@guestportal/guest-web:test:       Tests  8 passed (8)
+@guestportal/guest-web:test:    Start at  15:31:21
+@guestportal/guest-web:test:    Duration  721ms (transform 233ms, setup 0ms, collect 406ms, tests 271ms, environment 0ms, prepare 221ms)
+@guestportal/guest-web:test: 
+@guestportal/api:test: cache miss, executing b5cad9856f7f8a8c
+@guestportal/api:test: $ vitest run --exclude src/**/*.integration.test.ts
+@guestportal/api:test: 
+@guestportal/api:test:  RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/api
+@guestportal/api:test: 
+@guestportal/api:test:  ✓ src/app.test.ts (1 test) 1ms
+@guestportal/api:test:  ✓ src/services/rate-limit.test.ts (1 test) 1ms
+@guestportal/api:test:  ✓ src/services/qr-tokens.test.ts (1 test) 3ms
+@guestportal/api:test:  ✓ src/services/request-order-state.test.ts (4 tests) 10ms
+@guestportal/api:test:  ✓ src/services/gemini-live.test.ts (2 tests) 4ms
+@guestportal/api:test: 
+@guestportal/api:test:  Test Files  5 passed (5)
+@guestportal/api:test:       Tests  9 passed (9)
+@guestportal/api:test:    Start at  16:51:06
+@guestportal/api:test:    Duration  301ms (transform 202ms, setup 0ms, collect 271ms, tests 19ms, environment 0ms, prepare 227ms)
+@guestportal/api:test: 
+
+ Tasks:    29 successful, 29 total
+Cached:    28 cached, 29 total
+  Time:    912ms 
+

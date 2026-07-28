@@ -1,0 +1,52 @@
+
+ RUN  v3.2.7 /Users/huypq/Documents/Projects/guestportal/apps/api
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > prevents aurora owner from listing nomad properties
+{"level":"info","time":"2026-07-28T09:45:08.184Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"ce707984-f305-4b8b-9dd1-89415191d548"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > prevents aurora owner from listing nomad properties
+{"level":"info","time":"2026-07-28T09:45:08.413Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"ee16936f-6b12-4edf-93fd-1f46d748e6af"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > prevents aurora owner from listing nomad properties
+{"level":"info","time":"2026-07-28T09:45:08.418Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=67e4e9e6-f0b4-4e7f-a247-674a503d4ba6","statusCode":403,"requestId":"c187c1ec-fb68-474d-af87-2734c61aa2c9"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > scopes property manager to assigned properties only
+{"level":"info","time":"2026-07-28T09:45:08.641Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"9e3a2494-f33e-4a36-83dc-cc1fc0c651fb"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > scopes property manager to assigned properties only
+{"level":"info","time":"2026-07-28T09:45:08.644Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"95aa0df3-12d2-49cb-80cf-9f5971b26eb5"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > supports logout and session revocation
+{"level":"info","time":"2026-07-28T09:45:08.997Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"a79e5782-e561-4931-99fc-9df7a5f7441e"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > supports logout and session revocation
+{"level":"info","time":"2026-07-28T09:45:08.999Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/me","statusCode":200,"requestId":"83e5a8fa-a378-4294-bd93-d980bbd548f7"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > supports logout and session revocation
+{"level":"info","time":"2026-07-28T09:45:09.004Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/logout","statusCode":200,"requestId":"4221d0ba-349b-46e7-8c64-8d271949d4aa"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > supports logout and session revocation
+{"level":"info","time":"2026-07-28T09:45:09.006Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/me","statusCode":401,"requestId":"2c36ac3e-ed24-41d7-af88-85e2211171ae"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > blocks IDOR property fetch across tenants
+{"level":"info","time":"2026-07-28T09:45:09.243Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"b1474f3e-4323-494e-8c1c-cfdcb5ede683"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > blocks IDOR property fetch across tenants
+{"level":"info","time":"2026-07-28T09:45:09.510Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"e5cf33fd-0059-4d88-bd91-fdcbd37874fb"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > blocks IDOR property fetch across tenants
+{"level":"info","time":"2026-07-28T09:45:09.513Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=67e4e9e6-f0b4-4e7f-a247-674a503d4ba6","statusCode":200,"requestId":"2ad041fa-a32f-42f7-9d56-a2040861cb97"}
+
+stdout | src/tenant.integration.test.ts > tenant isolation integration > blocks IDOR property fetch across tenants
+{"level":"info","time":"2026-07-28T09:45:09.515Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/8efde0b2-790a-49cd-8a14-20be5b6b29b1","statusCode":403,"requestId":"122222c6-11db-48c8-8929-38cd868d85d5"}
+
+ ✓ src/tenant.integration.test.ts (5 tests) 1653ms
+   ✓ tenant isolation integration > prevents aurora owner from listing nomad properties  503ms
+   ✓ tenant isolation integration > supports logout and session revocation  361ms
+   ✓ tenant isolation integration > blocks IDOR property fetch across tenants  507ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  16:45:06
+   Duration  3.36s (transform 254ms, setup 0ms, collect 1.58s, tests 1.65s, environment 0ms, prepare 31ms)
+

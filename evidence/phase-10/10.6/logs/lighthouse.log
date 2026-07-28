@@ -1,0 +1,145 @@
+$ node scripts/run-phase10-lighthouse.mjs
+$ tsc -p tsconfig.json
+$ next build
+   ▲ Next.js 15.5.21
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 915ms
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      123 B         102 kB
+├ ○ /_not-found                            991 B         103 kB
+├ ƒ /g/[qrToken]                           128 B         121 kB
+├ ƒ /g/[qrToken]/chat                      128 B         121 kB
+├ ƒ /g/[qrToken]/explore                   128 B         121 kB
+├ ƒ /g/[qrToken]/food                      128 B         121 kB
+├ ƒ /g/[qrToken]/guide                     128 B         121 kB
+├ ƒ /g/[qrToken]/requests/[requestType]    128 B         121 kB
+├ ƒ /g/[qrToken]/services                  128 B         121 kB
+└ ƒ /g/[qrToken]/status                    127 B         121 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+  ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+  └ other shared chunks (total)          1.88 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+$ next build
+   ▲ Next.js 15.5.21
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 1535ms
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/7) ...
+   Generating static pages (1/7) 
+   Generating static pages (3/7) 
+   Generating static pages (5/7) 
+ ✓ Generating static pages (7/7)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /_not-found                            991 B         103 kB
+├ ● /[locale]                              170 B         153 kB
+├   ├ /vi
+├   └ /en
+├ ƒ /[locale]/[...slug]                    170 B         153 kB
+└ ● /[locale]/login                      1.36 kB         115 kB
+    ├ /vi/login
+    └ /en/login
++ First Load JS shared by all             102 kB
+  ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+  ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+  └ other shared chunks (total)          1.88 kB
+
+
+ƒ Middleware                               46 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
+   ▲ Next.js 15.5.21
+   - Local:        http://localhost:3110
+   - Network:      http://192.168.1.184:3110
+
+ ✓ Starting...
+   ▲ Next.js 15.5.21
+   - Local:        http://localhost:3010
+   - Network:      http://192.168.1.184:3010
+
+ ✓ Starting...
+ ✓ Ready in 294ms
+ ✓ Ready in 309ms
+{"level":"info","time":"2026-07-28T09:53:15.211Z","service":"api","msg":"api.started","port":4010}
+{"level":"info","time":"2026-07-28T09:53:15.560Z","service":"api","msg":"request.completed","method":"GET","url":"/health","statusCode":200,"requestId":"63f11993-3429-40cf-a70c-4d41dce3d9d9"}
+{"level":"info","time":"2026-07-28T09:53:15.868Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/auth/login","statusCode":200,"requestId":"a28af563-dae9-4243-abd7-c9b00ac6311c"}
+{"level":"info","time":"2026-07-28T09:53:15.875Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties?organizationId=d215a186-f84d-4c7c-b75a-3189969999c2","statusCode":200,"requestId":"e6e212ec-f853-4bd0-9103-cc7372bc2238"}
+{"level":"info","time":"2026-07-28T09:53:15.878Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/locations","statusCode":200,"requestId":"938b391e-45b2-442a-8483-f35de5e281d2"}
+{"level":"info","time":"2026-07-28T09:53:15.885Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/properties/3ab87d2a-0c78-4fac-aa15-515a733cc3ae/qr-codes","statusCode":200,"requestId":"e32ccf1f-de11-4c5f-b699-54ac7f419dac"}
+npm warn Unknown project config "auto-install-peers". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "strict-peer-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "confirmModulesPurge". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "auto-install-peers". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "strict-peer-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "confirmModulesPurge". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+{
+  "generatedAt": "2026-07-28T09:53:39.624Z",
+  "environment": "local",
+  "reports": [
+    {
+      "name": "guest-home-desktop",
+      "url": "http://127.0.0.1:3010/g/_zX25jrV5gnLRIzHRdS_CfFu83RKG2GFgeGcIsAWv58",
+      "report": "/Users/huypq/Documents/Projects/guestportal/evidence/phase-10/10.6/lighthouse/lighthouse/guest-home-desktop.json",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "bestPractices": 0.96
+      },
+      "target": {
+        "minPerformance": 0.5,
+        "minAccessibility": 0.9,
+        "minBestPractices": 0.8
+      },
+      "passed": true
+    },
+    {
+      "name": "admin-login-desktop",
+      "url": "http://127.0.0.1:3110/vi/login",
+      "report": "/Users/huypq/Documents/Projects/guestportal/evidence/phase-10/10.6/lighthouse/lighthouse/admin-login-desktop.json",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "bestPractices": 1
+      },
+      "target": {
+        "minPerformance": 0.5,
+        "minAccessibility": 0.9,
+        "minBestPractices": 0.8
+      },
+      "passed": true
+    }
+  ],
+  "passed": true
+}
+{"level":"info","time":"2026-07-28T09:53:20.280Z","service":"api","msg":"request.completed","method":"OPTIONS","url":"/v1/guest/sessions","statusCode":204,"requestId":"c1603943-eece-4a49-9313-d84cd222a172"}
+{"level":"info","time":"2026-07-28T09:53:20.311Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"c9b85639-d63b-4cd6-b62f-f83bd6370cd3"}
+{"level":"info","time":"2026-07-28T09:53:20.328Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/portal","statusCode":200,"requestId":"8363cb7e-8f35-4fa0-956f-9c4e6bebaa39"}
+{"level":"info","time":"2026-07-28T09:53:24.453Z","service":"api","msg":"request.completed","method":"POST","url":"/v1/guest/sessions","statusCode":200,"requestId":"6bb4843f-2c0d-4847-817e-b855588ea758"}
+{"level":"info","time":"2026-07-28T09:53:24.461Z","service":"api","msg":"request.completed","method":"GET","url":"/v1/guest/portal","statusCode":200,"requestId":"8b390611-0005-4296-8fbe-47e4a4a837f1"}
