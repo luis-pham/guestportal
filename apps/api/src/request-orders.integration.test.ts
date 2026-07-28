@@ -88,7 +88,7 @@ describeIntegration('request/order lifecycle operations', () => {
     return response.json().conversation.id as string;
   }
 
-  async function createSubmittedRequest() {
+  async function createSubmittedRequest(title = 'Extra towels') {
     const context = await createGuestContext();
     const conversationId = await createConversation(context.guestCookie);
     const draft = await app.inject({
@@ -98,8 +98,8 @@ describeIntegration('request/order lifecycle operations', () => {
       payload: {
         conversationId,
         requestType: 'housekeeping',
-        title: 'Extra towels',
-        details: 'Please bring two towels.',
+        title,
+        details: `Please bring two towels. ${title}`,
       },
     });
     expect(draft.statusCode).toBe(200);
@@ -113,7 +113,7 @@ describeIntegration('request/order lifecycle operations', () => {
     return { context, requestId: confirm.json().request.id as string };
   }
 
-  async function createSubmittedOrder() {
+  async function createSubmittedOrder(title = 'Breakfast tray') {
     const context = await createGuestContext();
     const conversationId = await createConversation(context.guestCookie);
     const draft = await app.inject({
@@ -122,7 +122,7 @@ describeIntegration('request/order lifecycle operations', () => {
       headers: { cookie: context.guestCookie },
       payload: {
         conversationId,
-        title: 'Breakfast tray',
+        title,
         items: [
           {
             itemId: 'breakfast-tray',
@@ -292,7 +292,8 @@ describeIntegration('request/order lifecycle operations', () => {
 
     const winnerCookie = successes[0] === staffClaim ? staff.cookie : manager.cookie;
     const loserCookie = successes[0] === staffClaim ? manager.cookie : staff.cookie;
-    const winnerReplayKey = successes[0] === staffClaim ? `race-staff-${requestId}` : `race-manager-${requestId}`;
+    const winnerReplayKey =
+      successes[0] === staffClaim ? `race-staff-${requestId}` : `race-manager-${requestId}`;
     const winnerReplay = await app.inject({
       method: 'POST',
       url: `/v1/staff/requests/${requestId}/claim`,
@@ -588,7 +589,10 @@ describeIntegration('request/order lifecycle operations', () => {
     expect(denied.statusCode).toBe(404);
     expect(denied.json().error.code).toBe('ORDER_NOT_FOUND');
 
-    const cancelPayload = { idempotencyKey: `guest-cancel-${requestId}`, reason: 'No longer needed' };
+    const cancelPayload = {
+      idempotencyKey: `guest-cancel-${requestId}`,
+      reason: 'No longer needed',
+    };
     const cancelled = await app.inject({
       method: 'POST',
       url: `/v1/guest/requests/${requestId}/cancel`,
@@ -749,5 +753,107 @@ describeIntegration('request/order lifecycle operations', () => {
     });
     expect(denied.statusCode).toBe(403);
     expect(denied.json().error.code).toBe('FORBIDDEN');
+  });
+
+  it('lists admin operation queues with filters, cursor pagination, detail deep links, and permissions', async () => {
+    const owner = await login('owner@aurora.test');
+    const content = await login('content@aurora.test');
+    const cruiseStaff = await login('staff.cruise@aurora.test');
+    const dateFrom = new Date().toISOString();
+    const created: Array<{ requestId: string; title: string; propertyId: string }> = [];
+
+    for (let index = 0; index < 6; index += 1) {
+      const title = `Admin ops towels ${Date.now()}-${index}`;
+      const seeded = await createSubmittedRequest(title);
+      created.push({ requestId: seeded.requestId, title, propertyId: seeded.context.propertyId });
+    }
+
+    const propertyId = created[0]!.propertyId;
+    const dateTo = new Date(Date.now() + 60_000).toISOString();
+    const firstPage = await app.inject({
+      method: 'GET',
+      url: `/v1/admin/properties/${propertyId}/operations/requests?status=submitted&limit=5&dateFrom=${encodeURIComponent(dateFrom)}&dateTo=${encodeURIComponent(dateTo)}`,
+      headers: { cookie: owner.cookie },
+    });
+    expect(firstPage.statusCode).toBe(200);
+    const firstBody = firstPage.json() as {
+      items: Array<{ id: string; title: string; status: string; location: { code: string } }>;
+      nextCursor: string | null;
+    };
+    expect(firstBody.items).toHaveLength(5);
+    expect(firstBody.items[0]).toMatchObject({
+      status: 'submitted',
+      location: { code: expect.any(String) },
+    });
+    expect(firstBody.items.map((item) => item.title)).toEqual(
+      expect.arrayContaining(created.slice(1).map((item) => item.title)),
+    );
+    expect(firstBody.nextCursor).toBeTruthy();
+
+    const secondPage = await app.inject({
+      method: 'GET',
+      url: `/v1/admin/properties/${propertyId}/operations/requests?status=submitted&limit=5&cursor=${encodeURIComponent(firstBody.nextCursor!)}`,
+      headers: { cookie: owner.cookie },
+    });
+    expect(secondPage.statusCode).toBe(200);
+    const secondBody = secondPage.json() as { items: Array<{ id: string; title: string }> };
+    expect(secondBody.items.map((item) => item.id)).not.toEqual(
+      expect.arrayContaining(firstBody.items.map((item) => item.id)),
+    );
+    expect(secondBody.items.map((item) => item.title)).toContain(created[0]!.title);
+
+    const detail = await app.inject({
+      method: 'GET',
+      url: `/v1/admin/properties/${propertyId}/operations/requests/${created[0]!.requestId}`,
+      headers: { cookie: owner.cookie },
+    });
+    expect(detail.statusCode).toBe(200);
+    expect(detail.json()).toMatchObject({
+      detail: {
+        kind: 'request',
+        request: { id: created[0]!.requestId, title: created[0]!.title },
+        timeline: [expect.objectContaining({ nextStatus: 'submitted' })],
+      },
+    });
+    expect(detail.json().detail.messages.length).toBeGreaterThanOrEqual(1);
+
+    const orderSeed = await createSubmittedOrder(`Admin ops breakfast ${Date.now()}`);
+    const orderList = await app.inject({
+      method: 'GET',
+      url: `/v1/admin/properties/${orderSeed.context.propertyId}/operations/orders?status=submitted&limit=5`,
+      headers: { cookie: owner.cookie },
+    });
+    expect(orderList.statusCode).toBe(200);
+    expect(orderList.json().items).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          kind: 'order',
+          id: orderSeed.orderId,
+          totalMinor: expect.any(Number),
+        }),
+      ]),
+    );
+
+    const deniedRole = await app.inject({
+      method: 'GET',
+      url: `/v1/admin/properties/${propertyId}/operations/requests?status=submitted`,
+      headers: { cookie: content.cookie },
+    });
+    expect(deniedRole.statusCode).toBe(403);
+
+    const deniedProperty = await app.inject({
+      method: 'GET',
+      url: `/v1/admin/properties/${propertyId}/operations/orders?status=submitted`,
+      headers: { cookie: cruiseStaff.cookie },
+    });
+    expect(deniedProperty.statusCode).toBe(403);
+
+    const invalidCursor = await app.inject({
+      method: 'GET',
+      url: `/v1/admin/properties/${propertyId}/operations/requests?cursor=not-a-cursor`,
+      headers: { cookie: owner.cookie },
+    });
+    expect(invalidCursor.statusCode).toBe(400);
+    expect(invalidCursor.json().error.code).toBe('INVALID_CURSOR');
   });
 });

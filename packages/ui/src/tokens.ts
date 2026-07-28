@@ -48,7 +48,7 @@ export const lightColorValues = {
   border: '#d7dde7',
   'text-primary': '#121826',
   'text-secondary': '#3d4659',
-  'text-muted': '#6b7285',
+  'text-muted': '#5f6678',
   brand: '#0f5c4c',
   'brand-hover': '#0c4a3d',
   success: '#147a45',

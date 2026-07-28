@@ -5,6 +5,10 @@ import '@guestportal/ui/tokens.css';
 import '@guestportal/ui/primitives.css';
 import '../../styles/theme.css';
 
+export const metadata = {
+  title: 'GuestPortal Admin',
+};
+
 export function generateStaticParams() {
   return [{ locale: 'vi' }, { locale: 'en' }];
 }

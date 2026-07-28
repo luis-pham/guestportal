@@ -147,6 +147,107 @@ export const staffTransitionRequestSchema = z.object({
 
 export const staffClaimRequestSchema = staffTransitionRequestSchema;
 
+export const staffWorkLocationSchema = z.object({
+  id: z.string().uuid(),
+  code: z.string(),
+  name: z.object({ vi: z.string(), en: z.string() }),
+});
+
+export const staffWorkAssigneeSchema = z
+  .object({
+    id: z.string().uuid(),
+    displayName: z.string(),
+  })
+  .nullable();
+
+export const staffWorkItemSummarySchema = z.object({
+  kind: guestWorkItemKindSchema,
+  id: z.string().uuid(),
+  status: guestSubmittedStatusSchema,
+  version: z.number().int().min(1),
+  title: z.string(),
+  summary: z.string(),
+  locale: z.string(),
+  conversationId: z.string().uuid(),
+  location: staffWorkLocationSchema,
+  assignee: staffWorkAssigneeSchema,
+  submittedAt: z.string().datetime(),
+  waitingSeconds: z.number().int().min(0),
+  priority: z.literal('normal'),
+  totalMinor: z.number().int().min(0).optional(),
+  currency: z.string().trim().length(3).optional(),
+});
+
+export const staffConversationMessageSchema = z.object({
+  id: z.string().uuid(),
+  sequence: z.number().int().min(1),
+  role: z.string(),
+  source: z.string(),
+  originalLanguage: z.string().nullable(),
+  originalText: z.string(),
+  translatedText: z.string().nullable(),
+  createdAt: z.string().datetime(),
+});
+
+export const staffTimelineItemSchema = z.object({
+  id: z.string().uuid(),
+  previousStatus: z.string().nullable(),
+  nextStatus: z.string(),
+  actorType: z.enum(['guest', 'staff', 'system']),
+  actorId: z.string().uuid().nullable(),
+  reason: z.string().nullable(),
+  version: z.number().int().min(1),
+  createdAt: z.string().datetime(),
+});
+
+export const staffRequestDetailSchema = z.object({
+  kind: z.literal('request'),
+  request: guestRequestSchema,
+  location: staffWorkLocationSchema,
+  assignee: staffWorkAssigneeSchema,
+  messages: z.array(staffConversationMessageSchema),
+  timeline: z.array(staffTimelineItemSchema),
+});
+
+export const staffOrderDetailSchema = z.object({
+  kind: z.literal('order'),
+  order: guestOrderSchema,
+  location: staffWorkLocationSchema,
+  assignee: staffWorkAssigneeSchema,
+  messages: z.array(staffConversationMessageSchema),
+  timeline: z.array(staffTimelineItemSchema),
+});
+
+export const adminOperationListQuerySchema = z
+  .object({
+    status: z.string().trim().min(1).max(40).optional().default('all'),
+    dateFrom: z.string().datetime({ offset: true }).optional(),
+    dateTo: z.string().datetime({ offset: true }).optional(),
+    cursor: z.string().trim().min(1).max(512).optional(),
+    limit: z.coerce.number().int().min(1).max(50).optional().default(20),
+  })
+  .refine(
+    (input) =>
+      !input.dateFrom || !input.dateTo || Date.parse(input.dateFrom) <= Date.parse(input.dateTo),
+    {
+      message: 'dateFrom must be before dateTo',
+      path: ['dateFrom'],
+    },
+  );
+
+export const adminOperationListResponseSchema = z.object({
+  items: z.array(staffWorkItemSummarySchema),
+  nextCursor: z.string().nullable(),
+});
+
+export const adminRequestDetailResponseSchema = z.object({
+  detail: staffRequestDetailSchema,
+});
+
+export const adminOrderDetailResponseSchema = z.object({
+  detail: staffOrderDetailSchema,
+});
+
 export const guestRequestDraftCreateResponseSchema = z.object({
   draft: guestRequestDraftSchema,
 });
@@ -238,6 +339,15 @@ export type GuestRequestDraftConfirmResponse = z.infer<
 export type GuestOrderDraftConfirmResponse = z.infer<typeof guestOrderDraftConfirmResponseSchema>;
 export type StaffTransitionRequest = z.infer<typeof staffTransitionRequestSchema>;
 export type StaffClaimRequest = z.infer<typeof staffClaimRequestSchema>;
+export type StaffWorkItemSummary = z.infer<typeof staffWorkItemSummarySchema>;
+export type StaffConversationMessage = z.infer<typeof staffConversationMessageSchema>;
+export type StaffTimelineItem = z.infer<typeof staffTimelineItemSchema>;
+export type StaffRequestDetail = z.infer<typeof staffRequestDetailSchema>;
+export type StaffOrderDetail = z.infer<typeof staffOrderDetailSchema>;
+export type AdminOperationListQuery = z.infer<typeof adminOperationListQuerySchema>;
+export type AdminOperationListResponse = z.infer<typeof adminOperationListResponseSchema>;
+export type AdminRequestDetailResponse = z.infer<typeof adminRequestDetailResponseSchema>;
+export type AdminOrderDetailResponse = z.infer<typeof adminOrderDetailResponseSchema>;
 export type GuestWorkItem = z.infer<typeof guestWorkItemSchema>;
 export type GuestWorkItemsResponse = z.infer<typeof guestWorkItemsResponseSchema>;
 export type GuestRequestsResponse = z.infer<typeof guestRequestsResponseSchema>;

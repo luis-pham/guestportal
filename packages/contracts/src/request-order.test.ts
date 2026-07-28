@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  adminOperationListQuerySchema,
   guestDraftConfirmRequestSchema,
   guestOrderSchema,
   guestOrderDraftCreateRequestSchema,
@@ -102,5 +103,31 @@ describe('guest request and order contracts', () => {
     expect(staffTransitionRequestSchema.parse({ expectedVersion: 2 })).toEqual({
       expectedVersion: 2,
     });
+  });
+
+  it('validates admin operations filters and pagination bounds', () => {
+    const parsed = adminOperationListQuerySchema.parse({
+      status: 'submitted',
+      dateFrom: '2026-07-28T00:00:00.000Z',
+      dateTo: '2026-07-28T23:59:59.000Z',
+      limit: '50',
+      cursor: 'cursor-token',
+    });
+    expect(parsed).toMatchObject({
+      status: 'submitted',
+      limit: 50,
+      cursor: 'cursor-token',
+    });
+    expect(adminOperationListQuerySchema.parse({})).toMatchObject({
+      status: 'all',
+      limit: 20,
+    });
+    expect(() => adminOperationListQuerySchema.parse({ limit: 51 })).toThrow();
+    expect(() =>
+      adminOperationListQuerySchema.parse({
+        dateFrom: '2026-07-29T00:00:00.000Z',
+        dateTo: '2026-07-28T00:00:00.000Z',
+      }),
+    ).toThrow();
   });
 });

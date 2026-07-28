@@ -1,5 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import type {
+  AdminOperationListQuery,
+  AdminOperationListResponse,
   GuestDraftConfirmRequest,
   GuestCancelRequest,
   GuestOrder,
@@ -223,6 +225,13 @@ type StaffTimelineRow = {
 
 type QueryExecutor = Sql | TransactionSql;
 
+type AdminOperationKind = 'request' | 'order';
+
+type OperationCursor = {
+  submittedAt: string;
+  id: string;
+};
+
 function toDate(value: Date | string) {
   return value instanceof Date ? value : new Date(value);
 }
@@ -233,6 +242,30 @@ function toIso(value: Date | string) {
 
 function toNullableIso(value: Date | string | null) {
   return value ? toIso(value) : null;
+}
+
+function encodeOperationCursor(input: OperationCursor) {
+  return Buffer.from(JSON.stringify(input)).toString('base64url');
+}
+
+function decodeOperationCursor(cursor: string | undefined): OperationCursor | null {
+  if (!cursor) return null;
+  try {
+    const parsed = JSON.parse(
+      Buffer.from(cursor, 'base64url').toString('utf8'),
+    ) as Partial<OperationCursor>;
+    if (
+      typeof parsed.submittedAt !== 'string' ||
+      Number.isNaN(Date.parse(parsed.submittedAt)) ||
+      typeof parsed.id !== 'string' ||
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(parsed.id)
+    ) {
+      throw new Error('Invalid cursor payload.');
+    }
+    return { submittedAt: parsed.submittedAt, id: parsed.id };
+  } catch {
+    throw new ApiError(400, 'INVALID_CURSOR', 'Operation cursor is invalid.');
+  }
 }
 
 function normalizeOrderItems(items: OrderDraftItem[]): OrderDraftItem[] {
@@ -1073,11 +1106,7 @@ export async function getGuestOrder(
 const terminalRequestStatuses = new Set<GuestRequestStatus>(['completed', 'rejected', 'cancelled']);
 const terminalOrderStatuses = new Set<GuestOrderStatus>(['completed', 'cancelled']);
 
-function matchesStaffQueue(
-  item: StaffWorkItemSummary,
-  queue: StaffWorkQueue,
-  staffUserId: string,
-) {
+function matchesStaffQueue(item: StaffWorkItemSummary, queue: StaffWorkQueue, staffUserId: string) {
   if (queue === 'all') return true;
   if (queue === 'my_work') return item.assignee?.id === staffUserId;
   const terminal =
@@ -1161,6 +1190,103 @@ export async function listStaffWorkItems(
       return Date.parse(b.submittedAt) - Date.parse(a.submittedAt);
     });
   return { items };
+}
+
+export async function listAdminOperationItems(
+  app: FastifyInstance,
+  scope: WorkItemScope,
+  input: AdminOperationListQuery & { kind: AdminOperationKind },
+): Promise<AdminOperationListResponse> {
+  const cursor = decodeOperationCursor(input.cursor);
+  const status = input.status ?? 'all';
+  const dateFrom = input.dateFrom ?? null;
+  const dateTo = input.dateTo ?? null;
+  const cursorSubmittedAt = cursor?.submittedAt ?? null;
+  const cursorId = cursor?.id ?? null;
+  const requestedLimit = input.limit;
+  const queryLimit = requestedLimit + 1;
+
+  const rows =
+    input.kind === 'request'
+      ? await app.sql<StaffWorkRow[]>`
+          SELECT
+            'request' AS kind,
+            r.id,
+            r.status,
+            r.version,
+            r.title,
+            r.details AS summary,
+            r.locale,
+            r.conversation_id,
+            r.submitted_at,
+            s.location_id,
+            l.code AS location_code,
+            l.name AS location_name,
+            r.assigned_staff_id,
+            u.display_name AS assigned_staff_name,
+            NULL::integer AS total_minor,
+            NULL::char(3) AS currency
+          FROM guest_requests r
+          INNER JOIN guest_sessions s ON s.id = r.guest_session_id
+          INNER JOIN locations l ON l.id = s.location_id
+          LEFT JOIN users u ON u.id = r.assigned_staff_id
+          WHERE r.organization_id = ${scope.organizationId}::uuid
+            AND r.property_id = ${scope.propertyId}::uuid
+            AND (${status} = 'all' OR r.status = ${status})
+            AND (${dateFrom}::timestamptz IS NULL OR r.submitted_at >= ${dateFrom}::timestamptz)
+            AND (${dateTo}::timestamptz IS NULL OR r.submitted_at <= ${dateTo}::timestamptz)
+            AND (
+              ${cursorSubmittedAt}::timestamptz IS NULL
+              OR (r.submitted_at, r.id) < (${cursorSubmittedAt}::timestamptz, ${cursorId}::uuid)
+            )
+          ORDER BY r.submitted_at DESC, r.id DESC
+          LIMIT ${queryLimit}
+        `
+      : await app.sql<StaffWorkRow[]>`
+          SELECT
+            'order' AS kind,
+            o.id,
+            o.status,
+            o.version,
+            o.title,
+            o.notes AS summary,
+            o.locale,
+            o.conversation_id,
+            o.submitted_at,
+            s.location_id,
+            l.code AS location_code,
+            l.name AS location_name,
+            o.assigned_staff_id,
+            u.display_name AS assigned_staff_name,
+            o.total_minor,
+            o.currency
+          FROM guest_orders o
+          INNER JOIN guest_sessions s ON s.id = o.guest_session_id
+          INNER JOIN locations l ON l.id = s.location_id
+          LEFT JOIN users u ON u.id = o.assigned_staff_id
+          WHERE o.organization_id = ${scope.organizationId}::uuid
+            AND o.property_id = ${scope.propertyId}::uuid
+            AND (${status} = 'all' OR o.status = ${status})
+            AND (${dateFrom}::timestamptz IS NULL OR o.submitted_at >= ${dateFrom}::timestamptz)
+            AND (${dateTo}::timestamptz IS NULL OR o.submitted_at <= ${dateTo}::timestamptz)
+            AND (
+              ${cursorSubmittedAt}::timestamptz IS NULL
+              OR (o.submitted_at, o.id) < (${cursorSubmittedAt}::timestamptz, ${cursorId}::uuid)
+            )
+          ORDER BY o.submitted_at DESC, o.id DESC
+          LIMIT ${queryLimit}
+        `;
+
+  const pageRows = rows.slice(0, requestedLimit);
+  const items = pageRows.map(toStaffWorkItem);
+  const last = items.at(-1);
+  return {
+    items,
+    nextCursor:
+      rows.length > requestedLimit && last
+        ? encodeOperationCursor({ submittedAt: last.submittedAt, id: last.id })
+        : null,
+  };
 }
 
 async function loadStaffMessages(

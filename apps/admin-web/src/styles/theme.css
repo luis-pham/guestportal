@@ -8,3 +8,38 @@
 [data-surface='admin'] {
   --gp-surface-name: admin;
 }
+
+.admin-ops {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  justify-items: stretch;
+  min-width: 0;
+}
+
+.admin-ops__filters,
+.admin-ops__workspace,
+.admin-ops__list,
+.admin-ops__detail {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .admin-ops__filters {
+    grid-template-columns: minmax(0, 1fr) !important;
+    max-width: 100% !important;
+  }
+
+  .admin-ops__workspace {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .admin-ops__detail {
+    padding-top: var(--gp-space-16);
+    padding-left: 0 !important;
+    border-top: 1px solid var(--gp-color-border);
+    border-left: 0 !important;
+  }
+}

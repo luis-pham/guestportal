@@ -5,7 +5,11 @@ import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 // Import the browser-safe permission matrix directly. The package root also exports
 // server session helpers, which must not be bundled into this client component.
-import { roleHasPermission, type Permission, type Role } from '../../../../../packages/auth/src/roles';
+import {
+  roleHasPermission,
+  type Permission,
+  type Role,
+} from '../../../../../packages/auth/src/roles';
 import { AdminShell, Button, Select } from '@guestportal/ui';
 import { apiFetch } from '../../lib/api';
 import { formatCurrency, formatDate, formatNumber } from '../../i18n/format';
@@ -20,6 +24,7 @@ import { QrCodesPanel } from '../../components/QrCodesPanel';
 import { KnowledgeSourcesPanel } from '../../components/KnowledgeSourcesPanel';
 import { KnowledgeSearchPanel } from '../../components/KnowledgeSearchPanel';
 import { PropertySettingsForm } from '../../components/PropertySettingsForm';
+import { AdminOperationsPanel } from '../../components/AdminOperationsPanel';
 
 type MeResponse = {
   user: { displayName: string; email: string; locale?: string };
@@ -142,6 +147,18 @@ const modules: Module[] = [
   },
 ];
 
+function pathnameMatchesModule(pathname: string, moduleId: ModuleId, propertyId: string) {
+  if (moduleId === 'overview') {
+    return (
+      pathname.endsWith('/properties') || pathname.endsWith(`/properties/${propertyId}/settings`)
+    );
+  }
+  if (moduleId === 'team') return pathname.includes('/team');
+  if (moduleId === 'settings')
+    return pathname.includes('/settings') && !pathname.includes('/properties/');
+  return pathname.includes(`/${moduleId}`);
+}
+
 export default function AdminHomePage() {
   const t = useTranslations('shell');
   const locale = useLocale();
@@ -207,10 +224,7 @@ export default function AdminHomePage() {
   const role = me.memberships.find((membership) => membership.organizationId === orgId)?.role;
   const can = (permission: Permission) => Boolean(role && roleHasPermission(role, permission));
   const activeModule =
-    modules.find((module) => {
-      const href = module.href(propertyId);
-      return pathname.includes(href.split('/').filter(Boolean)[0] ?? '');
-    }) ?? modules[0]!;
+    modules.find((module) => pathnameMatchesModule(pathname, module.id, propertyId)) ?? modules[0]!;
   const availablePrimary = modules.filter((module) => can(module.permission));
   const activeSecondary = activeModule.secondary.filter((item) => can(item.permission));
   const localePrefix = `/${locale}`;
@@ -295,6 +309,10 @@ export default function AdminHomePage() {
         <PortalPreviewPanel />
       ) : pathname.includes('/portal/publish-history') ? (
         <PortalPublishHistory />
+      ) : pathname.includes('/operations/requests') ? (
+        <AdminOperationsPanel kind="request" />
+      ) : pathname.includes('/operations/orders') ? (
+        <AdminOperationsPanel kind="order" />
       ) : pathname.includes('/operations/qr') ? (
         <QrCodesPanel />
       ) : pathname.includes('/knowledge/search') ? (
@@ -308,8 +326,12 @@ export default function AdminHomePage() {
           <h2 className="gp-state__title">{t('moduleWorkspace', { module: moduleLabel })}</h2>
           <p className="gp-state__body">{t('moduleWorkspaceBody')}</p>
           <p data-testid="long-fixture">{t('longFixture')}</p>
-          <p data-testid="sample-date">{t('sampleDate', { value: formatDate(sampleInstant, locale) })}</p>
-          <p data-testid="sample-number">{t('sampleNumber', { value: formatNumber(1234567.89, locale) })}</p>
+          <p data-testid="sample-date">
+            {t('sampleDate', { value: formatDate(sampleInstant, locale) })}
+          </p>
+          <p data-testid="sample-number">
+            {t('sampleNumber', { value: formatNumber(1234567.89, locale) })}
+          </p>
           <p data-testid="sample-currency">
             {t('sampleCurrency', { value: formatCurrency(150000, locale) })}
           </p>

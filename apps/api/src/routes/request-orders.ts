@@ -1,5 +1,6 @@
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 import {
+  adminOperationListQuerySchema,
   guestCancelRequestSchema,
   guestDraftConfirmRequestSchema,
   guestOrderDraftCreateRequestSchema,
@@ -27,6 +28,7 @@ import {
   getGuestRequest,
   getStaffOrderDetail,
   getStaffRequestDetail,
+  listAdminOperationItems,
   listGuestWorkItems,
   listStaffWorkItems,
   loadOrderScope,
@@ -45,6 +47,18 @@ const requestParamsSchema = z.object({
 });
 
 const orderParamsSchema = z.object({
+  orderId: z.string().uuid(),
+});
+
+const adminOperationPropertyParamsSchema = z.object({
+  propertyId: z.string().uuid(),
+});
+
+const adminRequestParamsSchema = adminOperationPropertyParamsSchema.extend({
+  requestId: z.string().uuid(),
+});
+
+const adminOrderParamsSchema = adminOperationPropertyParamsSchema.extend({
   orderId: z.string().uuid(),
 });
 
@@ -138,11 +152,13 @@ export async function registerRequestOrderRoutes(app: FastifyInstance) {
     const { session } = await requireActiveGuestSession(app, request);
     const { items } = await listGuestWorkItems(app, session);
     return {
-      requests: items.filter((item) => item.kind === 'request').map((item) => {
-        const { kind, ...requestItem } = item;
-        void kind;
-        return requestItem;
-      }),
+      requests: items
+        .filter((item) => item.kind === 'request')
+        .map((item) => {
+          const { kind, ...requestItem } = item;
+          void kind;
+          return requestItem;
+        }),
     };
   });
 
@@ -163,11 +179,13 @@ export async function registerRequestOrderRoutes(app: FastifyInstance) {
     const { session } = await requireActiveGuestSession(app, request);
     const { items } = await listGuestWorkItems(app, session);
     return {
-      orders: items.filter((item) => item.kind === 'order').map((item) => {
-        const { kind, ...orderItem } = item;
-        void kind;
-        return orderItem;
-      }),
+      orders: items
+        .filter((item) => item.kind === 'order')
+        .map((item) => {
+          const { kind, ...orderItem } = item;
+          void kind;
+          return orderItem;
+        }),
     };
   });
 
@@ -193,6 +211,40 @@ export async function registerRequestOrderRoutes(app: FastifyInstance) {
       staffUserId: request.auth!.userId,
       status: query.status,
     });
+  });
+
+  app.get('/v1/admin/properties/:propertyId/operations/requests', async (request) => {
+    const params = adminOperationPropertyParamsSchema.parse(request.params);
+    const query = adminOperationListQuerySchema.parse(request.query);
+    const scope = await requireStaffRead(app, request, params.propertyId, 'request.read');
+    return listAdminOperationItems(app, scope, { ...query, kind: 'request' });
+  });
+
+  app.get('/v1/admin/properties/:propertyId/operations/orders', async (request) => {
+    const params = adminOperationPropertyParamsSchema.parse(request.params);
+    const query = adminOperationListQuerySchema.parse(request.query);
+    const scope = await requireStaffRead(app, request, params.propertyId, 'order.read');
+    return listAdminOperationItems(app, scope, { ...query, kind: 'order' });
+  });
+
+  app.get('/v1/admin/properties/:propertyId/operations/requests/:requestId', async (request) => {
+    const params = adminRequestParamsSchema.parse(request.params);
+    const scope = await loadRequestScope(app, params.requestId);
+    if (!scope || scope.propertyId !== params.propertyId) {
+      throw new ApiError(404, 'REQUEST_NOT_FOUND', 'Request not found.');
+    }
+    await requireStaffRead(app, request, params.propertyId, 'request.read');
+    return { detail: await getStaffRequestDetail(app, scope, params.requestId) };
+  });
+
+  app.get('/v1/admin/properties/:propertyId/operations/orders/:orderId', async (request) => {
+    const params = adminOrderParamsSchema.parse(request.params);
+    const scope = await loadOrderScope(app, params.orderId);
+    if (!scope || scope.propertyId !== params.propertyId) {
+      throw new ApiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
+    }
+    await requireStaffRead(app, request, params.propertyId, 'order.read');
+    return { detail: await getStaffOrderDetail(app, scope, params.orderId) };
   });
 
   app.get('/v1/staff/requests', async (request) => {
