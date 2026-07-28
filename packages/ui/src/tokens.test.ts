@@ -23,7 +23,7 @@ const tokensCss = readFileSync(join(here, 'tokens.css'), 'utf8');
 
 describe('design tokens', () => {
   it('exposes the required spacing scale', () => {
-    expect(spacingScale).toEqual([2, 4, 6, 8, 12, 16, 20, 24, 32, 40, 48, 64]);
+    expect(spacingScale).toEqual([2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 40, 48, 64, 72]);
   });
 
   it('matches documented sidebar widths', () => {

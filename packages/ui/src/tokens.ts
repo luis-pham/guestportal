@@ -4,7 +4,9 @@
  * Do not add page-specific or feature-specific token names here.
  */
 
-export const spacingScale = [2, 4, 6, 8, 12, 16, 20, 24, 32, 40, 48, 64] as const;
+export const spacingScale = [
+  2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 40, 48, 64, 72,
+] as const;
 
 export const radii = {
   sm: 6,

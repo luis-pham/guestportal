@@ -58,14 +58,19 @@
   --gp-space-4: 4px;
   --gp-space-6: 6px;
   --gp-space-8: 8px;
+  --gp-space-10: 10px;
   --gp-space-12: 12px;
+  --gp-space-14: 14px;
   --gp-space-16: 16px;
+  --gp-space-18: 18px;
   --gp-space-20: 20px;
   --gp-space-24: 24px;
+  --gp-space-28: 28px;
   --gp-space-32: 32px;
   --gp-space-40: 40px;
   --gp-space-48: 48px;
   --gp-space-64: 64px;
+  --gp-space-72: 72px;
 
   /* Radius */
   --gp-radius-sm: 6px;
