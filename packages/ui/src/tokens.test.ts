@@ -58,8 +58,10 @@ describe('design tokens', () => {
       'caption',
       'mono',
     ]);
+    expect(typography.fontFamily.sans).toContain('Hanken Grotesk');
     expect(typography.fontFamily.sans).toContain('Be Vietnam Pro');
     expect(typography.fontFamily.sans).toContain('Noto Sans');
+    expect(typography.fontFamily.display).toContain('Newsreader');
     expect(tokensCss).toContain('Be Vietnam Pro');
     expect(typographySamples.vi).toMatch(/[ăâêôơưđáàảãạ]/i);
   });

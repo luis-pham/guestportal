@@ -49,10 +49,14 @@ export function StaffShell({
       <aside className="gp-staff-shell__sidebar">
         <div className="gp-staff-shell__brand">
           <span aria-hidden="true">L</span>
-          <strong>{productName}</strong>
+          <div className="gp-staff-shell__brand-copy">
+            <strong>{productName}</strong>
+            <small>Shift workspace</small>
+          </div>
         </div>
         {desktopNav.length ? (
           <nav className="gp-staff-shell__desktop-nav" aria-label="Staff navigation">
+            <p className="gp-staff-shell__nav-group">Today</p>
             {desktopNav.map((item) => (
               <a
                 key={item.href}
@@ -70,6 +74,7 @@ export function StaffShell({
         ) : null}
         {moreNav.length ? (
           <nav className="gp-staff-shell__more-nav" aria-label="More staff destinations">
+            <p className="gp-staff-shell__nav-group">More</p>
             {moreNav.map((item) => (
               <a
                 key={item.href}
@@ -86,6 +91,10 @@ export function StaffShell({
 
       <div className="gp-staff-shell__frame">
         <header className="gp-staff-shell__header">
+          <button className="gp-staff-shell__search" type="button">
+            <span aria-hidden="true">⌕</span>
+            <span>Search work, rooms, guests...</span>
+          </button>
           <div className="gp-staff-shell__heading">
             <h1>{title}</h1>
             {subtitle ? <p>{subtitle}</p> : null}

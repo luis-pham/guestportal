@@ -226,24 +226,27 @@ export function StaffWorkspace({ routeKey, detailId }: { routeKey?: RouteKey; de
         </>
       }
     >
-      <section className="gp-state" data-testid="staff-workspace">
+      <section className="staff-workspace" data-testid="staff-workspace">
         {!canStaff ? (
           <p data-testid="access-denied">{t('accessDenied')}</p>
         ) : (
           <>
             {denied ? <p data-testid="access-denied">{t('accessDenied')}</p> : null}
-            <p data-testid="property-context">
-              {properties.length
-                ? t('propertyContext', { property: propertyName })
-                : t('noProperties')}
-            </p>
+            <div className="staff-workspace__context">
+              <p data-testid="property-context">
+                {properties.length
+                  ? t('propertyContext', { property: propertyName })
+                  : t('noProperties')}
+              </p>
+              <span>{t(`titles.${activeKey}`)}</span>
+            </div>
             <StaffOperationsWorkspace
               locale={locale}
               routeKey={activeKey}
               detailId={detailId}
               propertyId={propertyId}
             />
-            <div className="gp-state__body" data-testid="staff-regression-fixtures">
+            <div className="staff-workspace__fixtures" data-testid="staff-regression-fixtures">
               <p data-testid="long-fixture">{t('longFixture')}</p>
               <p data-testid="sample-date">
                 {t('sampleDate', { value: formatDate(sampleInstant, locale) })}
@@ -258,7 +261,7 @@ export function StaffWorkspace({ routeKey, detailId }: { routeKey?: RouteKey; de
               {detailId ? <p data-testid="detail-id">{detailId}</p> : null}
               <p data-testid="admin-only-note">{t('adminOnlyBlocked')}</p>
             </div>
-            <ul data-testid="staff-user">
+            <ul className="staff-workspace__user" data-testid="staff-user">
               <li>{me.user.displayName}</li>
               <li>{me.user.email}</li>
               <li>{role}</li>

@@ -29,6 +29,7 @@ import { AdminOperationsPanel } from '../../components/AdminOperationsPanel';
 import { AdminTeamPanel } from '../../components/AdminTeamPanel';
 import { AdminAnalyticsDashboard } from '../../components/AdminAnalyticsDashboard';
 import { AdminAuditLogPanel } from '../../components/AdminAuditLogPanel';
+import { AdminBlueprintWorkspace } from '../../components/AdminBlueprintWorkspace';
 import {
   OrganizationSettingsPanel,
   SecuritySettingsPanel,
@@ -348,29 +349,19 @@ export default function AdminHomePage() {
       ) : pathname.includes('/properties/') && pathname.endsWith('/settings') ? (
         <PropertySettingsForm />
       ) : (
-        <section className="gp-state" data-testid="module-workspace">
-          <h2 className="gp-state__title">{t('moduleWorkspace', { module: moduleLabel })}</h2>
-          <p className="gp-state__body">{t('moduleWorkspaceBody')}</p>
-          <p data-testid="long-fixture">{t('longFixture')}</p>
-          <p data-testid="sample-date">
-            {t('sampleDate', { value: formatDate(sampleInstant, locale) })}
-          </p>
-          <p data-testid="sample-number">
-            {t('sampleNumber', { value: formatNumber(1234567.89, locale) })}
-          </p>
-          <p data-testid="sample-currency">
-            {t('sampleCurrency', { value: formatCurrency(150000, locale) })}
-          </p>
-          {denied ? <p data-testid="access-denied">{t('accessDenied')}</p> : null}
-          <ul data-testid="property-list">
-            {properties.map((property) => (
-              <li key={property.id}>
-                {property.name} ({property.slug})
-              </li>
-            ))}
-          </ul>
-          {!denied && properties.length === 0 ? <p>{t('noProperties')}</p> : null}
-        </section>
+        <AdminBlueprintWorkspace
+          moduleId={activeModule.id}
+          moduleLabel={moduleLabel}
+          description={t('moduleWorkspaceBody')}
+          longFixture={t('longFixture')}
+          sampleDate={t('sampleDate', { value: formatDate(sampleInstant, locale) })}
+          sampleNumber={t('sampleNumber', { value: formatNumber(1234567.89, locale) })}
+          sampleCurrency={t('sampleCurrency', { value: formatCurrency(150000, locale) })}
+          denied={denied}
+          accessDenied={t('accessDenied')}
+          noProperties={t('noProperties')}
+          properties={properties}
+        />
       )}
     </AdminShell>
   );

@@ -175,3 +175,364 @@
     min-height: 0;
   }
 }
+
+.admin-blueprint {
+  display: grid;
+  gap: var(--gp-space-18);
+}
+
+.admin-blueprint__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gp-space-18);
+}
+
+.admin-blueprint__eyebrow,
+.admin-blueprint__panel-head span {
+  margin: 0 0 var(--gp-space-6);
+  color: var(--gp-color-brand);
+  font-family: var(--gp-font-family-mono);
+  font-size: 0.6875rem;
+  font-weight: var(--gp-font-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.admin-blueprint__header h2 {
+  margin: 0;
+  color: var(--gp-color-text-primary);
+  font-family: var(--gp-font-family-display);
+  font-size: 1.7rem;
+  font-weight: var(--gp-font-weight-semibold);
+  line-height: 1.08;
+}
+
+.admin-blueprint__header p:not(.admin-blueprint__eyebrow) {
+  max-width: 680px;
+  margin: var(--gp-space-8) 0 0;
+  color: var(--gp-color-text-secondary);
+}
+
+.admin-blueprint__header-card,
+.admin-blueprint__metrics article,
+.admin-blueprint__panel {
+  border: 1px solid var(--gp-color-border);
+  border-radius: 14px;
+  background: var(--gp-color-surface);
+  box-shadow: none;
+}
+
+.admin-blueprint__header-card {
+  display: grid;
+  min-width: 220px;
+  gap: var(--gp-space-4);
+  padding: var(--gp-space-14);
+}
+
+.admin-blueprint__header-card span,
+.admin-blueprint__metrics span {
+  color: var(--gp-color-text-muted);
+  font-size: 0.75rem;
+  font-weight: var(--gp-font-weight-semibold);
+}
+
+.admin-blueprint__header-card strong {
+  overflow: hidden;
+  color: var(--gp-color-text-primary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-blueprint__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gp-space-12);
+}
+
+.admin-blueprint__metrics article {
+  display: grid;
+  gap: var(--gp-space-8);
+  min-height: 94px;
+  padding: var(--gp-space-16);
+}
+
+.admin-blueprint__metrics strong {
+  overflow-wrap: anywhere;
+  color: var(--gp-color-text-primary);
+  font-family: var(--gp-font-family-display);
+  font-size: 1.65rem;
+  font-weight: var(--gp-font-weight-semibold);
+  line-height: 1;
+}
+
+.admin-blueprint__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.55fr);
+  gap: var(--gp-space-14);
+  align-items: start;
+}
+
+.admin-blueprint__panel {
+  min-width: 0;
+  padding: var(--gp-space-16);
+}
+
+.admin-blueprint__panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gp-space-12);
+  padding-bottom: var(--gp-space-12);
+  border-bottom: 1px solid var(--gp-color-border-subtle);
+}
+
+.admin-blueprint__panel-head h3 {
+  margin: 0;
+  color: var(--gp-color-text-primary);
+  font-size: var(--gp-font-size-h3);
+}
+
+.admin-blueprint__property-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-blueprint__property-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gp-space-12);
+  min-height: 56px;
+  padding: var(--gp-space-10) 0;
+  border-bottom: 1px solid var(--gp-color-border-subtle);
+}
+
+.admin-blueprint__property-list li:last-child {
+  border-bottom: 0;
+}
+
+.admin-blueprint__property-list div {
+  display: grid;
+  min-width: 0;
+  gap: var(--gp-space-2);
+}
+
+.admin-blueprint__property-list strong {
+  overflow: hidden;
+  color: var(--gp-color-text-primary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-blueprint__property-list span {
+  color: var(--gp-color-text-muted);
+  font-size: 0.75rem;
+}
+
+.admin-blueprint__status {
+  flex: 0 0 auto;
+  padding: var(--gp-space-4) var(--gp-space-8);
+  border: 1px solid var(--gp-color-success-border);
+  border-radius: 999px;
+  background: var(--gp-color-success-bg);
+  color: var(--gp-color-success);
+  font-size: 0.6875rem !important;
+  font-weight: var(--gp-font-weight-semibold);
+}
+
+.admin-blueprint__track {
+  display: grid;
+  gap: var(--gp-space-8);
+  margin: var(--gp-space-14) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-blueprint__track li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  min-height: 42px;
+  border-bottom: 1px solid var(--gp-color-border-subtle);
+}
+
+.admin-blueprint__track span {
+  color: var(--gp-color-text-faint);
+  font-family: var(--gp-font-family-mono);
+  font-size: 0.75rem;
+}
+
+.admin-blueprint__fixture {
+  display: grid;
+  gap: var(--gp-space-8);
+  padding-top: var(--gp-space-12);
+  border-top: 1px solid var(--gp-color-border-subtle);
+  color: var(--gp-color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.admin-blueprint__fixture p {
+  margin: 0;
+}
+
+.gp-state {
+  padding: var(--gp-space-18) !important;
+}
+
+.gp-state__title {
+  color: var(--gp-color-text-primary);
+  font-family: var(--gp-font-family-display);
+  font-size: var(--gp-font-size-h2);
+}
+
+.gp-state__body {
+  color: var(--gp-color-text-secondary);
+  font-size: var(--gp-font-size-body-small);
+}
+
+.gp-state form,
+.gp-state > form,
+.gp-state ul,
+.gp-state ol {
+  max-width: 100%;
+}
+
+.gp-state label {
+  color: var(--gp-color-text-secondary);
+  font-size: var(--gp-font-size-body-small);
+}
+
+.gp-state input,
+.gp-state select,
+.gp-state textarea,
+.admin-analytics input {
+  min-height: 36px !important;
+  border-color: var(--gp-color-border) !important;
+  border-radius: var(--gp-radius-md) !important;
+  background: var(--gp-color-surface-muted) !important;
+  color: var(--gp-color-text-primary) !important;
+}
+
+.gp-state table,
+.admin-analytics table {
+  border-collapse: collapse !important;
+}
+
+.gp-state th,
+.admin-analytics th {
+  height: 42px;
+  background: var(--gp-color-surface-subtle) !important;
+  color: var(--gp-color-text-secondary) !important;
+  font-size: 0.6875rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.gp-state td,
+.admin-analytics td {
+  min-height: 56px;
+  border-color: var(--gp-color-border-subtle) !important;
+}
+
+.gp-state li {
+  border-color: var(--gp-color-border-subtle) !important;
+}
+
+.admin-ops {
+  gap: var(--gp-space-14);
+}
+
+.admin-ops__workspace {
+  grid-template-columns: minmax(0, 1.45fr) 420px;
+  gap: var(--gp-space-14);
+}
+
+.admin-ops__list,
+.admin-ops__detail {
+  border-color: var(--gp-color-border);
+  border-radius: 14px;
+  background: var(--gp-color-surface);
+  box-shadow: none;
+}
+
+.admin-ops__table th {
+  height: 42px;
+  background: var(--gp-color-surface-subtle);
+  color: var(--gp-color-text-secondary);
+  font-size: 0.6875rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.admin-ops__table td {
+  min-height: 56px;
+  border-bottom-color: var(--gp-color-border-subtle);
+}
+
+.admin-ops__table tbody tr:hover,
+.admin-ops__table tbody tr.is-selected {
+  background: var(--gp-color-brand-subtle);
+}
+
+.admin-ops__summary,
+.admin-ops__detail p {
+  color: var(--gp-color-text-secondary);
+}
+
+.admin-ops__detail h3,
+.admin-analytics h3,
+.admin-audit h3 {
+  font-family: var(--gp-font-family-display);
+  font-weight: var(--gp-font-weight-semibold);
+}
+
+.admin-analytics {
+  display: grid;
+  gap: var(--gp-space-16);
+}
+
+.admin-analytics [data-testid='analytics-summary'] article,
+.admin-analytics [data-testid='analytics-status'] section,
+.admin-analytics__grid > div {
+  border: 1px solid var(--gp-color-border) !important;
+  border-radius: 14px !important;
+  background: var(--gp-color-surface) !important;
+  box-shadow: none !important;
+}
+
+.admin-analytics__grid > div {
+  padding: var(--gp-space-16);
+}
+
+.admin-analytics [data-testid='analytics-summary'] article div:last-child {
+  color: var(--gp-color-text-primary);
+  font-family: var(--gp-font-family-display);
+  font-size: 1.55rem !important;
+  font-weight: var(--gp-font-weight-semibold) !important;
+}
+
+.admin-analytics span[aria-hidden='true'] {
+  background: var(--gp-color-surface-muted) !important;
+}
+
+.admin-analytics span[aria-hidden='true'] > span {
+  background: var(--gp-color-brand) !important;
+}
+
+@media (max-width: 900px) {
+  .admin-blueprint__header,
+  .admin-blueprint__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .admin-blueprint__header {
+    display: grid;
+  }
+
+  .admin-blueprint__metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -10,32 +10,35 @@
   color-scheme: light;
 
   /* Color semantic tokens */
-  --gp-color-background: #f6f7f9;
-  --gp-color-surface: #ffffff;
-  --gp-color-surface-muted: #eef1f5;
-  --gp-color-border: #d7dde7;
-  --gp-color-border-strong: #aab4c3;
-  --gp-color-text-primary: #121826;
-  --gp-color-text-secondary: #3d4659;
-  --gp-color-text-muted: #5f6678;
-  --gp-color-brand: #0f5c4c;
-  --gp-color-brand-hover: #0c4a3d;
-  --gp-color-brand-subtle: #e6f4ef;
-  --gp-color-success: #147a45;
-  --gp-color-success-bg: #ecfdf3;
-  --gp-color-success-border: #abefc6;
-  --gp-color-warning: #9a6700;
-  --gp-color-warning-bg: #fffaeb;
-  --gp-color-warning-border: #fedf89;
-  --gp-color-danger: #b42318;
-  --gp-color-danger-bg: #fff1f3;
-  --gp-color-danger-border: #fecdca;
-  --gp-color-info: #175cd3;
-  --gp-color-info-bg: #eff8ff;
-  --gp-color-info-border: #b2ddff;
-  --gp-color-neutral-bg: #f4f6f8;
-  --gp-color-neutral-border: #d7dde7;
-  --gp-color-focus-ring: #2e90fa;
+  --gp-color-background: #f6f4f0;
+  --gp-color-surface: #fdfcfa;
+  --gp-color-surface-muted: #f1eee9;
+  --gp-color-surface-subtle: #fbf9f5;
+  --gp-color-border: #e9e4dc;
+  --gp-color-border-subtle: #ece8e1;
+  --gp-color-border-strong: #dbd5cb;
+  --gp-color-text-primary: #26241f;
+  --gp-color-text-secondary: #6b655c;
+  --gp-color-text-muted: #9a938a;
+  --gp-color-text-faint: #b4ada2;
+  --gp-color-brand: #1f5f5b;
+  --gp-color-brand-hover: #194f4b;
+  --gp-color-brand-subtle: #edf3f1;
+  --gp-color-success: #3c6b4c;
+  --gp-color-success-bg: #e7f0e9;
+  --gp-color-success-border: #dce8de;
+  --gp-color-warning: #8a6a2a;
+  --gp-color-warning-bg: #f6eedd;
+  --gp-color-warning-border: #ebdec2;
+  --gp-color-danger: #a0483a;
+  --gp-color-danger-bg: #f5e8e4;
+  --gp-color-danger-border: #edd6cf;
+  --gp-color-info: #46617d;
+  --gp-color-info-bg: #e9eef3;
+  --gp-color-info-border: #d8e1eb;
+  --gp-color-neutral-bg: #f1eee9;
+  --gp-color-neutral-border: #e4dfd6;
+  --gp-color-focus-ring: #1f5f5b;
 
   /* Lotavi Design System aliases */
   --gp-bg-canvas: var(--gp-color-background);
@@ -66,34 +69,34 @@
 
   /* Radius */
   --gp-radius-sm: 6px;
-  --gp-radius-md: 10px;
+  --gp-radius-md: 9px;
   --gp-radius-lg: 14px;
-  --gp-radius-xl: 20px;
+  --gp-radius-xl: 16px;
   --gp-radius-full: 9999px;
 
-  /* Typography families — Vietnamese + English capable stacks */
-  --gp-font-sans: 'Source Sans 3', 'Be Vietnam Pro', 'Noto Sans', sans-serif;
-  --gp-font-display: 'Source Serif 4', 'Noto Serif', serif;
-  --gp-font-mono: 'IBM Plex Mono', 'SFMono-Regular', ui-monospace, monospace;
+  /* Typography families - Vietnamese + English capable stacks */
+  --gp-font-sans: 'Hanken Grotesk', 'Be Vietnam Pro', 'Noto Sans', system-ui, sans-serif;
+  --gp-font-display: 'Newsreader', 'Noto Serif', Georgia, serif;
+  --gp-font-mono: 'Spline Sans Mono', 'IBM Plex Mono', 'SFMono-Regular', ui-monospace, monospace;
 
   /* Typography sizes */
-  --gp-font-size-display: 2.5rem;
-  --gp-font-size-h1: 2rem;
-  --gp-font-size-h2: 1.5rem;
-  --gp-font-size-h3: 1.25rem;
-  --gp-font-size-body: 1rem;
-  --gp-font-size-body-small: 0.875rem;
-  --gp-font-size-label: 0.875rem;
+  --gp-font-size-display: 2.125rem;
+  --gp-font-size-h1: 1.4375rem;
+  --gp-font-size-h2: 1.125rem;
+  --gp-font-size-h3: 0.9375rem;
+  --gp-font-size-body: 0.875rem;
+  --gp-font-size-body-small: 0.8125rem;
+  --gp-font-size-label: 0.8125rem;
   --gp-font-size-caption: 0.75rem;
-  --gp-font-size-mono: 0.875rem;
+  --gp-font-size-mono: 0.8125rem;
 
   /* Typography line heights */
-  --gp-line-height-display: 1.2;
-  --gp-line-height-h1: 1.25;
-  --gp-line-height-h2: 1.3;
-  --gp-line-height-h3: 1.35;
-  --gp-line-height-body: 1.5;
-  --gp-line-height-body-small: 1.45;
+  --gp-line-height-display: 1.1;
+  --gp-line-height-h1: 1.22;
+  --gp-line-height-h2: 1.35;
+  --gp-line-height-h3: 1.45;
+  --gp-line-height-body: 1.55;
+  --gp-line-height-body-small: 1.5;
   --gp-line-height-label: 1.4;
   --gp-line-height-caption: 1.4;
   --gp-line-height-mono: 1.45;
@@ -106,11 +109,11 @@
 
   /* Shadows */
   --gp-shadow-none: none;
-  --gp-shadow-xs: 0 1px 2px rgb(18 24 38 / 0.06);
-  --gp-shadow-sm: 0 1px 3px rgb(18 24 38 / 0.08), 0 1px 2px rgb(18 24 38 / 0.04);
-  --gp-shadow-md: 0 4px 12px rgb(18 24 38 / 0.1), 0 2px 4px rgb(18 24 38 / 0.06);
-  --gp-shadow-lg: 0 12px 32px rgb(18 24 38 / 0.12), 0 4px 8px rgb(18 24 38 / 0.06);
-  --gp-shadow-focus: 0 0 0 3px color-mix(in srgb, var(--gp-color-focus-ring) 45%, transparent);
+  --gp-shadow-xs: 0 1px 2px rgb(38 34 28 / 0.06);
+  --gp-shadow-sm: 0 1px 2px rgb(38 34 28 / 0.08);
+  --gp-shadow-md: 0 8px 20px rgb(38 34 28 / 0.1), 0 2px 4px rgb(38 34 28 / 0.04);
+  --gp-shadow-lg: 0 24px 60px rgb(38 34 28 / 0.22);
+  --gp-shadow-focus: 0 0 0 3px color-mix(in srgb, var(--gp-color-focus-ring) 34%, transparent);
 
   /* Motion */
   --gp-duration-instant: 0ms;
