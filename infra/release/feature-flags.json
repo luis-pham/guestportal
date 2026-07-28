@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "flags": [
+    {
+      "key": "voice.live.enabled",
+      "owner": "operations",
+      "productionDefault": true,
+      "rollbackValue": false,
+      "blastRadius": "guest voice sessions",
+      "evidenceRequired": ["voice.success.low", "api.error_rate.high"]
+    },
+    {
+      "key": "ai.tool_mutations.enabled",
+      "owner": "operations",
+      "productionDefault": true,
+      "rollbackValue": false,
+      "blastRadius": "AI-created draft requests and orders",
+      "evidenceRequired": ["api.error_rate.high", "tenant.anomaly.high"]
+    },
+    {
+      "key": "portal.publish.enabled",
+      "owner": "operations",
+      "productionDefault": true,
+      "rollbackValue": false,
+      "blastRadius": "property portal publishing",
+      "evidenceRequired": ["api.error_rate.high", "r2.error_rate.high"]
+    },
+    {
+      "key": "qr.tokens.issue.enabled",
+      "owner": "operations",
+      "productionDefault": true,
+      "rollbackValue": false,
+      "blastRadius": "new QR token issuance",
+      "evidenceRequired": ["tenant.anomaly.high", "api.error_rate.high"]
+    },
+    {
+      "key": "staff.sessions.enabled",
+      "owner": "operations",
+      "productionDefault": true,
+      "rollbackValue": false,
+      "blastRadius": "staff dashboard access",
+      "evidenceRequired": ["api.availability.down", "api.error_rate.high"]
+    }
+  ],
+  "policy": {
+    "allProductionFlagsMustHaveRollbackValue": true,
+    "incidentFlagsMustFailClosed": true,
+    "flagChangesRequireAuditLog": true
+  }
+}

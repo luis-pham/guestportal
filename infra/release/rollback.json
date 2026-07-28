@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "maximumMinutes": 15,
+  "artifactPolicy": {
+    "requiresPreviousImmutableArtifact": true,
+    "requiresDatabaseBackupBeforeRiskyMigration": true,
+    "requiresMigrationRehearsalEvidence": true
+  },
+  "orderedSteps": [
+    {
+      "id": "freeze-release",
+      "owner": "release-manager",
+      "command": "github-deployment:pause",
+      "expectedMinutes": 1
+    },
+    {
+      "id": "disable-risk-flags",
+      "owner": "operations",
+      "command": "apply rollbackValue from infra/release/feature-flags.json",
+      "expectedMinutes": 2
+    },
+    {
+      "id": "restore-previous-artifact",
+      "owner": "release-manager",
+      "command": "deploy previous immutable artifact SHA",
+      "expectedMinutes": 5
+    },
+    {
+      "id": "database-recovery-check",
+      "owner": "database-owner",
+      "command": "verify forward-compatible migrations or restore tested backup",
+      "expectedMinutes": 4
+    },
+    {
+      "id": "post-rollback-smoke",
+      "owner": "operations",
+      "command": "run guest/admin/staff/API smoke and phase 10 observability checks",
+      "expectedMinutes": 3
+    }
+  ],
+  "successCriteria": [
+    "API health returns 200",
+    "guest portal smoke passes",
+    "admin login smoke passes",
+    "staff operations smoke passes",
+    "critical alerts return to non-breaching state"
+  ]
+}

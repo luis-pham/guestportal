@@ -66,6 +66,9 @@ jobs:
           python -m venv apps/embedding-service/.venv
           apps/embedding-service/.venv/bin/pip install -r apps/embedding-service/requirements.txt
 
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
       - name: Lint
         run: pnpm lint
 
@@ -75,8 +78,39 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Integration test
+        env:
+          DATABASE_URL: postgresql://guestportal@127.0.0.1:5432/guestportal
+          PGPASSWORD: guestportal
+          REDIS_URL: redis://127.0.0.1:6379
+          AUTH_COOKIE_SECRET: abcdefghijklmnopqrstuvwxyz012345
+          S3_ENDPOINT: http://127.0.0.1:9000
+          S3_REGION: auto
+          S3_ACCESS_KEY_ID: ci-access-key
+          S3_SECRET_ACCESS_KEY: ci-secret-key
+          S3_BUCKET: guestportal-ci
+          ASSETS_PUBLIC_BASE_URL: http://127.0.0.1:9000/guestportal-ci
+          AUTH_URL: http://127.0.0.1:54321
+          AUTH_ANON_KEY: ci-anon-key
+          AUTH_SERVICE_ROLE_KEY: ci-service-role-key
+          GEMINI_API_KEY: ''
+        run: pnpm test:integration
+
       - name: Build
         run: pnpm build
+
+      - name: Migration rehearsal
+        env:
+          PHASE10_REHEARSAL_ENVIRONMENT: ci
+          DATABASE_URL: postgresql://guestportal@127.0.0.1:5432/guestportal
+          PGPASSWORD: guestportal
+        run: pnpm --filter @guestportal/db db:rehearse-release
+
+      - name: Secret scan
+        run: pnpm security:secret-scan
+
+      - name: Release control validation
+        run: node scripts/validate-release-controls.mjs
 
       - name: Format check
         run: pnpm format:check

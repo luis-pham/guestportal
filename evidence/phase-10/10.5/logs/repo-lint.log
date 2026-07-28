@@ -1,0 +1,70 @@
+• turbo 2.10.7
+
+   • Packages in scope: @guestportal/admin-web, @guestportal/ai-tools, @guestportal/analytics, @guestportal/api, @guestportal/auth, @guestportal/config, @guestportal/contracts, @guestportal/db, @guestportal/embedding-service, @guestportal/eslint-config, @guestportal/guest-web, @guestportal/observability, @guestportal/rag, @guestportal/staff-web, @guestportal/storage, @guestportal/tenancy, @guestportal/test-kit, @guestportal/typescript-config, @guestportal/ui, @guestportal/worker
+   • Running lint in 20 packages
+   • Remote caching disabled
+
+@guestportal/config:build: cache bypass, force executing 869f39729b1a8b1b
+@guestportal/contracts:lint: cache bypass, force executing 6115b17912801ce0
+@guestportal/embedding-service:lint: cache bypass, force executing 94706ddf71569211
+@guestportal/storage:lint: cache bypass, force executing 1ecc22d7803fdd1b
+@guestportal/observability:build: cache bypass, force executing 26262074b9bf5080
+@guestportal/storage:build: cache bypass, force executing a1b68005047fd1c7
+@guestportal/config:lint: cache bypass, force executing bd5b85afa4c4f359
+@guestportal/contracts:build: cache bypass, force executing eb9099df2ada4263
+@guestportal/observability:lint: cache bypass, force executing 88856b7150cf49b7
+@guestportal/test-kit:lint: cache bypass, force executing 8ba3e6c6010e9bd2
+@guestportal/storage:lint: $ eslint .
+@guestportal/config:build: $ tsc -p tsconfig.json
+@guestportal/contracts:build: $ tsc -p tsconfig.json
+@guestportal/embedding-service:lint: $ python3 -m compileall app
+@guestportal/contracts:lint: $ eslint .
+@guestportal/test-kit:lint: $ eslint .
+@guestportal/storage:build: $ tsc -p tsconfig.json
+@guestportal/observability:lint: $ eslint .
+@guestportal/config:lint: $ eslint .
+@guestportal/observability:build: $ tsc -p tsconfig.json
+@guestportal/embedding-service:lint: Listing 'app'...
+@guestportal/rag:lint: cache bypass, force executing 20c54f43f1d45cf1
+@guestportal/ui:build: cache bypass, force executing d0c4bbfafb3fd0ad
+@guestportal/ai-tools:lint: cache bypass, force executing d25e67ba97b0d096
+@guestportal/db:build: cache bypass, force executing 159794577ef3fc07
+@guestportal/rag:build: cache bypass, force executing 25bd400252082ba2
+@guestportal/analytics:build: cache bypass, force executing f21cda56911d365e
+@guestportal/ai-tools:build: cache bypass, force executing af13861d8b50b242
+@guestportal/ui:lint: cache bypass, force executing 5ff43dc2dabfad8e
+@guestportal/analytics:lint: cache bypass, force executing 76189a3f5775591a
+@guestportal/db:lint: cache bypass, force executing 3749da601d0b1222
+@guestportal/db:build: $ tsc -p tsconfig.json
+@guestportal/rag:lint: $ eslint .
+@guestportal/ui:build: $ tsc -p tsconfig.json
+@guestportal/analytics:build: $ tsc -p tsconfig.json
+@guestportal/ui:lint: $ eslint .
+@guestportal/ai-tools:lint: $ eslint .
+@guestportal/ai-tools:build: $ tsc -p tsconfig.json
+@guestportal/rag:build: $ tsc -p tsconfig.json
+@guestportal/db:lint: $ eslint .
+@guestportal/analytics:lint: $ eslint .
+@guestportal/worker:lint: cache bypass, force executing d3c0f4e1b0cf04ed
+@guestportal/worker:lint: $ eslint .
+@guestportal/guest-web:lint: cache bypass, force executing 5995c5e189e120fd
+@guestportal/staff-web:lint: cache bypass, force executing aec51c6607aa04a2
+@guestportal/admin-web:lint: cache bypass, force executing 2a9a0980542298d6
+@guestportal/auth:lint: cache bypass, force executing 1bed25df2c88d418
+@guestportal/auth:build: cache bypass, force executing 75de3b3b8e035992
+@guestportal/staff-web:lint: $ eslint .
+@guestportal/admin-web:lint: $ eslint .
+@guestportal/guest-web:lint: $ eslint .
+@guestportal/auth:lint: $ eslint .
+@guestportal/auth:build: $ tsc -p tsconfig.json
+@guestportal/tenancy:lint: cache bypass, force executing a706cbf31aa4b109
+@guestportal/tenancy:build: cache bypass, force executing 590cee56fe066d67
+@guestportal/tenancy:build: $ tsc -p tsconfig.json
+@guestportal/tenancy:lint: $ eslint .
+@guestportal/api:lint: cache bypass, force executing b16ae1e5a0152b53
+@guestportal/api:lint: $ eslint .
+
+ Tasks:    29 successful, 29 total
+Cached:    0 cached, 29 total
+  Time:    10.15s 
+

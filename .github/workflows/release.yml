@@ -1,0 +1,79 @@
+name: Release Controls
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: Environment to promote
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+      release_sha:
+        description: Immutable git SHA to release
+        required: true
+        type: string
+      rollback_sha:
+        description: Previous immutable git SHA for rollback
+        required: true
+        type: string
+
+concurrency:
+  group: release-${{ inputs.target_environment }}
+  cancel-in-progress: false
+
+jobs:
+  validate-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout release SHA
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_sha }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.11.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate release controls
+        env:
+          PHASE10_RELEASE_ENVIRONMENT: ${{ inputs.target_environment }}
+        run: node scripts/validate-release-controls.mjs
+
+      - name: Upload release-control evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-controls-${{ inputs.release_sha }}
+          path: evidence/phase-10/10.5/reports/release-controls.json
+
+  production-approval:
+    if: inputs.target_environment == 'production'
+    runs-on: ubuntu-latest
+    needs: validate-release
+    environment: production
+    steps:
+      - name: Record protected environment approval
+        run: echo "Production protected environment approved for ${{ inputs.release_sha }}"
+
+  rollback-dry-run:
+    runs-on: ubuntu-latest
+    needs:
+      - validate-release
+    steps:
+      - name: Verify rollback artifact input
+        run: |
+          test -n "${{ inputs.rollback_sha }}"
+          test "${{ inputs.rollback_sha }}" != "${{ inputs.release_sha }}"

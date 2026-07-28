@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "name": "guestportal-production-release",
+  "environments": ["local", "test", "staging", "production"],
+  "promotionOrder": ["test", "staging", "production"],
+  "artifact": {
+    "idPattern": "guestportal-${GITHUB_SHA}",
+    "source": "immutable-git-sha",
+    "requiredBuilds": ["api", "worker", "guest-web", "admin-web", "staff-web", "embedding-service"]
+  },
+  "requiredStages": [
+    {
+      "id": "install",
+      "command": "pnpm install --frozen-lockfile",
+      "blocksProduction": true
+    },
+    {
+      "id": "lint",
+      "command": "pnpm lint",
+      "blocksProduction": true
+    },
+    {
+      "id": "typecheck",
+      "command": "pnpm typecheck",
+      "blocksProduction": true
+    },
+    {
+      "id": "unit",
+      "command": "pnpm test",
+      "blocksProduction": true
+    },
+    {
+      "id": "integration",
+      "command": "pnpm test:integration",
+      "blocksProduction": true
+    },
+    {
+      "id": "build",
+      "command": "pnpm build",
+      "blocksProduction": true
+    },
+    {
+      "id": "migration-validation",
+      "command": "pnpm --filter @guestportal/db db:rehearse-release",
+      "blocksProduction": true
+    },
+    {
+      "id": "security-secret-scan",
+      "command": "pnpm security:secret-scan",
+      "blocksProduction": true
+    },
+    {
+      "id": "release-control-validation",
+      "command": "node scripts/validate-release-controls.mjs",
+      "blocksProduction": true
+    },
+    {
+      "id": "staging-smoke",
+      "command": "pnpm phase10:lighthouse",
+      "blocksProduction": true
+    },
+    {
+      "id": "production-approval",
+      "command": "github-environment:production",
+      "blocksProduction": true
+    },
+    {
+      "id": "production-smoke",
+      "command": "node scripts/phase-verify.mjs 10",
+      "blocksProduction": true
+    }
+  ],
+  "approval": {
+    "productionEnvironment": "production",
+    "requiresProtectedEnvironment": true,
+    "requiresRollbackArtifact": true,
+    "requiresEvidenceArtifact": true
+  },
+  "rollback": {
+    "runbook": "infra/release/rollback.json",
+    "maximumMinutes": 15
+  }
+}
