@@ -10,6 +10,7 @@ import { formatCurrency, formatDate, formatNumber } from '../i18n/format';
 import { resolveLocale, type AppLocale } from '../i18n/config';
 import { localeHref, persistLocalePreference } from '../lib/locale';
 import { StaffOperationsWorkspace } from './StaffOperationsWorkspace';
+import { appHref } from '../lib/base-path';
 
 type MeResponse = {
   user: { displayName: string; email: string };
@@ -25,7 +26,8 @@ type PropertiesResponse = {
   properties: Array<{ id: string; name: string; slug: string }>;
 };
 
-type RouteKey = 'inbox' | 'myWork' | 'messages' | 'history' | 'settings' | 'more' | 'request' | 'order';
+type RouteKey =
+  'inbox' | 'myWork' | 'messages' | 'history' | 'settings' | 'more' | 'request' | 'order';
 
 const STAFF_PERMISSION: Permission = 'request.read';
 
@@ -40,13 +42,7 @@ function resolveRouteKey(pathname: string): RouteKey {
   return 'inbox';
 }
 
-export function StaffWorkspace({
-  routeKey,
-  detailId,
-}: {
-  routeKey?: RouteKey;
-  detailId?: string;
-}) {
+export function StaffWorkspace({ routeKey, detailId }: { routeKey?: RouteKey; detailId?: string }) {
   const t = useTranslations('shell');
   const locale = useLocale();
   const router = useRouter();
@@ -131,7 +127,7 @@ export function StaffWorkspace({
   }
 
   const localePrefix = `/${locale}`;
-  const route = (path: string) => `${localePrefix}${path}`;
+  const route = (path: string) => appHref(`${localePrefix}${path}`);
   const propertyName = properties.find((property) => property.id === propertyId)?.name ?? '';
   const nextLocale: AppLocale = locale === 'vi' ? 'en' : 'vi';
   const sampleInstant = new Date('2026-07-26T10:30:00+07:00');
@@ -249,8 +245,12 @@ export function StaffWorkspace({
             />
             <div className="gp-state__body" data-testid="staff-regression-fixtures">
               <p data-testid="long-fixture">{t('longFixture')}</p>
-              <p data-testid="sample-date">{t('sampleDate', { value: formatDate(sampleInstant, locale) })}</p>
-              <p data-testid="sample-number">{t('sampleNumber', { value: formatNumber(1234567.89, locale) })}</p>
+              <p data-testid="sample-date">
+                {t('sampleDate', { value: formatDate(sampleInstant, locale) })}
+              </p>
+              <p data-testid="sample-number">
+                {t('sampleNumber', { value: formatNumber(1234567.89, locale) })}
+              </p>
               <p data-testid="sample-currency">
                 {t('sampleCurrency', { value: formatCurrency(150000, locale) })}
               </p>

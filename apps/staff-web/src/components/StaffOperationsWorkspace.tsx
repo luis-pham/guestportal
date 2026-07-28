@@ -10,11 +10,22 @@ import {
   staffRealtimeStreamUrl,
 } from '../lib/api';
 import type { StaffRealtimeEvent } from '../lib/api';
+import { appHref } from '../lib/base-path';
 import './staff-ops.css';
 
-type RouteKey = 'inbox' | 'myWork' | 'messages' | 'history' | 'settings' | 'more' | 'request' | 'order';
+type RouteKey =
+  'inbox' | 'myWork' | 'messages' | 'history' | 'settings' | 'more' | 'request' | 'order';
 
-const statusOptions = ['all', 'submitted', 'accepted', 'in_progress', 'confirmed', 'preparing', 'ready', 'delivering'];
+const statusOptions = [
+  'all',
+  'submitted',
+  'accepted',
+  'in_progress',
+  'confirmed',
+  'preparing',
+  'ready',
+  'delivering',
+];
 
 const labels = {
   en: {
@@ -103,7 +114,7 @@ function money(amountMinor: number, currency: string) {
 }
 
 function itemHref(locale: string, item: StaffWorkItem) {
-  return `/${locale}/${item.kind === 'request' ? 'requests' : 'orders'}/${item.id}`;
+  return appHref(`/${locale}/${item.kind === 'request' ? 'requests' : 'orders'}/${item.id}`);
 }
 
 export function StaffOperationsWorkspace({
@@ -127,9 +138,10 @@ export function StaffOperationsWorkspace({
   const [detailLoading, setDetailLoading] = useState(false);
   const [error, setError] = useState(false);
   const [claimingId, setClaimingId] = useState<string | null>(null);
-  const [notice, setNotice] = useState<
-    { tone: 'success' | 'conflict' | 'error' | 'info'; text: string } | null
-  >(null);
+  const [notice, setNotice] = useState<{
+    tone: 'success' | 'conflict' | 'error' | 'info';
+    text: string;
+  } | null>(null);
 
   const queue = useMemo(() => queueForRoute(routeKey), [routeKey]);
 
@@ -317,7 +329,8 @@ export function StaffOperationsWorkspace({
                 <span>{item.kind === 'request' ? t.request : t.order}</span>
                 <strong>{item.title}</strong>
                 <small>
-                  {t.location}: {pickName(item.location.name, locale)} · {item.status.replace(/_/g, ' ')}
+                  {t.location}: {pickName(item.location.name, locale)} ·{' '}
+                  {item.status.replace(/_/g, ' ')}
                 </small>
                 <small>
                   {t.waiting}: {waitingLabel(item.waitingSeconds)}

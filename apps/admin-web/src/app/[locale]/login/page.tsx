@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { apiFetch } from '../../../lib/api';
+import { appHref } from '../../../lib/base-path';
 
 export default function LoginPage() {
   const t = useTranslations('login');
@@ -97,7 +98,7 @@ export default function LoginPage() {
           {t('submit')}
         </button>
         <div style={{ marginTop: 16 }}>
-          <a href={`/${locale === 'vi' ? 'en' : 'vi'}/login`}>
+          <a href={appHref(`/${locale === 'vi' ? 'en' : 'vi'}/login`)}>
             {locale === 'vi' ? t('switchToEn') : t('switchToVi')}
           </a>
         </div>

@@ -5,7 +5,8 @@ import type { GuestPortalResponse } from '@guestportal/contracts';
 import { GuestHomepage, GuestStatusCenter } from '@guestportal/ui';
 import '@guestportal/ui/guest-homepage.css';
 import '@guestportal/ui/guest-status.css';
-import { fetchGuestPortal, openGuestSession } from '../lib/guest-portal';
+import { fetchGuestPortal, locationSafeHref, openGuestSession } from '../lib/guest-portal';
+import { appHref } from '../lib/base-path';
 import { GuestMobileNav } from './GuestMobileNav';
 import { ExploreView } from './ExploreView';
 import { GuideView } from './GuideView';
@@ -27,6 +28,28 @@ async function fetchPortalWithSessionRetry() {
     });
   }
   return null;
+}
+
+function withSafePublicLinks(data: GuestPortalResponse, qrToken: string): GuestPortalResponse {
+  return {
+    ...data,
+    portal: {
+      ...data.portal,
+      config: {
+        ...data.portal.config,
+        sections: data.portal.config.sections.map((section) => {
+          if (section.type !== 'quick_actions') return section;
+          return {
+            ...section,
+            actions: section.actions.map((action) => ({
+              ...action,
+              href: appHref(locationSafeHref(qrToken, action.href)),
+            })),
+          };
+        }),
+      },
+    },
+  };
 }
 
 export function GuestPortalApp({ qrToken, view }: { qrToken: string; view: GuestView }) {
@@ -62,7 +85,7 @@ export function GuestPortalApp({ qrToken, view }: { qrToken: string; view: Guest
           setPortal(null);
           return;
         }
-        setPortal(data);
+        setPortal(withSafePublicLinks(data, qrToken));
         setLocale(data.locale.startsWith('vi') ? 'vi' : 'en');
       } finally {
         window.clearTimeout(slowTimer);
@@ -133,12 +156,18 @@ export function GuestPortalApp({ qrToken, view }: { qrToken: string; view: Guest
     <GuestErrorBoundary locale={locale} onRetry={() => void load()}>
       <div style={{ minHeight: '100vh', paddingBottom: 72, fontFamily: 'system-ui' }}>
         {offline ? (
-          <p data-testid="guest-offline-banner" style={{ margin: 0, padding: 8, background: '#fef3c7', textAlign: 'center' }}>
+          <p
+            data-testid="guest-offline-banner"
+            style={{ margin: 0, padding: 8, background: '#fef3c7', textAlign: 'center' }}
+          >
             Offline — showing last loaded content.
           </p>
         ) : null}
         {slow ? (
-          <p data-testid="guest-slow-network" style={{ margin: 0, padding: 8, background: '#e0f2fe', textAlign: 'center' }}>
+          <p
+            data-testid="guest-slow-network"
+            style={{ margin: 0, padding: 8, background: '#e0f2fe', textAlign: 'center' }}
+          >
             Slow network detected…
           </p>
         ) : null}

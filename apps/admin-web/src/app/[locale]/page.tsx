@@ -15,6 +15,7 @@ import { apiFetch } from '../../lib/api';
 import { formatCurrency, formatDate, formatNumber } from '../../i18n/format';
 import { resolveLocale, type AppLocale } from '../../i18n/config';
 import { localeHref, persistLocalePreference } from '../../lib/locale';
+import { appHref } from '../../lib/base-path';
 import { BrandingForm } from '../../components/BrandingForm';
 import { PortalBuilderWorkspace } from '../../components/PortalBuilderWorkspace';
 import { PortalNavigationEditor } from '../../components/PortalNavigationEditor';
@@ -249,22 +250,24 @@ export default function AdminHomePage() {
       title={moduleLabel}
       breadcrumbs={[{ label: t('workspace') }, { label: moduleLabel }]}
       primaryNav={availablePrimary.map((module) => ({
-        href: route(module.href(propertyId)),
+        href: appHref(route(module.href(propertyId))),
         label: t(`modules.${module.id}`),
         shortLabel: t(`modules.${module.id}`).slice(0, 1),
         active: activeModule.id === module.id,
       }))}
       secondaryNav={activeSecondary.map((item) => ({
-        href: route(
-          activeModule.id === 'overview'
-            ? item.suffix === '/settings'
-              ? `/properties/${propertyId || 'select-property'}/settings`
-              : '/properties'
-            : activeModule.id === 'team'
-              ? `/team${item.suffix}`
-              : activeModule.id === 'settings'
-                ? `/settings${item.suffix}`
-                : `${activeModule.href(propertyId)}${item.suffix}`,
+        href: appHref(
+          route(
+            activeModule.id === 'overview'
+              ? item.suffix === '/settings'
+                ? `/properties/${propertyId || 'select-property'}/settings`
+                : '/properties'
+              : activeModule.id === 'team'
+                ? `/team${item.suffix}`
+                : activeModule.id === 'settings'
+                  ? `/settings${item.suffix}`
+                  : `${activeModule.href(propertyId)}${item.suffix}`,
+          ),
         ),
         label: t(`secondary.${item.labelKey}`),
         active:
