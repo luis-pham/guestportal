@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-28T08:57:35.010Z",
+  "generatedAt": "2026-07-28T09:07:22.856Z",
   "environment": "local",
   "reports": [
     {
       "name": "guest-home-desktop",
-      "url": "http://127.0.0.1:3000/g/JdZxb1qMENaOhEwnBeLcgF-JHPFP5Co1jo6Rxq1xJHg",
+      "url": "http://127.0.0.1:3010/g/rUYKVuwkWtcAgxbgapumZoc84O_bIFoZEVthBI2ZK1E",
       "report": "/Users/huypq/Documents/Projects/guestportal/evidence/phase-10/10.2/lighthouse/guest-home-desktop.json",
       "scores": {
         "performance": 1,
@@ -20,7 +20,7 @@
     },
     {
       "name": "admin-login-desktop",
-      "url": "http://127.0.0.1:3101/vi/login",
+      "url": "http://127.0.0.1:3110/vi/login",
       "report": "/Users/huypq/Documents/Projects/guestportal/evidence/phase-10/10.2/lighthouse/admin-login-desktop.json",
       "scores": {
         "performance": 1,

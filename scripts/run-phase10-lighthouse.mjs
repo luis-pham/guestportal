@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawn, spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 
@@ -10,6 +10,42 @@ const guestUrl = process.env.GUEST_WEB_URL ?? 'http://127.0.0.1:3000';
 const adminUrl = process.env.ADMIN_WEB_URL ?? 'http://127.0.0.1:3101';
 const evidenceDir = process.env.PHASE10_EVIDENCE_DIR ?? 'evidence/phase-10/10.2';
 const lighthouseDir = resolve(root, evidenceDir, 'lighthouse');
+
+function portFromUrl(url, fallback) {
+  try {
+    return new URL(url).port || fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function findChromePath() {
+  const directCandidates = [
+    process.env.CHROME_PATH,
+    process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
+    '/usr/bin/google-chrome-stable',
+    '/usr/bin/google-chrome',
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+  ].filter(Boolean);
+  for (const candidate of directCandidates) {
+    if (existsSync(candidate)) return candidate;
+  }
+
+  const playwrightCache = resolve(process.env.HOME ?? '', '.cache/ms-playwright');
+  if (!existsSync(playwrightCache)) return null;
+  for (const dir of readdirSync(playwrightCache).filter((item) => item.startsWith('chromium-'))) {
+    const candidates = [
+      resolve(playwrightCache, dir, 'chrome-linux64/chrome'),
+      resolve(playwrightCache, dir, 'chrome-linux/chrome'),
+      resolve(playwrightCache, dir, 'chrome-mac/Chromium.app/Contents/MacOS/Chromium'),
+    ];
+    for (const candidate of candidates) {
+      if (existsSync(candidate)) return candidate;
+    }
+  }
+  return null;
+}
 
 function loadDotEnv() {
   const path = resolve(root, '.env');
@@ -156,6 +192,10 @@ for (const [key, value] of Object.entries(fileEnv)) {
   if (!process.env[key]) process.env[key] = value;
 }
 delete process.env.NODE_ENV;
+const chromePath = findChromePath();
+if (chromePath) {
+  process.env.CHROME_PATH = chromePath;
+}
 mkdirSync(lighthouseDir, { recursive: true });
 
 const children = [];
@@ -174,23 +214,29 @@ try {
 
   children.push(
     start('node apps/api/dist/server.js', {
-      PORT: '4000',
+      PORT: portFromUrl(apiUrl, '4000'),
       DATABASE_URL:
         process.env.DATABASE_URL ?? 'postgresql://guestportal_app@127.0.0.1:5432/guestportal',
       AUTH_COOKIE_SECRET: process.env.AUTH_COOKIE_SECRET ?? 'abcdefghijklmnopqrstuvwxyz012345',
     }),
   );
   children.push(
-    start('apps/guest-web/node_modules/.bin/next start apps/guest-web --port 3000', {
-      PORT: '3000',
-      NEXT_PUBLIC_API_URL: apiUrl,
-    }),
+    start(
+      `apps/guest-web/node_modules/.bin/next start apps/guest-web --port ${portFromUrl(guestUrl, '3000')}`,
+      {
+        PORT: portFromUrl(guestUrl, '3000'),
+        NEXT_PUBLIC_API_URL: apiUrl,
+      },
+    ),
   );
   children.push(
-    start('apps/admin-web/node_modules/.bin/next start apps/admin-web --port 3101', {
-      PORT: '3101',
-      NEXT_PUBLIC_API_URL: apiUrl,
-    }),
+    start(
+      `apps/admin-web/node_modules/.bin/next start apps/admin-web --port ${portFromUrl(adminUrl, '3101')}`,
+      {
+        PORT: portFromUrl(adminUrl, '3101'),
+        NEXT_PUBLIC_API_URL: apiUrl,
+      },
+    ),
   );
 
   await waitFor(`${apiUrl}/health`);

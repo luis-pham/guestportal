@@ -14,7 +14,7 @@ Performance and load qualification for guest, API, database, queue, and realtime
 - Node: v24.14.1
 - pnpm: 11.11.0
 - API load method: Fastify `app.inject` against the real local test database
-- Lighthouse method: production builds served on localhost API `4000`, guest web `3000`, admin web `3101`
+- Lighthouse method: production builds served on localhost; final local run used API `4010`, guest web `3010`, admin web `3110` to verify dynamic port isolation
 
 ## Code Changes
 
