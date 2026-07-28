@@ -1,0 +1,1400 @@
+$ tsx src/release-rehearsal.ts
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "organizations_tenant_policy" for relation "organizations" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "properties_tenant_policy" for relation "properties" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "memberships_tenant_policy" for relation "organization_memberships" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "property_assignments_tenant_policy" for relation "property_assignments" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "audit_logs_tenant_policy" for relation "audit_logs" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "property_branding_tenant_policy" for relation "property_branding" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "assets_tenant_policy" for relation "assets" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "portal_drafts_tenant_policy" for relation "portal_drafts" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "portal_versions_tenant_policy" for relation "portal_versions" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "outbox_events_tenant_policy" for relation "outbox_events" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "locations_tenant_policy" for relation "locations" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "qr_codes_tenant_policy" for relation "qr_codes" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "guest_sessions_tenant_policy" for relation "guest_sessions" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "knowledge_sources_tenant_policy" for relation "knowledge_sources" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "knowledge_chunks_tenant_policy" for relation "knowledge_chunks" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "conversations_tenant_policy" for relation "conversations" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "messages_tenant_policy" for relation "messages" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "request_drafts_tenant_policy" for relation "request_drafts" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "guest_requests_tenant_policy" for relation "guest_requests" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "order_drafts_tenant_policy" for relation "order_drafts" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "guest_orders_tenant_policy" for relation "guest_orders" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'constraint "guest_requests_version_check" of relation "guest_requests" does not exist, skipping',
+  file: 'tablecmds.c',
+  line: '12283',
+  routine: 'ATExecDropConstraint'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'constraint "guest_requests_completed_at_check" of relation "guest_requests" does not exist, skipping',
+  file: 'tablecmds.c',
+  line: '12283',
+  routine: 'ATExecDropConstraint'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'constraint "guest_orders_version_check" of relation "guest_orders" does not exist, skipping',
+  file: 'tablecmds.c',
+  line: '12283',
+  routine: 'ATExecDropConstraint'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'constraint "guest_orders_totals_check" of relation "guest_orders" does not exist, skipping',
+  file: 'tablecmds.c',
+  line: '12283',
+  routine: 'ATExecDropConstraint'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'constraint "guest_orders_completed_at_check" of relation "guest_orders" does not exist, skipping',
+  file: 'tablecmds.c',
+  line: '12283',
+  routine: 'ATExecDropConstraint'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "request_status_history_tenant_policy" for relation "request_status_history" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "order_status_history_tenant_policy" for relation "order_status_history" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "organizations_tenant_policy" for relation "organizations" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "properties_tenant_policy" for relation "properties" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "memberships_tenant_policy" for relation "organization_memberships" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "property_assignments_tenant_policy" for relation "property_assignments" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "audit_logs_tenant_policy" for relation "audit_logs" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "property_branding_tenant_policy" for relation "property_branding" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "assets_tenant_policy" for relation "assets" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "portal_drafts_tenant_policy" for relation "portal_drafts" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "portal_versions_tenant_policy" for relation "portal_versions" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "outbox_events_tenant_policy" for relation "outbox_events" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "locations_tenant_policy" for relation "locations" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "qr_codes_tenant_policy" for relation "qr_codes" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "guest_sessions_tenant_policy" for relation "guest_sessions" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "knowledge_sources_tenant_policy" for relation "knowledge_sources" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "knowledge_chunks_tenant_policy" for relation "knowledge_chunks" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "conversations_tenant_policy" for relation "conversations" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "messages_tenant_policy" for relation "messages" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "request_drafts_tenant_policy" for relation "request_drafts" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "guest_requests_tenant_policy" for relation "guest_requests" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "order_drafts_tenant_policy" for relation "order_drafts" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "guest_orders_tenant_policy" for relation "guest_orders" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'constraint "guest_requests_version_check" of relation "guest_requests" does not exist, skipping',
+  file: 'tablecmds.c',
+  line: '12283',
+  routine: 'ATExecDropConstraint'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'constraint "guest_requests_completed_at_check" of relation "guest_requests" does not exist, skipping',
+  file: 'tablecmds.c',
+  line: '12283',
+  routine: 'ATExecDropConstraint'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'constraint "guest_orders_version_check" of relation "guest_orders" does not exist, skipping',
+  file: 'tablecmds.c',
+  line: '12283',
+  routine: 'ATExecDropConstraint'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'constraint "guest_orders_totals_check" of relation "guest_orders" does not exist, skipping',
+  file: 'tablecmds.c',
+  line: '12283',
+  routine: 'ATExecDropConstraint'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'constraint "guest_orders_completed_at_check" of relation "guest_orders" does not exist, skipping',
+  file: 'tablecmds.c',
+  line: '12283',
+  routine: 'ATExecDropConstraint'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "request_status_history_tenant_policy" for relation "request_status_history" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '00000',
+  message: 'policy "order_status_history_tenant_policy" for relation "order_status_history" does not exist, skipping',
+  file: 'dropcmds.c',
+  line: '528',
+  routine: 'does_not_exist_skipping'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '42P07',
+  message: 'relation "schema_migrations" already exists, skipping',
+  file: 'parse_utilcmd.c',
+  line: '207',
+  routine: 'transformCreateStmt'
+}
+{
+  "generatedAt": "2026-07-28T09:25:02.240Z",
+  "environment": "vps-staging",
+  "mode": "database",
+  "sourceDatabase": "guestportal",
+  "migrationCount": 17,
+  "latestMigration": "0016_app_role_current_database_grant.sql",
+  "tools": {
+    "pgDumpPath": "/usr/bin/pg_dump",
+    "pgRestorePath": "/usr/bin/pg_restore"
+  },
+  "temporaryTargets": {
+    "fresh": "guestportal_fresh_1785230700230_1880150_dpl43v",
+    "upgrade": "guestportal_upgrade_1785230700230_1880150_nv80eo",
+    "restored": "guestportal_restored_1785230700230_1880150_t367aa",
+    "rollback": "guestportal_rollback_1785230700230_1880150_40ctpf"
+  },
+  "steps": [
+    {
+      "name": "fresh migration",
+      "passed": true,
+      "details": {
+        "target": "guestportal_fresh_1785230700230_1880150_dpl43v",
+        "snapshot": {
+          "database": "guestportal_fresh_1785230700230_1880150_dpl43v",
+          "schema": "public",
+          "migrationIds": [
+            "0000_phase01_auth_tenancy.sql",
+            "0001_app_role_no_bypass_rls.sql",
+            "0002_rls_default_org_setting.sql",
+            "0003_property_branding.sql",
+            "0004_assets.sql",
+            "0005_portal_drafts.sql",
+            "0006_portal_versions.sql",
+            "0007_locations_and_qr_codes.sql",
+            "0008_guest_sessions.sql",
+            "0009_knowledge_sources.sql",
+            "0010_knowledge_chunks.sql",
+            "0011_knowledge_chunk_embedding_hnsw.sql",
+            "0012_conversations_messages.sql",
+            "0013_request_order_confirmation.sql",
+            "0014_request_order_lifecycle.sql",
+            "0015_outbox_realtime_performance.sql",
+            "0016_app_role_current_database_grant.sql"
+          ],
+          "tableCounts": {
+            "schema_migrations": 17,
+            "organizations": 0,
+            "properties": 0,
+            "locations": 0,
+            "users": 0,
+            "organization_memberships": 0,
+            "property_assignments": 0,
+            "qr_codes": 0
+          },
+          "indexes": [
+            "assets_bucket_object_key_key",
+            "assets_org_idx",
+            "assets_pkey",
+            "assets_property_idx",
+            "assets_status_idx",
+            "audit_logs_actor_idx",
+            "audit_logs_org_idx",
+            "audit_logs_pkey",
+            "conversations_guest_session_idx",
+            "conversations_pkey",
+            "conversations_property_status_idx",
+            "conversations_retention_expires_idx",
+            "guest_orders_assignee_queue_idx",
+            "guest_orders_confirm_key_uidx",
+            "guest_orders_draft_uidx",
+            "guest_orders_guest_idx",
+            "guest_orders_pkey",
+            "guest_orders_property_status_idx",
+            "guest_orders_state_version_idx",
+            "guest_requests_assignee_queue_idx",
+            "guest_requests_confirm_key_uidx",
+            "guest_requests_draft_uidx",
+            "guest_requests_guest_idx",
+            "guest_requests_pkey",
+            "guest_requests_property_status_idx",
+            "guest_requests_state_version_idx",
+            "guest_sessions_expires_idx",
+            "guest_sessions_org_idx",
+            "guest_sessions_pkey",
+            "guest_sessions_property_idx",
+            "guest_sessions_token_hash_key",
+            "knowledge_chunks_active_lookup_idx",
+            "knowledge_chunks_embedding_hnsw_idx",
+            "knowledge_chunks_fts_idx",
+            "knowledge_chunks_pkey",
+            "knowledge_chunks_source_version_ordinal_uidx",
+            "knowledge_chunks_trgm_idx",
+            "knowledge_sources_asset_idx",
+            "knowledge_sources_pkey",
+            "knowledge_sources_property_status_idx",
+            "locations_org_idx",
+            "locations_pkey",
+            "locations_property_id_code_key",
+            "locations_property_idx",
+            "memberships_user_idx",
+            "messages_conversation_client_message_uidx",
+            "messages_conversation_order_idx",
+            "messages_conversation_sequence_uidx",
+            "messages_pkey",
+            "messages_property_created_idx",
+            "order_drafts_confirm_key_uidx",
+            "order_drafts_conversation_idx",
+            "order_drafts_expiry_idx",
+            "order_drafts_guest_idx",
+            "order_drafts_pkey",
+            "order_status_history_idempotency_uidx",
+            "order_status_history_order_idx",
+            "order_status_history_pkey",
+            "organization_memberships_organization_id_user_id_key",
+            "organization_memberships_pkey",
+            "organizations_pkey",
+            "organizations_slug_key",
+            "outbox_events_idempotency_key_key",
+            "outbox_events_org_property_created_idx",
+            "outbox_events_pkey",
+            "outbox_events_unpublished_idx",
+            "portal_drafts_org_idx",
+            "portal_drafts_pkey",
+            "portal_drafts_property_id_key",
+            "portal_templates_pkey",
+            "portal_templates_property_type_idx",
+            "portal_versions_org_idx",
+            "portal_versions_pkey",
+            "portal_versions_property_id_version_number_key",
+            "portal_versions_property_idx",
+            "properties_org_idx",
+            "properties_organization_id_slug_key",
+            "properties_pkey",
+            "property_assignments_pkey",
+            "property_assignments_property_id_user_id_key",
+            "property_assignments_user_idx",
+            "property_branding_org_idx",
+            "property_branding_pkey",
+            "property_branding_property_id_key",
+            "qr_codes_location_idx",
+            "qr_codes_org_idx",
+            "qr_codes_pkey",
+            "qr_codes_property_idx",
+            "qr_codes_public_token_hash_key",
+            "qr_codes_public_token_key",
+            "request_drafts_confirm_key_uidx",
+            "request_drafts_conversation_idx",
+            "request_drafts_expiry_idx",
+            "request_drafts_guest_idx",
+            "request_drafts_pkey",
+            "request_status_history_idempotency_uidx",
+            "request_status_history_pkey",
+            "request_status_history_request_idx",
+            "schema_migrations_pkey",
+            "sessions_pkey",
+            "sessions_token_hash_key",
+            "sessions_user_idx",
+            "users_email_key",
+            "users_pkey"
+          ],
+          "rlsTables": [
+            {
+              "table": "audit_logs",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "organization_memberships",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "organizations",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "properties",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "property_assignments",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            }
+          ],
+          "appRoleCanConnect": true
+        }
+      }
+    },
+    {
+      "name": "upgrade migration",
+      "passed": true,
+      "details": {
+        "target": "guestportal_upgrade_1785230700230_1880150_nv80eo",
+        "before": {
+          "database": "guestportal_upgrade_1785230700230_1880150_nv80eo",
+          "schema": "public",
+          "migrationIds": [
+            "0000_phase01_auth_tenancy.sql",
+            "0001_app_role_no_bypass_rls.sql",
+            "0002_rls_default_org_setting.sql",
+            "0003_property_branding.sql",
+            "0004_assets.sql",
+            "0005_portal_drafts.sql",
+            "0006_portal_versions.sql",
+            "0007_locations_and_qr_codes.sql",
+            "0008_guest_sessions.sql",
+            "0009_knowledge_sources.sql",
+            "0010_knowledge_chunks.sql",
+            "0011_knowledge_chunk_embedding_hnsw.sql",
+            "0012_conversations_messages.sql",
+            "0013_request_order_confirmation.sql",
+            "0014_request_order_lifecycle.sql",
+            "0015_outbox_realtime_performance.sql"
+          ],
+          "tableCounts": {
+            "schema_migrations": 16,
+            "organizations": 1,
+            "properties": 1,
+            "locations": 1,
+            "users": 1,
+            "organization_memberships": 1,
+            "property_assignments": 1,
+            "qr_codes": 1
+          },
+          "indexes": [
+            "assets_bucket_object_key_key",
+            "assets_org_idx",
+            "assets_pkey",
+            "assets_property_idx",
+            "assets_status_idx",
+            "audit_logs_actor_idx",
+            "audit_logs_org_idx",
+            "audit_logs_pkey",
+            "conversations_guest_session_idx",
+            "conversations_pkey",
+            "conversations_property_status_idx",
+            "conversations_retention_expires_idx",
+            "guest_orders_assignee_queue_idx",
+            "guest_orders_confirm_key_uidx",
+            "guest_orders_draft_uidx",
+            "guest_orders_guest_idx",
+            "guest_orders_pkey",
+            "guest_orders_property_status_idx",
+            "guest_orders_state_version_idx",
+            "guest_requests_assignee_queue_idx",
+            "guest_requests_confirm_key_uidx",
+            "guest_requests_draft_uidx",
+            "guest_requests_guest_idx",
+            "guest_requests_pkey",
+            "guest_requests_property_status_idx",
+            "guest_requests_state_version_idx",
+            "guest_sessions_expires_idx",
+            "guest_sessions_org_idx",
+            "guest_sessions_pkey",
+            "guest_sessions_property_idx",
+            "guest_sessions_token_hash_key",
+            "knowledge_chunks_active_lookup_idx",
+            "knowledge_chunks_embedding_hnsw_idx",
+            "knowledge_chunks_fts_idx",
+            "knowledge_chunks_pkey",
+            "knowledge_chunks_source_version_ordinal_uidx",
+            "knowledge_chunks_trgm_idx",
+            "knowledge_sources_asset_idx",
+            "knowledge_sources_pkey",
+            "knowledge_sources_property_status_idx",
+            "locations_org_idx",
+            "locations_pkey",
+            "locations_property_id_code_key",
+            "locations_property_idx",
+            "memberships_user_idx",
+            "messages_conversation_client_message_uidx",
+            "messages_conversation_order_idx",
+            "messages_conversation_sequence_uidx",
+            "messages_pkey",
+            "messages_property_created_idx",
+            "order_drafts_confirm_key_uidx",
+            "order_drafts_conversation_idx",
+            "order_drafts_expiry_idx",
+            "order_drafts_guest_idx",
+            "order_drafts_pkey",
+            "order_status_history_idempotency_uidx",
+            "order_status_history_order_idx",
+            "order_status_history_pkey",
+            "organization_memberships_organization_id_user_id_key",
+            "organization_memberships_pkey",
+            "organizations_pkey",
+            "organizations_slug_key",
+            "outbox_events_idempotency_key_key",
+            "outbox_events_org_property_created_idx",
+            "outbox_events_pkey",
+            "outbox_events_unpublished_idx",
+            "portal_drafts_org_idx",
+            "portal_drafts_pkey",
+            "portal_drafts_property_id_key",
+            "portal_templates_pkey",
+            "portal_templates_property_type_idx",
+            "portal_versions_org_idx",
+            "portal_versions_pkey",
+            "portal_versions_property_id_version_number_key",
+            "portal_versions_property_idx",
+            "properties_org_idx",
+            "properties_organization_id_slug_key",
+            "properties_pkey",
+            "property_assignments_pkey",
+            "property_assignments_property_id_user_id_key",
+            "property_assignments_user_idx",
+            "property_branding_org_idx",
+            "property_branding_pkey",
+            "property_branding_property_id_key",
+            "qr_codes_location_idx",
+            "qr_codes_org_idx",
+            "qr_codes_pkey",
+            "qr_codes_property_idx",
+            "qr_codes_public_token_hash_key",
+            "qr_codes_public_token_key",
+            "request_drafts_confirm_key_uidx",
+            "request_drafts_conversation_idx",
+            "request_drafts_expiry_idx",
+            "request_drafts_guest_idx",
+            "request_drafts_pkey",
+            "request_status_history_idempotency_uidx",
+            "request_status_history_pkey",
+            "request_status_history_request_idx",
+            "schema_migrations_pkey",
+            "sessions_pkey",
+            "sessions_token_hash_key",
+            "sessions_user_idx",
+            "users_email_key",
+            "users_pkey"
+          ],
+          "rlsTables": [
+            {
+              "table": "audit_logs",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "organization_memberships",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "organizations",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "properties",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "property_assignments",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            }
+          ],
+          "appRoleCanConnect": true
+        },
+        "after": {
+          "database": "guestportal_upgrade_1785230700230_1880150_nv80eo",
+          "schema": "public",
+          "migrationIds": [
+            "0000_phase01_auth_tenancy.sql",
+            "0001_app_role_no_bypass_rls.sql",
+            "0002_rls_default_org_setting.sql",
+            "0003_property_branding.sql",
+            "0004_assets.sql",
+            "0005_portal_drafts.sql",
+            "0006_portal_versions.sql",
+            "0007_locations_and_qr_codes.sql",
+            "0008_guest_sessions.sql",
+            "0009_knowledge_sources.sql",
+            "0010_knowledge_chunks.sql",
+            "0011_knowledge_chunk_embedding_hnsw.sql",
+            "0012_conversations_messages.sql",
+            "0013_request_order_confirmation.sql",
+            "0014_request_order_lifecycle.sql",
+            "0015_outbox_realtime_performance.sql",
+            "0016_app_role_current_database_grant.sql"
+          ],
+          "tableCounts": {
+            "schema_migrations": 17,
+            "organizations": 1,
+            "properties": 1,
+            "locations": 1,
+            "users": 1,
+            "organization_memberships": 1,
+            "property_assignments": 1,
+            "qr_codes": 1
+          },
+          "indexes": [
+            "assets_bucket_object_key_key",
+            "assets_org_idx",
+            "assets_pkey",
+            "assets_property_idx",
+            "assets_status_idx",
+            "audit_logs_actor_idx",
+            "audit_logs_org_idx",
+            "audit_logs_pkey",
+            "conversations_guest_session_idx",
+            "conversations_pkey",
+            "conversations_property_status_idx",
+            "conversations_retention_expires_idx",
+            "guest_orders_assignee_queue_idx",
+            "guest_orders_confirm_key_uidx",
+            "guest_orders_draft_uidx",
+            "guest_orders_guest_idx",
+            "guest_orders_pkey",
+            "guest_orders_property_status_idx",
+            "guest_orders_state_version_idx",
+            "guest_requests_assignee_queue_idx",
+            "guest_requests_confirm_key_uidx",
+            "guest_requests_draft_uidx",
+            "guest_requests_guest_idx",
+            "guest_requests_pkey",
+            "guest_requests_property_status_idx",
+            "guest_requests_state_version_idx",
+            "guest_sessions_expires_idx",
+            "guest_sessions_org_idx",
+            "guest_sessions_pkey",
+            "guest_sessions_property_idx",
+            "guest_sessions_token_hash_key",
+            "knowledge_chunks_active_lookup_idx",
+            "knowledge_chunks_embedding_hnsw_idx",
+            "knowledge_chunks_fts_idx",
+            "knowledge_chunks_pkey",
+            "knowledge_chunks_source_version_ordinal_uidx",
+            "knowledge_chunks_trgm_idx",
+            "knowledge_sources_asset_idx",
+            "knowledge_sources_pkey",
+            "knowledge_sources_property_status_idx",
+            "locations_org_idx",
+            "locations_pkey",
+            "locations_property_id_code_key",
+            "locations_property_idx",
+            "memberships_user_idx",
+            "messages_conversation_client_message_uidx",
+            "messages_conversation_order_idx",
+            "messages_conversation_sequence_uidx",
+            "messages_pkey",
+            "messages_property_created_idx",
+            "order_drafts_confirm_key_uidx",
+            "order_drafts_conversation_idx",
+            "order_drafts_expiry_idx",
+            "order_drafts_guest_idx",
+            "order_drafts_pkey",
+            "order_status_history_idempotency_uidx",
+            "order_status_history_order_idx",
+            "order_status_history_pkey",
+            "organization_memberships_organization_id_user_id_key",
+            "organization_memberships_pkey",
+            "organizations_pkey",
+            "organizations_slug_key",
+            "outbox_events_idempotency_key_key",
+            "outbox_events_org_property_created_idx",
+            "outbox_events_pkey",
+            "outbox_events_unpublished_idx",
+            "portal_drafts_org_idx",
+            "portal_drafts_pkey",
+            "portal_drafts_property_id_key",
+            "portal_templates_pkey",
+            "portal_templates_property_type_idx",
+            "portal_versions_org_idx",
+            "portal_versions_pkey",
+            "portal_versions_property_id_version_number_key",
+            "portal_versions_property_idx",
+            "properties_org_idx",
+            "properties_organization_id_slug_key",
+            "properties_pkey",
+            "property_assignments_pkey",
+            "property_assignments_property_id_user_id_key",
+            "property_assignments_user_idx",
+            "property_branding_org_idx",
+            "property_branding_pkey",
+            "property_branding_property_id_key",
+            "qr_codes_location_idx",
+            "qr_codes_org_idx",
+            "qr_codes_pkey",
+            "qr_codes_property_idx",
+            "qr_codes_public_token_hash_key",
+            "qr_codes_public_token_key",
+            "request_drafts_confirm_key_uidx",
+            "request_drafts_conversation_idx",
+            "request_drafts_expiry_idx",
+            "request_drafts_guest_idx",
+            "request_drafts_pkey",
+            "request_status_history_idempotency_uidx",
+            "request_status_history_pkey",
+            "request_status_history_request_idx",
+            "schema_migrations_pkey",
+            "sessions_pkey",
+            "sessions_token_hash_key",
+            "sessions_user_idx",
+            "users_email_key",
+            "users_pkey"
+          ],
+          "rlsTables": [
+            {
+              "table": "audit_logs",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "organization_memberships",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "organizations",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "properties",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "property_assignments",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            }
+          ],
+          "appRoleCanConnect": true
+        }
+      }
+    },
+    {
+      "name": "backup restore",
+      "passed": true,
+      "details": {
+        "sourceTarget": "guestportal_upgrade_1785230700230_1880150_nv80eo",
+        "restoredTarget": "guestportal_restored_1785230700230_1880150_t367aa",
+        "dumpFile": "/opt/apps/guestportal/evidence/phase-10/10.3/artifacts/guestportal_upgrade_1785230700230_1880150_nv80eo-post-upgrade.dump",
+        "restored": {
+          "database": "guestportal_restored_1785230700230_1880150_t367aa",
+          "schema": "public",
+          "migrationIds": [
+            "0000_phase01_auth_tenancy.sql",
+            "0001_app_role_no_bypass_rls.sql",
+            "0002_rls_default_org_setting.sql",
+            "0003_property_branding.sql",
+            "0004_assets.sql",
+            "0005_portal_drafts.sql",
+            "0006_portal_versions.sql",
+            "0007_locations_and_qr_codes.sql",
+            "0008_guest_sessions.sql",
+            "0009_knowledge_sources.sql",
+            "0010_knowledge_chunks.sql",
+            "0011_knowledge_chunk_embedding_hnsw.sql",
+            "0012_conversations_messages.sql",
+            "0013_request_order_confirmation.sql",
+            "0014_request_order_lifecycle.sql",
+            "0015_outbox_realtime_performance.sql",
+            "0016_app_role_current_database_grant.sql"
+          ],
+          "tableCounts": {
+            "schema_migrations": 17,
+            "organizations": 1,
+            "properties": 1,
+            "locations": 1,
+            "users": 1,
+            "organization_memberships": 1,
+            "property_assignments": 1,
+            "qr_codes": 1
+          },
+          "indexes": [
+            "assets_bucket_object_key_key",
+            "assets_org_idx",
+            "assets_pkey",
+            "assets_property_idx",
+            "assets_status_idx",
+            "audit_logs_actor_idx",
+            "audit_logs_org_idx",
+            "audit_logs_pkey",
+            "conversations_guest_session_idx",
+            "conversations_pkey",
+            "conversations_property_status_idx",
+            "conversations_retention_expires_idx",
+            "guest_orders_assignee_queue_idx",
+            "guest_orders_confirm_key_uidx",
+            "guest_orders_draft_uidx",
+            "guest_orders_guest_idx",
+            "guest_orders_pkey",
+            "guest_orders_property_status_idx",
+            "guest_orders_state_version_idx",
+            "guest_requests_assignee_queue_idx",
+            "guest_requests_confirm_key_uidx",
+            "guest_requests_draft_uidx",
+            "guest_requests_guest_idx",
+            "guest_requests_pkey",
+            "guest_requests_property_status_idx",
+            "guest_requests_state_version_idx",
+            "guest_sessions_expires_idx",
+            "guest_sessions_org_idx",
+            "guest_sessions_pkey",
+            "guest_sessions_property_idx",
+            "guest_sessions_token_hash_key",
+            "knowledge_chunks_active_lookup_idx",
+            "knowledge_chunks_embedding_hnsw_idx",
+            "knowledge_chunks_fts_idx",
+            "knowledge_chunks_pkey",
+            "knowledge_chunks_source_version_ordinal_uidx",
+            "knowledge_chunks_trgm_idx",
+            "knowledge_sources_asset_idx",
+            "knowledge_sources_pkey",
+            "knowledge_sources_property_status_idx",
+            "locations_org_idx",
+            "locations_pkey",
+            "locations_property_id_code_key",
+            "locations_property_idx",
+            "memberships_user_idx",
+            "messages_conversation_client_message_uidx",
+            "messages_conversation_order_idx",
+            "messages_conversation_sequence_uidx",
+            "messages_pkey",
+            "messages_property_created_idx",
+            "order_drafts_confirm_key_uidx",
+            "order_drafts_conversation_idx",
+            "order_drafts_expiry_idx",
+            "order_drafts_guest_idx",
+            "order_drafts_pkey",
+            "order_status_history_idempotency_uidx",
+            "order_status_history_order_idx",
+            "order_status_history_pkey",
+            "organization_memberships_organization_id_user_id_key",
+            "organization_memberships_pkey",
+            "organizations_pkey",
+            "organizations_slug_key",
+            "outbox_events_idempotency_key_key",
+            "outbox_events_org_property_created_idx",
+            "outbox_events_pkey",
+            "outbox_events_unpublished_idx",
+            "portal_drafts_org_idx",
+            "portal_drafts_pkey",
+            "portal_drafts_property_id_key",
+            "portal_templates_pkey",
+            "portal_templates_property_type_idx",
+            "portal_versions_org_idx",
+            "portal_versions_pkey",
+            "portal_versions_property_id_version_number_key",
+            "portal_versions_property_idx",
+            "properties_org_idx",
+            "properties_organization_id_slug_key",
+            "properties_pkey",
+            "property_assignments_pkey",
+            "property_assignments_property_id_user_id_key",
+            "property_assignments_user_idx",
+            "property_branding_org_idx",
+            "property_branding_pkey",
+            "property_branding_property_id_key",
+            "qr_codes_location_idx",
+            "qr_codes_org_idx",
+            "qr_codes_pkey",
+            "qr_codes_property_idx",
+            "qr_codes_public_token_hash_key",
+            "qr_codes_public_token_key",
+            "request_drafts_confirm_key_uidx",
+            "request_drafts_conversation_idx",
+            "request_drafts_expiry_idx",
+            "request_drafts_guest_idx",
+            "request_drafts_pkey",
+            "request_status_history_idempotency_uidx",
+            "request_status_history_pkey",
+            "request_status_history_request_idx",
+            "schema_migrations_pkey",
+            "sessions_pkey",
+            "sessions_token_hash_key",
+            "sessions_user_idx",
+            "users_email_key",
+            "users_pkey"
+          ],
+          "rlsTables": [
+            {
+              "table": "audit_logs",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "organization_memberships",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "organizations",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "properties",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "property_assignments",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            }
+          ],
+          "appRoleCanConnect": true
+        }
+      }
+    },
+    {
+      "name": "rollback rehearsal",
+      "passed": true,
+      "details": {
+        "upgradedTarget": "guestportal_upgrade_1785230700230_1880150_nv80eo",
+        "rollbackTarget": "guestportal_rollback_1785230700230_1880150_40ctpf",
+        "dumpFile": "/opt/apps/guestportal/evidence/phase-10/10.3/artifacts/guestportal_upgrade_1785230700230_1880150_nv80eo-pre-upgrade.dump",
+        "rollback": {
+          "database": "guestportal_rollback_1785230700230_1880150_40ctpf",
+          "schema": "public",
+          "migrationIds": [
+            "0000_phase01_auth_tenancy.sql",
+            "0001_app_role_no_bypass_rls.sql",
+            "0002_rls_default_org_setting.sql",
+            "0003_property_branding.sql",
+            "0004_assets.sql",
+            "0005_portal_drafts.sql",
+            "0006_portal_versions.sql",
+            "0007_locations_and_qr_codes.sql",
+            "0008_guest_sessions.sql",
+            "0009_knowledge_sources.sql",
+            "0010_knowledge_chunks.sql",
+            "0011_knowledge_chunk_embedding_hnsw.sql",
+            "0012_conversations_messages.sql",
+            "0013_request_order_confirmation.sql",
+            "0014_request_order_lifecycle.sql",
+            "0015_outbox_realtime_performance.sql"
+          ],
+          "tableCounts": {
+            "schema_migrations": 16,
+            "organizations": 1,
+            "properties": 1,
+            "locations": 1,
+            "users": 1,
+            "organization_memberships": 1,
+            "property_assignments": 1,
+            "qr_codes": 1
+          },
+          "indexes": [
+            "assets_bucket_object_key_key",
+            "assets_org_idx",
+            "assets_pkey",
+            "assets_property_idx",
+            "assets_status_idx",
+            "audit_logs_actor_idx",
+            "audit_logs_org_idx",
+            "audit_logs_pkey",
+            "conversations_guest_session_idx",
+            "conversations_pkey",
+            "conversations_property_status_idx",
+            "conversations_retention_expires_idx",
+            "guest_orders_assignee_queue_idx",
+            "guest_orders_confirm_key_uidx",
+            "guest_orders_draft_uidx",
+            "guest_orders_guest_idx",
+            "guest_orders_pkey",
+            "guest_orders_property_status_idx",
+            "guest_orders_state_version_idx",
+            "guest_requests_assignee_queue_idx",
+            "guest_requests_confirm_key_uidx",
+            "guest_requests_draft_uidx",
+            "guest_requests_guest_idx",
+            "guest_requests_pkey",
+            "guest_requests_property_status_idx",
+            "guest_requests_state_version_idx",
+            "guest_sessions_expires_idx",
+            "guest_sessions_org_idx",
+            "guest_sessions_pkey",
+            "guest_sessions_property_idx",
+            "guest_sessions_token_hash_key",
+            "knowledge_chunks_active_lookup_idx",
+            "knowledge_chunks_embedding_hnsw_idx",
+            "knowledge_chunks_fts_idx",
+            "knowledge_chunks_pkey",
+            "knowledge_chunks_source_version_ordinal_uidx",
+            "knowledge_chunks_trgm_idx",
+            "knowledge_sources_asset_idx",
+            "knowledge_sources_pkey",
+            "knowledge_sources_property_status_idx",
+            "locations_org_idx",
+            "locations_pkey",
+            "locations_property_id_code_key",
+            "locations_property_idx",
+            "memberships_user_idx",
+            "messages_conversation_client_message_uidx",
+            "messages_conversation_order_idx",
+            "messages_conversation_sequence_uidx",
+            "messages_pkey",
+            "messages_property_created_idx",
+            "order_drafts_confirm_key_uidx",
+            "order_drafts_conversation_idx",
+            "order_drafts_expiry_idx",
+            "order_drafts_guest_idx",
+            "order_drafts_pkey",
+            "order_status_history_idempotency_uidx",
+            "order_status_history_order_idx",
+            "order_status_history_pkey",
+            "organization_memberships_organization_id_user_id_key",
+            "organization_memberships_pkey",
+            "organizations_pkey",
+            "organizations_slug_key",
+            "outbox_events_idempotency_key_key",
+            "outbox_events_org_property_created_idx",
+            "outbox_events_pkey",
+            "outbox_events_unpublished_idx",
+            "portal_drafts_org_idx",
+            "portal_drafts_pkey",
+            "portal_drafts_property_id_key",
+            "portal_templates_pkey",
+            "portal_templates_property_type_idx",
+            "portal_versions_org_idx",
+            "portal_versions_pkey",
+            "portal_versions_property_id_version_number_key",
+            "portal_versions_property_idx",
+            "properties_org_idx",
+            "properties_organization_id_slug_key",
+            "properties_pkey",
+            "property_assignments_pkey",
+            "property_assignments_property_id_user_id_key",
+            "property_assignments_user_idx",
+            "property_branding_org_idx",
+            "property_branding_pkey",
+            "property_branding_property_id_key",
+            "qr_codes_location_idx",
+            "qr_codes_org_idx",
+            "qr_codes_pkey",
+            "qr_codes_property_idx",
+            "qr_codes_public_token_hash_key",
+            "qr_codes_public_token_key",
+            "request_drafts_confirm_key_uidx",
+            "request_drafts_conversation_idx",
+            "request_drafts_expiry_idx",
+            "request_drafts_guest_idx",
+            "request_drafts_pkey",
+            "request_status_history_idempotency_uidx",
+            "request_status_history_pkey",
+            "request_status_history_request_idx",
+            "schema_migrations_pkey",
+            "sessions_pkey",
+            "sessions_token_hash_key",
+            "sessions_user_idx",
+            "users_email_key",
+            "users_pkey"
+          ],
+          "rlsTables": [
+            {
+              "table": "audit_logs",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "organization_memberships",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "organizations",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "properties",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            },
+            {
+              "table": "property_assignments",
+              "rowSecurity": true,
+              "forceRowSecurity": true
+            }
+          ],
+          "appRoleCanConnect": true
+        }
+      }
+    }
+  ],
+  "passed": true
+}
