@@ -1318,6 +1318,7 @@
 }
 
 .gp-admin-shell__route-context {
+  box-sizing: border-box;
   width: 100%;
   max-width: 1320px;
   margin: 0 auto;
@@ -1345,6 +1346,7 @@
 }
 
 .gp-admin-shell__workspace {
+  box-sizing: border-box;
   min-height: 0;
   flex: 1;
   overflow-y: auto;
