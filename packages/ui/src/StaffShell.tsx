@@ -19,6 +19,7 @@ export type StaffShellProps = {
   actions?: ReactNode;
   offline?: boolean;
   children: ReactNode;
+  productName?: string;
 };
 
 export function StaffShell({
@@ -31,12 +32,13 @@ export function StaffShell({
   actions,
   offline = false,
   children,
+  productName = 'Lotavi Staff',
 }: StaffShellProps) {
   return (
     <div className={`gp-staff-shell${offline ? ' gp-staff-shell--offline' : ''}`}>
       {offline ? (
         <div className="gp-staff-shell__offline" role="status" data-testid="offline-banner">
-          Offline — reconnecting when the network returns. Local shell state is preserved.
+          Offline - reconnecting when the network returns. Local shell state is preserved.
         </div>
       ) : null}
 
@@ -46,8 +48,8 @@ export function StaffShell({
 
       <aside className="gp-staff-shell__sidebar">
         <div className="gp-staff-shell__brand">
-          <span aria-hidden="true">GP</span>
-          <strong>GuestPortal Staff</strong>
+          <span aria-hidden="true">L</span>
+          <strong>{productName}</strong>
         </div>
         {desktopNav.length ? (
           <nav className="gp-staff-shell__desktop-nav" aria-label="Staff navigation">

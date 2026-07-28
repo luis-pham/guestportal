@@ -14,16 +14,41 @@
   --gp-color-surface: #ffffff;
   --gp-color-surface-muted: #eef1f5;
   --gp-color-border: #d7dde7;
+  --gp-color-border-strong: #aab4c3;
   --gp-color-text-primary: #121826;
   --gp-color-text-secondary: #3d4659;
   --gp-color-text-muted: #5f6678;
   --gp-color-brand: #0f5c4c;
   --gp-color-brand-hover: #0c4a3d;
+  --gp-color-brand-subtle: #e6f4ef;
   --gp-color-success: #147a45;
+  --gp-color-success-bg: #ecfdf3;
+  --gp-color-success-border: #abefc6;
   --gp-color-warning: #9a6700;
+  --gp-color-warning-bg: #fffaeb;
+  --gp-color-warning-border: #fedf89;
   --gp-color-danger: #b42318;
+  --gp-color-danger-bg: #fff1f3;
+  --gp-color-danger-border: #fecdca;
   --gp-color-info: #175cd3;
+  --gp-color-info-bg: #eff8ff;
+  --gp-color-info-border: #b2ddff;
+  --gp-color-neutral-bg: #f4f6f8;
+  --gp-color-neutral-border: #d7dde7;
   --gp-color-focus-ring: #2e90fa;
+
+  /* Lotavi Design System aliases */
+  --gp-bg-canvas: var(--gp-color-background);
+  --gp-bg-surface: var(--gp-color-surface);
+  --gp-bg-subtle: var(--gp-color-surface-muted);
+  --gp-text-primary: var(--gp-color-text-primary);
+  --gp-text-secondary: var(--gp-color-text-secondary);
+  --gp-text-muted: var(--gp-color-text-muted);
+  --gp-border-default: var(--gp-color-border);
+  --gp-border-strong: var(--gp-color-border-strong);
+  --gp-accent-primary: var(--gp-color-brand);
+  --gp-accent-primary-hover: var(--gp-color-brand-hover);
+  --gp-accent-primary-subtle: var(--gp-color-brand-subtle);
 
   /* Spacing scale */
   --gp-space-2: 2px;
@@ -97,8 +122,8 @@
   --gp-easing-exit: cubic-bezier(0.4, 0, 1, 1);
 
   /* Shell layout */
-  --gp-sidebar-expanded: 240px;
-  --gp-sidebar-collapsed: 68px;
+  --gp-sidebar-expanded: 256px;
+  --gp-sidebar-collapsed: 64px;
   --gp-secondary-sidebar: 260px;
 }
 

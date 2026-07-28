@@ -27,8 +27,8 @@ describe('design tokens', () => {
   });
 
   it('matches documented sidebar widths', () => {
-    expect(shellLayout.primarySidebarExpanded).toBe(240);
-    expect(shellLayout.primarySidebarCollapsed).toBe(68);
+    expect(shellLayout.primarySidebarExpanded).toBe(256);
+    expect(shellLayout.primarySidebarCollapsed).toBe(64);
     expect(shellLayout.secondarySidebarMin).toBe(240);
     expect(shellLayout.secondarySidebarMax).toBe(280);
   });

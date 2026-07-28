@@ -23,6 +23,7 @@ export type AdminShellProps = {
   actions?: ReactNode;
   controls?: ReactNode;
   children: ReactNode;
+  productName?: string;
 };
 
 export function AdminShell({
@@ -33,6 +34,7 @@ export function AdminShell({
   actions,
   controls,
   children,
+  productName = 'Lotavi',
 }: AdminShellProps) {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -40,8 +42,8 @@ export function AdminShell({
     <div className={`gp-admin-shell${collapsed ? ' gp-admin-shell--collapsed' : ''}`}>
       <aside className="gp-admin-shell__primary">
         <div className="gp-admin-shell__brand">
-          <span aria-hidden="true">GP</span>
-          <strong className="gp-admin-shell__brand-name">GuestPortal</strong>
+          <span aria-hidden="true">L</span>
+          <strong className="gp-admin-shell__brand-name">{productName}</strong>
         </div>
         <button
           className="gp-admin-shell__collapse"

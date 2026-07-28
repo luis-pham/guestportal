@@ -3,6 +3,6 @@ import { shellLayout } from '@guestportal/ui';
 
 describe('admin-web foundation', () => {
   it('uses shared shell layout tokens', () => {
-    expect(shellLayout.primarySidebarExpanded).toBe(240);
+    expect(shellLayout.primarySidebarExpanded).toBe(256);
   });
 });

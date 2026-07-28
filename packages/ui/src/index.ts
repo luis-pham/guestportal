@@ -5,11 +5,7 @@ export {
   type AdminNavItem,
   type AdminShellProps,
 } from './AdminShell';
-export {
-  StaffShell,
-  type StaffNavItem,
-  type StaffShellProps,
-} from './StaffShell';
+export { StaffShell, type StaffNavItem, type StaffShellProps } from './StaffShell';
 export {
   colorTokens,
   cssVarForColor,
@@ -43,6 +39,9 @@ export { Drawer, type DrawerProps } from './components/Drawer';
 export { Menu, type MenuItem, type MenuProps } from './components/Menu';
 export { Tabs, type TabItem, type TabsProps } from './components/Tabs';
 export { Table, type TableColumn, type TableProps } from './components/Table';
+export { PageHeader, type PageHeaderProps } from './components/PageHeader';
+export { FilterBar, type FilterBarProps } from './components/FilterBar';
+export { StatusBadge, type StatusBadgeProps, type StatusTone } from './components/StatusBadge';
 export {
   EmptyState,
   ErrorState,

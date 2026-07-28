@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Button, Select, SkeletonBlock, StatusBadge, type StatusTone } from '@guestportal/ui';
 import type { StaffWorkDetail, StaffWorkItem, StaffWorkQueue } from '../lib/api';
 import {
   claimStaffWorkItem,
@@ -111,6 +112,21 @@ function money(amountMinor: number, currency: string) {
     currency,
     currencyDisplay: 'code',
   }).format(amountMinor / 100);
+}
+
+function statusTone(status: string): StatusTone {
+  if (status === 'completed' || status === 'ready' || status === 'delivering') return 'success';
+  if (status === 'cancelled' || status === 'failed') return 'danger';
+  if (status === 'submitted') return 'warning';
+  if (
+    status === 'accepted' ||
+    status === 'confirmed' ||
+    status === 'in_progress' ||
+    status === 'preparing'
+  ) {
+    return 'info';
+  }
+  return 'neutral';
 }
 
 function itemHref(locale: string, item: StaffWorkItem) {
@@ -274,23 +290,19 @@ export function StaffOperationsWorkspace({
       data-testid="staff-inbox"
     >
       <div className="staff-ops__toolbar" aria-label={t.filters}>
-        <label>
-          <span>{t.status}</span>
-          <select
-            data-testid="staff-filter-status"
-            value={status}
-            onChange={(event) => setStatus(event.target.value)}
-          >
-            {statusOptions.map((option) => (
-              <option key={option} value={option}>
-                {option === 'all' ? t.all : option.replace(/_/g, ' ')}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button type="button" onClick={() => void loadItems()} data-testid="staff-refresh">
+        <Select
+          label={t.status}
+          data-testid="staff-filter-status"
+          value={status}
+          onChange={(event) => setStatus(event.target.value)}
+          options={statusOptions.map((option) => ({
+            value: option,
+            label: option === 'all' ? t.all : option.replace(/_/g, ' '),
+          }))}
+        />
+        <Button variant="secondary" onClick={() => void loadItems()} data-testid="staff-refresh">
           {t.retry}
-        </button>
+        </Button>
       </div>
 
       {error ? (
@@ -311,7 +323,7 @@ export function StaffOperationsWorkspace({
         <div className="staff-ops__list" data-testid="staff-work-list">
           {loading ? (
             <div className="staff-ops__state" data-testid="staff-ops-loading">
-              {t.loading}
+              <SkeletonBlock lines={4} />
             </div>
           ) : null}
           {!loading && items.length === 0 ? (
@@ -326,25 +338,29 @@ export function StaffOperationsWorkspace({
               data-testid="staff-work-item"
             >
               <button type="button" onClick={() => setSelected(item)}>
-                <span>{item.kind === 'request' ? t.request : t.order}</span>
+                <div className="staff-card__meta">
+                  <StatusBadge tone={statusTone(item.status)}>
+                    {item.status.replace(/_/g, ' ')}
+                  </StatusBadge>
+                  <span>{item.kind === 'request' ? t.request : t.order}</span>
+                </div>
                 <strong>{item.title}</strong>
                 <small>
-                  {t.location}: {pickName(item.location.name, locale)} ·{' '}
-                  {item.status.replace(/_/g, ' ')}
+                  {t.location}: {pickName(item.location.name, locale)}
                 </small>
                 <small>
                   {t.waiting}: {waitingLabel(item.waitingSeconds)}
                 </small>
               </button>
               <div className="staff-card__actions">
-                <button
-                  type="button"
+                <Button
+                  variant="secondary"
                   disabled={Boolean(item.assignee) || claimingId === `${item.kind}-${item.id}`}
                   onClick={() => void handleClaim(item)}
                   data-testid="staff-claim-item"
                 >
                   {claimingId === `${item.kind}-${item.id}` ? t.claiming : t.accept}
-                </button>
+                </Button>
                 <a href={itemHref(locale, item)} data-testid="staff-open-item">
                   {t.open}
                 </a>
@@ -412,7 +428,7 @@ function StaffDetailPanel({
         <span>{detail.kind === 'request' ? t.request : t.order}</span>
         <h2>{title}</h2>
         <p>
-          {status.replace(/_/g, ' ')} · v{version}
+          {status.replace(/_/g, ' ')} - v{version}
         </p>
       </header>
 

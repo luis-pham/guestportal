@@ -3,7 +3,17 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
-import { Button, Select } from '@guestportal/ui';
+import {
+  Button,
+  EmptyState,
+  ErrorState,
+  FilterBar,
+  PageHeader,
+  Select,
+  SkeletonBlock,
+  StatusBadge,
+  type StatusTone,
+} from '@guestportal/ui';
 import type {
   AdminOperationListResponse,
   AdminOrderDetailResponse,
@@ -44,6 +54,21 @@ function formatAge(seconds: number) {
 
 function itemPrimary(detail: OperationDetail) {
   return detail.kind === 'request' ? detail.request : detail.order;
+}
+
+function statusTone(status: string): StatusTone {
+  if (status === 'completed' || status === 'ready') return 'success';
+  if (status === 'cancelled' || status === 'failed') return 'danger';
+  if (status === 'submitted') return 'warning';
+  if (
+    status === 'accepted' ||
+    status === 'confirmed' ||
+    status === 'in_progress' ||
+    status === 'preparing'
+  ) {
+    return 'info';
+  }
+  return 'neutral';
 }
 
 export function AdminOperationsPanel({ kind }: Props) {
@@ -173,7 +198,8 @@ export function AdminOperationsPanel({ kind }: Props) {
     }
     const blob = await response.blob();
     const disposition = response.headers.get('content-disposition') ?? '';
-    const filename = disposition.match(/filename="([^"]+)"/)?.[1] ?? `guestportal-${collection}.csv`;
+    const filename =
+      disposition.match(/filename="([^"]+)"/)?.[1] ?? `guestportal-${collection}.csv`;
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -188,46 +214,36 @@ export function AdminOperationsPanel({ kind }: Props) {
   }
 
   return (
-    <main className="gp-state admin-ops" data-testid="admin-operations-panel">
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          gap: '1rem',
-          alignItems: 'end',
-        }}
-      >
-        <div>
-          <h2 className="gp-state__title">
-            {kind === 'request' ? t('requestsTitle') : t('ordersTitle')}
-          </h2>
-          <p className="gp-state__body">{t('body')}</p>
-        </div>
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-          <Button data-testid="admin-ops-refresh" variant="secondary" onClick={() => void loadPage()}>
-            {t('refresh')}
-          </Button>
-          <Button
-            data-testid="admin-ops-export"
-            variant="secondary"
-            loading={exporting}
-            onClick={() => void exportCsv()}
-          >
-            {t('exportCsv')}
-          </Button>
-        </div>
-      </div>
+    <main className="admin-ops" data-testid="admin-operations-panel">
+      <PageHeader
+        title={kind === 'request' ? t('requestsTitle') : t('ordersTitle')}
+        description={t('body')}
+        actions={
+          <>
+            <Button
+              data-testid="admin-ops-refresh"
+              variant="secondary"
+              onClick={() => void loadPage()}
+            >
+              {t('refresh')}
+            </Button>
+            <Button
+              data-testid="admin-ops-export"
+              variant="secondary"
+              loading={exporting}
+              onClick={() => void exportCsv()}
+            >
+              {t('exportCsv')}
+            </Button>
+          </>
+        }
+      />
 
-      <div
-        className="admin-ops__filters"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-          gap: '0.75rem',
-          marginTop: '1.5rem',
-          maxWidth: 760,
-        }}
+      <FilterBar
+        aria-label={t('status')}
+        activeSummary={
+          exportStatus ? <span data-testid="admin-ops-export-status">{exportStatus}</span> : null
+        }
       >
         <Select
           label={t('status')}
@@ -236,135 +252,51 @@ export function AdminOperationsPanel({ kind }: Props) {
           onChange={(event) => setStatus(event.target.value)}
           options={statusOptions}
         />
-        <label style={{ display: 'grid', gap: '0.35rem', fontWeight: 700 }}>
-          {t('dateFrom')}
+        <label className="gp-field">
+          <span className="gp-field__label">{t('dateFrom')}</span>
           <input
+            className="gp-input"
             data-testid="admin-ops-date-from"
             type="date"
             value={dateFrom}
             onChange={(event) => setDateFrom(event.target.value)}
-            style={{
-              width: '100%',
-              boxSizing: 'border-box',
-              minHeight: 42,
-              border: '1px solid var(--gp-border, #d7dde8)',
-              borderRadius: 6,
-              padding: '0 0.75rem',
-            }}
           />
         </label>
-        <label style={{ display: 'grid', gap: '0.35rem', fontWeight: 700 }}>
-          {t('dateTo')}
+        <label className="gp-field">
+          <span className="gp-field__label">{t('dateTo')}</span>
           <input
+            className="gp-input"
             data-testid="admin-ops-date-to"
             type="date"
             value={dateTo}
             onChange={(event) => setDateTo(event.target.value)}
-            style={{
-              width: '100%',
-              boxSizing: 'border-box',
-              minHeight: 42,
-              border: '1px solid var(--gp-border, #d7dde8)',
-              borderRadius: 6,
-              padding: '0 0.75rem',
-            }}
           />
         </label>
-      </div>
+      </FilterBar>
 
       {error ? (
-        <p
-          data-testid="admin-ops-error"
-          role="alert"
-          style={{ marginTop: '1rem', color: '#b42318' }}
-        >
-          {error}
-        </p>
-      ) : null}
-      {exportStatus ? (
-        <p data-testid="admin-ops-export-status" style={{ marginTop: '1rem' }}>
-          {exportStatus}
-        </p>
+        <div data-testid="admin-ops-error">
+          <ErrorState title={error} />
+        </div>
       ) : null}
       {loading ? (
-        <p data-testid="admin-ops-loading" aria-live="polite" style={{ marginTop: '1.25rem' }}>
-          {t('loading')}
-        </p>
+        <div data-testid="admin-ops-loading" aria-label={t('loading')}>
+          <SkeletonBlock lines={5} />
+        </div>
       ) : null}
 
-      <section
-        className="admin-ops__workspace"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
-          gap: '1.25rem',
-          alignItems: 'start',
-          marginTop: '1.5rem',
-        }}
-      >
-        <div className="admin-ops__list" style={{ minWidth: 0, overflowX: 'auto' }}>
-          <table
-            data-testid="admin-ops-list"
-            style={{ width: '100%', borderCollapse: 'collapse', minWidth: 780 }}
-          >
+      <section className="admin-ops__workspace">
+        <div className="admin-ops__list">
+          <table data-testid="admin-ops-list" className="admin-ops__table">
             <thead>
-              <tr style={{ textAlign: 'left', color: 'var(--gp-muted, #586174)' }}>
-                <th
-                  style={{
-                    padding: '0.65rem',
-                    borderBottom: '1px solid var(--gp-border, #d7dde8)',
-                  }}
-                >
-                  {t('columnStatus')}
-                </th>
-                <th
-                  style={{
-                    padding: '0.65rem',
-                    borderBottom: '1px solid var(--gp-border, #d7dde8)',
-                  }}
-                >
-                  {t('columnTitle')}
-                </th>
-                <th
-                  style={{
-                    padding: '0.65rem',
-                    borderBottom: '1px solid var(--gp-border, #d7dde8)',
-                  }}
-                >
-                  {t('columnLocation')}
-                </th>
-                <th
-                  style={{
-                    padding: '0.65rem',
-                    borderBottom: '1px solid var(--gp-border, #d7dde8)',
-                  }}
-                >
-                  {t('columnLanguage')}
-                </th>
-                <th
-                  style={{
-                    padding: '0.65rem',
-                    borderBottom: '1px solid var(--gp-border, #d7dde8)',
-                  }}
-                >
-                  {t('columnWaiting')}
-                </th>
-                <th
-                  style={{
-                    padding: '0.65rem',
-                    borderBottom: '1px solid var(--gp-border, #d7dde8)',
-                  }}
-                >
-                  {t('columnAssignee')}
-                </th>
-                <th
-                  style={{
-                    padding: '0.65rem',
-                    borderBottom: '1px solid var(--gp-border, #d7dde8)',
-                  }}
-                >
-                  {t('columnCreated')}
-                </th>
+              <tr>
+                <th>{t('columnStatus')}</th>
+                <th>{t('columnTitle')}</th>
+                <th>{t('columnLocation')}</th>
+                <th>{t('columnLanguage')}</th>
+                <th>{t('columnWaiting')}</th>
+                <th>{t('columnAssignee')}</th>
+                <th>{t('columnCreated')}</th>
               </tr>
             </thead>
             <tbody>
@@ -372,38 +304,29 @@ export function AdminOperationsPanel({ kind }: Props) {
                 <tr
                   key={item.id}
                   data-testid="admin-ops-item"
-                  style={{ borderBottom: '1px solid var(--gp-border, #d7dde8)' }}
+                  className={detailId === item.id ? 'is-selected' : undefined}
                 >
-                  <td style={{ padding: '0.75rem' }}>{item.status}</td>
-                  <td style={{ padding: '0.75rem', maxWidth: 260 }}>
+                  <td>
+                    <StatusBadge tone={statusTone(item.status)}>
+                      {item.status.replace(/_/g, ' ')}
+                    </StatusBadge>
+                  </td>
+                  <td>
                     <button
                       data-testid="admin-ops-open"
                       type="button"
                       onClick={() => openDetail(item)}
-                      style={{
-                        border: 0,
-                        padding: 0,
-                        color: 'var(--gp-link, #2457d6)',
-                        background: 'transparent',
-                        font: 'inherit',
-                        fontWeight: 700,
-                        textAlign: 'left',
-                        cursor: 'pointer',
-                      }}
+                      className="admin-ops__row-action"
                     >
                       {item.title}
                     </button>
-                    <div style={{ color: 'var(--gp-muted, #586174)', marginTop: 4 }}>
-                      {item.summary || t('noSummary')}
-                    </div>
+                    <div className="admin-ops__summary">{item.summary || t('noSummary')}</div>
                   </td>
-                  <td style={{ padding: '0.75rem' }}>{item.location.code}</td>
-                  <td style={{ padding: '0.75rem' }}>{item.locale.toUpperCase()}</td>
-                  <td style={{ padding: '0.75rem' }}>{formatAge(item.waitingSeconds)}</td>
-                  <td style={{ padding: '0.75rem' }}>
-                    {item.assignee?.displayName ?? t('unassigned')}
-                  </td>
-                  <td style={{ padding: '0.75rem' }}>
+                  <td>{item.location.code}</td>
+                  <td>{item.locale.toUpperCase()}</td>
+                  <td className="admin-ops__mono">{formatAge(item.waitingSeconds)}</td>
+                  <td>{item.assignee?.displayName ?? t('unassigned')}</td>
+                  <td>
                     {new Intl.DateTimeFormat(locale, {
                       dateStyle: 'medium',
                       timeStyle: 'short',
@@ -414,9 +337,9 @@ export function AdminOperationsPanel({ kind }: Props) {
             </tbody>
           </table>
           {!loading && items.length === 0 ? (
-            <p data-testid="admin-ops-empty" style={{ padding: '1rem 0' }}>
-              {t('empty')}
-            </p>
+            <div data-testid="admin-ops-empty">
+              <EmptyState title={t('empty')} />
+            </div>
           ) : null}
           {nextCursor ? (
             <Button
@@ -431,30 +354,22 @@ export function AdminOperationsPanel({ kind }: Props) {
           ) : null}
         </div>
 
-        <aside
-          className="admin-ops__detail"
-          data-testid="admin-ops-detail"
-          style={{
-            borderLeft: '1px solid var(--gp-border, #d7dde8)',
-            paddingLeft: '1rem',
-            minWidth: 0,
-          }}
-        >
+        <aside className="admin-ops__detail" data-testid="admin-ops-detail">
           {detailLoading ? <p>{t('detailLoading')}</p> : null}
           {!detailLoading && !detail ? <p>{t('selectDetail')}</p> : null}
           {detail ? (
-            <div style={{ display: 'grid', gap: '1rem' }}>
+            <div className="admin-ops__detail-content">
               <header>
-                <h3 style={{ margin: 0, fontSize: '1.15rem' }}>{itemPrimary(detail).title}</h3>
-                <p style={{ margin: '0.4rem 0 0', color: 'var(--gp-muted, #586174)' }}>
-                  {itemPrimary(detail).status} · v{itemPrimary(detail).version} ·{' '}
+                <h3>{itemPrimary(detail).title}</h3>
+                <p>
+                  {itemPrimary(detail).status} - v{itemPrimary(detail).version} -{' '}
                   {detail.location.code}
                 </p>
               </header>
               {detail.kind === 'order' ? (
                 <section data-testid="admin-ops-order-items">
                   <strong>{t('items')}</strong>
-                  <ul style={{ margin: '0.5rem 0 0', paddingLeft: '1rem' }}>
+                  <ul>
                     {detail.order.items.map((item) => (
                       <li key={item.itemId}>
                         {item.label} x {item.quantity}
@@ -465,13 +380,13 @@ export function AdminOperationsPanel({ kind }: Props) {
               ) : (
                 <section>
                   <strong>{t('requestType')}</strong>
-                  <p style={{ marginTop: '0.35rem' }}>{detail.request.requestType}</p>
+                  <p>{detail.request.requestType}</p>
                   <p>{detail.request.details || t('noSummary')}</p>
                 </section>
               )}
               <section data-testid="admin-ops-conversation">
                 <strong>{t('conversation')}</strong>
-                <ol style={{ margin: '0.5rem 0 0', paddingLeft: '1rem' }}>
+                <ol>
                   {detail.messages.map((message) => (
                     <li key={message.id}>
                       <span>{message.role}: </span>
@@ -482,7 +397,7 @@ export function AdminOperationsPanel({ kind }: Props) {
               </section>
               <section data-testid="admin-ops-timeline">
                 <strong>{t('timeline')}</strong>
-                <ol style={{ margin: '0.5rem 0 0', paddingLeft: '1rem' }}>
+                <ol>
                   {detail.timeline.map((event) => (
                     <li key={event.id}>
                       {event.previousStatus ? `${event.previousStatus} -> ` : ''}

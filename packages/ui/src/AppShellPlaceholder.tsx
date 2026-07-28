@@ -76,7 +76,7 @@ export function AppShellPlaceholder({
             minHeight: 240,
           }}
         >
-          {children ?? 'Workspace placeholder — design tokens applied.'}
+          {children ?? 'Workspace placeholder - design tokens applied.'}
         </section>
       </main>
     </div>

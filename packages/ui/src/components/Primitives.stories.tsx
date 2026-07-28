@@ -4,9 +4,12 @@ import { Button } from './Button';
 import { Dialog } from './Dialog';
 import { Drawer } from './Drawer';
 import { EmptyState, ErrorState, Loading, SkeletonBlock } from './Feedback';
+import { FilterBar } from './FilterBar';
 import { Input } from './Input';
 import { Menu } from './Menu';
+import { PageHeader } from './PageHeader';
 import { Select } from './Select';
+import { StatusBadge } from './StatusBadge';
 import { Table } from './Table';
 import { Tabs } from './Tabs';
 
@@ -22,7 +25,7 @@ function Gallery() {
     >
       <section>
         <h1>GuestPortal primitives</h1>
-        <p>Đăng nhập quản trị — Coastal hotel express check-in workflow</p>
+        <p>Đăng nhập quản trị - Coastal hotel express check-in workflow</p>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <Button>Primary</Button>
           <Button variant="secondary">Secondary</Button>
@@ -32,6 +35,31 @@ function Gallery() {
           <Button disabled>Disabled</Button>
         </div>
       </section>
+
+      <PageHeader
+        eyebrow="Operations"
+        title="Requests"
+        description="Urgent guest work, filtered by status and service window."
+        actions={<Button variant="secondary">Export</Button>}
+        meta={
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <StatusBadge tone="warning">submitted</StatusBadge>
+            <StatusBadge tone="info">in progress</StatusBadge>
+            <StatusBadge tone="success">completed</StatusBadge>
+          </div>
+        }
+      />
+
+      <FilterBar activeSummary="3 active filters">
+        <Select
+          label="Status"
+          defaultValue="submitted"
+          options={[
+            { value: 'all', label: 'All' },
+            { value: 'submitted', label: 'Submitted' },
+          ]}
+        />
+      </FilterBar>
 
       <section style={{ display: 'grid', gap: 12, maxWidth: 420 }}>
         <Input label="Email" hint="Dùng email công việc" defaultValue="owner@aurora.test" />

@@ -15,8 +15,8 @@ export const radii = {
 } as const;
 
 export const shellLayout = {
-  primarySidebarExpanded: 240,
-  primarySidebarCollapsed: 68,
+  primarySidebarExpanded: 256,
+  primarySidebarCollapsed: 64,
   secondarySidebarMin: 240,
   secondarySidebarMax: 280,
 } as const;
@@ -26,11 +26,13 @@ export const colorTokens = [
   'surface',
   'surface-muted',
   'border',
+  'border-strong',
   'text-primary',
   'text-secondary',
   'text-muted',
   'brand',
   'brand-hover',
+  'brand-subtle',
   'success',
   'warning',
   'danger',
@@ -46,11 +48,13 @@ export const lightColorValues = {
   surface: '#ffffff',
   'surface-muted': '#eef1f5',
   border: '#d7dde7',
+  'border-strong': '#aab4c3',
   'text-primary': '#121826',
   'text-secondary': '#3d4659',
   'text-muted': '#5f6678',
   brand: '#0f5c4c',
   'brand-hover': '#0c4a3d',
+  'brand-subtle': '#e6f4ef',
   success: '#147a45',
   warning: '#9a6700',
   danger: '#b42318',
@@ -137,8 +141,8 @@ export const motion = {
 
 /** Sample strings for VI typography coverage in later Storybook / visual tasks. */
 export const typographySamples = {
-  vi: 'Đăng nhập quản trị — Khách sạn biển Đà Nẵng nhận phòng nhanh',
-  en: 'Admin sign-in — Coastal Da Nang hotel express check-in',
+  vi: 'Đăng nhập quản trị - Khách sạn biển Đà Nẵng nhận phòng nhanh',
+  en: 'Admin sign-in - Coastal Da Nang hotel express check-in',
 } as const;
 
 export const themeExtensionPoints = {

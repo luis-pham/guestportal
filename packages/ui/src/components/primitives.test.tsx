@@ -9,9 +9,12 @@ import { Button } from './Button.js';
 import { Dialog } from './Dialog.js';
 import { Drawer } from './Drawer.js';
 import { EmptyState, ErrorState, Loading, SkeletonBlock } from './Feedback.js';
+import { FilterBar } from './FilterBar.js';
 import { Input } from './Input.js';
 import { Menu } from './Menu.js';
+import { PageHeader } from './PageHeader.js';
 import { Select } from './Select.js';
+import { StatusBadge } from './StatusBadge.js';
 import { Table } from './Table.js';
 import { Tabs } from './Tabs.js';
 
@@ -130,9 +133,7 @@ describe('accessible component primitives', () => {
     render(
       <Table
         caption="Properties"
-        columns={[
-          { id: 'name', header: 'Name', cell: (row: { name: string }) => row.name },
-        ]}
+        columns={[{ id: 'name', header: 'Name', cell: (row: { name: string }) => row.name }]}
         rows={[{ name: 'Aurora City Hotel' }]}
         getRowId={(row) => row.name}
       />,
@@ -149,6 +150,27 @@ describe('accessible component primitives', () => {
       />,
     );
     expect(screen.getByTestId('empty-state')).toHaveTextContent('Chưa có dữ liệu');
+  });
+
+  it('renders canonical operations wrappers', () => {
+    render(
+      <>
+        <PageHeader
+          eyebrow="Operations"
+          title="Requests"
+          description="Monitor guest work."
+          actions={<Button>Refresh</Button>}
+          meta={<StatusBadge tone="warning">submitted</StatusBadge>}
+        />
+        <FilterBar activeSummary="1 active filter">
+          <Select label="Status" options={[{ value: 'all', label: 'All' }]} />
+        </FilterBar>
+      </>,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Requests' })).toBeInTheDocument();
+    expect(screen.getByText('submitted')).toHaveClass('gp-status-badge--warning');
+    expect(screen.getByLabelText('Filters')).toHaveTextContent('1 active filter');
   });
 
   it('exposes loading/error/skeleton patterns', () => {

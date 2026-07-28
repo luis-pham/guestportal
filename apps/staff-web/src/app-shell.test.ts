@@ -4,7 +4,7 @@ import { roleHasPermission } from '../../../packages/auth/src/roles';
 
 describe('staff-web foundation', () => {
   it('uses shared shell layout tokens', () => {
-    expect(shellLayout.primarySidebarCollapsed).toBe(68);
+    expect(shellLayout.primarySidebarCollapsed).toBe(64);
   });
 
   it('gates staff workspace on request.read', () => {
