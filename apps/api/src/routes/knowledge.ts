@@ -3,6 +3,7 @@ import { and, desc, eq } from 'drizzle-orm';
 import { z } from 'zod';
 import {
   knowledgeSearchRequestSchema,
+  knowledgeSourceActionSchema,
   knowledgeSourceCreateSchema,
   knowledgeSourceUpdateSchema,
   type KnowledgeSourceSummary,
@@ -312,6 +313,131 @@ export async function registerKnowledgeRoutes(app: FastifyInstance) {
       version: result.version,
       language: result.language,
     };
+  });
+
+  app.post('/v1/properties/:propertyId/knowledge-sources/:sourceId/publish', async (request) => {
+    if (!request.auth) {
+      throw new ApiError(401, 'UNAUTHORIZED', 'Authentication required.');
+    }
+    const params = z
+      .object({ propertyId: z.string().uuid(), sourceId: z.string().uuid() })
+      .parse(request.params);
+    const property = await loadProperty(app, params.propertyId);
+    const authz = toAuthzContext(request.auth, property.organizationId);
+    assertCan(authz, 'knowledge.publish', property.id);
+
+    const [row] = await app.db
+      .update(knowledgeSources)
+      .set({ status: 'published', updatedAt: new Date() })
+      .where(
+        and(
+          eq(knowledgeSources.id, params.sourceId),
+          eq(knowledgeSources.propertyId, property.id),
+          eq(knowledgeSources.organizationId, property.organizationId),
+          eq(knowledgeSources.status, 'ready'),
+        ),
+      )
+      .returning();
+    if (!row) {
+      throw new ApiError(
+        400,
+        'KNOWLEDGE_PUBLISH_INVALID',
+        'Only ready knowledge sources can be published.',
+      );
+    }
+
+    await app.db.insert(auditLogs).values({
+      organizationId: property.organizationId,
+      actorUserId: request.auth.userId,
+      action: 'knowledge.publish',
+      resourceType: 'knowledge_source',
+      resourceId: params.sourceId,
+      metadata: { propertyId: property.id, version: row.version },
+    });
+
+    return { source: toSummary(row) };
+  });
+
+  app.post('/v1/properties/:propertyId/knowledge-sources/:sourceId/unpublish', async (request) => {
+    if (!request.auth) {
+      throw new ApiError(401, 'UNAUTHORIZED', 'Authentication required.');
+    }
+    const params = z
+      .object({ propertyId: z.string().uuid(), sourceId: z.string().uuid() })
+      .parse(request.params);
+    const body = knowledgeSourceActionSchema.parse(request.body);
+    const property = await loadProperty(app, params.propertyId);
+    const authz = toAuthzContext(request.auth, property.organizationId);
+    assertCan(authz, 'knowledge.publish', property.id);
+
+    const [row] = await app.db
+      .update(knowledgeSources)
+      .set({ status: 'ready', updatedAt: new Date() })
+      .where(
+        and(
+          eq(knowledgeSources.id, params.sourceId),
+          eq(knowledgeSources.propertyId, property.id),
+          eq(knowledgeSources.organizationId, property.organizationId),
+          eq(knowledgeSources.status, 'published'),
+        ),
+      )
+      .returning();
+    if (!row) {
+      throw new ApiError(
+        400,
+        'KNOWLEDGE_UNPUBLISH_INVALID',
+        'Only published knowledge sources can be unpublished.',
+      );
+    }
+
+    await app.db.insert(auditLogs).values({
+      organizationId: property.organizationId,
+      actorUserId: request.auth.userId,
+      action: 'knowledge.unpublish',
+      resourceType: 'knowledge_source',
+      resourceId: params.sourceId,
+      metadata: { propertyId: property.id, version: row.version, confirmed: body.confirm },
+    });
+
+    return { source: toSummary(row) };
+  });
+
+  app.delete('/v1/properties/:propertyId/knowledge-sources/:sourceId', async (request) => {
+    if (!request.auth) {
+      throw new ApiError(401, 'UNAUTHORIZED', 'Authentication required.');
+    }
+    const params = z
+      .object({ propertyId: z.string().uuid(), sourceId: z.string().uuid() })
+      .parse(request.params);
+    const body = knowledgeSourceActionSchema.parse(request.body);
+    const property = await loadProperty(app, params.propertyId);
+    const authz = toAuthzContext(request.auth, property.organizationId);
+    assertCan(authz, 'knowledge.create', property.id);
+
+    const [row] = await app.db
+      .delete(knowledgeSources)
+      .where(
+        and(
+          eq(knowledgeSources.id, params.sourceId),
+          eq(knowledgeSources.propertyId, property.id),
+          eq(knowledgeSources.organizationId, property.organizationId),
+        ),
+      )
+      .returning();
+    if (!row) {
+      throw new ApiError(404, 'KNOWLEDGE_NOT_FOUND', 'Knowledge source not found.');
+    }
+
+    await app.db.insert(auditLogs).values({
+      organizationId: property.organizationId,
+      actorUserId: request.auth.userId,
+      action: 'knowledge.delete',
+      resourceType: 'knowledge_source',
+      resourceId: params.sourceId,
+      metadata: { propertyId: property.id, title: row.title, confirmed: body.confirm },
+    });
+
+    return { deleted: true };
   });
 
   app.post('/v1/properties/:propertyId/knowledge/search', async (request) => {

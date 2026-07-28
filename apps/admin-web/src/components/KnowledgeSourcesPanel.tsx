@@ -9,6 +9,7 @@ import { apiFetch } from '../lib/api';
 type Source = {
   id: string;
   title: string;
+  type: string;
   status: string;
   sourceLanguage: string | null;
   originalFilename?: string | null;
@@ -41,6 +42,17 @@ export function KnowledgeSourcesPanel() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [processingSourceId, setProcessingSourceId] = useState<string | null>(null);
+  const [actionSourceId, setActionSourceId] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState('');
+  const [typeFilter, setTypeFilter] = useState('');
+  const [languageFilter, setLanguageFilter] = useState('');
+
+  const filteredSources = sources.filter(
+    (source) =>
+      (!statusFilter || source.status === statusFilter) &&
+      (!typeFilter || source.type === typeFilter) &&
+      (!languageFilter || source.sourceLanguage === languageFilter),
+  );
 
   async function refresh() {
     const list = await apiFetch<{ sources: Source[] }>(
@@ -166,6 +178,27 @@ export function KnowledgeSourcesPanel() {
     await refresh();
   }
 
+  async function actionSource(source: Source, action: 'publish' | 'unpublish' | 'delete') {
+    setActionSourceId(source.id);
+    setError(null);
+    const path = `/v1/properties/${propertyId}/knowledge-sources/${source.id}`;
+    const result =
+      action === 'delete'
+        ? await apiFetch(`${path}`, { method: 'DELETE', body: JSON.stringify({ confirm: true }) })
+        : await apiFetch(
+            `${path}/${action}`,
+            action === 'publish'
+              ? { method: 'POST' }
+              : { method: 'POST', body: JSON.stringify({ confirm: true }) },
+          );
+    setActionSourceId(null);
+    if (!result.ok) {
+      setError(t(`${action}Error`));
+      return;
+    }
+    await refresh();
+  }
+
   return (
     <main className="gp-state" data-testid="knowledge-sources-panel">
       <h2 className="gp-state__title">{t('title')}</h2>
@@ -208,18 +241,55 @@ export function KnowledgeSourcesPanel() {
             {error}
           </p>
         ) : null}
-        <Button
-          data-testid="knowledge-refresh"
-          variant="secondary"
-          onClick={() => void refresh()}
-          disabled={busy}
-        >
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 12 }}>
+          <Select
+            label={t('statusFilter')}
+            data-testid="knowledge-status-filter"
+            value={statusFilter}
+            onChange={(event) => setStatusFilter(event.target.value)}
+            options={[
+              { value: '', label: t('all') },
+              { value: 'draft', label: 'draft' },
+              { value: 'pending_upload', label: 'pending_upload' },
+              { value: 'uploaded', label: 'uploaded' },
+              { value: 'ready', label: 'ready' },
+              { value: 'published', label: 'published' },
+              { value: 'failed', label: 'failed' },
+            ]}
+          />
+          <Select
+            label={t('typeFilter')}
+            data-testid="knowledge-type-filter"
+            value={typeFilter}
+            onChange={(event) => setTypeFilter(event.target.value)}
+            options={[
+              { value: '', label: t('all') },
+              { value: 'file', label: 'file' },
+              { value: 'manual', label: 'manual' },
+              { value: 'url', label: 'url' },
+            ]}
+          />
+          <Select
+            label={t('languageFilter')}
+            data-testid="knowledge-language-filter"
+            value={languageFilter}
+            onChange={(event) => setLanguageFilter(event.target.value)}
+            options={[
+              { value: '', label: t('all') },
+              { value: 'en', label: 'English' },
+              { value: 'vi', label: 'Tiếng Việt' },
+              { value: 'auto', label: 'Auto' },
+            ]}
+          />
+        </div>
+        <Button data-testid="knowledge-refresh" variant="secondary" onClick={() => void refresh()} disabled={busy}>
           {t('refresh')}
         </Button>
       </div>
 
       <ul data-testid="knowledge-source-list" style={{ marginTop: '2rem', listStyle: 'none', padding: 0 }}>
-        {sources.map((source) => (
+        {filteredSources.length === 0 ? <li data-testid="knowledge-empty">{t('empty')}</li> : null}
+        {filteredSources.map((source) => (
           <li
             key={source.id}
             data-testid={`knowledge-source-${source.id}`}
@@ -227,6 +297,7 @@ export function KnowledgeSourcesPanel() {
           >
             <div>
               <strong>{source.title}</strong> — <span data-testid={`knowledge-source-status-${source.id}`}>{source.status}</span>
+              {` · ${source.type}`}
               {source.originalFilename ? ` · ${source.originalFilename}` : ''}
               {source.errorMessage ? ` · ${source.errorMessage}` : ''}
             </div>
@@ -242,6 +313,44 @@ export function KnowledgeSourcesPanel() {
                 </Button>
               </div>
             ) : null}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {source.status === 'ready' ? (
+                <Button
+                  data-testid={`knowledge-publish-${source.id}`}
+                  variant="secondary"
+                  loading={actionSourceId === source.id}
+                  onClick={() => void actionSource(source, 'publish')}
+                >
+                  {t('publish')}
+                </Button>
+              ) : null}
+              {source.status === 'published' ? (
+                <Button
+                  data-testid={`knowledge-unpublish-${source.id}`}
+                  variant="secondary"
+                  loading={actionSourceId === source.id}
+                  onClick={() => {
+                    if (window.confirm(t('unpublishConfirm', { title: source.title }))) {
+                      void actionSource(source, 'unpublish');
+                    }
+                  }}
+                >
+                  {t('unpublish')}
+                </Button>
+              ) : null}
+              <Button
+                data-testid={`knowledge-delete-${source.id}`}
+                variant="danger"
+                loading={actionSourceId === source.id}
+                onClick={() => {
+                  if (window.confirm(t('deleteConfirm', { title: source.title }))) {
+                    void actionSource(source, 'delete');
+                  }
+                }}
+              >
+                {t('delete')}
+              </Button>
+            </div>
           </li>
         ))}
       </ul>

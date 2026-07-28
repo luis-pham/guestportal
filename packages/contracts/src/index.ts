@@ -191,6 +191,18 @@ export {
 } from './ai-tools.js';
 
 export {
+  adminRoleSchema,
+  adminTeamMemberSchema,
+  adminTeamMemberUpdateSchema,
+  knowledgeSourceActionSchema,
+  organizationAdminSettingsUpdateSchema,
+  type AdminRole,
+  type AdminTeamMember,
+  type AdminTeamMemberUpdateInput,
+  type OrganizationAdminSettingsUpdateInput,
+} from './admin-operations.js';
+
+export {
   adminOperationListQuerySchema,
   adminOperationListResponseSchema,
   adminOrderDetailResponseSchema,

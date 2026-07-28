@@ -25,6 +25,11 @@ import { KnowledgeSourcesPanel } from '../../components/KnowledgeSourcesPanel';
 import { KnowledgeSearchPanel } from '../../components/KnowledgeSearchPanel';
 import { PropertySettingsForm } from '../../components/PropertySettingsForm';
 import { AdminOperationsPanel } from '../../components/AdminOperationsPanel';
+import { AdminTeamPanel } from '../../components/AdminTeamPanel';
+import {
+  OrganizationSettingsPanel,
+  SecuritySettingsPanel,
+} from '../../components/OrganizationSettingsPanel';
 
 type MeResponse = {
   user: { displayName: string; email: string; locale?: string };
@@ -319,6 +324,14 @@ export default function AdminHomePage() {
         <KnowledgeSearchPanel />
       ) : pathname.includes('/knowledge') && !pathname.includes('/missing-answers') ? (
         <KnowledgeSourcesPanel />
+      ) : pathname.includes('/team/invitations') ? (
+        <AdminTeamPanel organizationId={orgId} properties={properties} invitations />
+      ) : pathname.includes('/team') ? (
+        <AdminTeamPanel organizationId={orgId} properties={properties} />
+      ) : pathname.includes('/settings/security') ? (
+        <SecuritySettingsPanel organizationId={orgId} />
+      ) : pathname.includes('/settings/organization') ? (
+        <OrganizationSettingsPanel organizationId={orgId} />
       ) : pathname.includes('/properties/') && pathname.endsWith('/settings') ? (
         <PropertySettingsForm />
       ) : (
