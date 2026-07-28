@@ -3,6 +3,7 @@ import { buildApp } from './app.js';
 
 const log = createLogger({ service: 'api' });
 const port = Number(process.env.PORT ?? 4000);
+const host = process.env.HOST ?? '0.0.0.0';
 const databaseUrl = process.env.DATABASE_URL;
 const cookieSecret = process.env.AUTH_COOKIE_SECRET;
 
@@ -19,8 +20,8 @@ const app = await buildApp({
 });
 
 try {
-  await app.listen({ port, host: '0.0.0.0' });
-  log.info('api.started', { port });
+  await app.listen({ port, host });
+  log.info('api.started', { host, port });
 } catch (error) {
   log.error('api.failed_to_start', {
     error: error instanceof Error ? error.message : String(error),
