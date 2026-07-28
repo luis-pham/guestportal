@@ -1,0 +1,196 @@
+{
+  "generatedAt": "2026-07-28T09:02:52.237Z",
+  "environment": "local",
+  "commit": null,
+  "scope": {
+    "organizationId": "d215a186-f84d-4c7c-b75a-3189969999c2",
+    "propertyId": "3ab87d2a-0c78-4fac-aa15-515a733cc3ae"
+  },
+  "targets": {
+    "apiP95Ms": "750-900 depending on route complexity",
+    "realtimePollP95Ms": 750,
+    "dbQueryMaxExecutionMs": 750,
+    "maxRowsForSequentialScan": 1000,
+    "acceptedSmallTableSequentialScan": "<=5000 rows and <25ms execution",
+    "errorRate": 0
+  },
+  "apiLoad": [
+    {
+      "name": "api.propertiesList",
+      "requests": 120,
+      "concurrency": 12,
+      "successCount": 120,
+      "errorCount": 0,
+      "errorRate": 0,
+      "minMs": 23.55,
+      "medianMs": 45.66,
+      "p95Ms": 107.2,
+      "maxMs": 138.35,
+      "requestsPerSecond": 226.69,
+      "target": {
+        "maxP95Ms": 750,
+        "maxErrorRate": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "api.adminAnalyticsDashboard",
+      "requests": 80,
+      "concurrency": 8,
+      "successCount": 80,
+      "errorCount": 0,
+      "errorRate": 0,
+      "minMs": 20.82,
+      "medianMs": 49.56,
+      "p95Ms": 151.22,
+      "maxMs": 151.96,
+      "requestsPerSecond": 135.18,
+      "target": {
+        "maxP95Ms": 900,
+        "maxErrorRate": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "api.staffInbox",
+      "requests": 120,
+      "concurrency": 12,
+      "successCount": 120,
+      "errorCount": 0,
+      "errorRate": 0,
+      "minMs": 17.4,
+      "medianMs": 60.39,
+      "p95Ms": 160.61,
+      "maxMs": 161.77,
+      "requestsPerSecond": 176.96,
+      "target": {
+        "maxP95Ms": 900,
+        "maxErrorRate": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "realtime.guestPoll",
+      "requests": 100,
+      "concurrency": 10,
+      "successCount": 100,
+      "errorCount": 0,
+      "errorRate": 0,
+      "minMs": 20.69,
+      "medianMs": 40.83,
+      "p95Ms": 108.53,
+      "maxMs": 135.07,
+      "requestsPerSecond": 214.15,
+      "target": {
+        "maxP95Ms": 750,
+        "maxErrorRate": 0
+      },
+      "passed": true
+    }
+  ],
+  "dbProfiles": [
+    {
+      "query": "db.portalLatestPublished",
+      "executionTimeMs": 0.815,
+      "planningTimeMs": 0.274,
+      "maxActualRows": 96,
+      "scannedRelations": [
+        "portal_versions"
+      ],
+      "indexesUsed": [],
+      "sequentialScans": [
+        {
+          "relation": "portal_versions",
+          "actualRows": 96
+        }
+      ],
+      "acceptedSequentialScans": [],
+      "target": {
+        "maxExecutionTimeMs": 750,
+        "maxRowsForSequentialScan": 1000,
+        "maxAcceptedSmallTableSeqScanRows": 5000,
+        "maxAcceptedSeqScanExecutionMs": 25
+      },
+      "passed": true
+    },
+    {
+      "query": "db.staffInboxRequests",
+      "executionTimeMs": 0.131,
+      "planningTimeMs": 0.06,
+      "maxActualRows": 428,
+      "scannedRelations": [
+        "guest_requests"
+      ],
+      "indexesUsed": [],
+      "sequentialScans": [
+        {
+          "relation": "guest_requests",
+          "actualRows": 428
+        }
+      ],
+      "acceptedSequentialScans": [],
+      "target": {
+        "maxExecutionTimeMs": 750,
+        "maxRowsForSequentialScan": 1000,
+        "maxAcceptedSmallTableSeqScanRows": 5000,
+        "maxAcceptedSeqScanExecutionMs": 25
+      },
+      "passed": true
+    },
+    {
+      "query": "db.realtimeOutboxReplay",
+      "executionTimeMs": 0.443,
+      "planningTimeMs": 0.031,
+      "maxActualRows": 1157,
+      "scannedRelations": [
+        "outbox_events"
+      ],
+      "indexesUsed": [],
+      "sequentialScans": [
+        {
+          "relation": "outbox_events",
+          "actualRows": 1157
+        }
+      ],
+      "acceptedSequentialScans": [
+        {
+          "relation": "outbox_events",
+          "actualRows": 1157,
+          "reason": "PostgreSQL selected a sequential scan on a small local/staging table; route latency remains below the Phase 10 qualification target and an expression index is present for larger outbox volumes."
+        }
+      ],
+      "target": {
+        "maxExecutionTimeMs": 750,
+        "maxRowsForSequentialScan": 1000,
+        "maxAcceptedSmallTableSeqScanRows": 5000,
+        "maxAcceptedSeqScanExecutionMs": 25
+      },
+      "passed": true
+    },
+    {
+      "query": "db.knowledgeQueueBacklog",
+      "executionTimeMs": 0.029,
+      "planningTimeMs": 0.171,
+      "maxActualRows": 12,
+      "scannedRelations": [
+        "knowledge_sources"
+      ],
+      "indexesUsed": [],
+      "sequentialScans": [
+        {
+          "relation": "knowledge_sources",
+          "actualRows": 12
+        }
+      ],
+      "acceptedSequentialScans": [],
+      "target": {
+        "maxExecutionTimeMs": 750,
+        "maxRowsForSequentialScan": 1000,
+        "maxAcceptedSmallTableSeqScanRows": 5000,
+        "maxAcceptedSeqScanExecutionMs": 25
+      },
+      "passed": true
+    }
+  ],
+  "passed": true
+}

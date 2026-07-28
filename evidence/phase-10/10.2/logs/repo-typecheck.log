@@ -1,0 +1,71 @@
+$ turbo run typecheck
+• turbo 2.10.7
+
+   • Packages in scope: @guestportal/admin-web, @guestportal/ai-tools, @guestportal/analytics, @guestportal/api, @guestportal/auth, @guestportal/config, @guestportal/contracts, @guestportal/db, @guestportal/embedding-service, @guestportal/eslint-config, @guestportal/guest-web, @guestportal/observability, @guestportal/rag, @guestportal/staff-web, @guestportal/storage, @guestportal/tenancy, @guestportal/test-kit, @guestportal/typescript-config, @guestportal/ui, @guestportal/worker
+   • Running typecheck in 20 packages
+   • Remote caching disabled
+
+@guestportal/observability:build: cache hit, replaying logs 0d7b55e37cc93295
+@guestportal/observability:build: $ tsc -p tsconfig.json
+@guestportal/config:build: cache hit, replaying logs 869f39729b1a8b1b
+@guestportal/config:build: $ tsc -p tsconfig.json
+@guestportal/contracts:typecheck: cache hit, replaying logs f4216567c9ef6140
+@guestportal/embedding-service:typecheck: cache hit, replaying logs 0a7d01e5abacd86c
+@guestportal/contracts:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/contracts:build: cache hit, replaying logs eb9099df2ada4263
+@guestportal/contracts:build: $ tsc -p tsconfig.json
+@guestportal/ai-tools:build: cache hit, replaying logs af13861d8b50b242
+@guestportal/ai-tools:build: $ tsc -p tsconfig.json
+@guestportal/embedding-service:typecheck: $ python3 -m compileall app
+@guestportal/embedding-service:typecheck: Listing 'app'...
+@guestportal/storage:build: cache hit, replaying logs a1b68005047fd1c7
+@guestportal/analytics:typecheck: cache hit, replaying logs 68a28d8859657fac
+@guestportal/storage:build: $ tsc -p tsconfig.json
+@guestportal/analytics:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/rag:build: cache hit, replaying logs 25bd400252082ba2
+@guestportal/rag:build: $ tsc -p tsconfig.json
+@guestportal/storage:typecheck: cache hit, replaying logs c1181dd83878c563
+@guestportal/storage:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/ui:build: cache hit, replaying logs d0c4bbfafb3fd0ad
+@guestportal/ui:build: $ tsc -p tsconfig.json
+@guestportal/test-kit:typecheck: cache hit, replaying logs 511dcaac6f55f1ec
+@guestportal/test-kit:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/config:typecheck: cache hit, replaying logs 307714ed6cf91df6
+@guestportal/config:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/db:build: cache miss, executing b78e95bfc2cc4295
+@guestportal/observability:typecheck: cache hit, replaying logs a0c4bc471e57b407
+@guestportal/rag:typecheck: cache hit, replaying logs 77263ab5bb0fc121
+@guestportal/ai-tools:typecheck: cache hit, replaying logs a0f2280b5c843901
+@guestportal/ui:typecheck: cache hit, replaying logs 53fe4fb267134109
+@guestportal/db:typecheck: cache miss, executing 84c9926fded6747b
+@guestportal/worker:typecheck: cache miss, executing 79805ca51e7e675e
+@guestportal/guest-web:typecheck: cache hit, replaying logs 694a56e20811f493
+@guestportal/guest-web:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/staff-web:typecheck: cache hit, replaying logs 6df6f64a5656f60a
+@guestportal/rag:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/analytics:build: cache hit, replaying logs f21cda56911d365e
+@guestportal/analytics:build: $ tsc -p tsconfig.json
+@guestportal/observability:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/admin-web:typecheck: cache hit, replaying logs 5b5984398a6f2637
+@guestportal/staff-web:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/admin-web:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/ui:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/ai-tools:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/worker:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/db:build: $ tsc -p tsconfig.json
+@guestportal/db:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/auth:build: cache miss, executing 4de090668f016ddd
+@guestportal/auth:typecheck: cache miss, executing 7a3e53b3b3f9742b
+@guestportal/auth:build: $ tsc -p tsconfig.json
+@guestportal/auth:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/tenancy:typecheck: cache miss, executing 2cd0bb04b8cc5a65
+@guestportal/tenancy:build: cache miss, executing 4bfd710801457594
+@guestportal/tenancy:build: $ tsc -p tsconfig.json
+@guestportal/tenancy:typecheck: $ tsc -p tsconfig.json --noEmit
+@guestportal/api:typecheck: cache miss, executing 25c577f39493fadb
+@guestportal/api:typecheck: $ tsc -p tsconfig.json --noEmit
+
+ Tasks:    29 successful, 29 total
+Cached:    21 cached, 29 total
+  Time:    16.16s 
+

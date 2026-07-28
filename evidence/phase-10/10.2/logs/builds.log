@@ -1,0 +1,76 @@
+$ tsc -p tsconfig.json
+$ next build
+   ▲ Next.js 15.5.21
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 952ms
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      123 B         102 kB
+├ ○ /_not-found                            991 B         103 kB
+├ ƒ /g/[qrToken]                           128 B         121 kB
+├ ƒ /g/[qrToken]/chat                      128 B         121 kB
+├ ƒ /g/[qrToken]/explore                   128 B         121 kB
+├ ƒ /g/[qrToken]/food                      128 B         121 kB
+├ ƒ /g/[qrToken]/guide                     128 B         121 kB
+├ ƒ /g/[qrToken]/requests/[requestType]    128 B         121 kB
+├ ƒ /g/[qrToken]/services                  128 B         121 kB
+└ ƒ /g/[qrToken]/status                    127 B         121 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+  ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+  └ other shared chunks (total)          1.88 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+$ next build
+   ▲ Next.js 15.5.21
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 937ms
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/7) ...
+   Generating static pages (1/7) 
+   Generating static pages (3/7) 
+   Generating static pages (5/7) 
+ ✓ Generating static pages (7/7)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /_not-found                            991 B         103 kB
+├ ● /[locale]                              170 B         153 kB
+├   ├ /vi
+├   └ /en
+├ ƒ /[locale]/[...slug]                    170 B         153 kB
+└ ● /[locale]/login                      1.41 kB         115 kB
+    ├ /vi/login
+    └ /en/login
++ First Load JS shared by all             102 kB
+  ├ chunks/127-4d40aa6cc03772b2.js       45.9 kB
+  ├ chunks/efc7ba85-aa36d849d6c3c3e2.js  54.2 kB
+  └ other shared chunks (total)          1.88 kB
+
+
+ƒ Middleware                               46 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -11,6 +11,7 @@ import {
   uniqueIndex,
   uuid,
 } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 
 export const organizations = pgTable('organizations', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -298,7 +299,16 @@ export const outboxEvents = pgTable(
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     publishedAt: timestamp('published_at', { withTimezone: true }),
   },
-  (table) => [uniqueIndex('outbox_events_idempotency_uidx').on(table.idempotencyKey)],
+  (table) => [
+    uniqueIndex('outbox_events_idempotency_uidx').on(table.idempotencyKey),
+    index('outbox_events_org_property_created_idx').using(
+      'btree',
+      table.organizationId,
+      sql`(${table.payload}->>'propertyId')`,
+      table.createdAt.desc(),
+      sql`(${table.id}::text) DESC`,
+    ),
+  ],
 );
 
 export type PortalVersion = typeof portalVersions.$inferSelect;

@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-07-28T09:02:50.625Z",
+  "environment": "local",
+  "targets": {
+    "minKnowledgeIngestionThroughputPerSecond": 40,
+    "minEmbeddingThroughputPerSecond": 50,
+    "maxJobP95Ms": 250
+  },
+  "metrics": [
+    {
+      "name": "queue.knowledgeIngestion",
+      "jobs": 120,
+      "concurrency": 12,
+      "throughputPerSecond": 25240.35,
+      "medianMs": 0.17,
+      "p95Ms": 0.92,
+      "maxMs": 2.58,
+      "target": {
+        "minThroughputPerSecond": 40,
+        "maxP95Ms": 250
+      },
+      "passed": true
+    },
+    {
+      "name": "queue.embedding",
+      "jobs": 160,
+      "concurrency": 16,
+      "throughputPerSecond": 16622.15,
+      "medianMs": 0.6,
+      "p95Ms": 1.91,
+      "maxMs": 3.87,
+      "target": {
+        "minThroughputPerSecond": 50,
+        "maxP95Ms": 250
+      },
+      "passed": true
+    }
+  ],
+  "passed": true
+}

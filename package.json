@@ -21,6 +21,7 @@
     "db:seed": "pnpm --filter @guestportal/db db:seed",
     "test:integration": "pnpm --filter @guestportal/api test:integration",
     "security:secret-scan": "node scripts/security-secret-scan.mjs",
+    "phase10:lighthouse": "node scripts/run-phase10-lighthouse.mjs",
     "test:e2e": "node scripts/run-phase01-e2e.mjs",
     "phase:run": "node scripts/phase-run.mjs",
     "phase:verify": "node scripts/phase-verify.mjs",
